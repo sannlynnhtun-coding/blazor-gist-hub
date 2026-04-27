@@ -4,7 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
+    <OverrideHtmlAssetPlaceholders>false</OverrideHtmlAssetPlaceholders>
     <BlazorEnableCompression>false</BlazorEnableCompression>
     <BlazorCacheBootResources>false</BlazorCacheBootResources>
     <RunAOTCompilation>false</RunAOTCompilation>
