@@ -12,14 +12,6 @@
       "destination": "/_framework/$1"
     },
     {
-      "source": "/css/(.*)",
-      "destination": "/css/$1"
-    },
-    {
-      "source": "/js/(.*)",
-      "destination": "/js/$1"
-    },
-    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
@@ -44,25 +36,8 @@
       ]
     },
     {
-      "source": "/_framework/(.*).br",
+      "source": "/_framework/(.*).dll",
       "headers": [
-        {
-          "key": "Content-Encoding",
-          "value": "br"
-        },
-        {
-          "key": "Content-Type",
-          "value": "application/octet-stream"
-        }
-      ]
-    },
-    {
-      "source": "/_framework/(.*).gz",
-      "headers": [
-        {
-          "key": "Content-Encoding",
-          "value": "gzip"
-        },
         {
           "key": "Content-Type",
           "value": "application/octet-stream"

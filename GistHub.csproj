@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
+    <BlazorEnableCompression>false</BlazorEnableCompression>
+    <BlazorEnableTimeZoneSupport>true</BlazorEnableTimeZoneSupport>
   </PropertyGroup>
 
   <ItemGroup>
