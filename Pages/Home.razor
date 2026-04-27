@@ -86,23 +86,55 @@
     else
     {
         <!-- Feed Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 font-primary">
-            @foreach (var gist in FilteredGists)
-            {
-                <GistCard 
-                    Id="@gist.Id"
-                    Author="@(gist.Owner?.Login ?? "anonymous")" 
-                    AvatarUrl="@(gist.Owner?.AvatarUrl ?? "https://github.com/identicons/slh.png")"
-                    TimeAgo="@gist.CreatedAt.ToLocalTime().ToString("MMM dd, HH:mm")"
-                    Description="@(string.IsNullOrEmpty(gist.Description) ? "Multiple files..." : gist.Description)"
-                    Tags="@ParseTags(gist.Description)"
-                    SnippetPreview="@(gist.Files.Values.FirstOrDefault()?.Content ?? "Click to view code contents...")"
-                    Stars="0"
-                    Forks="0"
-                    OnView="@((id) => Navigation.NavigateTo($"/view/{gist.Id}"))"
-                    OnClone="@(() => HandleClone(gist))"
-                />
-            }
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 font-primary pb-32">
+        @foreach (var gist in FilteredGists)
+        {
+            <GistCard 
+                Id="@gist.Id"
+                Author="@(gist.Owner?.Login ?? "anonymous")" 
+                AvatarUrl="@(gist.Owner?.AvatarUrl ?? "https://github.com/identicons/slh.png")"
+                TimeAgo="@gist.CreatedAt.ToLocalTime().ToString("MMM dd, HH:mm")"
+                Description="@(string.IsNullOrEmpty(gist.Description) ? "Multiple files..." : gist.Description)"
+                Tags="@ParseTags(gist.Description)"
+                SnippetPreview="@(gist.Files.Values.FirstOrDefault()?.Content ?? "Click to view code contents...")"
+                Stars="0"
+                Forks="0"
+                IsSelected="@SelectedGistIds.Contains(gist.Id)"
+                OnSelectedChanged="@((val) => ToggleSelection(gist.Id, val))"
+                OnView="@((id) => Navigation.NavigateTo($"/view/{gist.Id}"))"
+                OnClone="@(() => HandleClone(gist))"
+            />
+        }
+    </div>
+
+    <!-- Floating Bulk Actions -->
+    @if (SelectedGistIds.Any())
+    {
+        <div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-8 duration-500">
+            <div class="bg-card/80 backdrop-blur-2xl border border-primary/30 rounded-2xl px-6 py-4 shadow-[0_20px_50px_rgba(0,0,0,0.3)] flex items-center gap-8 ring-4 ring-primary/5">
+                <div class="flex flex-col">
+                    <span class="text-xs font-black uppercase tracking-widest text-primary">Bulk Actions</span>
+                    <span class="text-sm font-bold">@SelectedGistIds.Count items selected</span>
+                </div>
+                
+                <div class="h-8 w-[1px] bg-border"></div>
+                
+                <div class="flex items-center gap-3">
+                    <button @onclick="ClearSelection" class="btn btn-ghost btn-md text-muted-foreground">Cancel</button>
+                    <button @onclick="BulkClone" disabled="@IsBulkCloning" class="btn btn-primary btn-md shadow-xl shadow-primary/20">
+                        @if (IsBulkCloning)
+                        {
+                            <div class="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin mr-2"></div>
+                            <span>Cloning @(ClonedCount)/@(SelectedGistIds.Count)...</span>
+                        }
+                        else
+                        {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-plus mr-2"><path d="M12 2H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><polyline points="22 2 15 2 15 9"/><path d="M12 9h9"/><path d="M16.5 13.5v6"/><path d="M13.5 16.5h6"/></svg>
+                            <span>Clone Selected</span>
+                        }
+                    </button>
+                </div>
+            </div>
         </div>
     }
     
@@ -116,10 +148,47 @@
 
 @code {
     private List<LocalGist> Gists = new();
+    private HashSet<string> SelectedGistIds = new();
     private string SelectedLanguage = "";
     private string TargetUsername = "";
     private string Message = "";
     private bool IsLoading = false;
+    private bool IsBulkCloning = false;
+    private int ClonedCount = 0;
+
+    private void ToggleSelection(string id, bool isSelected)
+    {
+        if (isSelected) SelectedGistIds.Add(id);
+        else SelectedGistIds.Remove(id);
+    }
+
+    private void ClearSelection() => SelectedGistIds.Clear();
+
+    private async Task BulkClone()
+    {
+        if (!AppState.IsAuthenticated) { Navigation.NavigateTo("/login"); return; }
+        
+        IsBulkCloning = true;
+        ClonedCount = 0;
+        StateHasChanged();
+
+        var idsToClone = SelectedGistIds.ToList();
+        foreach (var id in idsToClone)
+        {
+            var gist = Gists.FirstOrDefault(g => g.Id == id);
+            if (gist != null)
+            {
+                await HandleClone(gist);
+                ClonedCount++;
+                StateHasChanged();
+            }
+        }
+
+        IsBulkCloning = false;
+        SelectedGistIds.Clear();
+        Message = $"Successfully cloned {ClonedCount} snippets!";
+        StateHasChanged();
+    }
 
     private IEnumerable<LocalGist> FilteredGists => 
         string.IsNullOrEmpty(SelectedLanguage) 

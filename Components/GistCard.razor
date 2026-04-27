@@ -2,6 +2,10 @@
     <!-- Header -->
     <div class="flex items-start justify-between mb-4">
         <div class="flex items-center gap-3">
+            <div class="relative group/check">
+                <input type="checkbox" checked="@IsSelected" @onchange="(e) => OnSelectedChanged.InvokeAsync((bool)(e.Value ?? false))" class="w-5 h-5 rounded-md border-2 border-primary/20 bg-card checked:bg-primary checked:border-primary transition-all cursor-pointer appearance-none shadow-sm" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check absolute top-1 left-1 pointer-events-none opacity-0 @(IsSelected ? "opacity-100" : "") transition-opacity"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
             <div class="w-10 h-10 rounded-full bg-muted border-2 border-background flex items-center justify-center overflow-hidden ring-1 ring-border">
                 <img src="@AvatarUrl" alt="@Author" class="w-full h-full object-cover" />
             </div>
@@ -90,6 +94,8 @@
     [Parameter] public string SnippetPreview { get; set; } = "";
     [Parameter] public int Stars { get; set; } = 0;
     [Parameter] public int Forks { get; set; } = 0;
+    [Parameter] public bool IsSelected { get; set; }
+    [Parameter] public EventCallback<bool> OnSelectedChanged { get; set; }
     [Parameter] public bool IsBookmarked { get; set; }
     [Parameter] public EventCallback OnDelete { get; set; }
     [Parameter] public EventCallback OnEdit { get; set; }
