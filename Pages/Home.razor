@@ -99,6 +99,7 @@
                 SnippetPreview="@(gist.Files.Values.FirstOrDefault()?.Content ?? "Click to view code contents...")"
                 Stars="0"
                 Forks="0"
+                ShowCheckbox="true"
                 IsSelected="@SelectedGistIds.Contains(gist.Id)"
                 OnSelectedChanged="@((val) => ToggleSelection(gist.Id, val))"
                 OnView="@((id) => Navigation.NavigateTo($"/view/{gist.Id}"))"
