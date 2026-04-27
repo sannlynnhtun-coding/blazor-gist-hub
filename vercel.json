@@ -43,6 +43,15 @@
           "value": "application/octet-stream"
         }
       ]
+    },
+    {
+      "source": "/_framework/(.*).json",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ]
     }
   ]
 }

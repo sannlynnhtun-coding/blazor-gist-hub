@@ -6,7 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
     <BlazorEnableCompression>false</BlazorEnableCompression>
-    <BlazorEnableTimeZoneSupport>true</BlazorEnableTimeZoneSupport>
+    <BlazorCacheBootResources>false</BlazorCacheBootResources>
+    <RunAOTCompilation>false</RunAOTCompilation>
   </PropertyGroup>
 
   <ItemGroup>
