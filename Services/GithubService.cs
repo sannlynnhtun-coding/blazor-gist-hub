@@ -13,6 +13,7 @@ public interface IGithubService
     Task<LocalGist?> UpdateGistAsync(string id, string description, Dictionary<string, GistFile> files, string token);
     Task<LocalGist?> GetGistByIdAsync(string id, string? token = null);
     Task<GithubUser?> GetUserInfoAsync(string token);
+    Task<List<LocalGist>> GetUserPublicGistsAsync(string username);
 }
 
 public class GithubUser
@@ -153,6 +154,20 @@ public class GithubService : IGithubService
         catch 
         {
             return null;
+        }
+    }
+
+    public async Task<List<LocalGist>> GetUserPublicGistsAsync(string username)
+    {
+        EnsureUserAgent();
+        try 
+        {
+             var response = await _http.GetFromJsonAsync<List<LocalGist>>($"https://api.github.com/users/{username}/gists");
+             return response ?? new List<LocalGist>();
+        }
+        catch (Exception)
+        {
+            return new List<LocalGist>();
         }
     }
 }

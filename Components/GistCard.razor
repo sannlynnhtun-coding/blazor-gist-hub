@@ -28,6 +28,12 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 group-hover/delete:scale-110 transition-transform"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                 </button>
             }
+            @if (OnClone.HasDelegate)
+            {
+                <button @onclick="() => OnClone.InvokeAsync()" class="btn btn-ghost btn-icon-sm text-primary hover:bg-primary/10" title="Clone to My Gists">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-plus"><path d="M12 2H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><polyline points="22 2 15 2 15 9"/><path d="M12 9h9"/><path d="M16.5 13.5v6"/><path d="M13.5 16.5h6"/></svg>
+                </button>
+            }
             <button @onclick="() => OnToggleBookmark.InvokeAsync(Id)" class="btn btn-ghost btn-icon-sm @(IsBookmarked ? "text-yellow-500 hover:text-yellow-600" : "text-muted-foreground hover:text-primary")" title="Bookmark">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="@(IsBookmarked ? "currentColor" : "none")" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bookmark"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
             </button>
@@ -87,6 +93,7 @@
     [Parameter] public bool IsBookmarked { get; set; }
     [Parameter] public EventCallback OnDelete { get; set; }
     [Parameter] public EventCallback OnEdit { get; set; }
+    [Parameter] public EventCallback OnClone { get; set; }
     [Parameter] public EventCallback<string> OnView { get; set; }
     [Parameter] public EventCallback OnToggleBookmark { get; set; }
 
