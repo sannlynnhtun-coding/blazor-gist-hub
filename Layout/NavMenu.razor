@@ -2,12 +2,15 @@
     <div class="p-6 flex flex-col h-full">
         <!-- Brand/Logo Area -->
         <div class="flex items-center gap-3 mb-8 cursor-pointer group" @onclick='() => Navigation.NavigateTo("")'>
-            <div class="w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-primary/20 group-hover:scale-105 active:scale-95 transition-all duration-300">
+            <div class="w-12 h-12 rounded-2xl overflow-hidden shadow-2xl shadow-primary/20 group-hover:scale-110 active:scale-95 transition-all duration-500 ring-2 ring-primary/10">
                 <img src="logo.svg" class="w-full h-full object-cover" />
             </div>
             <div class="flex flex-col">
-                <h1 class="font-black text-xl leading-tight bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/60">GistHub</h1>
-                <span class="text-[10px] text-primary font-black uppercase tracking-widest leading-none">Pro Edition</span>
+                <h1 class="font-black text-2xl tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/60">GistHub</h1>
+                <div class="flex items-center gap-1.5 mt-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                    <span class="text-[10px] text-primary font-black uppercase tracking-widest leading-none">Pro Edition</span>
+                </div>
             </div>
         </div>
 
