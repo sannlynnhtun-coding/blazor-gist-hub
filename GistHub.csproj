@@ -12,4 +12,14 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.5" PrivateAssets="all" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Watch Include="wwwroot\css\app.css" />
+    <Watch Include="tailwind.config.js" />
+  </ItemGroup>
+
+  <Target Name="Tailwind" BeforeTargets="Build">
+    <Message Importance="high" Text="Building Tailwind CSS..." />
+    <Exec Command="npm run release:css" />
+  </Target>
+
 </Project>
