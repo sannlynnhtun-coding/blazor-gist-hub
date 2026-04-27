@@ -291,9 +291,16 @@
         finally
         {
             StateHasChanged();
-            // Clear message after 3 seconds
-            Task.Delay(3000).ContinueWith(_ => { Message = ""; InvokeAsync(StateHasChanged); });
+            // Clear message after 3 seconds without blocking
+            _ = ClearMessageAfterDelay();
         }
+    }
+
+    private async Task ClearMessageAfterDelay()
+    {
+        await Task.Delay(3000);
+        Message = "";
+        await InvokeAsync(StateHasChanged);
     }
 
     private void OnLanguageFilterChanged(ChangeEventArgs e)
