@@ -38,6 +38,21 @@ public class LocalGist
     public string? CollectionName { get; set; }
     public bool IsSynced { get; set; } = true;
     public bool IsBookmarked { get; set; } = false;
+
+    [JsonPropertyName("owner")]
+    public GistOwner? Owner { get; set; }
+}
+
+public class GistOwner
+{
+    [JsonPropertyName("login")]
+    public string Login { get; set; } = string.Empty;
+
+    [JsonPropertyName("avatar_url")]
+    public string AvatarUrl { get; set; } = string.Empty;
+
+    [JsonPropertyName("html_url")]
+    public string HtmlUrl { get; set; } = string.Empty;
 }
 
 public class GistFile

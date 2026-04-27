@@ -74,6 +74,7 @@
                 <GistCard 
                     AvatarUrl="@($"https://github.com/{AppState.CurrentProfile?.GithubUsername}.png")"
                     Author="@AppState.CurrentProfile?.GithubUsername" 
+                    AuthorName="@AppState.CurrentProfile?.Name"
                     TimeAgo="@gist.UpdatedAt.ToLocalTime().ToString("MMM dd, HH:mm")"
                     Description="@gist.Description"
                     Tags="@gist.Tags"
