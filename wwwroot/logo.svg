@@ -1,0 +1,16 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <rect width="256" height="256" rx="64" fill="url(#logo-gradient)" />
+  <path d="M128 40C79.4 40 40 79.4 40 128C40 166.9 65.2 200.1 100.1 211.7C104.5 212.5 106.1 209.8 106.1 207.5C106.1 205.4 106 199.8 106 192.4C106 192.4 81.5 197.6 76.3 181.9C76.3 181.9 72.3 171.7 66.5 169.1C66.5 169.1 58.5 163.6 67.1 163.8C67.1 163.8 75.9 164.4 80.6 174.1C80.6 174.1 88.5 187.6 104 182.2C104.3 176.7 106.5 173 108.9 170.9C89.4 168.7 68.8 161.1 68.8 127.5C68.8 117.9 72.2 110.1 77.8 103.9C76.9 101.7 73.9 92.7 78.7 80.6C78.7 80.6 86.1 78.2 102.9 89.6C109.9 87.7 117.4 86.7 124.9 86.7C132.4 86.7 139.9 87.7 146.9 89.6C163.7 78.2 171.1 80.6 171.1 80.6C175.9 92.7 172.9 101.7 172 103.9C177.6 110.1 181 117.9 181 127.5C181 161.2 160.4 168.6 140.8 170.8C143.9 173.5 146.7 178.9 146.7 187.1C146.7 198.8 146.6 208.3 146.6 211.2C146.6 213.6 148.2 216.4 152.7 215.5C187.5 203.8 212.7 170.6 212.7 131.7C212.7 82.9 173.3 43.5 124.5 43.5C125.7 43.5 126.8 40 128 40V40Z" fill="white" />
+  <rect x="140" y="140" width="80" height="80" rx="20" fill="#1d4ed8" stroke="white" stroke-width="8" />
+  <path d="M165 170L155 180L165 190M195 170L205 180L195 190" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

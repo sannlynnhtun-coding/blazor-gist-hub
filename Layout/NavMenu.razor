@@ -1,13 +1,13 @@
 <div class="w-64 border-r bg-card/50 hidden md:flex flex-col h-screen sticky top-0">
     <div class="p-6 flex flex-col h-full">
         <!-- Brand/Logo Area -->
-        <div class="flex items-center gap-3 mb-8">
-            <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/20">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-2"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
+        <div class="flex items-center gap-3 mb-8 cursor-pointer group" @onclick='() => Navigation.NavigateTo("")'>
+            <div class="w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-primary/20 group-hover:scale-105 active:scale-95 transition-all duration-300">
+                <img src="logo.svg" class="w-full h-full object-cover" />
             </div>
             <div class="flex flex-col">
-                <span class="font-bold text-lg leading-tight">GistHub</span>
-                <span class="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">Pro Edition</span>
+                <h1 class="font-black text-xl leading-tight bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/60">GistHub</h1>
+                <span class="text-[10px] text-primary font-black uppercase tracking-widest leading-none">Pro Edition</span>
             </div>
         </div>
 
