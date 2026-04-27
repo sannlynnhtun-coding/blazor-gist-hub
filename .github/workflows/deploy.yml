@@ -1,11 +1,13 @@
 name: Deploy GistHub to Vercel
 
+# Controls when the workflow will run
 on:
   push:
     branches: [ "master", "main" ]
   pull_request:
     branches: [ "master", "main" ]
 
+# Ensure only one deployment runs at a time to avoid conflicts
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -15,36 +17,50 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Pull the latest code
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # 2. Initialize .NET Environment
       - name: Setup .NET 10
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
 
+      # 2.2 Initialize Node.js Environment (for Tailwind CSS)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
+      # 3. Handle Dependencies and Build
       - name: Restore & Build
         run: |
           npm install
           dotnet restore
           dotnet build --configuration Release --no-restore
 
+      # 4. Compile the Wasm Project for Production
       - name: Publish GistHub
         if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
         run: dotnet publish GistHub.csproj -c Release -o publish_output
 
+      - name: List Output Contents
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+        run: ls -R publish_output
+
+      # 4.5 Fix Blazor WASM Fingerprinting (Manual Copy)
+      # This ensures that even if fingerprinting is active, 
+      # the non-fingerprinted file names expected by the browser are present.
       - name: Fix Blazor WASM Fingerprinting
         if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
         run: |
           cd publish_output/wwwroot/_framework
+          # Function to copy fingerprinted file to its base name
           fix_file() {
             pattern=$1
             target=$2
+            # Use find to get the file (handles cases where glob might fail)
             file=$(find . -maxdepth 1 -name "$pattern" | head -n 1)
             if [ -n "$file" ]; then
               cp "$file" "$target"
@@ -57,11 +73,13 @@ jobs:
           fix_file "dotnet.*.js" "dotnet.js"
           fix_file "dotnet.native.*.js" "dotnet.native.js"
           fix_file "dotnet.runtime.*.js" "dotnet.runtime.js"
+          echo "Non-fingerprinted clones created."
 
       - name: Copy Vercel Config
         if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
         run: cp vercel.json publish_output/wwwroot/
 
+      # 5. Push to Vercel
       - name: Deploy to Vercel
         if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
         uses: amondnet/vercel-action@v25
@@ -71,4 +89,4 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel-version: latest
           vercel-args: '--prod'
-          working-directory: ./publish_output/wwwroot
+          working-directory: ./publish_output/wwwroot # Vercel needs the static assets folder
