@@ -116,17 +116,23 @@
         var gists = await Storage.GetLocalGistsAsync();
         ViewingGist = gists.FirstOrDefault(g => g.Id == GistId);
         
+        if (ViewingGist == null)
+        {
+            // Try fetching from Github API if not found locally
+            string? token = AppState.IsAuthenticated ? AppState.CurrentProfile?.AccessToken : null;
+            ViewingGist = await Github.GetGistByIdAsync(GistId, token);
+        }
+
         if (ViewingGist != null)
         {
             shouldHighlight = true;
-            // Fetch fresh content if needed
-            if (string.IsNullOrEmpty(ViewingGist.Files.Values.FirstOrDefault()?.Content) && AppState.IsAuthenticated)
+            // Fetch fresh content if needed (e.g. if we only had metadata)
+            if (ViewingGist.Files.Values.All(f => string.IsNullOrEmpty(f.Content)) && AppState.IsAuthenticated)
             {
-                var fullGist = await Github.GetGistByIdAsync(GistId, AppState.CurrentProfile!.AccessToken);
+                var fullGist = await Github.GetGistByIdAsync(GistId, AppState.CurrentProfile?.AccessToken);
                 if (fullGist != null)
                 {
                     ViewingGist = fullGist;
-                    await Storage.SaveGistAsync(fullGist);
                 }
             }
         }

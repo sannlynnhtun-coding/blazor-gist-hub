@@ -216,7 +216,23 @@
             }
             else
             {
-                Gists = await Github.GetUserPublicGistsAsync(TargetUsername);
+                var gists = await Github.GetUserPublicGistsAsync(TargetUsername);
+                if (gists != null)
+                {
+                    Gists = gists;
+                    
+                    // Fetch first 5 for better preview content
+                    var firstFew = Gists.Take(5).ToList();
+                    foreach(var gist in firstFew)
+                    {
+                        var full = await Github.GetGistByIdAsync(gist.Id);
+                        if (full != null)
+                        {
+                            gist.Files = full.Files;
+                            StateHasChanged();
+                        }
+                    }
+                }
             }
         }
         finally
