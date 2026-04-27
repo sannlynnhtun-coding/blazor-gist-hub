@@ -1,0 +1,55 @@
+@inherits LayoutComponentBase
+
+<div class="relative min-h-screen flex bg-background">
+    <!-- Sidebar -->
+    <NavMenu />
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+        <!-- Topbar -->
+        <header class="h-16 border-b flex items-center justify-between px-6 glass sticky top-0 z-40">
+            <div class="flex items-center gap-4">
+                <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+                    GistHub
+                </h1>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <ThemeToggle />
+                <button class="p-2 hover:bg-accent rounded-full transition-colors text-muted-foreground hover:text-foreground" title="Toggle Search (Ctrl+K)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                </button>
+                <div class="h-6 w-[1px] bg-border mx-1"></div>
+                <button class="flex items-center gap-2 px-3 py-1.5 bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-md text-sm font-medium transition-all shadow-sm">
+                    <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                    Online
+                </button>
+            </div>
+        </header>
+
+        <!-- Scrollable Area -->
+        <div class="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar">
+            <div class="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500">
+                @Body
+            </div>
+        </div>
+    </main>
+</div>
+
+@inject AppState AppState
+@inject IStorageService Storage
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        if (!AppState.IsAuthenticated)
+        {
+            var profiles = await Storage.GetProfilesAsync();
+            if (profiles != null && profiles.Any())
+            {
+                // Auto-restore the last used session
+                AppState.SetProfile(profiles.First());
+            }
+        }
+    }
+}

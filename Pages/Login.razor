@@ -1,0 +1,216 @@
+@page "/login"
+@layout EmptyLayout
+@using GistHub.Models
+@using GistHub.Services
+@inject IStorageService Storage
+@inject AppState AppState
+@inject NavigationManager Navigation
+@inject IGithubService Github
+
+<div class="min-h-screen flex items-center justify-center p-6 bg-background relative overflow-hidden">
+    <!-- Background Decoration -->
+    <div class="absolute top-0 left-0 w-full h-full -z-10">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px] animate-pulse delay-500"></div>
+    </div>
+
+    <!-- Login Card -->
+    <div class="w-full max-w-md space-y-8 animate-in slide-in-from-bottom-10 fade-in duration-700">
+        <div class="text-center space-y-2">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary shadow-xl shadow-primary/20 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github text-primary-foreground"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+            </div>
+            <h1 class="text-4xl font-extrabold tracking-tight">Welcome Back</h1>
+            <p class="text-muted-foreground font-medium">Connect your GitHub account to start syncing snippets.</p>
+        </div>
+
+        <div class="p-8 bg-card border rounded-3xl shadow-2xl glass space-y-6">
+            <div class="space-y-4">
+                <div class="space-y-2">
+                    <label class="text-sm font-bold ml-1">Profile Name</label>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-muted-foreground group-focus-within:text-primary transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </div>
+                        <input type="text" @bind="ProfileName" placeholder="e.g. Personal Snippets" class="w-full bg-background border px-11 py-3.5 rounded-2xl outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all font-medium" />
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between ml-1">
+                        <label class="text-sm font-bold">Personal Access Token</label>
+                        <a href="https://github.com/settings/tokens" target="_blank" class="text-[10px] uppercase font-bold text-primary hover:underline">Get Token</a>
+                    </div>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-muted-foreground group-focus-within:text-primary transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-key-round"><path d="M2 18v3c0 .6.4 1 1 1h4v-3h3v-3h2l1.4-1.4c.9.9 2.1 1.4 3.4 1.4 2.7 0 4.9-2.2 4.9-4.9S17.6 6 14.9 6 10 8.2 10 10.9c0 1.3.5 2.5 1.4 3.4L2 23Z"/><circle cx="15" cy="11" r="1"/></svg>
+                        </div>
+                        <input type="password" @bind="Token" placeholder="ghp_xxxxxxxxxxxx" class="w-full bg-background border px-11 py-3.5 rounded-2xl outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all font-mono text-sm" />
+                    </div>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                <div class="p-3 bg-destructive/10 text-destructive text-xs font-bold rounded-xl border border-destructive/20 animate-in fade-in zoom-in-95">
+                    @ErrorMessage
+                </div>
+            }
+
+            <button @onclick="HandleLogin" disabled="@IsLoading" class="w-full bg-primary text-primary-foreground py-4 rounded-2xl text-base font-bold shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                @if (IsLoading)
+                {
+                    <div class="w-5 h-5 border-2 border-primary-foreground/20 border-t-primary-foreground rounded-full animate-spin"></div>
+                    <span>@(IsSyncing ? "Deep Sync..." : "Verifying...")</span>
+                }
+                else
+                {
+                    <span>Verify and Connect</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                }
+            </button>
+
+            @if (SavedProfiles.Any())
+            {
+                <div class="flex items-center gap-4 py-2">
+                    <div class="h-[1px] bg-border flex-1"></div>
+                    <span class="text-[10px] uppercase font-bold text-muted-foreground opacity-50">Saved Profiles</span>
+                    <div class="h-[1px] bg-border flex-1"></div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    @foreach (var profile in SavedProfiles)
+                    {
+                        <button @onclick="() => SelectProfile(profile)" class="p-4 border rounded-2xl hover:bg-accent transition-all text-sm font-semibold flex items-center gap-3 group relative overflow-hidden text-left w-full h-full">
+                            <div class="w-10 h-10 rounded-full border bg-muted overflow-hidden flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <img src="@($"https://github.com/{profile.GithubUsername}.png")" class="w-full h-full object-cover" />
+                            </div>
+                            <div class="flex flex-col min-w-0 flex-1">
+                                <span class="truncate font-bold">@profile.Name</span>
+                                <span class="text-[10px] text-muted-foreground font-mono">@@@profile.GithubUsername</span>
+                            </div>
+                            
+                            <div class="flex items-center gap-2">
+                                <button @onclick="() => DeleteProfile(profile)" @onclick:stopPropagation="true" class="p-1.5 rounded-lg hover:bg-destructive/10 hover:text-destructive text-muted-foreground/30 transition-all opacity-0 group-hover:opacity-100" title="Delete Profile">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                                </button>
+                                <div class="opacity-20 group-hover:opacity-100 transition-opacity">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-9-6"/></svg>
+                                </div>
+                            </div>
+                        </button>
+                    }
+                </div>
+            }
+        </div>
+        
+        <p class="text-center text-xs text-muted-foreground font-medium">
+            Your token is stored locally in <span class="bg-muted px-1.5 py-0.5 rounded text-[10px] font-bold">IndexedDB</span> and never sent to our servers.
+        </p>
+    </div>
+</div>
+
+@code {
+    private string ProfileName { get; set; } = "";
+    private string Token { get; set; } = "";
+    private string ErrorMessage { get; set; } = "";
+    private bool IsLoading { get; set; } = false;
+    private bool IsSyncing { get; set; } = false;
+    private List<GistProfile> SavedProfiles { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Storage.InitAsync();
+        SavedProfiles = await Storage.GetProfilesAsync();
+    }
+
+    private async Task HandleLogin()
+    {
+        if (string.IsNullOrWhiteSpace(ProfileName) || string.IsNullOrWhiteSpace(Token))
+        {
+            ErrorMessage = "Please fill in all fields.";
+            return;
+        }
+
+        IsLoading = true;
+        ErrorMessage = "";
+
+        // Verify token and fetch real user info
+        var userInfo = await Github.GetUserInfoAsync(Token);
+        if (userInfo == null)
+        {
+            ErrorMessage = "Invalid token or network error.";
+            IsLoading = false;
+            return;
+        }
+
+        var existing = SavedProfiles.FirstOrDefault(p => p.GithubUsername.Equals(userInfo.Login, StringComparison.OrdinalIgnoreCase));
+        
+        var profileToSave = existing ?? new GistProfile();
+        profileToSave.Name = ProfileName;
+        profileToSave.AccessToken = Token;
+        profileToSave.GithubUsername = userInfo.Login;
+        profileToSave.Bio = userInfo.Bio ?? "No bio available.";
+
+        await Storage.SaveProfileAsync(profileToSave);
+        AppState.SetProfile(profileToSave);
+
+        // If user already existed, auto-login immediately
+        if (existing != null)
+        {
+            Navigation.NavigateTo("/");
+            return;
+        }
+
+        // Initial Deep Sync for NEW users (Fetch full content for each gist)
+        IsSyncing = true;
+        StateHasChanged();
+
+        var userGistsList = await Github.GetUserGistsAsync(Token);
+        if (userGistsList != null)
+        {
+            var tasks = userGistsList.Take(30).Select(async gist => 
+            {
+                var fullGist = await Github.GetGistByIdAsync(gist.Id, Token);
+                if (fullGist != null)
+                {
+                    fullGist.IsSynced = true;
+                    fullGist.Tags = ParseTags(fullGist.Description);
+                    await Storage.SaveGistAsync(fullGist);
+                }
+            });
+
+            await Task.WhenAll(tasks);
+        }
+        
+        IsLoading = false;
+        IsSyncing = false;
+        Navigation.NavigateTo("/");
+    }
+
+    private void SelectProfile(GistProfile profile)
+    {
+        AppState.SetProfile(profile);
+        Navigation.NavigateTo("/");
+    }
+
+    private async Task DeleteProfile(GistProfile profile)
+    {
+        await Storage.DeleteProfileAsync(profile.Id);
+        SavedProfiles.Remove(profile);
+        StateHasChanged();
+    }
+
+    private List<string> ParseTags(string description)
+    {
+        if (string.IsNullOrEmpty(description)) return new List<string>();
+        var tags = new List<string>();
+        var parts = description.Split(' ');
+        foreach(var part in parts)
+        {
+            if (part.StartsWith("#") && part.Length > 1)
+                tags.Add(part.Substring(1).TrimEnd(',', '.', '!', '?', ';'));
+        }
+        return tags;
+    }
+}

@@ -1,0 +1,92 @@
+<div class="group relative bg-card hover:bg-accent/30 border rounded-2xl p-6 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1">
+    <!-- Header -->
+    <div class="flex items-start justify-between mb-4">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-muted border-2 border-background flex items-center justify-center overflow-hidden ring-1 ring-border">
+                <img src="@AvatarUrl" alt="@Author" class="w-full h-full object-cover" />
+            </div>
+            <div class="flex flex-col">
+                <span class="text-sm font-bold leading-tight hover:text-primary cursor-pointer transition-colors">@Author</span>
+                <span class="text-[10px] text-muted-foreground font-medium">@TimeAgo</span>
+            </div>
+        </div>
+        
+        <div class="flex items-center gap-2">
+            @if (OnEdit.HasDelegate)
+            {
+                <button @onclick="() => OnEdit.InvokeAsync()" class="btn btn-ghost btn-icon-sm text-muted-foreground hover:text-primary" title="Edit Gist">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-edit-3"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                </button>
+            }
+            @if (OnDelete.HasDelegate)
+            {
+                <button @onclick="HandleDelete" class="btn btn-ghost btn-icon-sm text-muted-foreground hover:bg-destructive/10 hover:text-destructive group/delete" title="Delete Gist">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2 group-hover/delete:scale-110 transition-transform"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                </button>
+            }
+            <button @onclick="() => OnToggleBookmark.InvokeAsync(Id)" class="btn btn-ghost btn-icon-sm @(IsBookmarked ? "text-yellow-500 hover:text-yellow-600" : "text-muted-foreground hover:text-primary")" title="Bookmark">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="@(IsBookmarked ? "currentColor" : "none")" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bookmark"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="space-y-3">
+        <h3 class="text-base font-semibold line-clamp-2 leading-snug group-hover:text-primary transition-colors cursor-pointer" @onclick="() => OnView.InvokeAsync(Id)">
+            @Description
+        </h3>
+        
+        <div class="flex flex-wrap gap-2">
+            @foreach (var tag in Tags)
+            {
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-muted text-muted-foreground border hover:bg-primary/10 hover:text-primary hover:border-primary/20 transition-all cursor-pointer">
+                    #@tag
+                </span>
+            }
+        </div>
+
+        <div class="mt-4 rounded-xl overflow-hidden border bg-zinc-950/5 dark:bg-zinc-900/50 backdrop-blur-sm p-4 relative font-mono text-xs cursor-pointer group/preview" @onclick="() => OnView.InvokeAsync(Id)">
+            <div class="absolute top-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy text-muted-foreground hover:text-foreground cursor-pointer"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+            </div>
+            <pre class="text-muted-foreground line-clamp-3">@SnippetPreview</pre>
+        </div>
+    </div>
+
+    <!-- Footer Stats -->
+    <div class="mt-6 pt-4 border-t flex items-center justify-between">
+        <div class="flex items-center gap-4 text-xs font-medium text-muted-foreground">
+            <span class="flex items-center gap-1 hover:text-primary transition-colors cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                @Stars
+            </span>
+            <span class="flex items-center gap-1 hover:text-primary transition-colors cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-git-fork"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"/><path d="M12 12v3"/></svg>
+                @Forks
+            </span>
+        </div>
+        
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Id { get; set; } = "";
+    [Parameter] public string AvatarUrl { get; set; } = "https://github.com/identicons/slh.png";
+    [Parameter] public string Author { get; set; } = "anonymous";
+    [Parameter] public string TimeAgo { get; set; } = "just now";
+    [Parameter] public string Description { get; set; } = "No description provided.";
+    [Parameter] public List<string> Tags { get; set; } = new();
+    [Parameter] public string SnippetPreview { get; set; } = "";
+    [Parameter] public int Stars { get; set; } = 0;
+    [Parameter] public int Forks { get; set; } = 0;
+    [Parameter] public bool IsBookmarked { get; set; }
+    [Parameter] public EventCallback OnDelete { get; set; }
+    [Parameter] public EventCallback OnEdit { get; set; }
+    [Parameter] public EventCallback<string> OnView { get; set; }
+    [Parameter] public EventCallback OnToggleBookmark { get; set; }
+
+    private async Task HandleDelete()
+    {
+        await OnDelete.InvokeAsync();
+    }
+}

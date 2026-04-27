@@ -1,0 +1,109 @@
+<div class="w-64 border-r bg-card/50 hidden md:flex flex-col h-screen sticky top-0">
+    <div class="p-6 flex flex-col h-full">
+        <!-- Brand/Logo Area -->
+        <div class="flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/20">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-2"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
+            </div>
+            <div class="flex flex-col">
+                <span class="font-bold text-lg leading-tight">GistHub</span>
+                <span class="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">Pro Edition</span>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav class="space-y-1 mb-8">
+            <NavLink href="" Match="NavLinkMatch.All" class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all hover:bg-accent group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-grid text-muted-foreground group-hover:text-primary"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+                Discovery
+            </NavLink>
+            <NavLink href="trending" class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all hover:bg-accent group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up text-muted-foreground group-hover:text-primary"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                Trending
+            </NavLink>
+            <NavLink href="my-gists" class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all hover:bg-accent group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database text-muted-foreground group-hover:text-primary"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+                My Gists
+            </NavLink>
+            <NavLink href="collections" class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all hover:bg-accent group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-root text-muted-foreground group-hover:text-primary"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2a2 2 0 0 0-1.66-.9H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2Z"/><circle cx="12" cy="13" r="2"/></svg>
+                Collections
+            </NavLink>
+        </nav>
+
+        <!-- Divider -->
+        <div class="h-[1px] bg-border mb-8"></div>
+
+        <!-- Social/Feed Area -->
+        <div class="mb-auto">
+            <h3 class="px-3 text-[10px] uppercase tracking-wider font-bold text-muted-foreground mb-4">Tags</h3>
+            <div class="flex flex-wrap gap-2 px-3">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary border border-primary/20 cursor-pointer hover:bg-primary/20 transition-all">#dotnet</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 cursor-pointer hover:bg-emerald-500/20 transition-all">#react</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-600 border border-amber-500/20 cursor-pointer hover:bg-amber-500/20 transition-all">#python</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/10 text-indigo-600 border border-indigo-500/20 cursor-pointer hover:bg-indigo-500/20 transition-all">#blazor</span>
+            </div>
+        </div>
+
+        <!-- User Profile / Auth Area -->
+        <div class="mt-auto pt-6">
+            @if (AppState.IsAuthenticated)
+            {
+                <div class="p-3 bg-primary/10 rounded-xl border border-primary/20 animate-in fade-in slide-in-from-bottom-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center overflow-hidden border-2 border-white/20 shadow-lg hover:scale-110 transition-transform duration-300">
+                            <img src="@($"https://github.com/{AppState.CurrentProfile?.GithubUsername}.png")" class="w-full h-full object-cover" onerror="this.src='https://github.com/identicons/slh.png'" />
+                        </div>
+                        <div class="flex flex-col min-w-0">
+                            <span class="text-sm font-semibold truncate leading-tight">@AppState.CurrentProfile?.Name</span>
+                            <span class="text-[10px] text-primary/70 truncate font-mono">@@@AppState.CurrentProfile?.GithubUsername</span>
+                        </div>
+                        <button @onclick="Logout" class="ml-auto p-1 hover:bg-destructive/10 text-muted-foreground hover:text-destructive rounded-md transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                        </button>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <NavLink href="login" class="p-3 bg-secondary/50 rounded-xl border border-border/50 flex items-center gap-3 hover:bg-secondary transition-all group">
+                    <div class="w-8 h-8 rounded-full bg-muted flex items-center justify-center overflow-hidden border border-white/20 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-2 text-muted-foreground"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+                    </div>
+                    <div class="flex flex-col min-w-0">
+                        <span class="text-sm font-semibold truncate leading-tight">Guest Account</span>
+                        <span class="text-[10px] text-muted-foreground truncate underline decoration-dotted">Sign In Required</span>
+                    </div>
+                </NavLink>
+            }
+        </div>
+    </div>
+</div>
+
+@implements IDisposable
+@inject AppState AppState
+@inject NavigationManager Navigation
+
+@code {
+    protected override void OnInitialized()
+    {
+        AppState.OnChange += StateHasChanged;
+    }
+
+    private void Logout()
+    {
+        AppState.SetProfile(null);
+        Navigation.NavigateTo("/login");
+    }
+
+    public void Dispose()
+    {
+        AppState.OnChange -= StateHasChanged;
+    }
+}
+
+<style>
+    .nav-item.active {
+        @@apply bg-primary/10 text-primary font-semibold border-r-2 border-primary rounded-r-none;
+    }
+</style>

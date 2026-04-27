@@ -1,0 +1,12 @@
+[Bb]in/
+[Oo]bj/
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+node_modules/
+.vercel
+publish_output/
+.DS_Store

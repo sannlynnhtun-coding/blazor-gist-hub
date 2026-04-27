@@ -1,0 +1,133 @@
+@page "/collections"
+@using GistHub.Models
+@using GistHub.Services
+@inject IStorageService Storage
+@inject AppState AppState
+
+<div class="max-w-7xl mx-auto space-y-10 pb-20 animate-in fade-in duration-700">
+    <!-- Header -->
+    <div class="flex flex-col gap-2">
+        <h1 class="text-4xl font-black tracking-tight">Your Collections</h1>
+        <p class="text-muted-foreground font-medium">Organize your snippets into smart groups and custom folders.</p>
+    </div>
+
+    @if (!AppState.IsAuthenticated)
+    {
+        <div class="p-12 border-2 border-dashed rounded-[2rem] flex flex-col items-center justify-center text-center space-y-6">
+            <div class="w-16 h-16 rounded-2xl bg-muted flex items-center justify-center text-muted-foreground">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div class="max-w-sm space-y-2">
+                <h3 class="text-xl font-bold">Authentication Required</h3>
+                <p class="text-sm text-muted-foreground font-medium leading-relaxed">Login with your GitHub account to manage and sync your collections across devices.</p>
+            </div>
+            <a href="/login" class="px-6 py-3 bg-primary text-primary-foreground rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all">Go to Login</a>
+        </div>
+    }
+    else
+    {
+        <!-- Collection Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Built-in: Favorites -->
+            <div class="group cursor-pointer" @onclick='() => FilterBy("starred")'>
+                <div class="bg-card border-2 border-transparent hover:border-primary/20 rounded-[2rem] p-8 shadow-xl hover:shadow-primary/5 transition-all relative overflow-hidden h-full flex flex-col justify-between">
+                    <div class="absolute -right-4 -top-4 w-32 h-32 bg-yellow-500/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-yellow-500/10 text-yellow-600 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-black tracking-tight leading-none">Favorites</h3>
+                            <p class="text-sm text-muted-foreground font-medium mt-2">Quick access to your most important code.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 flex items-center justify-between">
+                        <span class="text-sm font-bold text-muted-foreground">@BookmarkedCount Snippets</span>
+                        <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-muted-foreground group-hover:text-primary group-hover:bg-primary/10 transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom Collections Loop -->
+            @if (!UserCollections.Any())
+            {
+                 <div class="col-span-full py-12 flex flex-col items-center justify-center text-center space-y-4 opacity-40 grayscale">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-plus text-muted-foreground"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2a2 2 0 0 0-1.66-.9H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2Z"/><line x1="12" x2="12" y1="10" y2="16"/><line x1="9" x2="15" y1="13" y2="13"/></svg>
+                    <p class="text-sm font-medium">Your custom project folders will appear here.</p>
+                </div>
+            }
+            else
+            {
+                @foreach (var collection in UserCollections)
+                {
+                    <div class="group cursor-pointer">
+                        <div class="bg-card border rounded-[2rem] p-8 shadow-xl hover:shadow-primary/5 transition-all relative overflow-hidden h-full flex flex-col justify-between hover:border-primary/20">
+                            <div class="space-y-4">
+                                <div class="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2a2 2 0 0 0-1.66-.9H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2Z"/></svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-black tracking-tight leading-none truncate pr-4">@collection.Key</h3>
+                                    <p class="text-sm text-muted-foreground font-medium mt-2">Personal organization folder.</p>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 flex items-center justify-between">
+                                <span class="text-sm font-bold text-muted-foreground">@collection.Value.Count Snippets</span>
+                                <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-muted-foreground group-hover:text-primary group-hover:bg-primary/10 transition-all">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+            <!-- Create New Collection -->
+            <div class="group cursor-pointer">
+                <div class="bg-muted/30 border-2 border-dashed rounded-[2rem] p-8 flex flex-col items-center justify-center text-center h-full space-y-4 hover:bg-muted/50 hover:border-primary/40 transition-all">
+                    <div class="w-14 h-14 rounded-full bg-background border flex items-center justify-center text-muted-foreground group-hover:text-primary group-hover:scale-110 transition-all shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold">New Collection</h3>
+                        <p class="text-xs text-muted-foreground font-medium">Group gists by project or topic.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<LocalGist> AllGists { get; set; } = new();
+    private Dictionary<string, List<LocalGist>> UserCollections { get; set; } = new();
+    private int BookmarkedCount => AllGists.Count(g => g.IsBookmarked);
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        AllGists = await Storage.GetLocalGistsAsync();
+        
+        // Group by CollectionName (ignoring null or empty)
+        UserCollections = AllGists
+            .Where(g => !string.IsNullOrEmpty(g.CollectionName))
+            .GroupBy(g => g.CollectionName!)
+            .ToDictionary(g => g.Key, g => g.ToList());
+            
+        StateHasChanged();
+    }
+
+    private void FilterBy(string type)
+    {
+        // Navigation or Modal for filtered view
+    }
+}

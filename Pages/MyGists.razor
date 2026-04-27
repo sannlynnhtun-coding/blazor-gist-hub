@@ -1,0 +1,189 @@
+@page "/my-gists"
+@using GistHub.Components
+@using GistHub.Models
+@using GistHub.Services
+@inject IStorageService Storage
+@inject AppState AppState
+@inject NavigationManager Navigation
+@inject IGithubService Github
+@inject IJSRuntime JS
+
+<div class="space-y-12 pb-20">
+    <!-- Compact Premium Header -->
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-primary/10">
+        <div class="flex items-center gap-6">
+            @if (AppState.IsAuthenticated)
+            {
+                <div class="relative">
+                    <div class="w-20 h-20 rounded-2xl border-2 border-background bg-muted overflow-hidden shadow-xl shadow-primary/10 ring-4 ring-primary/5">
+                        <img src="@($"https://github.com/{AppState.CurrentProfile?.GithubUsername}.png")" class="w-full h-full object-cover" />
+                    </div>
+                </div>
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-2xl font-black tracking-tight">@AppState.CurrentProfile?.Name</h1>
+                        <div class="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-500 text-[8px] font-black uppercase tracking-widest border border-emerald-500/20">Verified</div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="text-xs font-mono font-bold text-primary opacity-70">@@@AppState.CurrentProfile?.GithubUsername</span>
+                        <span class="w-1 h-1 rounded-full bg-border"></span>
+                        
+                        <!-- Mini Stats Inline -->
+                        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                            <span class="flex items-center gap-1"><span class="text-foreground">@TotalGistsCount</span> Gists</span>
+                            <span class="flex items-center gap-1"><span class="text-emerald-500">@PublicGistsCount</span> Public</span>
+                            <span class="flex items-center gap-1"><span class="text-amber-500">@SecretGistsCount</span> Secret</span>
+                            <span class="flex items-center gap-1"><span class="text-primary">@BookmarkedGistsCount</span> Bookmarks</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        
+        <div class="flex items-center gap-3">
+             <button @onclick="SyncGists" disabled="@IsSyncing" class="btn btn-secondary btn-md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-cw @(IsSyncing ? "animate-spin" : "")"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+                Sync Cloud
+            </button>
+            <button @onclick='() => Navigation.NavigateTo("/editor")' class="btn btn-primary btn-md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+                New Snippet
+            </button>
+        </div>
+    </div>
+
+    @if (!AppState.IsAuthenticated)
+    {
+        <div class="flex flex-col items-center justify-center py-20 border-2 border-dashed rounded-3xl bg-destructive/5">
+            <p class="text-sm font-medium text-destructive">You must be connected to GitHub to view your gists.</p>
+            <button @onclick='() => Navigation.NavigateTo("/login")' class="mt-4 btn btn-primary btn-md">Connect Now</button>
+        </div>
+    }
+    else if (!LocalGists.Any() && !IsSyncing)
+    {
+        <div class="flex flex-col items-center justify-center py-20 border-2 border-dashed rounded-3xl bg-muted/10 opacity-50">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database-zap text-muted-foreground mb-4"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/><path d="M11 20l2-1h5l1 2"/></svg>
+            <p class="text-sm font-medium text-muted-foreground">Pulling your gists from GitHub...</p>
+        </div>
+    }
+    else
+    {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach (var gist in LocalGists)
+            {
+                <GistCard 
+                    AvatarUrl="@($"https://github.com/{AppState.CurrentProfile?.GithubUsername}.png")"
+                    Author="@AppState.CurrentProfile?.GithubUsername" 
+                    TimeAgo="@gist.UpdatedAt.ToLocalTime().ToString("MMM dd, HH:mm")"
+                    Description="@gist.Description"
+                    Tags="@gist.Tags"
+                    SnippetPreview="@(gist.Files.Values.FirstOrDefault()?.Content ?? "")"
+                    Stars="0"
+                    Forks="0"
+                    IsBookmarked="@gist.IsBookmarked"
+                    OnEdit="@(() => Navigation.NavigateTo($"/editor/{gist.Id}"))"
+                    OnDelete="@(() => HandleDelete(gist))"
+                    OnToggleBookmark="@(() => ToggleBookmark(gist))"
+                    OnView="@((id) => Navigation.NavigateTo($"/view/{gist.Id}"))"
+                />
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private List<LocalGist> LocalGists = new();
+    private bool IsSyncing = false;
+
+    private int TotalGistsCount => LocalGists.Count;
+    private int PublicGistsCount => LocalGists.Count(g => g.Public);
+    private int SecretGistsCount => LocalGists.Count(g => !g.Public);
+    private int BookmarkedGistsCount => LocalGists.Count(g => g.IsBookmarked);
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadLocalGists();
+        
+        // Auto-fetch if no cache
+        if (AppState.IsAuthenticated && !LocalGists.Any())
+        {
+            await SyncGists();
+        }
+    }
+
+    private async Task LoadLocalGists()
+    {
+        LocalGists = (await Storage.GetLocalGistsAsync())
+                      .OrderByDescending(g => g.UpdatedAt)
+                      .ToList();
+    }
+
+    private async Task SyncGists()
+    {
+        if (!AppState.IsAuthenticated) return;
+        
+        IsSyncing = true;
+        StateHasChanged();
+
+        try 
+        {
+            var userGistsList = await Github.GetUserGistsAsync(AppState.CurrentProfile!.AccessToken);
+            if (userGistsList != null)
+            {
+                // Fetch full details in parallel (to get content)
+                var tasks = userGistsList.Select(async gist => 
+                {
+                    var fullGist = await Github.GetGistByIdAsync(gist.Id, AppState.CurrentProfile!.AccessToken);
+                    if (fullGist != null)
+                    {
+                        fullGist.IsSynced = true;
+                        fullGist.Tags = ParseTags(fullGist.Description);
+                        await Storage.SaveGistAsync(fullGist);
+                    }
+                });
+
+                await Task.WhenAll(tasks);
+                await LoadLocalGists();
+            }
+        }
+        finally
+        {
+            IsSyncing = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task HandleDelete(LocalGist gist)
+    {
+        if (string.IsNullOrEmpty(gist.Id)) return;
+        
+        LocalGists.Remove(gist);
+        await Storage.DeleteGistAsync(gist.Id);
+        StateHasChanged();
+
+        if (AppState.IsAuthenticated)
+        {
+            await Github.DeleteGistAsync(gist.Id, AppState.CurrentProfile!.AccessToken);
+        }
+    }
+
+    private List<string> ParseTags(string description)
+    {
+        if (string.IsNullOrEmpty(description)) return new List<string>();
+        var tags = new List<string>();
+        var parts = description.Split(' ');
+        foreach(var part in parts)
+        {
+            if (part.StartsWith("#") && part.Length > 1)
+                tags.Add(part.Substring(1).TrimEnd(',', '.', '!', '?', ';'));
+        }
+        return tags;
+    }
+
+    private async Task ToggleBookmark(LocalGist gist)
+    {
+        gist.IsBookmarked = !gist.IsBookmarked;
+        await Storage.SaveGistAsync(gist);
+        StateHasChanged();
+    }
+}

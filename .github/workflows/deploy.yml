@@ -1,0 +1,74 @@
+name: Deploy GistHub to Vercel
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Restore & Build
+        run: |
+          npm install
+          dotnet restore
+          dotnet build --configuration Release --no-restore
+
+      - name: Publish GistHub
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+        run: dotnet publish GistHub.csproj -c Release -o publish_output
+
+      - name: Fix Blazor WASM Fingerprinting
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+        run: |
+          cd publish_output/wwwroot/_framework
+          fix_file() {
+            pattern=$1
+            target=$2
+            file=$(find . -maxdepth 1 -name "$pattern" | head -n 1)
+            if [ -n "$file" ]; then
+              cp "$file" "$target"
+              echo "Mapped $file -> $target"
+            else
+              echo "Warning: No file found matching $pattern"
+            fi
+          }
+          fix_file "blazor.webassembly.*.js" "blazor.webassembly.js"
+          fix_file "dotnet.*.js" "dotnet.js"
+          fix_file "dotnet.native.*.js" "dotnet.native.js"
+          fix_file "dotnet.runtime.*.js" "dotnet.runtime.js"
+
+      - name: Copy Vercel Config
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+        run: cp vercel.json publish_output/wwwroot/
+
+      - name: Deploy to Vercel
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-version: latest
+          vercel-args: '--prod'
+          working-directory: ./publish_output/wwwroot
