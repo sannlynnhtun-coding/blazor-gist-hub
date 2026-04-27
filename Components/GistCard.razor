@@ -9,9 +9,11 @@
             <div class="flex items-center gap-3">
                 @if (ShowCheckbox)
                 {
-                    <div class="relative group/check">
-                        <input type="checkbox" checked="@IsSelected" @onchange="(e) => OnSelectedChanged.InvokeAsync((bool)(e.Value ?? false))" class="w-5 h-5 rounded-md border-2 border-primary/20 bg-muted checked:bg-primary checked:border-primary transition-all cursor-pointer appearance-none shadow-sm group-hover/check:border-primary/50 focus:ring-2 focus:ring-primary/20" />
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check absolute top-1 left-1 pointer-events-none opacity-0 @(IsSelected ? "opacity-100" : "") transition-all @(IsSelected ? "scale-100" : "scale-50")"><polyline points="20 6 9 17 4 12"/></svg>
+                    <div class="relative w-6 h-6 group/check flex-shrink-0">
+                        <input type="checkbox" checked="@IsSelected" @onchange="(e) => OnSelectedChanged.InvokeAsync((bool)(e.Value ?? false))" class="absolute inset-0 opacity-0 z-10 cursor-pointer" />
+                        <div class="absolute inset-0 rounded-lg border-2 transition-all duration-300 flex items-center justify-center @(IsSelected ? "bg-primary border-primary shadow-lg shadow-primary/20 scale-110" : "bg-muted/50 border-primary/20 group-hover/check:border-primary/50")">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check pointer-events-none opacity-0 @(IsSelected ? "opacity-100 scale-100" : "scale-50") transition-all duration-300"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
                     </div>
                 }
                 <div class="w-10 h-10 rounded-full bg-muted border-2 border-background flex items-center justify-center overflow-hidden ring-1 ring-border group-hover:ring-primary/30 transition-all">
