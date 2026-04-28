@@ -68,8 +68,15 @@
         </div>
     </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script src="js/highlight.min.js"></script>
     <script>
+        // Mermaid config
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+        }
+
         window.highlightCode = (element) => {
             if (element && typeof hljs !== 'undefined') {
                 hljs.highlightElement(element);
@@ -82,6 +89,49 @@
                 }, 100);
             }
         };
+
+        window.renderMarkdown = async (element, markdownText) => {
+            if (!element) return;
+            
+            if (typeof marked === 'undefined') {
+                element.innerText = markdownText;
+                return;
+            }
+
+            element.innerHTML = marked.parse(markdownText);
+
+            // Convert fenced Mermaid blocks rendered by marked into Mermaid containers.
+            element.querySelectorAll('pre code').forEach((block) => {
+                const className = block.className || "";
+                const isMermaid = /\blanguage-mermaid\b|\blang-mermaid\b/.test(className);
+                if (!isMermaid) return;
+
+                const pre = block.parentElement;
+                if (!pre || pre.tagName.toLowerCase() !== 'pre') return;
+
+                const mermaidContainer = document.createElement('div');
+                mermaidContainer.className = 'mermaid';
+                mermaidContainer.textContent = block.textContent || '';
+                pre.replaceWith(mermaidContainer);
+            });
+
+            // Initialize mermaid
+            if (typeof mermaid !== 'undefined') {
+                try {
+                    await mermaid.run({
+                        nodes: element.querySelectorAll('.mermaid'),
+                    });
+                } catch (e) {
+                    console.error("Mermaid rendering failed", e);
+                }
+            }
+            
+            // Highlight code blocks
+            element.querySelectorAll('pre code').forEach((block) => {
+                window.highlightCode(block);
+            });
+        };
+
         window.copyToClipboard = async (text) => {
             if (navigator.clipboard) {
                 await navigator.clipboard.writeText(text);

@@ -83,11 +83,26 @@
                         <div class="w-2.5 h-2.5 rounded-full bg-amber-500/50"></div>
                         <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/50"></div>
                     </div>
-                    <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-black">UTF-8 — @Filename</span>
+                    <div class="flex items-center gap-4">
+                        @if (Filename.EndsWith(".md"))
+                        {
+                            <button @onclick="TogglePreview" class="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-md transition-all @(IsPreview ? "bg-primary text-primary-foreground" : "bg-white/5 text-zinc-400 hover:bg-white/10")">
+                                Preview
+                            </button>
+                        }
+                        <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-black">UTF-8 — @Filename</span>
+                    </div>
                 </div>
 
-                <!-- Main Textarea -->
-                <textarea @bind="Content" spellcheck="false" class="w-full h-full pt-16 p-8 bg-transparent text-zinc-100 font-mono text-sm md:text-base leading-relaxed outline-none resize-none custom-scrollbar" placeholder="// Start writing your masterpiece here..."></textarea>
+                <!-- Main Textarea / Preview -->
+                @if (IsPreview && Filename.EndsWith(".md"))
+                {
+                    <div @ref="previewContainer" class="w-full h-full pt-16 p-8 overflow-auto prose prose-invert max-w-none prose-pre:bg-transparent prose-pre:p-0"></div>
+                }
+                else
+                {
+                    <textarea @bind="Content" @bind:event="oninput" spellcheck="false" class="w-full h-full pt-16 p-8 bg-transparent text-zinc-100 font-mono text-sm md:text-base leading-relaxed outline-none resize-none custom-scrollbar" placeholder="// Start writing your masterpiece here..."></textarea>
+                }
                 
                 <!-- Status Bar -->
                 <div class="absolute bottom-6 right-8 text-[10px] font-mono text-zinc-500 uppercase tracking-widest bg-zinc-900 px-3 py-1.5 rounded-full border border-white/5">
@@ -100,12 +115,16 @@
 
 @code {
     [Parameter] public string? GistId { get; set; }
+    [Inject] private IJSRuntime JS { get; set; }
 
     private string Description { get; set; } = "";
     private string Filename { get; set; } = "main.cs";
     private string Content { get; set; } = "";
     private bool IsPublic { get; set; } = true;
     private bool IsLoading { get; set; } = false;
+    private bool IsPreview { get; set; } = false;
+    private ElementReference previewContainer;
+    private bool shouldRenderPreview = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -190,5 +209,23 @@
                 tags.Add(part.Substring(1).TrimEnd(',', '.', '!', '?', ';'));
         }
         return tags;
+    }
+
+    private async Task TogglePreview()
+    {
+        IsPreview = !IsPreview;
+        if (IsPreview)
+        {
+            shouldRenderPreview = true;
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (shouldRenderPreview && previewContainer.Id != null)
+        {
+            shouldRenderPreview = false;
+            await JS.InvokeVoidAsync("renderMarkdown", previewContainer, Content);
+        }
     }
 }
