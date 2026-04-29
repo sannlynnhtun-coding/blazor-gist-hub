@@ -1,17 +1,17 @@
 # GistHub
 
 ## Project Overview
-GistHub is a Blazor WebAssembly app for discovering, managing, and cloning GitHub Gists.  
-It combines cloud sync through the GitHub API with local caching in IndexedDB, so users can keep working with their gist library quickly from the browser.
+GistHub is a Blazor WebAssembly single-page app for browsing, saving, and managing GitHub Gists from a polished browser-based workspace.
+It blends GitHub API integration with local IndexedDB caching so users can explore public snippets, work with their own gists, and revisit saved content with fast client-side navigation.
 
-The app supports:
-- Public gist discovery feed
-- Personal gist management (create, edit, delete, bookmark)
-- Profile-based login using GitHub Personal Access Tokens
-- Local storage for profiles and gist cache
-- Curated SLH collection browsing and one-click cloning
-- Collection-style grouping and tag/search filtering
-- Light/dark theme toggle with persisted preference
+Core capabilities include:
+- Public gist discovery from the home feed
+- Personal gist workflows such as create, edit, delete, view, and clone
+- GitHub Personal Access Token sign-in with profile-based local persistence
+- Local caching of profiles, bookmarks, and gist data for faster repeat access
+- Curated SLH collection browsing with dedicated detail pages
+- Collection organization plus tag and search-driven filtering
+- Persistent theming and a modern responsive UI built for code-heavy content
 
 ## Tech Stack
 - .NET `10.0` (Blazor WebAssembly)
