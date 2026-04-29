@@ -9,7 +9,6 @@
 @inject IJSRuntime JS
 
 <div class="space-y-12 pb-20">
-    <!-- Compact Premium Header -->
     <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-primary/10">
         <div class="flex items-center gap-6">
             @if (AppState.IsAuthenticated)
@@ -27,8 +26,6 @@
                     <div class="flex items-center gap-4">
                         <span class="text-xs font-mono font-bold text-primary opacity-70">@@@AppState.CurrentProfile?.GithubUsername</span>
                         <span class="w-1 h-1 rounded-full bg-border"></span>
-                        
-                        <!-- Mini Stats Inline -->
                         <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                             <span class="flex items-center gap-1"><span class="text-foreground">@TotalGistsCount</span> Gists</span>
                             <span class="flex items-center gap-1"><span class="text-emerald-500">@PublicGistsCount</span> Public</span>
@@ -39,9 +36,9 @@
                 </div>
             }
         </div>
-        
+
         <div class="flex items-center gap-3">
-             <button @onclick="SyncGists" disabled="@IsSyncing" class="btn btn-secondary btn-md">
+            <button @onclick="SyncGists" disabled="@IsSyncing" class="btn btn-secondary btn-md">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-cw @(IsSyncing ? "animate-spin" : "")"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
                 Sync Cloud
             </button>
@@ -52,31 +49,35 @@
         </div>
     </div>
 
-    <!-- Search & Filter Bar -->
     <div class="relative group max-w-2xl mx-auto w-full -mt-6">
         <div class="absolute inset-0 bg-primary/5 blur-xl group-hover:bg-primary/10 transition-all rounded-2xl"></div>
         <div class="relative flex items-center bg-card/50 backdrop-blur-xl border border-primary/20 rounded-2xl px-4 py-2 shadow-2xl transition-all focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search text-muted-foreground mr-3"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input 
-                type="text" 
-                placeholder="Search your gists, files, or tags..." 
-                @bind="SearchQuery" 
+            <input
+                type="text"
+                placeholder="Search your gists, files, or tags..."
+                @bind="SearchQuery"
                 @bind:event="oninput"
                 class="flex-1 bg-transparent border-none outline-none text-sm font-medium placeholder:text-muted-foreground/50 h-10" />
-            
+
             @if (!string.IsNullOrEmpty(SearchQuery))
             {
                 <button @onclick='() => SearchQuery = ""' class="p-1.5 hover:bg-muted rounded-lg transition-all text-muted-foreground">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                 </button>
             }
-            
+
             <div class="ml-4 pl-4 border-l border-border flex items-center gap-2">
                 <span class="text-[10px] font-black uppercase tracking-widest text-muted-foreground/50">Filtered</span>
                 <span class="text-xs font-black tabular-nums">@FilteredGists.Count</span>
             </div>
         </div>
     </div>
+
+    @if (!string.IsNullOrWhiteSpace(GroupMessage))
+    {
+        <div class="p-3 rounded-xl border border-primary/20 bg-primary/5 text-sm text-primary font-semibold">@GroupMessage</div>
+    }
 
     @if (!AppState.IsAuthenticated)
     {
@@ -109,9 +110,10 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 @foreach (var gist in FilteredGists)
                 {
-                    <GistCard 
+                    <GistCard
+                        Id="@gist.Id"
                         AvatarUrl="@($"https://github.com/{AppState.CurrentProfile?.GithubUsername}.png")"
-                        Author="@AppState.CurrentProfile?.GithubUsername" 
+                        Author="@AppState.CurrentProfile?.GithubUsername"
                         AuthorName="@AppState.CurrentProfile?.Name"
                         TimeAgo="@gist.UpdatedAt.ToLocalTime().ToString("MMM dd, HH:mm:ss")"
                         Description="@gist.Description"
@@ -120,6 +122,12 @@
                         Stars="0"
                         Forks="0"
                         IsBookmarked="@gist.IsBookmarked"
+                        EnableGroupPicker="true"
+                        AvailableGroups="@GroupNames"
+                        SelectedGroups="@gist.CollectionNames"
+                        OnCreateGroup="@(name => CreateGroupFromCard(name))"
+                        OnToggleGroupOn="@(name => AddGroupToGist(gist, name))"
+                        OnToggleGroupOff="@(name => RemoveGroupFromGist(gist, name))"
                         OnEdit="@(() => Navigation.NavigateTo($"/editor/{gist.Id}"))"
                         OnDelete="@(() => HandleDelete(gist))"
                         OnToggleBookmark="@(() => ToggleBookmark(gist))"
@@ -133,13 +141,17 @@
 
 @code {
     private List<LocalGist> LocalGists = new();
+    private List<GistGroup> Groups = new();
     private bool IsSyncing = false;
     private string SearchQuery = "";
+    private string GroupMessage = "";
 
-    private List<LocalGist> FilteredGists => string.IsNullOrWhiteSpace(SearchQuery) 
-        ? LocalGists 
-        : LocalGists.Where(g => 
-            (g.Description?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ?? false) || 
+    private List<string> GroupNames => Groups.Select(g => g.Name).ToList();
+
+    private List<LocalGist> FilteredGists => string.IsNullOrWhiteSpace(SearchQuery)
+        ? LocalGists
+        : LocalGists.Where(g =>
+            (g.Description?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ?? false) ||
             (g.Files.Values.Any(f => f.Filename?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ?? false)) ||
             (g.Tags.Any(t => t.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase)))
         ).ToList();
@@ -152,8 +164,8 @@
     protected override async Task OnInitializedAsync()
     {
         await LoadLocalGists();
-        
-        // Auto-fetch if no cache
+        await LoadGroups();
+
         if (AppState.IsAuthenticated && !LocalGists.Any())
         {
             await SyncGists();
@@ -167,32 +179,55 @@
                       .ToList();
     }
 
+    private async Task LoadGroups()
+    {
+        Groups = await Storage.GetGroupsAsync();
+    }
+
     private async Task SyncGists()
     {
         if (!AppState.IsAuthenticated) return;
-        
+
         IsSyncing = true;
         StateHasChanged();
 
-        try 
+        try
         {
+            var existingById = LocalGists
+                .Where(g => !string.IsNullOrWhiteSpace(g.Id))
+                .GroupBy(g => g.Id)
+                .Select(group => group.First())
+                .ToDictionary(g => g.Id, g => g);
+
             var userGistsList = await Github.GetUserGistsAsync(AppState.CurrentProfile!.AccessToken);
             if (userGistsList != null)
             {
-                // Fetch full details in parallel (to get content)
-                var tasks = userGistsList.Select(async gist => 
+                var tasks = userGistsList.Select(async gist =>
                 {
                     var fullGist = await Github.GetGistByIdAsync(gist.Id, AppState.CurrentProfile!.AccessToken);
-                    if (fullGist != null)
+                    if (fullGist == null)
                     {
-                        fullGist.IsSynced = true;
-                        fullGist.Tags = ParseTags(fullGist.Description);
-                        await Storage.SaveGistAsync(fullGist);
+                        return;
                     }
+
+                    fullGist.IsSynced = true;
+                    fullGist.Tags = ParseTags(fullGist.Description);
+
+                    if (existingById.TryGetValue(fullGist.Id, out var existing))
+                    {
+                        fullGist.IsBookmarked = existing.IsBookmarked;
+                        fullGist.CollectionNames = existing.CollectionNames
+                            .Distinct(StringComparer.OrdinalIgnoreCase)
+                            .ToList();
+                        fullGist.CollectionName = fullGist.CollectionNames.FirstOrDefault();
+                    }
+
+                    await Storage.SaveGistAsync(fullGist);
                 });
 
                 await Task.WhenAll(tasks);
                 await LoadLocalGists();
+                await LoadGroups();
             }
         }
         finally
@@ -205,7 +240,7 @@
     private async Task HandleDelete(LocalGist gist)
     {
         if (string.IsNullOrEmpty(gist.Id)) return;
-        
+
         LocalGists.Remove(gist);
         await Storage.DeleteGistAsync(gist.Id);
         StateHasChanged();
@@ -221,7 +256,7 @@
         if (string.IsNullOrEmpty(description)) return new List<string>();
         var tags = new List<string>();
         var parts = description.Split(' ');
-        foreach(var part in parts)
+        foreach (var part in parts)
         {
             if (part.StartsWith("#") && part.Length > 1)
                 tags.Add(part.Substring(1).TrimEnd(',', '.', '!', '?', ';'));
@@ -235,4 +270,81 @@
         await Storage.SaveGistAsync(gist);
         StateHasChanged();
     }
+
+    private async Task CreateGroupFromCard(string groupName)
+    {
+        var normalized = NormalizeGroupName(groupName);
+        if (string.IsNullOrWhiteSpace(normalized))
+        {
+            GroupMessage = "Group name is required.";
+            await ClearGroupMessageAfterDelay();
+            return;
+        }
+
+        if (Groups.Any(g => string.Equals(g.Name, normalized, StringComparison.OrdinalIgnoreCase)))
+        {
+            return;
+        }
+
+        var group = new GistGroup
+        {
+            Name = normalized,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        };
+
+        await Storage.SaveGroupAsync(group);
+        await LoadGroups();
+        StateHasChanged();
+    }
+
+    private async Task AddGroupToGist(LocalGist gist, string groupName)
+    {
+        var normalized = NormalizeGroupName(groupName);
+        if (string.IsNullOrWhiteSpace(normalized))
+        {
+            return;
+        }
+
+        gist.CollectionNames ??= new List<string>();
+        if (gist.CollectionNames.Any(name => string.Equals(name, normalized, StringComparison.OrdinalIgnoreCase)))
+        {
+            return;
+        }
+
+        gist.CollectionNames.Add(normalized);
+        gist.CollectionNames = gist.CollectionNames
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+        gist.CollectionName = gist.CollectionNames.FirstOrDefault();
+
+        await Storage.SaveGistAsync(gist);
+        StateHasChanged();
+    }
+
+    private async Task RemoveGroupFromGist(LocalGist gist, string groupName)
+    {
+        var normalized = NormalizeGroupName(groupName);
+        gist.CollectionNames = gist.CollectionNames
+            .Where(name => !string.Equals(name, normalized, StringComparison.OrdinalIgnoreCase))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        gist.CollectionName = gist.CollectionNames.FirstOrDefault();
+
+        await Storage.SaveGistAsync(gist);
+        StateHasChanged();
+    }
+
+    private async Task ClearGroupMessageAfterDelay()
+    {
+        await Task.Delay(2500);
+        GroupMessage = "";
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private static string NormalizeGroupName(string? name)
+        => (name ?? string.Empty).Trim();
 }

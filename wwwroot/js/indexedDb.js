@@ -1,6 +1,6 @@
 export function initDb() {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open("GistHubDB", 1);
+        const request = indexedDB.open("GistHubDB", 2);
 
         request.onupgradeneeded = (event) => {
             const db = event.target.result;
@@ -9,6 +9,9 @@ export function initDb() {
             }
             if (!db.objectStoreNames.contains("gists")) {
                 db.createObjectStore("gists", { keyPath: "id" });
+            }
+            if (!db.objectStoreNames.contains("groups")) {
+                db.createObjectStore("groups", { keyPath: "id" });
             }
         };
 
@@ -19,7 +22,7 @@ export function initDb() {
 
 export function saveItem(storeName, item) {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open("GistHubDB", 1);
+        const request = indexedDB.open("GistHubDB", 2);
         request.onsuccess = (event) => {
             const db = event.target.result;
             const transaction = db.transaction(storeName, "readwrite");
@@ -33,7 +36,7 @@ export function saveItem(storeName, item) {
 
 export function getAllItems(storeName) {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open("GistHubDB", 1);
+        const request = indexedDB.open("GistHubDB", 2);
         request.onsuccess = (event) => {
             const db = event.target.result;
             const transaction = db.transaction(storeName, "readonly");
@@ -47,7 +50,7 @@ export function getAllItems(storeName) {
 
 export function deleteItem(storeName, id) {
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open("GistHubDB", 1);
+        const request = indexedDB.open("GistHubDB", 2);
         request.onsuccess = (event) => {
             const db = event.target.result;
             const transaction = db.transaction(storeName, "readwrite");

@@ -35,12 +35,22 @@ public class LocalGist
     public DateTime UpdatedAt { get; set; }
 
     public List<string> Tags { get; set; } = new();
+    public List<string> CollectionNames { get; set; } = new();
+    // Legacy single-collection field kept for backward compatibility.
     public string? CollectionName { get; set; }
     public bool IsSynced { get; set; } = true;
     public bool IsBookmarked { get; set; } = false;
 
     [JsonPropertyName("owner")]
     public GistOwner? Owner { get; set; }
+}
+
+public class GistGroup
+{
+    public string Id { get; set; } = Guid.NewGuid().ToString();
+    public string Name { get; set; } = string.Empty;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? UpdatedAt { get; set; }
 }
 
 public class GistOwner

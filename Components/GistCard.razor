@@ -1,4 +1,6 @@
-<div class="group relative bg-card border border-border/50 rounded-2xl overflow-hidden hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] hover:-translate-y-1.5 transition-all duration-500 @(IsSelected ? "ring-2 ring-primary border-primary/50 shadow-lg shadow-primary/5" : "")">
+@using Microsoft.AspNetCore.Components.Web
+
+<div class="group relative bg-card border border-border/50 rounded-2xl overflow-visible hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] hover:-translate-y-1.5 transition-all duration-500 @(IsSelected ? "ring-2 ring-primary border-primary/50 shadow-lg shadow-primary/5" : "")">
     
     <!-- Active Indicator -->
     <div class="absolute top-0 left-0 w-1 h-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -83,6 +85,62 @@
             </div>
             
             <div class="flex items-center gap-2">
+                @if (EnableGroupPicker)
+                {
+                    <div class="relative" @onkeydown="HandlePopoverKeyDown">
+                        <button @onclick="ToggleGroupPopover" class="p-1.5 rounded-lg hover:bg-primary/10 text-muted-foreground hover:text-primary transition-colors" title="Manage groups" aria-haspopup="true" aria-expanded="@IsGroupPopoverOpen">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-plus"><path d="M12 10v6"/><path d="M9 13h6"/><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 8 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+                        </button>
+
+                        @if (IsGroupPopoverOpen)
+                        {
+                            <button class="fixed inset-0 z-40 cursor-default" aria-label="Close group selector" @onclick="CloseGroupPopover"></button>
+                            <div class="absolute right-0 bottom-10 z-50 w-72 rounded-xl border bg-card shadow-2xl p-3 space-y-3" tabindex="0" @ref="PopoverRef" @onclick:stopPropagation="true" @onkeydown="HandlePopoverKeyDown">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-black uppercase tracking-widest text-muted-foreground">Groups</span>
+                                    <span class="text-[10px] font-bold text-primary">@SelectedGroups.Count selected</span>
+                                </div>
+
+                                <div class="max-h-44 overflow-auto space-y-1 pr-1">
+                                    @if (!AvailableGroups.Any())
+                                    {
+                                        <p class="text-xs text-muted-foreground">No groups yet. Create one below.</p>
+                                    }
+                                    else
+                                    {
+                                        @foreach (var groupName in AvailableGroups)
+                                        {
+                                            <label class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-muted/50 cursor-pointer">
+                                                <input type="checkbox"
+                                                       checked="@IsGroupSelected(groupName)"
+                                                       @onchange="(e) => ToggleGroupMembership(groupName, (bool)(e.Value ?? false))"
+                                                       class="rounded border-border" />
+                                                <span class="text-xs font-semibold truncate">@groupName</span>
+                                            </label>
+                                        }
+                                    }
+                                </div>
+
+                                <div class="pt-2 border-t border-border/40 space-y-2">
+                                    <div class="flex items-center gap-2">
+                                        <input type="text"
+                                               @bind="NewGroupName"
+                                               @bind:event="oninput"
+                                               @onkeydown="HandleNewGroupKeyDown"
+                                               placeholder="Create new group"
+                                               class="w-full h-8 px-2 rounded-lg border bg-background text-xs" />
+                                        <button @onclick="CreateGroupFromPopover" class="px-2 py-1 rounded-md bg-primary text-primary-foreground text-xs font-bold">Add</button>
+                                    </div>
+                                    @if (!string.IsNullOrWhiteSpace(GroupValidationMessage))
+                                    {
+                                        <p class="text-[10px] text-destructive font-medium">@GroupValidationMessage</p>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+
                 <button @onclick="() => OnToggleBookmark.InvokeAsync(Id)" class="p-1.5 rounded-lg hover:bg-yellow-500/10 @(IsBookmarked ? "text-yellow-500" : "text-muted-foreground") transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="@(IsBookmarked ? "currentColor" : "none")" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bookmark"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
                 </button>
@@ -114,8 +172,98 @@
     [Parameter] public EventCallback<string> OnView { get; set; }
     [Parameter] public EventCallback<string> OnToggleBookmark { get; set; }
 
-    private async Task HandleDelete()
+    [Parameter] public bool EnableGroupPicker { get; set; }
+    [Parameter] public List<string> AvailableGroups { get; set; } = new();
+    [Parameter] public List<string> SelectedGroups { get; set; } = new();
+    [Parameter] public EventCallback<string> OnToggleGroupOn { get; set; }
+    [Parameter] public EventCallback<string> OnToggleGroupOff { get; set; }
+    [Parameter] public EventCallback<string> OnCreateGroup { get; set; }
+
+    private bool IsGroupPopoverOpen { get; set; }
+    private string NewGroupName { get; set; } = "";
+    private string GroupValidationMessage { get; set; } = "";
+    private ElementReference PopoverRef;
+    private bool FocusPopoverPending;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await OnDelete.InvokeAsync();
+        if (FocusPopoverPending)
+        {
+            FocusPopoverPending = false;
+            await PopoverRef.FocusAsync();
+        }
+    }
+
+    private bool IsGroupSelected(string groupName)
+        => SelectedGroups.Any(name => string.Equals(name, groupName, StringComparison.OrdinalIgnoreCase));
+
+    private void ToggleGroupPopover()
+    {
+        IsGroupPopoverOpen = !IsGroupPopoverOpen;
+        GroupValidationMessage = "";
+        if (IsGroupPopoverOpen)
+        {
+            FocusPopoverPending = true;
+        }
+    }
+
+    private void CloseGroupPopover()
+    {
+        IsGroupPopoverOpen = false;
+        GroupValidationMessage = "";
+    }
+
+    private async Task ToggleGroupMembership(string groupName, bool isEnabled)
+    {
+        if (isEnabled)
+        {
+            await OnToggleGroupOn.InvokeAsync(groupName);
+        }
+        else
+        {
+            await OnToggleGroupOff.InvokeAsync(groupName);
+        }
+    }
+
+    private async Task CreateGroupFromPopover()
+    {
+        GroupValidationMessage = "";
+        var normalized = (NewGroupName ?? string.Empty).Trim();
+
+        if (string.IsNullOrWhiteSpace(normalized))
+        {
+            GroupValidationMessage = "Group name is required.";
+            return;
+        }
+
+        if (AvailableGroups.Any(name => string.Equals(name, normalized, StringComparison.OrdinalIgnoreCase)))
+        {
+            GroupValidationMessage = "Group name already exists.";
+            return;
+        }
+
+        await OnCreateGroup.InvokeAsync(normalized);
+        NewGroupName = "";
+        await OnToggleGroupOn.InvokeAsync(normalized);
+    }
+
+    private async Task HandleNewGroupKeyDown(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter")
+        {
+            await CreateGroupFromPopover();
+        }
+        else if (args.Key == "Escape")
+        {
+            CloseGroupPopover();
+        }
+    }
+
+    private void HandlePopoverKeyDown(KeyboardEventArgs args)
+    {
+        if (args.Key == "Escape")
+        {
+            CloseGroupPopover();
+        }
     }
 }
