@@ -1,19 +1,16 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/(index.html)?",
-      "destination": "/index.html"
+      "handle": "filesystem"
     },
     {
-      "source": "/_framework/(.*)",
-      "destination": "/_framework/$1"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "/(.*)",
+      "dest": "/index.html",
+      "status": 200
     }
   ],
   "headers": [
