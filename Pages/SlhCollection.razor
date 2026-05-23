@@ -135,7 +135,15 @@
 
         try
         {
-            var gists = await Github.GetUserPublicGistsAsync(SlhUsername);
+            var token = AppState.CurrentProfile?.AccessToken;
+            var gists = await Github.GetUserPublicGistsAsync(SlhUsername, token);
+            if (Github.LastError != null)
+            {
+                HasLoadError = true;
+                ErrorMessage = BuildGithubErrorMessage("SLH collection");
+                return;
+            }
+
             SlhGists = gists
                 .Where(g => g.Public && string.Equals(g.Owner?.Login, SlhUsername, StringComparison.OrdinalIgnoreCase))
                 .OrderByDescending(g => g.UpdatedAt)
@@ -158,6 +166,28 @@
         }
     }
 
+    private string BuildGithubErrorMessage(string feedName)
+    {
+        if (Github.LastError?.IsRateLimited == true)
+        {
+            var retryText = Github.LastError.RateLimitReset is DateTimeOffset reset
+                ? $" Try again after {reset.ToLocalTime():MMM dd, HH:mm}."
+                : "";
+            var authText = AppState.IsAuthenticated
+                ? "Your GitHub token has reached its API rate limit."
+                : "Connect GitHub to use your authenticated API limit.";
+
+            return $"GitHub rate-limited the {feedName}. {authText}{retryText}";
+        }
+
+        if (Github.LastError?.StatusCode == System.Net.HttpStatusCode.Forbidden)
+        {
+            return $"GitHub returned 403 Forbidden for the {feedName}. Connect GitHub or retry later.";
+        }
+
+        return "Failed to load SLH collection from GitHub.";
+    }
+
     private async Task HandleClone(LocalGist gist)
     {
         if (!AppState.IsAuthenticated)
@@ -171,7 +201,7 @@
 
         try
         {
-            var fullGist = await Github.GetGistByIdAsync(gist.Id);
+            var fullGist = await Github.GetGistByIdAsync(gist.Id, AppState.CurrentProfile!.AccessToken);
             if (fullGist == null ||
                 !fullGist.Public ||
                 !string.Equals(fullGist.Owner?.Login, SlhUsername, StringComparison.OrdinalIgnoreCase))

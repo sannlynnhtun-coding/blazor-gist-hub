@@ -211,13 +211,18 @@
 
         try 
         {
+            Message = "";
+            var token = AppState.CurrentProfile?.AccessToken;
+
             if (string.IsNullOrWhiteSpace(TargetUsername))
             {
-                Gists = await Github.GetPublicGistsAsync();
+                Gists = await Github.GetPublicGistsAsync(token);
+                ShowGithubApiMessageIfNeeded("public gist feed");
             }
             else
             {
-                var gists = await Github.GetUserPublicGistsAsync(TargetUsername);
+                var gists = await Github.GetUserPublicGistsAsync(TargetUsername, token);
+                ShowGithubApiMessageIfNeeded($"@{TargetUsername.Trim()}'s public gists");
                 if (gists != null)
                 {
                     Gists = gists;
@@ -226,7 +231,7 @@
                     var firstFew = Gists.Take(5).ToList();
                     foreach(var gist in firstFew)
                     {
-                        var full = await Github.GetGistByIdAsync(gist.Id);
+                        var full = await Github.GetGistByIdAsync(gist.Id, token);
                         if (full != null)
                         {
                             gist.Files = full.Files;
@@ -240,6 +245,32 @@
         {
             IsLoading = false;
             StateHasChanged();
+        }
+    }
+
+    private void ShowGithubApiMessageIfNeeded(string feedName)
+    {
+        if (Github.LastError == null)
+        {
+            return;
+        }
+
+        if (Github.LastError.IsRateLimited)
+        {
+            var retryText = Github.LastError.RateLimitReset is DateTimeOffset reset
+                ? $" Try again after {reset.ToLocalTime():MMM dd, HH:mm}."
+                : "";
+            var authText = AppState.IsAuthenticated
+                ? "Your GitHub token has reached its API rate limit."
+                : "Connect GitHub to use your authenticated API limit.";
+
+            Message = $"GitHub rate-limited the {feedName}. {authText}{retryText}";
+            return;
+        }
+
+        if (Github.LastError.StatusCode == System.Net.HttpStatusCode.Forbidden)
+        {
+            Message = $"GitHub returned 403 Forbidden for the {feedName}. Connect GitHub or retry later.";
         }
     }
 
@@ -265,7 +296,7 @@
         try 
         {
             // 1. Get full gist content (in case current is just preview)
-            var fullGist = await Github.GetGistByIdAsync(gist.Id);
+            var fullGist = await Github.GetGistByIdAsync(gist.Id, AppState.CurrentProfile?.AccessToken);
             if (fullGist == null) return;
 
             // 2. Create COPY in our account

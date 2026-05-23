@@ -4,6 +4,7 @@
 @inject IGithubService Github
 @inject IJSRuntime JS
 @inject NavigationManager Navigation
+@inject AppState AppState
 
 <div class="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20">
     @if (IsLoading)
@@ -139,7 +140,7 @@
         shouldRenderMarkdown = false;
         StateHasChanged();
 
-        var gist = await Github.GetGistByIdAsync(GistId);
+        var gist = await Github.GetGistByIdAsync(GistId, AppState.CurrentProfile?.AccessToken);
         if (gist == null ||
             !gist.Public ||
             !string.Equals(gist.Owner?.Login, SlhUsername, StringComparison.OrdinalIgnoreCase))
