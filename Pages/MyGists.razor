@@ -2,6 +2,7 @@
 @using GistHub.Components
 @using GistHub.Models
 @using GistHub.Services
+@using System.Text.Json
 @inject IStorageService Storage
 @inject AppState AppState
 @inject NavigationManager Navigation
@@ -42,6 +43,14 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-cw @(IsSyncing ? "animate-spin" : "")"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
                 Sync Cloud
             </button>
+            <button @onclick="OpenImportDialog" disabled="@(!AppState.IsAuthenticated || IsImporting)" class="btn btn-outline btn-md">
+                @if (IsImporting)
+                {
+                    <div class="w-4 h-4 border-2 border-current/30 border-t-current rounded-full animate-spin"></div>
+                }
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-paste"><path d="M19 4h-3a2 2 0 0 0-4 0H9"/><path d="M5 7v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7"/><path d="M13 10H9"/><path d="M9 14h6"/><path d="M9 18h6"/></svg>
+                Paste JSON
+            </button>
             <button @onclick='() => Navigation.NavigateTo("/editor")' class="btn btn-primary btn-md">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
                 New Snippet
@@ -77,6 +86,13 @@
     @if (!string.IsNullOrWhiteSpace(GroupMessage))
     {
         <div class="p-3 rounded-xl border border-primary/20 bg-primary/5 text-sm text-primary font-semibold">@GroupMessage</div>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(ImportMessage))
+    {
+        <div class="p-3 rounded-xl border text-sm font-semibold @(ImportWasSuccessful ? "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "border-destructive/30 bg-destructive/10 text-destructive")">
+            @ImportMessage
+        </div>
     }
 
     @if (!AppState.IsAuthenticated)
@@ -139,12 +155,65 @@
     }
 </div>
 
+@if (IsImportDialogOpen)
+{
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6" @onkeydown="HandleImportDialogKeyDown">
+        <button class="absolute inset-0 bg-black/50 backdrop-blur-sm cursor-default" aria-label="Close import dialog" @onclick="CloseImportDialog"></button>
+        <div class="relative w-full max-w-4xl bg-card border border-primary/20 rounded-3xl shadow-2xl p-5 md:p-8 space-y-4">
+            <div class="flex items-start justify-between gap-4">
+                <div class="space-y-1">
+                    <h2 class="text-xl font-black tracking-tight">Paste Gist JSON</h2>
+                    <p class="text-sm text-muted-foreground">Paste an object with <code>description</code>, <code>public</code>, and <code>files</code>.</p>
+                </div>
+                <button @onclick="CloseImportDialog" class="p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground" title="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+            </div>
+
+            <textarea
+                @bind="ImportJsonText"
+                @bind:event="oninput"
+                rows="16"
+                spellcheck="false"
+                placeholder='{"description":"...","public":false,"files":{"file.md":{"content":"..."}}}'
+                class="w-full bg-secondary/30 border rounded-2xl p-4 focus:ring-2 focus:ring-primary/20 outline-none transition-all text-sm font-mono resize-y custom-scrollbar"></textarea>
+
+            @if (!string.IsNullOrWhiteSpace(ImportValidationMessage))
+            {
+                <p class="text-sm text-destructive font-medium">@ImportValidationMessage</p>
+            }
+
+            <div class="flex items-center justify-end gap-2 pt-2">
+                <button @onclick="CloseImportDialog" disabled="@IsImporting" class="btn btn-outline btn-md">Cancel</button>
+                <button @onclick="ImportGistFromJsonAsync" disabled="@IsImporting" class="btn btn-primary btn-md">
+                    @if (IsImporting)
+                    {
+                        <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    }
+                    Save to Gist
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
 @code {
+    private static readonly JsonSerializerOptions ImportJsonOptions = new(JsonSerializerDefaults.Web)
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
     private List<LocalGist> LocalGists = new();
     private List<GistGroup> Groups = new();
     private bool IsSyncing = false;
     private string SearchQuery = "";
     private string GroupMessage = "";
+    private bool IsImportDialogOpen = false;
+    private bool IsImporting = false;
+    private bool ImportWasSuccessful = false;
+    private string ImportJsonText = "";
+    private string ImportValidationMessage = "";
+    private string ImportMessage = "";
 
     private List<string> GroupNames => Groups.Select(g => g.Name).ToList();
 
@@ -345,6 +414,178 @@
         await InvokeAsync(StateHasChanged);
     }
 
+    private void OpenImportDialog()
+    {
+        ImportValidationMessage = "";
+        ImportWasSuccessful = false;
+        ImportMessage = "";
+        IsImportDialogOpen = true;
+    }
+
+    private void CloseImportDialog()
+    {
+        if (IsImporting)
+        {
+            return;
+        }
+
+        ImportValidationMessage = "";
+        IsImportDialogOpen = false;
+    }
+
+    private async Task ImportGistFromJsonAsync()
+    {
+        ImportValidationMessage = "";
+        ImportMessage = "";
+        ImportWasSuccessful = false;
+
+        if (!AppState.IsAuthenticated || string.IsNullOrWhiteSpace(AppState.CurrentProfile?.AccessToken))
+        {
+            ImportValidationMessage = "Connect to GitHub before importing.";
+            return;
+        }
+
+        if (!TryParseImportJson(ImportJsonText, out var description, out var isPublic, out var files, out var validationError))
+        {
+            ImportValidationMessage = validationError;
+            return;
+        }
+
+        IsImporting = true;
+        StateHasChanged();
+
+        try
+        {
+            var createdGist = await Github.CreateGistAsync(description, isPublic, files, AppState.CurrentProfile!.AccessToken);
+            if (createdGist == null)
+            {
+                var message = Github.LastError?.Message;
+                ImportValidationMessage = string.IsNullOrWhiteSpace(message)
+                    ? "GitHub API rejected this payload."
+                    : $"GitHub API error: {message}";
+                return;
+            }
+
+            createdGist.IsSynced = true;
+            createdGist.Tags = ParseTags(createdGist.Description);
+
+            await Storage.SaveGistAsync(createdGist);
+            await LoadLocalGists();
+
+            ImportJsonText = "";
+            IsImportDialogOpen = false;
+            ImportWasSuccessful = true;
+            ImportMessage = $"Imported successfully: {createdGist.Id}";
+        }
+        catch (JsonException ex)
+        {
+            ImportValidationMessage = $"Invalid JSON: {ex.Message}";
+        }
+        catch (Exception ex)
+        {
+            ImportValidationMessage = $"Import failed: {ex.Message}";
+        }
+        finally
+        {
+            IsImporting = false;
+            StateHasChanged();
+        }
+    }
+
+    private static bool TryParseImportJson(
+        string json,
+        out string description,
+        out bool isPublic,
+        out Dictionary<string, GistFile> files,
+        out string validationError)
+    {
+        description = string.Empty;
+        isPublic = false;
+        files = new Dictionary<string, GistFile>(StringComparer.Ordinal);
+        validationError = string.Empty;
+
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            validationError = "Paste JSON content first.";
+            return false;
+        }
+
+        ImportedGistPayload? payload;
+        try
+        {
+            payload = JsonSerializer.Deserialize<ImportedGistPayload>(json, ImportJsonOptions);
+        }
+        catch (JsonException ex)
+        {
+            validationError = $"Invalid JSON: {ex.Message}";
+            return false;
+        }
+
+        if (payload == null)
+        {
+            validationError = "JSON payload is empty.";
+            return false;
+        }
+
+        if (payload.Files == null || payload.Files.Count == 0)
+        {
+            validationError = "At least one file is required in files.";
+            return false;
+        }
+
+        foreach (var fileEntry in payload.Files)
+        {
+            var filename = (fileEntry.Key ?? string.Empty).Trim();
+            if (string.IsNullOrWhiteSpace(filename))
+            {
+                validationError = "All file names must be non-empty.";
+                return false;
+            }
+
+            if (files.ContainsKey(filename))
+            {
+                validationError = $"Duplicate filename found: {filename}";
+                return false;
+            }
+
+            if (fileEntry.Value == null)
+            {
+                validationError = $"File entry '{filename}' is invalid.";
+                return false;
+            }
+
+            files[filename] = new GistFile
+            {
+                Filename = filename,
+                Content = fileEntry.Value.Content ?? string.Empty
+            };
+        }
+
+        description = payload.Description?.Trim() ?? string.Empty;
+        isPublic = payload.Public;
+        return true;
+    }
+
+    private void HandleImportDialogKeyDown(KeyboardEventArgs args)
+    {
+        if (args.Key == "Escape")
+        {
+            CloseImportDialog();
+        }
+    }
+
     private static string NormalizeGroupName(string? name)
         => (name ?? string.Empty).Trim();
+
+    private sealed class ImportedGistPayload
+    {
+        public string? Description { get; set; }
+        public bool Public { get; set; }
+        public Dictionary<string, ImportedGistFile>? Files { get; set; }
+    }
+
+    private sealed class ImportedGistFile
+    {
+        public string? Content { get; set; }
+    }
 }
