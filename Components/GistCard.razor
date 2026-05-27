@@ -34,7 +34,13 @@
                 @if (OnEdit.HasDelegate)
                 {
                     <button @onclick="() => OnEdit.InvokeAsync()" class="p-2 hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-lg transition-colors" title="Edit Gist">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-ruler"><path d="m15 5 4 4"/><path d="M13 7 8.7 2.7a2.41 2.41 0 0 0-3.4 0L2.7 5.3a2.41 2.41 0 0 0 0 3.4L7 13"/><path d="m8 6 2-2"/><path d="m2 22 5.5-5.5"/><path d="M14.2 11a1.6 1.6 0 0 1 0 2.3l-3.9 3.9a1.6 1.6 0 0 1-2.3 0l-3.9-3.9a1.6 1.6 0 0 1 0-2.3l3.9-3.9a1.6 1.6 0 0 1 2.3 0l3.9 3.9Z"/><path d="m18 10 2-2"/><path d="m15 13 2-2"/><path d="m11 17 2-2"/><path d="m12 22 5.5-5.5a2.41 2.41 0 0 0 0-3.4l-2.6-2.6a2.41 2.41 0 0 0-3.4 0L6 16"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                    </button>
+                }
+                @if (OnDelete.HasDelegate)
+                {
+                    <button @onclick="() => OnDelete.InvokeAsync()" class="p-2 hover:bg-destructive/10 text-muted-foreground hover:text-destructive rounded-lg transition-colors" title="Delete Gist">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
                     </button>
                 }
                 @if (OnClone.HasDelegate)

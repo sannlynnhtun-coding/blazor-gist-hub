@@ -310,6 +310,13 @@
     {
         if (string.IsNullOrEmpty(gist.Id)) return;
 
+        var gistLabel = string.IsNullOrWhiteSpace(gist.Description) ? gist.Id : gist.Description;
+        var confirmed = await JS.InvokeAsync<bool>("confirm", $"Delete this gist?\n\n{gistLabel}\n\nThis action cannot be undone.");
+        if (!confirmed)
+        {
+            return;
+        }
+
         LocalGists.Remove(gist);
         await Storage.DeleteGistAsync(gist.Id);
         StateHasChanged();
