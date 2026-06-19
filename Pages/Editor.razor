@@ -119,6 +119,7 @@
 
     private string Description { get; set; } = "";
     private string Filename { get; set; } = "main.cs";
+    private string OriginalFilename { get; set; } = "";
     private string Content { get; set; } = "";
     private bool IsPublic { get; set; } = true;
     private bool IsLoading { get; set; } = false;
@@ -149,7 +150,8 @@
         {
             Description = gist.Description;
             var firstFile = gist.Files.FirstOrDefault();
-            Filename = firstFile.Key ?? "snippet.txt";
+            OriginalFilename = firstFile.Key ?? "snippet.txt";
+            Filename = OriginalFilename;
             Content = firstFile.Value?.Content ?? "";
             IsPublic = gist.Public;
         }
@@ -157,25 +159,36 @@
 
     private async Task HandleSave()
     {
-        if (string.IsNullOrEmpty(Content)) return;
+        var filename = Filename.Trim();
+        if (string.IsNullOrWhiteSpace(filename) || string.IsNullOrEmpty(Content)) return;
         
         IsLoading = true;
         StateHasChanged();
 
         try 
         {
-            var files = new Dictionary<string, GistFile>
-            {
-                { Filename, new GistFile { Content = Content } }
-            };
+            Filename = filename;
 
             LocalGist? result;
             if (string.IsNullOrEmpty(GistId))
             {
+                var files = new Dictionary<string, GistFile>
+                {
+                    { filename, new GistFile { Content = Content } }
+                };
+
                 result = await Github.CreateGistAsync(Description, IsPublic, files, AppState.CurrentProfile!.AccessToken);
             }
             else 
             {
+                var originalFilename = string.IsNullOrWhiteSpace(OriginalFilename)
+                    ? filename
+                    : OriginalFilename;
+                var files = new Dictionary<string, GistFile>
+                {
+                    { originalFilename, new GistFile { Filename = filename, Content = Content } }
+                };
+
                 result = await Github.UpdateGistAsync(GistId, Description, files, AppState.CurrentProfile!.AccessToken);
             }
 

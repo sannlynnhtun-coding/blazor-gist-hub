@@ -182,10 +182,28 @@ public class GithubService : IGithubService
         var body = new
         {
             description = description,
-            files = files
+            files = files.ToDictionary(
+                file => file.Key,
+                file => CreateGistUpdateFilePayload(file.Key, file.Value))
         };
 
         return await SendGitHubJsonAsync<LocalGist>(HttpMethod.Patch, $"/gists/{id}", token, body);
+    }
+
+    private static Dictionary<string, object?> CreateGistUpdateFilePayload(string existingFilename, GistFile file)
+    {
+        var payload = new Dictionary<string, object?>
+        {
+            ["content"] = file.Content ?? string.Empty
+        };
+
+        if (!string.IsNullOrWhiteSpace(file.Filename) &&
+            !string.Equals(file.Filename, existingFilename, StringComparison.Ordinal))
+        {
+            payload["filename"] = file.Filename;
+        }
+
+        return payload;
     }
 
     public async Task<GithubUser?> GetUserInfoAsync(string token)
