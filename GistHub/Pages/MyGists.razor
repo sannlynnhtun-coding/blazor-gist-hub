@@ -10,27 +10,27 @@
 @inject IJSRuntime JS
 
 <div class="space-y-12 pb-20">
-    <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-primary/10">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b">
         <div class="flex items-center gap-6">
             @if (AppState.IsAuthenticated)
             {
                 <div class="relative">
-                    <div class="w-20 h-20 rounded-2xl border-2 border-background bg-muted overflow-hidden shadow-xl shadow-primary/10 ring-4 ring-primary/5">
+                    <div class="w-20 h-20 rounded-xl border border-border bg-muted overflow-hidden">
                         <img src="@($"https://github.com/{AppState.CurrentProfile?.GithubUsername}.png")" class="w-full h-full object-cover" />
                     </div>
                 </div>
                 <div class="space-y-1">
                     <div class="flex items-center gap-2">
-                        <h1 class="text-2xl font-black tracking-tight">@AppState.CurrentProfile?.Name</h1>
-                        <div class="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-500 text-[8px] font-black uppercase tracking-widest border border-emerald-500/20">Verified</div>
+                        <h1 class="text-2xl font-semibold tracking-tight">@AppState.CurrentProfile?.Name</h1>
+                        <div class="px-1.5 py-0.5 rounded bg-[#EDF3EC] text-[#346538] text-[8px] font-bold uppercase tracking-widest border border-border">Verified</div>
                     </div>
                     <div class="flex items-center gap-4">
-                        <span class="text-xs font-mono font-bold text-primary opacity-70">@@@AppState.CurrentProfile?.GithubUsername</span>
+                        <span class="text-xs font-mono font-bold text-muted-foreground">@@@AppState.CurrentProfile?.GithubUsername</span>
                         <span class="w-1 h-1 rounded-full bg-border"></span>
-                        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
                             <span class="flex items-center gap-1"><span class="text-foreground">@TotalGistsCount</span> Gists</span>
-                            <span class="flex items-center gap-1"><span class="text-emerald-500">@PublicGistsCount</span> Public</span>
-                            <span class="flex items-center gap-1"><span class="text-amber-500">@SecretGistsCount</span> Secret</span>
+                            <span class="flex items-center gap-1"><span class="text-[#346538]">@PublicGistsCount</span> Public</span>
+                            <span class="flex items-center gap-1"><span class="text-[#956400]">@SecretGistsCount</span> Secret</span>
                             <span class="flex items-center gap-1"><span class="text-primary">@BookmarkedGistsCount</span> Bookmarks</span>
                         </div>
                     </div>
@@ -59,8 +59,7 @@
     </div>
 
     <div class="relative group max-w-2xl mx-auto w-full -mt-6">
-        <div class="absolute inset-0 bg-primary/5 blur-xl group-hover:bg-primary/10 transition-all rounded-2xl"></div>
-        <div class="relative flex items-center bg-card/50 backdrop-blur-xl border border-primary/20 rounded-2xl px-4 py-2 shadow-2xl transition-all focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10">
+        <div class="relative flex items-center bg-card border border-border rounded-xl px-4 py-2 transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search text-muted-foreground mr-3"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <input
                 type="text"
@@ -77,34 +76,34 @@
             }
 
             <div class="ml-4 pl-4 border-l border-border flex items-center gap-2">
-                <span class="text-[10px] font-black uppercase tracking-widest text-muted-foreground/50">Filtered</span>
-                <span class="text-xs font-black tabular-nums">@FilteredGists.Count</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Filtered</span>
+                <span class="text-xs font-bold tabular-nums">@FilteredGists.Count</span>
             </div>
         </div>
     </div>
 
     @if (!string.IsNullOrWhiteSpace(GroupMessage))
     {
-        <div class="p-3 rounded-xl border border-primary/20 bg-primary/5 text-sm text-primary font-semibold">@GroupMessage</div>
+        <div class="p-3 rounded-xl border border-border bg-[#FBF3DB] text-sm text-[#956400] font-semibold">@GroupMessage</div>
     }
 
     @if (!string.IsNullOrWhiteSpace(ImportMessage))
     {
-        <div class="p-3 rounded-xl border text-sm font-semibold @(ImportWasSuccessful ? "border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : "border-destructive/30 bg-destructive/10 text-destructive")">
+        <div class="p-3 rounded-xl border text-sm font-semibold @(ImportWasSuccessful ? "border-border bg-[#EDF3EC] text-[#346538]" : "border-border bg-[#FDEBEC] text-[#9F2F2D]")">
             @ImportMessage
         </div>
     }
 
     @if (!AppState.IsAuthenticated)
     {
-        <div class="flex flex-col items-center justify-center py-20 border-2 border-dashed rounded-3xl bg-destructive/5">
+        <div class="flex flex-col items-center justify-center py-20 border border-dashed rounded-xl bg-[#FDEBEC]">
             <p class="text-sm font-medium text-destructive">You must be connected to GitHub to view your gists.</p>
             <button @onclick='() => Navigation.NavigateTo("/login")' class="mt-4 btn btn-primary btn-md">Connect Now</button>
         </div>
     }
     else if (!LocalGists.Any() && !IsSyncing)
     {
-        <div class="flex flex-col items-center justify-center py-20 border-2 border-dashed rounded-3xl bg-muted/10 opacity-50">
+        <div class="flex flex-col items-center justify-center py-20 border border-dashed rounded-xl bg-muted/20 opacity-70">
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database-zap text-muted-foreground mb-4"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/><path d="M11 20l2-1h5l1 2"/></svg>
             <p class="text-sm font-medium text-muted-foreground">Pulling your gists from GitHub...</p>
         </div>
@@ -160,11 +159,11 @@
 @if (IsImportDialogOpen)
 {
     <div class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6" @onkeydown="HandleImportDialogKeyDown">
-        <button class="absolute inset-0 bg-black/50 backdrop-blur-sm cursor-default" aria-label="Close import dialog" @onclick="CloseImportDialog"></button>
-        <div class="relative w-full max-w-4xl bg-card border border-primary/20 rounded-3xl shadow-2xl p-5 md:p-8 space-y-4">
+        <button class="absolute inset-0 bg-black/40 backdrop-blur-sm cursor-default" aria-label="Close import dialog" @onclick="CloseImportDialog"></button>
+        <div class="relative w-full max-w-4xl bg-card border border-border rounded-xl p-5 md:p-8 space-y-4">
             <div class="flex items-start justify-between gap-4">
                 <div class="space-y-1">
-                    <h2 class="text-xl font-black tracking-tight">Paste Gist JSON</h2>
+                    <h2 class="text-xl font-semibold tracking-tight">Paste Gist JSON</h2>
                     <p class="text-sm text-muted-foreground">Paste an object with <code>description</code>, <code>public</code>, and <code>files</code>.</p>
                 </div>
                 <button @onclick="CloseImportDialog" class="p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground" title="Close">
@@ -178,7 +177,7 @@
                 rows="16"
                 spellcheck="false"
                 placeholder='{"description":"...","public":false,"files":{"file.md":{"content":"..."}}}'
-                class="w-full bg-secondary/30 border rounded-2xl p-4 focus:ring-2 focus:ring-primary/20 outline-none transition-all text-sm font-mono resize-y custom-scrollbar"></textarea>
+                class="w-full bg-secondary/30 border rounded-lg p-4 focus:ring-2 focus:ring-primary/10 outline-none transition-all text-sm font-mono resize-y custom-scrollbar"></textarea>
 
             @if (!string.IsNullOrWhiteSpace(ImportValidationMessage))
             {

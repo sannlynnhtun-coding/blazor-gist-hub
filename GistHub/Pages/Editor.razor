@@ -16,7 +16,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
             </button>
             <div>
-                <h1 class="text-3xl font-black tracking-tighter">@(string.IsNullOrEmpty(GistId) ? "Create Snippet" : "Edit Snippet")</h1>
+                <h1 class="text-3xl font-semibold tracking-tight">@(string.IsNullOrEmpty(GistId) ? "Create Snippet" : "Edit Snippet")</h1>
                 <p class="text-muted-foreground text-sm">Professional editing environment for your cloud gists.</p>
             </div>
         </div>
@@ -31,7 +31,7 @@
 
     @if (!string.IsNullOrWhiteSpace(ErrorMessage))
     {
-        <div class="p-4 rounded-2xl border border-destructive/30 bg-destructive/10 text-sm text-destructive font-semibold">
+        <div class="p-4 rounded-xl border border-border bg-[#FDEBEC] text-sm text-[#9F2F2D] font-semibold">
             @ErrorMessage
         </div>
     }
@@ -39,8 +39,8 @@
     <!-- Main Workspace -->
     @if (IsEditorUnavailable)
     {
-        <div class="p-12 border-2 border-dashed rounded-[2rem] flex flex-col items-center justify-center text-center space-y-4">
-            <h2 class="text-2xl font-black tracking-tight">Snippet unavailable</h2>
+        <div class="p-12 border border-dashed rounded-xl flex flex-col items-center justify-center text-center space-y-4">
+            <h2 class="text-2xl font-semibold tracking-tight">Snippet unavailable</h2>
             <p class="text-sm text-muted-foreground max-w-xl">GitHub could not load this snippet for editing. Check that this gist still exists and that the current token belongs to the owner.</p>
             <button @onclick='() => Navigation.NavigateTo("/my-gists")' class="btn btn-primary btn-md">Back to My Gists</button>
         </div>
@@ -50,27 +50,27 @@
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <!-- Sidebar Settings -->
         <div class="lg:col-span-1 space-y-6">
-            <div class="bg-card border rounded-3xl p-6 shadow-sm space-y-6">
+            <div class="bg-card border rounded-xl p-6 space-y-6">
                 <div class="space-y-2">
-                    <label class="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Description</label>
-                    <textarea @bind="Description" rows="4" placeholder="What does this snippet do? #hashtags supported" class="w-full bg-secondary/30 border rounded-2xl py-3 px-4 focus:ring-2 focus:ring-primary/20 outline-none transition-all text-sm resize-none"></textarea>
+                    <label class="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Description</label>
+                    <textarea @bind="Description" rows="4" placeholder="What does this snippet do? #hashtags supported" class="w-full bg-secondary/30 border rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary/10 outline-none transition-all text-sm resize-none"></textarea>
                 </div>
 
                 <div class="space-y-2">
-                    <label class="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Filename</label>
+                    <label class="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Filename</label>
                     <div class="relative">
-                        <input @bind="Filename" type="text" placeholder="script.js" class="w-full bg-secondary/30 border rounded-2xl py-3 px-10 focus:ring-2 focus:ring-primary/20 outline-none transition-all font-mono text-xs" />
+                        <input @bind="Filename" type="text" placeholder="script.js" class="w-full bg-secondary/30 border rounded-lg py-3 px-10 focus:ring-2 focus:ring-primary/10 outline-none transition-all font-mono text-xs" />
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-code absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/></svg>
                     </div>
                 </div>
 
                 <div class="space-y-2">
-                    <label class="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Privacy Level</label>
+                    <label class="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Privacy Level</label>
                     <div class="grid grid-cols-2 gap-2 p-1 bg-secondary/50 rounded-lg border">
-                        <button @onclick="() => IsPublic = true" disabled="@(!string.IsNullOrEmpty(GistId))" class="btn btn-sm @(IsPublic ? "btn-secondary bg-background shadow-sm" : "btn-ghost text-muted-foreground") @(!string.IsNullOrEmpty(GistId) ? "cursor-not-allowed opacity-50" : "")">
+                        <button @onclick="() => IsPublic = true" disabled="@(!string.IsNullOrEmpty(GistId))" class="btn btn-sm @(IsPublic ? "btn-secondary bg-background" : "btn-ghost text-muted-foreground") @(!string.IsNullOrEmpty(GistId) ? "cursor-not-allowed opacity-50" : "")">
                             Public
                         </button>
-                        <button @onclick="() => IsPublic = false" disabled="@(!string.IsNullOrEmpty(GistId))" class="btn btn-sm @(!IsPublic ? "btn-secondary bg-background shadow-sm" : "btn-ghost text-muted-foreground") @(!string.IsNullOrEmpty(GistId) ? "cursor-not-allowed opacity-50" : "")">
+                        <button @onclick="() => IsPublic = false" disabled="@(!string.IsNullOrEmpty(GistId))" class="btn btn-sm @(!IsPublic ? "btn-secondary bg-background" : "btn-ghost text-muted-foreground") @(!string.IsNullOrEmpty(GistId) ? "cursor-not-allowed opacity-50" : "")">
                             Secret
                         </button>
                     </div>
@@ -82,33 +82,33 @@
             </div>
 
             <!-- Helpful Tips -->
-            <div class="bg-primary/5 rounded-3xl p-6 border border-primary/10">
-                <h4 class="text-xs font-black text-primary uppercase tracking-widest mb-3">Sync Status</h4>
+            <div class="bg-[#EDF3EC] rounded-xl p-6 border border-border">
+                <h4 class="text-xs font-bold text-[#346538] uppercase tracking-widest mb-3">Sync Status</h4>
                 <div class="flex items-center gap-3">
-                    <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                    <span class="text-xs font-bold">Encrypted & Ready</span>
+                    <div class="w-2 h-2 rounded-full bg-[#346538]"></div>
+                    <span class="text-xs font-semibold text-[#346538]">Encrypted & Ready</span>
                 </div>
             </div>
         </div>
 
         <!-- Editor Console -->
         <div class="lg:col-span-3 flex flex-col h-[70vh] min-h-[600px]">
-            <div class="flex-1 bg-[#0d1117] rounded-[2.5rem] border border-white/5 shadow-2xl relative overflow-hidden group">
+            <div class="flex-1 bg-[#111111] rounded-xl border border-border relative overflow-hidden group">
                 <!-- Editor Header Mockup -->
-                <div class="absolute top-0 inset-x-0 h-12 bg-white/5 border-b border-white/5 flex items-center justify-between px-6 z-10 backdrop-blur-sm">
+                <div class="absolute top-0 inset-x-0 h-12 bg-card border-b border-border flex items-center justify-between px-6 z-10">
                     <div class="flex gap-1.5">
-                        <div class="w-2.5 h-2.5 rounded-full bg-destructive/50"></div>
-                        <div class="w-2.5 h-2.5 rounded-full bg-amber-500/50"></div>
-                        <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/50"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-border"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-border"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-border"></div>
                     </div>
                     <div class="flex items-center gap-4">
                         @if (Filename.EndsWith(".md"))
                         {
-                            <button @onclick="TogglePreview" class="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-md transition-all @(IsPreview ? "bg-primary text-primary-foreground" : "bg-white/5 text-zinc-400 hover:bg-white/10")">
+                            <button @onclick="TogglePreview" class="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-md transition-all @(IsPreview ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-accent")">
                                 Preview
                             </button>
                         }
-                        <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-black">UTF-8 — @Filename</span>
+                        <span class="text-[10px] font-mono text-muted-foreground uppercase tracking-widest font-bold">UTF-8 - @Filename</span>
                     </div>
                 </div>
 
@@ -123,7 +123,7 @@
                 }
                 
                 <!-- Status Bar -->
-                <div class="absolute bottom-6 right-8 text-[10px] font-mono text-zinc-500 uppercase tracking-widest bg-zinc-900 px-3 py-1.5 rounded-full border border-white/5">
+                <div class="absolute bottom-6 right-8 text-[10px] font-mono text-zinc-500 uppercase tracking-widest bg-zinc-900 px-3 py-1.5 rounded-md border border-white/10">
                     LN @(Content?.Split('\n').Length ?? 1) COL @(Content?.Length ?? 0)
                 </div>
             </div>

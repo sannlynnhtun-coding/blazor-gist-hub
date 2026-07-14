@@ -8,9 +8,9 @@
 @inject IStorageService Storage
 
 <div class="space-y-12 pb-20">
-    <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-primary/10">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b">
         <div class="space-y-1">
-            <h1 class="text-3xl font-black tracking-tight">SLH Collection</h1>
+            <h1 class="text-3xl font-semibold tracking-tight">SLH Collection</h1>
             <p class="text-muted-foreground text-base">
                 Public files shared from
                 <a href="https://github.com/sannlynnhtun-coding" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary hover:underline ml-1">@@sannlynnhtun.coding</a>
@@ -24,8 +24,7 @@
     </div>
 
     <div class="relative group max-w-2xl mx-auto w-full -mt-6">
-        <div class="absolute inset-0 bg-primary/5 blur-xl group-hover:bg-primary/10 transition-all rounded-2xl"></div>
-        <div class="relative flex items-center bg-card/50 backdrop-blur-xl border border-primary/20 rounded-2xl px-4 py-2 shadow-2xl transition-all focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10">
+        <div class="relative flex items-center bg-card border border-border rounded-xl px-4 py-2 transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search text-muted-foreground mr-3"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <input
                 type="text"
@@ -42,16 +41,16 @@
             }
 
             <div class="ml-4 pl-4 border-l border-border flex items-center gap-2">
-                <span class="text-[10px] font-black uppercase tracking-widest text-muted-foreground/50">Results</span>
-                <span class="text-xs font-black tabular-nums">@FilteredGists.Count</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Results</span>
+                <span class="text-xs font-bold tabular-nums">@FilteredGists.Count</span>
             </div>
         </div>
     </div>
 
     @if (!string.IsNullOrEmpty(Message))
     {
-        <div class="p-4 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-between animate-in fade-in slide-in-from-top-4">
-            <span class="text-sm font-bold text-primary">@Message</span>
+        <div class="p-4 rounded-xl bg-[#FBF3DB] border border-border flex items-center justify-between animate-in fade-in slide-in-from-top-4">
+            <span class="text-sm font-semibold text-[#956400]">@Message</span>
             <button @onclick='() => Message = ""' class="text-primary hover:scale-110 transition-transform">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
@@ -63,20 +62,20 @@
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6">
             @for (int i = 0; i < 4; i++)
             {
-                <div class="h-64 bg-muted animate-pulse rounded-2xl"></div>
+                <div class="h-64 bg-muted animate-pulse rounded-xl border border-border"></div>
             }
         </div>
     }
     else if (HasLoadError)
     {
-        <div class="flex flex-col items-center justify-center py-20 border-2 border-dashed rounded-3xl bg-destructive/5">
+        <div class="flex flex-col items-center justify-center py-20 border border-dashed rounded-xl bg-[#FDEBEC]">
             <p class="text-sm font-medium text-destructive">@ErrorMessage</p>
             <button @onclick="LoadCollection" class="mt-4 btn btn-primary btn-md">Retry</button>
         </div>
     }
     else if (!FilteredGists.Any())
     {
-        <div class="flex flex-col items-center justify-center py-20 border-2 border-dashed rounded-3xl bg-muted/10">
+        <div class="flex flex-col items-center justify-center py-20 border border-dashed rounded-xl bg-muted/20">
             <p class="text-sm font-medium text-muted-foreground">No files found for this search.</p>
         </div>
     }

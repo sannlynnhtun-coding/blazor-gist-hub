@@ -1,9 +1,9 @@
 @using Microsoft.AspNetCore.Components.Web
 
-<div class="group relative bg-card border border-border/50 rounded-2xl overflow-visible hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] hover:-translate-y-1.5 transition-all duration-500 @(IsSelected ? "ring-2 ring-primary border-primary/50 shadow-lg shadow-primary/5" : "")">
+<div class="group relative bg-card border border-border rounded-xl overflow-visible hover:border-primary/30 transition-colors duration-200 @(IsSelected ? "ring-1 ring-primary border-primary" : "")">
     
     <!-- Active Indicator -->
-    <div class="absolute top-0 left-0 w-1 h-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+    <div class="absolute top-0 left-0 w-[3px] h-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
     
     <div class="p-5">
         <!-- Header -->
@@ -13,19 +13,19 @@
                 {
                     <div class="relative w-6 h-6 group/check flex-shrink-0">
                         <input type="checkbox" checked="@IsSelected" @onchange="(e) => OnSelectedChanged.InvokeAsync((bool)(e.Value ?? false))" class="absolute inset-0 opacity-0 z-10 cursor-pointer" />
-                        <div class="absolute inset-0 rounded-lg border-2 transition-all duration-300 flex items-center justify-center @(IsSelected ? "bg-primary border-primary shadow-lg shadow-primary/20 scale-110" : "bg-muted/50 border-primary/20 group-hover/check:border-primary/50")">
+                        <div class="absolute inset-0 rounded-md border transition-all duration-200 flex items-center justify-center @(IsSelected ? "bg-primary border-primary" : "bg-muted/50 border-border group-hover/check:border-primary/50")">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check pointer-events-none opacity-0 @(IsSelected ? "opacity-100 scale-100" : "scale-50") transition-all duration-300"><polyline points="20 6 9 17 4 12"/></svg>
                         </div>
                     </div>
                 }
-                <div class="w-10 h-10 rounded-full bg-muted border-2 border-background flex items-center justify-center overflow-hidden ring-1 ring-border group-hover:ring-primary/30 transition-all">
-                    <img src="@AvatarUrl" alt="@Author" class="w-full h-full object-cover transition-transform group-hover:scale-110" />
+                <div class="w-10 h-10 rounded-lg bg-muted border border-border flex items-center justify-center overflow-hidden transition-all">
+                    <img src="@AvatarUrl" alt="@Author" class="w-full h-full object-cover" />
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-sm font-black leading-tight hover:text-primary cursor-pointer transition-colors antialiased">@(string.IsNullOrEmpty(AuthorName) ? Author : AuthorName)</span>
+                    <span class="text-sm font-semibold leading-tight hover:text-primary cursor-pointer transition-colors antialiased">@(string.IsNullOrEmpty(AuthorName) ? Author : AuthorName)</span>
                     <div class="flex flex-col mt-0.5">
-                        <span class="text-[11px] text-primary/70 font-bold leading-tight">@@@Author</span>
-                        <span class="text-[10px] text-muted-foreground/50 font-bold tabular-nums mt-0.5">@TimeAgo</span>
+                        <span class="text-[11px] text-muted-foreground font-bold leading-tight">@@@Author</span>
+                        <span class="text-[10px] text-muted-foreground/70 font-bold tabular-nums mt-0.5">@TimeAgo</span>
                     </div>
                 </div>
             </div>
@@ -45,11 +45,11 @@
                 }
                 @if (OnClone.HasDelegate)
                 {
-                    <button @onclick="() => OnClone.InvokeAsync()" class="p-2 hover:bg-primary/10 text-primary rounded-lg transition-colors shadow-sm" title="Clone to my gists">
+                    <button @onclick="() => OnClone.InvokeAsync()" class="p-2 hover:bg-accent text-primary rounded-lg transition-colors" title="Clone to my gists">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-plus"><path d="M12 2H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><polyline points="22 2 15 2 15 9"/><path d="M12 9h9"/><path d="M16.5 13.5v6"/><path d="M13.5 16.5h6"/></svg>
                     </button>
                 }
-                <button @onclick="() => OnView.InvokeAsync(Id)" class="p-2 hover:bg-secondary text-foreground rounded-lg transition-colors shadow-sm">
+                <button @onclick="() => OnView.InvokeAsync(Id)" class="p-2 hover:bg-secondary text-foreground rounded-lg transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
                 </button>
             </div>
@@ -57,12 +57,12 @@
 
         <!-- Content -->
         <div class="space-y-4 cursor-pointer" @onclick="() => OnView.InvokeAsync(Id)">
-            <h3 class="text-base font-bold leading-snug line-clamp-2 group-hover:text-primary transition-colors antialiased">@(string.IsNullOrEmpty(Description) ? "Untitled Snippet" : Description)</h3>
+            <h3 class="text-base font-semibold leading-snug line-clamp-2 group-hover:text-primary transition-colors antialiased">@(string.IsNullOrEmpty(Description) ? "Untitled Snippet" : Description)</h3>
             
             <div class="flex flex-wrap gap-1.5">
                 @foreach (var tag in Tags)
                 {
-                    <span class="px-2.5 py-0.5 bg-primary/5 text-primary border border-primary/10 rounded-full text-[10px] font-black uppercase tracking-tight hover:bg-primary hover:text-white transition-all">#@tag</span>
+                    <span class="px-2.5 py-0.5 bg-[#E1F3FE] text-[#1F6C9F] border border-border rounded-full text-[10px] font-bold uppercase tracking-wide transition-all">#@tag</span>
                 }
                 @if (!Tags.Any())
                 {
@@ -71,9 +71,9 @@
             </div>
 
             <!-- Code Preview -->
-            <div class="relative bg-zinc-950/50 dark:bg-zinc-900/80 rounded-xl p-4 overflow-hidden border border-border/40 group-hover:border-primary/20 transition-all duration-300">
-                <div class="font-mono text-[13px] text-zinc-300 line-clamp-4 leading-relaxed antialiased whitespace-pre">@SnippetPreview</div>
-                <div class="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-zinc-950/80 dark:from-zinc-900 to-transparent pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity"></div>
+            <div class="relative bg-[#F7F6F3] dark:bg-muted rounded-lg p-4 overflow-hidden border border-border transition-all duration-300">
+                <div class="font-mono text-[13px] text-[#2F3437] dark:text-foreground line-clamp-4 leading-relaxed antialiased whitespace-pre">@SnippetPreview</div>
+                <div class="absolute inset-x-0 bottom-0 h-12 bg-background/90 pointer-events-none opacity-80"></div>
             </div>
         </div>
 
@@ -82,18 +82,18 @@
             <div class="flex items-center gap-4 text-muted-foreground">
                 <div class="flex items-center gap-1.5 group/stat">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star group-hover/stat:fill-yellow-500 group-hover/stat:stroke-yellow-500 transition-all"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    <span class="text-xs font-bold font-mono">@Stars</span>
+                    <span class="text-xs font-semibold font-mono">@Stars</span>
                 </div>
                 <div class="flex items-center gap-1.5 group/stat">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-git-fork group-hover/stat:stroke-primary transition-all"><path d="m12 12 5-5m-9 0 5 5v7"/><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/></svg>
-                    <span class="text-xs font-bold font-mono">@Forks</span>
+                    <span class="text-xs font-semibold font-mono">@Forks</span>
                 </div>
             </div>
             
             <div class="flex items-center gap-2">
                 @if (OnCopyRaw.HasDelegate)
                 {
-                    <button @onclick="() => OnCopyRaw.InvokeAsync()" class="inline-flex items-center gap-1.5 px-2 py-1.5 rounded-lg hover:bg-primary/10 @(IsCopied ? "text-emerald-500" : "text-muted-foreground hover:text-primary") transition-colors text-[10px] font-black uppercase tracking-widest" title="Copy raw content">
+                    <button @onclick="() => OnCopyRaw.InvokeAsync()" class="inline-flex items-center gap-1.5 px-2 py-1.5 rounded-lg hover:bg-accent @(IsCopied ? "text-[#346538]" : "text-muted-foreground hover:text-primary") transition-colors text-[10px] font-bold uppercase tracking-widest" title="Copy raw content">
                         @if (IsCopied)
                         {
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
@@ -116,10 +116,10 @@
                         @if (IsGroupPopoverOpen)
                         {
                             <button class="fixed inset-0 z-40 cursor-default" aria-label="Close group selector" @onclick="CloseGroupPopover"></button>
-                            <div class="absolute right-0 bottom-10 z-50 w-72 rounded-xl border bg-card shadow-2xl p-3 space-y-3" tabindex="0" @ref="PopoverRef" @onclick:stopPropagation="true" @onkeydown="HandlePopoverKeyDown">
+                            <div class="absolute right-0 bottom-10 z-50 w-72 rounded-xl border bg-card p-3 space-y-3" tabindex="0" @ref="PopoverRef" @onclick:stopPropagation="true" @onkeydown="HandlePopoverKeyDown">
                                 <div class="flex items-center justify-between">
-                                    <span class="text-xs font-black uppercase tracking-widest text-muted-foreground">Groups</span>
-                                    <span class="text-[10px] font-bold text-primary">@SelectedGroups.Count selected</span>
+                                    <span class="text-xs font-bold uppercase tracking-widest text-muted-foreground">Groups</span>
+                                    <span class="text-[10px] font-bold text-muted-foreground">@SelectedGroups.Count selected</span>
                                 </div>
 
                                 <div class="max-h-44 overflow-auto space-y-1 pr-1">
@@ -162,11 +162,11 @@
                     </div>
                 }
 
-                <button @onclick="() => OnToggleBookmark.InvokeAsync(Id)" class="p-1.5 rounded-lg hover:bg-yellow-500/10 @(IsBookmarked ? "text-yellow-500" : "text-muted-foreground") transition-colors">
+                <button @onclick="() => OnToggleBookmark.InvokeAsync(Id)" class="p-1.5 rounded-lg hover:bg-[#FBF3DB] @(IsBookmarked ? "text-[#956400]" : "text-muted-foreground") transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="@(IsBookmarked ? "currentColor" : "none")" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bookmark"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
                 </button>
                 <div class="h-4 w-[1px] bg-border mx-1"></div>
-                <div class="text-[10px] text-muted-foreground font-black uppercase tracking-widest opacity-40 group-hover:opacity-100 group-hover:text-primary transition-all cursor-pointer" @onclick="() => OnView.InvokeAsync(Id)">Open Details</div>
+                <div class="text-[10px] text-muted-foreground font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100 group-hover:text-primary transition-all cursor-pointer" @onclick="() => OnView.InvokeAsync(Id)">Open Details</div>
             </div>
         </div>
     </div>

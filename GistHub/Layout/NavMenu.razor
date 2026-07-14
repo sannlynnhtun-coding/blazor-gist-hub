@@ -1,38 +1,38 @@
-<div class="w-64 border-r bg-card/50 hidden md:flex flex-col h-screen sticky top-0">
+<div class="w-64 border-r bg-card hidden md:flex flex-col h-screen sticky top-0">
     <div class="p-6 flex flex-col h-full">
         <!-- Brand/Logo Area -->
         <div class="flex items-center gap-3 mb-8 cursor-pointer group" @onclick='() => Navigation.NavigateTo("")'>
-            <div class="w-12 h-12 rounded-2xl overflow-hidden shadow-2xl shadow-primary/20 group-hover:scale-110 active:scale-95 transition-all duration-500 ring-2 ring-primary/10">
+            <div class="w-11 h-11 rounded-lg overflow-hidden border border-border group-hover:border-primary transition-colors duration-200">
                 <img src="logo.svg" class="w-full h-full object-cover" />
             </div>
             <div class="flex flex-col">
-                <h1 class="font-black text-2xl tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/60">GistHub</h1>
+                <h1 class="font-semibold text-2xl tracking-tight leading-none">GistHub</h1>
                 <div class="flex items-center gap-1.5 mt-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                    <span class="text-[10px] text-primary font-black uppercase tracking-widest leading-none">Pro Edition</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#346538]"></span>
+                    <span class="text-[10px] text-muted-foreground font-bold uppercase tracking-widest leading-none">Local Workspace</span>
                 </div>
             </div>
         </div>
 
         <!-- Main Navigation -->
         <nav class="space-y-1 mb-8">
-            <NavLink href="" Match="NavLinkMatch.All" class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all hover:bg-accent group">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass text-muted-foreground group-hover:text-primary transition-colors hover:rotate-45 duration-500"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+            <NavLink href="" Match="NavLinkMatch.All" class="nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all hover:bg-accent group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass text-muted-foreground group-hover:text-primary transition-colors"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
                 Discovery
             </NavLink>
-            <NavLink href="trending" class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all hover:bg-accent group">
+            <NavLink href="trending" class="nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all hover:bg-accent group">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles text-muted-foreground group-hover:text-primary transition-colors"><path d="m12 3 1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 0-1.275-1.275L3 12l5.813-1.912a2 2 0 0 0 1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
                 Trending Now
             </NavLink>
-            <NavLink href="my-gists" class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all hover:bg-accent group">
+            <NavLink href="my-gists" class="nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all hover:bg-accent group">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-2 text-muted-foreground group-hover:text-primary transition-colors"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
                 My Collection
             </NavLink>
-            <NavLink href="collections" class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all hover:bg-accent group">
+            <NavLink href="collections" class="nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all hover:bg-accent group">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers text-muted-foreground group-hover:text-primary transition-colors"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
                 Playlists
             </NavLink>
-            <NavLink href="slh-collection" class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all hover:bg-accent group">
+            <NavLink href="slh-collection" class="nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all hover:bg-accent group">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-open text-muted-foreground group-hover:text-primary transition-colors"><path d="m6 14 1.5-3h9L18 14"/><path d="M3 20h18"/><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v11H3z"/></svg>
                 SLH Collection
             </NavLink>
@@ -45,10 +45,10 @@
         <div class="mb-auto">
             <h3 class="px-3 text-[10px] uppercase tracking-wider font-bold text-muted-foreground mb-4">Tags</h3>
             <div class="flex flex-wrap gap-2 px-3">
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary/10 text-primary border border-primary/20 cursor-pointer hover:bg-primary/20 transition-all">#dotnet</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 cursor-pointer hover:bg-emerald-500/20 transition-all">#react</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-600 border border-amber-500/20 cursor-pointer hover:bg-amber-500/20 transition-all">#python</span>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/10 text-indigo-600 border border-indigo-500/20 cursor-pointer hover:bg-indigo-500/20 transition-all">#blazor</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E1F3FE] text-[#1F6C9F] border border-border cursor-pointer transition-all">#dotnet</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#EDF3EC] text-[#346538] border border-border cursor-pointer transition-all">#react</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FBF3DB] text-[#956400] border border-border cursor-pointer transition-all">#python</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FDEBEC] text-[#9F2F2D] border border-border cursor-pointer transition-all">#blazor</span>
             </div>
         </div>
 
@@ -56,9 +56,9 @@
         <div class="mt-auto pt-6">
             @if (AppState.IsAuthenticated)
             {
-                <div class="p-3 bg-primary/10 rounded-xl border border-primary/20 animate-in fade-in slide-in-from-bottom-4">
+                <div class="p-3 bg-secondary rounded-lg border border-border animate-in fade-in slide-in-from-bottom-4">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center overflow-hidden border-2 border-white/20 shadow-lg hover:scale-110 transition-transform duration-300">
+                        <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center overflow-hidden border border-border">
                             <img src="@($"https://github.com/{AppState.CurrentProfile?.GithubUsername}.png")" class="w-full h-full object-cover" onerror="this.src='https://github.com/identicons/slh.png'" />
                         </div>
                         <div class="flex flex-col min-w-0">
@@ -73,8 +73,8 @@
             }
             else
             {
-                <NavLink href="login" class="p-3 bg-secondary/50 rounded-xl border border-border/50 flex items-center gap-3 hover:bg-secondary transition-all group">
-                    <div class="w-8 h-8 rounded-full bg-muted flex items-center justify-center overflow-hidden border border-white/20 group-hover:scale-110 transition-transform">
+                <NavLink href="login" class="p-3 bg-secondary/50 rounded-lg border border-border flex items-center gap-3 hover:bg-secondary transition-all group">
+                    <div class="w-8 h-8 rounded-lg bg-muted flex items-center justify-center overflow-hidden border border-border">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-2 text-muted-foreground"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
                     </div>
                     <div class="flex flex-col min-w-0">
@@ -111,6 +111,6 @@
 
 <style>
     .nav-item.active {
-        @@apply bg-primary/10 text-primary font-semibold border-r-2 border-primary rounded-r-none;
+        @@apply bg-accent text-foreground font-semibold border-r-2 border-primary rounded-r-none;
     }
 </style>
