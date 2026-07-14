@@ -2,6 +2,7 @@
 @page "/editor/{GistId}"
 @using GistHub.Models
 @using GistHub.Services
+@using System.Net
 @inject IStorageService Storage
 @inject AppState AppState
 @inject NavigationManager Navigation
@@ -28,7 +29,24 @@
         </div>
     </div>
 
+    @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+    {
+        <div class="p-4 rounded-2xl border border-destructive/30 bg-destructive/10 text-sm text-destructive font-semibold">
+            @ErrorMessage
+        </div>
+    }
+
     <!-- Main Workspace -->
+    @if (IsEditorUnavailable)
+    {
+        <div class="p-12 border-2 border-dashed rounded-[2rem] flex flex-col items-center justify-center text-center space-y-4">
+            <h2 class="text-2xl font-black tracking-tight">Snippet unavailable</h2>
+            <p class="text-sm text-muted-foreground max-w-xl">GitHub could not load this snippet for editing. Check that this gist still exists and that the current token belongs to the owner.</p>
+            <button @onclick='() => Navigation.NavigateTo("/my-gists")' class="btn btn-primary btn-md">Back to My Gists</button>
+        </div>
+    }
+    else
+    {
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <!-- Sidebar Settings -->
         <div class="lg:col-span-1 space-y-6">
@@ -111,6 +129,7 @@
             </div>
         </div>
     </div>
+    }
 </div>
 
 @code {
@@ -124,6 +143,8 @@
     private bool IsPublic { get; set; } = true;
     private bool IsLoading { get; set; } = false;
     private bool IsPreview { get; set; } = false;
+    private bool IsEditorUnavailable { get; set; } = false;
+    private string ErrorMessage { get; set; } = "";
     private ElementReference previewContainer;
     private bool shouldRenderPreview = false;
 
@@ -145,22 +166,71 @@
     {
         var gists = await Storage.GetLocalGistsAsync();
         var gist = gists.FirstOrDefault(g => g.Id == GistId);
-        
-        if (gist != null)
+
+        if (gist == null || !HasEditableContent(gist))
         {
-            Description = gist.Description;
-            var firstFile = gist.Files.FirstOrDefault();
-            OriginalFilename = firstFile.Key ?? "snippet.txt";
-            Filename = OriginalFilename;
-            Content = firstFile.Value?.Content ?? "";
-            IsPublic = gist.Public;
+            var freshGist = await Github.GetGistByIdAsync(GistId!, AppState.CurrentProfile!.AccessToken);
+            if (freshGist != null)
+            {
+                freshGist.IsSynced = true;
+                freshGist.Tags = ParseTags(freshGist.Description);
+                await Storage.SaveGistAsync(freshGist);
+                gist = freshGist;
+            }
         }
+
+        if (gist == null || !HasEditableContent(gist))
+        {
+            IsEditorUnavailable = true;
+            ErrorMessage = BuildGithubErrorMessage("load");
+            return;
+        }
+
+        Description = gist.Description;
+        var firstFile = gist.Files.FirstOrDefault();
+        OriginalFilename = firstFile.Key ?? firstFile.Value?.Filename ?? "snippet.txt";
+        Filename = string.IsNullOrWhiteSpace(firstFile.Value?.Filename)
+            ? OriginalFilename
+            : firstFile.Value.Filename;
+        Content = firstFile.Value?.Content ?? "";
+        IsPublic = gist.Public;
+    }
+
+    private static bool HasEditableContent(LocalGist? gist)
+        => gist?.Files.Values.Any(file => !string.IsNullOrEmpty(file.Content)) == true;
+
+    private string BuildGithubErrorMessage(string action)
+    {
+        var error = Github.LastError;
+        if (error == null)
+        {
+            return action == "load"
+                ? "Could not load this snippet from GitHub."
+                : "Could not save this snippet to GitHub.";
+        }
+
+        var detail = string.IsNullOrWhiteSpace(error.Message)
+            ? "GitHub API request failed."
+            : error.Message;
+
+        return error.StatusCode switch
+        {
+            HttpStatusCode.Forbidden => $"GitHub rejected this request: {detail}. Your token needs Gists write permission.",
+            HttpStatusCode.NotFound => $"Snippet not found on GitHub: {detail}. It may be deleted, owned by another account, or this local cache has a stale ID.",
+            HttpStatusCode.UnprocessableEntity => $"GitHub rejected the filename or content: {detail}. Check the filename and try again.",
+            _ => $"GitHub rejected this request: {detail}"
+        };
     }
 
     private async Task HandleSave()
     {
         var filename = Filename.Trim();
-        if (string.IsNullOrWhiteSpace(filename) || string.IsNullOrEmpty(Content)) return;
+        ErrorMessage = "";
+        if (string.IsNullOrWhiteSpace(filename) || string.IsNullOrEmpty(Content))
+        {
+            ErrorMessage = "Filename and content are required.";
+            return;
+        }
         
         IsLoading = true;
         StateHasChanged();
@@ -199,10 +269,15 @@
                 await Storage.SaveGistAsync(result);
                 Navigation.NavigateTo("/my-gists");
             }
+            else
+            {
+                ErrorMessage = BuildGithubErrorMessage("save");
+            }
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error saving gist: {ex.Message}");
+            ErrorMessage = $"Could not save this snippet: {ex.Message}";
         }
         finally
         {
