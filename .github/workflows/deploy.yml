@@ -36,14 +36,14 @@ jobs:
       # 3. Handle Dependencies and Build
       - name: Restore & Build
         run: |
-          npm install
-          dotnet restore
-          dotnet build --configuration Release --no-restore
+          npm install --prefix GistHub
+          dotnet restore GistHub.slnx
+          dotnet build GistHub.slnx --configuration Release --no-restore
 
       # 4. Compile the Wasm Project for Production
       - name: Publish GistHub
         if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
-        run: dotnet publish GistHub.csproj -c Release -o publish_output
+        run: dotnet publish GistHub/GistHub.csproj -c Release -o publish_output
 
       - name: List Output Contents
         if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
@@ -51,7 +51,7 @@ jobs:
 
       - name: Copy Vercel Config
         if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
-        run: cp vercel.json publish_output/wwwroot/
+        run: cp GistHub/vercel.json publish_output/wwwroot/
 
       # 5. Push to Vercel
       - name: Deploy to Vercel

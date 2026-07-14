@@ -146,6 +146,8 @@
                         OnToggleGroupOff="@(name => RemoveGroupFromGist(gist, name))"
                         OnEdit="@(() => Navigation.NavigateTo($"/editor/{gist.Id}"))"
                         OnDelete="@(() => HandleDelete(gist))"
+                        OnCopyRaw="@(() => HandleCopyRaw(gist))"
+                        IsCopied="@(CopiedGistId == gist.Id)"
                         OnToggleBookmark="@(() => ToggleBookmark(gist))"
                         OnView="@((id) => Navigation.NavigateTo($"/view/{gist.Id}"))"
                     />
@@ -214,6 +216,7 @@
     private string ImportJsonText = "";
     private string ImportValidationMessage = "";
     private string ImportMessage = "";
+    private string? CopiedGistId = null;
 
     private List<string> GroupNames => Groups.Select(g => g.Name).ToList();
 
@@ -345,6 +348,23 @@
         gist.IsBookmarked = !gist.IsBookmarked;
         await Storage.SaveGistAsync(gist);
         StateHasChanged();
+    }
+
+    private async Task HandleCopyRaw(LocalGist gist)
+    {
+        var content = gist.Files.Values.FirstOrDefault()?.Content;
+        if (string.IsNullOrEmpty(content)) return;
+
+        await JS.InvokeVoidAsync("copyToClipboard", content);
+        CopiedGistId = gist.Id;
+        StateHasChanged();
+
+        await Task.Delay(2000);
+        if (CopiedGistId == gist.Id)
+        {
+            CopiedGistId = null;
+            await InvokeAsync(StateHasChanged);
+        }
     }
 
     private async Task CreateGroupFromCard(string groupName)

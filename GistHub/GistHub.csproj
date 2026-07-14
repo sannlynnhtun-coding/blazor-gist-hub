@@ -22,7 +22,7 @@
 
   <Target Name="Tailwind" BeforeTargets="Build">
     <Message Importance="high" Text="Building Tailwind CSS..." />
-    <Exec Command="npm run release:css" />
+    <Exec Command="npm run release:css" WorkingDirectory="$(MSBuildProjectDirectory)" />
   </Target>
 
 </Project>

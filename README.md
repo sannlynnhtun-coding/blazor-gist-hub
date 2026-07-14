@@ -17,7 +17,7 @@ Core capabilities include:
 - .NET `10.0` (Blazor WebAssembly)
 - C# services for state, storage, and GitHub API calls
 - Tailwind CSS (`tailwindcss`, `@tailwindcss/forms`, `@tailwindcss/typography`)
-- JavaScript interop for IndexedDB (`wwwroot/js/indexedDb.js`)
+- JavaScript interop for IndexedDB (`GistHub/wwwroot/js/indexedDb.js`)
 
 ## Main Routes
 - `/` - Discovery feed (public gists)
@@ -30,12 +30,12 @@ Core capabilities include:
 - `/trending` - Placeholder for trending logic
 
 ## Project Structure
-- `Pages/` - Route-based screens
-- `Components/` - Reusable UI (including `GistCard` and theme toggle)
-- `Layout/` - App shell and navigation
-- `Services/` - `GithubService`, `IndexedDbService`, and shared app state
-- `Models/` - Gist and profile models
-- `wwwroot/` - Static assets, JS helpers, and compiled CSS output
+- `GistHub/Pages/` - Route-based screens
+- `GistHub/Components/` - Reusable UI (including `GistCard` and theme toggle)
+- `GistHub/Layout/` - App shell and navigation
+- `GistHub/Services/` - `GithubService`, `IndexedDbService`, and shared app state
+- `GistHub/Models/` - Gist and profile models
+- `GistHub/wwwroot/` - Static assets, JS helpers, and compiled CSS output
 
 ## Local Development
 ### Prerequisites
@@ -44,19 +44,19 @@ Core capabilities include:
 
 ### Install
 ```bash
-npm install
+npm --prefix GistHub install
 ```
 
 ### Run
 ```bash
-dotnet run
+dotnet run --project GistHub/GistHub.csproj
 ```
 
 Notes:
-- The project runs a Tailwind build automatically before .NET build (`npm run release:css` via `GistHub.csproj`).
+- The project runs a Tailwind build automatically before .NET build (`npm run release:css` via `GistHub/GistHub.csproj`).
 - For iterative CSS work, you can run:
 ```bash
-npm run build:css
+npm --prefix GistHub run build:css
 ```
 
 ## Authentication Notes
