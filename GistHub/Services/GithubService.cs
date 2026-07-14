@@ -57,7 +57,6 @@ public class GithubService : IGithubService
     {
         var request = new HttpRequestMessage(method, $"{GitHubApiBaseUrl}{path}");
         request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
-        request.Headers.Add("X-GitHub-Api-Version", "2026-03-10");
 
         if (!string.IsNullOrWhiteSpace(token))
         {

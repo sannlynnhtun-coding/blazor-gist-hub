@@ -268,7 +268,10 @@
         if (Github.LastError.StatusCode == System.Net.HttpStatusCode.Forbidden)
         {
             Message = $"GitHub returned 403 Forbidden for the {feedName}. Connect GitHub or retry later.";
+            return;
         }
+
+        Message = $"Could not load the {feedName}: {Github.LastError.Message}";
     }
 
     private async Task HandleKeyPress(KeyboardEventArgs e)
