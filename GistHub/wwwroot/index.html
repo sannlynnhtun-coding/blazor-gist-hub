@@ -6,8 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GistHub Pro — Premium Snippet Manager</title>
     <base href="/" />
+    <meta name="theme-color" content="#111111" />
     <link rel="stylesheet" href="css/output.css" />
     <link rel="icon" type="image/svg+xml" href="logo.svg" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
     <link rel="stylesheet" href="css/atom-one-dark.min.css">
     <script>
         // Init Theme
@@ -140,6 +144,7 @@
     </script>
     <script src="js/indexedDb.js" type="module"></script>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js', { updateViaCache: 'none' });</script>
 </body>
 
 </html>
