@@ -37,27 +37,34 @@ Core capabilities include:
 - `GistHub/Models/` - Gist and profile models
 - `GistHub/wwwroot/` - Static assets, JS helpers, and compiled CSS output
 
-## Local Development
+## Workflow
 ### Prerequisites
 - .NET SDK `10.x`
-- Node.js `18+` and npm
+- Node.js `20` and npm
 
-### Install
+### Local Development
 ```bash
 npm --prefix GistHub install
-```
-
-### Run
-```bash
 dotnet run --project GistHub/GistHub.csproj
 ```
 
-Notes:
-- The project runs a Tailwind build automatically before .NET build (`npm run release:css` via `GistHub/GistHub.csproj`).
-- For iterative CSS work, you can run:
+The .NET build runs the production Tailwind build automatically through `GistHub/GistHub.csproj`.
+
+For style-heavy work, keep Tailwind watching in a second terminal:
 ```bash
 npm --prefix GistHub run build:css
 ```
+
+### Pre-PR Check
+```bash
+dotnet restore GistHub.slnx
+dotnet build GistHub.slnx --configuration Release --no-restore
+```
+
+### CI and Deploy
+- Pull requests into `main` or `master` restore and build the solution.
+- Pushes to `main` or `master` publish `GistHub/GistHub.csproj`, copy `GistHub/vercel.json` into the static output, and deploy `publish_output/wwwroot` to Vercel.
+- Deployment requires `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` GitHub Actions secrets.
 
 ## Authentication Notes
 - Login is done with a GitHub Personal Access Token.
