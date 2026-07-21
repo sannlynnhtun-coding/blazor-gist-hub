@@ -24,10 +24,10 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles text-muted-foreground group-hover:text-primary transition-colors"><path d="m12 3 1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 0-1.275-1.275L3 12l5.813-1.912a2 2 0 0 0 1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
                 Trending Now
             </NavLink>
-            <NavLink href="my-gists" class="nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all hover:bg-accent group">
+            <a href="my-gists" class="@NavItemClass("my-gists", "view", "editor")">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-2 text-muted-foreground group-hover:text-primary transition-colors"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
                 My Collection
-            </NavLink>
+            </a>
             <NavLink href="collections" class="nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all hover:bg-accent group">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers text-muted-foreground group-hover:text-primary transition-colors"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
                 Playlists
@@ -115,11 +115,33 @@
 @inject NavigationManager Navigation
 
 @code {
+    private const string NavItemClasses = "nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all hover:bg-accent group";
+
     private bool IsLogoutConfirmOpen { get; set; }
 
     protected override void OnInitialized()
     {
         AppState.OnChange += StateHasChanged;
+        Navigation.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    private string NavItemClass(params string[] routePrefixes)
+        => $"{NavItemClasses}{(IsActive(routePrefixes) ? " active" : "")}";
+
+    private bool IsActive(params string[] routePrefixes)
+    {
+        var path = Navigation.ToBaseRelativePath(Navigation.Uri)
+            .Split('?', '#')[0]
+            .Trim('/');
+
+        return routePrefixes.Any(prefix =>
+            string.Equals(path, prefix, StringComparison.OrdinalIgnoreCase) ||
+            path.StartsWith($"{prefix}/", StringComparison.OrdinalIgnoreCase));
     }
 
     private void ShowLogoutConfirm()
@@ -142,6 +164,7 @@
     public void Dispose()
     {
         AppState.OnChange -= StateHasChanged;
+        Navigation.LocationChanged -= OnLocationChanged;
     }
 }
 
