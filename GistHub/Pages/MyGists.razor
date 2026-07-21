@@ -12,7 +12,7 @@
 <div class="space-y-12 pb-20">
     <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b">
         <div class="flex items-center gap-6">
-            @if (AppState.IsAuthenticated)
+            @if (AppState.IsAuthenticated && IsProfileSummaryVisible)
             {
                 <div class="relative">
                     <div class="w-20 h-20 rounded-xl border border-border bg-muted overflow-hidden">
@@ -39,6 +39,18 @@
         </div>
 
         <div class="flex items-center gap-3">
+            <button @onclick="ToggleProfileSummary" class="btn btn-outline btn-md" aria-pressed="@(!IsProfileSummaryVisible)" title="@(IsProfileSummaryVisible ? "Hide profile summary" : "Show profile summary")">
+                @if (IsProfileSummaryVisible)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>
+                    <span>Hide Profile</span>
+                }
+                else
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+                    <span>Show Profile</span>
+                }
+            </button>
             <button @onclick="SyncGists" disabled="@IsSyncing" class="btn btn-secondary btn-md">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-cw @(IsSyncing ? "animate-spin" : "")"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
                 Sync Cloud
@@ -207,6 +219,7 @@
     private List<LocalGist> LocalGists = new();
     private List<GistGroup> Groups = new();
     private bool IsSyncing = false;
+    private bool IsProfileSummaryVisible = true;
     private string SearchQuery = "";
     private string GroupMessage = "";
     private bool IsImportDialogOpen = false;
@@ -231,6 +244,11 @@
     private int PublicGistsCount => LocalGists.Count(g => g.Public);
     private int SecretGistsCount => LocalGists.Count(g => !g.Public);
     private int BookmarkedGistsCount => LocalGists.Count(g => g.IsBookmarked);
+
+    private void ToggleProfileSummary()
+    {
+        IsProfileSummaryVisible = !IsProfileSummaryVisible;
+    }
 
     protected override async Task OnInitializedAsync()
     {
