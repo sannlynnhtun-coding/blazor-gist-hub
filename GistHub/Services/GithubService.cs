@@ -41,21 +41,22 @@ public class GithubUser
 
 public class GithubService : IGithubService
 {
-    private const string GitHubApiBaseUrl = "https://api.github.com";
     private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web);
 
     private readonly HttpClient _http;
+    private readonly string _gitHubApiBaseUrl;
 
     public GithubApiError? LastError { get; private set; }
 
-    public GithubService(HttpClient http)
+    public GithubService(HttpClient http, string gitHubApiBaseUrl)
     {
         _http = http;
+        _gitHubApiBaseUrl = gitHubApiBaseUrl.TrimEnd('/');
     }
 
-    private static HttpRequestMessage CreateGitHubRequest(HttpMethod method, string path, string? token = null)
+    private HttpRequestMessage CreateGitHubRequest(HttpMethod method, string path, string? token = null)
     {
-        var request = new HttpRequestMessage(method, $"{GitHubApiBaseUrl}{path}");
+        var request = new HttpRequestMessage(method, $"{_gitHubApiBaseUrl}{path}");
         request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
 
         if (!string.IsNullOrWhiteSpace(token))

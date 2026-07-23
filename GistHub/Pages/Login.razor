@@ -99,7 +99,7 @@
         </div>
         
         <p class="text-center text-xs text-muted-foreground font-medium">
-            Your token is stored locally in <span class="bg-muted px-1.5 py-0.5 rounded text-[10px] font-bold">IndexedDB</span> and never sent to our servers.
+            Your token is stored locally in <span class="bg-muted px-1.5 py-0.5 rounded text-[10px] font-bold">IndexedDB</span> and relayed only for GitHub API requests.
         </p>
     </div>
 </div>
@@ -133,7 +133,7 @@
         var userInfo = await Github.GetUserInfoAsync(Token);
         if (userInfo == null)
         {
-            ErrorMessage = "Invalid token or network error.";
+            ErrorMessage = Github.LastError?.Message ?? "Invalid token or network error.";
             IsLoading = false;
             return;
         }
