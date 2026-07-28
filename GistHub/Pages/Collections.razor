@@ -31,8 +31,8 @@
         }
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div class="group">
-                <div class="bg-card border hover:border-primary/20 rounded-xl p-8 transition-all relative overflow-hidden h-full flex flex-col justify-between">
+            <div class="group relative">
+                <div class="bg-card border hover:border-primary/20 rounded-xl p-8 transition-all relative overflow-hidden h-full flex flex-col justify-between cursor-pointer">
                     <div class="space-y-4">
                         <div class="w-14 h-14 rounded-xl bg-[#FBF3DB] text-[#956400] flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -50,6 +50,11 @@
                         </div>
                     </div>
                 </div>
+                <a href="/my-gists?favorites=true"
+                   class="absolute inset-0 z-10 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                   aria-label="Open Favorites">
+                    <span class="sr-only">Open Favorites</span>
+                </a>
             </div>
 
             @if (!Groups.Any())
@@ -63,8 +68,8 @@
             {
                 @foreach (var group in Groups)
                 {
-                    <div class="group">
-                        <div class="bg-card border rounded-xl p-8 transition-all relative overflow-hidden h-full flex flex-col justify-between hover:border-primary/20">
+                    <div class="group relative">
+                        <div class="bg-card border rounded-xl p-8 transition-all relative overflow-hidden h-full flex flex-col justify-between hover:border-primary/20 cursor-pointer">
                             <div class="space-y-4">
                                 <div class="w-14 h-14 rounded-xl bg-secondary text-primary flex items-center justify-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2a2 2 0 0 0-1.66-.9H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2Z"/></svg>
@@ -85,7 +90,7 @@
 
                                 @if (PendingDeleteGroupId == group.Id)
                                 {
-                                    <div class="rounded-xl border border-destructive/30 bg-destructive/5 p-3 space-y-2">
+                                    <div class="relative z-20 rounded-xl border border-destructive/30 bg-destructive/5 p-3 space-y-2">
                                         <p class="text-xs text-destructive font-semibold">Delete this group? Gists will be kept but unassigned.</p>
                                         <div class="flex items-center gap-2">
                                             <button @onclick="() => ConfirmDeleteGroup(group)" class="px-3 py-1.5 rounded-lg bg-destructive text-destructive-foreground text-xs font-bold">Confirm</button>
@@ -96,7 +101,7 @@
                                 else
                                 {
                                     <button @onclick="() => AskDeleteGroup(group.Id)"
-                                            class="inline-flex items-center justify-center w-8 h-8 rounded-lg text-destructive/80 hover:text-destructive hover:bg-destructive/10 transition-colors"
+                                            class="relative z-20 inline-flex items-center justify-center w-8 h-8 rounded-lg text-destructive/80 hover:text-destructive hover:bg-destructive/10 transition-colors"
                                             title="Delete Group"
                                             aria-label="Delete Group">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
@@ -104,6 +109,11 @@
                                 }
                             </div>
                         </div>
+                        <a href="@GetGroupUrl(group.Name)"
+                           class="absolute inset-0 z-10 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                           aria-label="@($"Open {group.Name}")">
+                            <span class="sr-only">Open @group.Name</span>
+                        </a>
                     </div>
                 }
             }
@@ -241,4 +251,7 @@
 
     private static string NormalizeGroupName(string? name)
         => (name ?? string.Empty).Trim();
+
+    private static string GetGroupUrl(string groupName)
+        => $"/my-gists?collection={Uri.EscapeDataString(groupName)}";
 }

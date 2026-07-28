@@ -92,12 +92,30 @@
                 </button>
             }
 
+            <button
+                @onclick="ToggleBookmarksOnly"
+                class="ml-2 h-11 px-3 inline-flex items-center gap-2 rounded-lg transition-colors @(BookmarksOnly ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-muted")"
+                aria-label="Show bookmarked gists only"
+                aria-pressed="@(BookmarksOnly ? "true" : "false")"
+                title="Show bookmarked gists only">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="@(BookmarksOnly ? "currentColor" : "none")" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                <span class="hidden sm:inline text-xs font-semibold">Bookmarks</span>
+            </button>
+
             <div class="ml-4 pl-4 border-l border-border flex items-center gap-2">
                 <span class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Filtered</span>
                 <span class="text-xs font-bold tabular-nums">@FilteredGists.Count</span>
             </div>
         </div>
     </div>
+
+    @if (!string.IsNullOrWhiteSpace(CollectionFilter))
+    {
+        <div class="flex items-center justify-between gap-3 max-w-2xl mx-auto w-full rounded-xl border bg-muted/20 px-4 py-3">
+            <span class="text-sm font-semibold">Collection: @CollectionFilter</span>
+            <a href="/my-gists" class="text-xs font-bold text-primary hover:underline">Show all gists</a>
+        </div>
+    }
 
     @if (!string.IsNullOrWhiteSpace(GroupMessage))
     {
@@ -133,8 +151,8 @@
                 <div class="w-16 h-16 rounded-2xl bg-muted/20 flex items-center justify-center mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-x text-muted-foreground opacity-30"><path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 </div>
-                <h3 class="text-lg font-bold">No gists found</h3>
-                <p class="text-sm text-muted-foreground">Try a different keyword or tag.</p>
+                <h3 class="text-lg font-bold">@(BookmarksOnly ? "No bookmarked gists found" : "No gists found")</h3>
+                <p class="text-sm text-muted-foreground">@(BookmarksOnly ? "Bookmark a gist or turn off the filter." : "Try a different keyword or tag.")</p>
             </div>
         }
         else
@@ -216,6 +234,16 @@
 }
 
 @code {
+    private const string BookmarksOnlyStorageKey = "gisthub:bookmarks-only";
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "favorites")]
+    public bool FavoritesOnly { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "collection")]
+    public string? CollectionFilter { get; set; }
+
     private static readonly JsonSerializerOptions ImportJsonOptions = new(JsonSerializerDefaults.Web)
     {
         PropertyNameCaseInsensitive = true
@@ -225,6 +253,7 @@
     private List<GistGroup> Groups = new();
     private bool IsSyncing = false;
     private bool IsProfileToolsVisible = true;
+    private bool BookmarksOnly = false;
     private string SearchQuery = "";
     private string GroupMessage = "";
     private bool IsImportDialogOpen = false;
@@ -237,13 +266,15 @@
 
     private List<string> GroupNames => Groups.Select(g => g.Name).ToList();
 
-    private List<LocalGist> FilteredGists => string.IsNullOrWhiteSpace(SearchQuery)
-        ? LocalGists
-        : LocalGists.Where(g =>
-            (g.Description?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ?? false) ||
-            (g.Files.Values.Any(f => f.Filename?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ?? false)) ||
-            (g.Tags.Any(t => t.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase)))
-        ).ToList();
+    private List<LocalGist> FilteredGists => LocalGists.Where(g =>
+        (!BookmarksOnly || g.IsBookmarked) &&
+        (string.IsNullOrWhiteSpace(CollectionFilter) ||
+         g.CollectionNames.Any(name => string.Equals(name, CollectionFilter, StringComparison.OrdinalIgnoreCase))) &&
+        (string.IsNullOrWhiteSpace(SearchQuery) ||
+         (g.Description?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ?? false) ||
+         g.Files.Values.Any(f => f.Filename?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ?? false) ||
+         g.Tags.Any(t => t.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase)))
+    ).ToList();
 
     private int TotalGistsCount => LocalGists.Count;
     private int PublicGistsCount => LocalGists.Count(g => g.Public);
@@ -255,8 +286,16 @@
         IsProfileToolsVisible = !IsProfileToolsVisible;
     }
 
+    private async Task ToggleBookmarksOnly()
+    {
+        BookmarksOnly = !BookmarksOnly;
+        FavoritesOnly = false;
+        await JS.InvokeVoidAsync("localStorage.setItem", BookmarksOnlyStorageKey, BookmarksOnly ? "true" : "false");
+    }
+
     protected override async Task OnInitializedAsync()
     {
+        BookmarksOnly = FavoritesOnly;
         await LoadLocalGists();
         await LoadGroups();
 
@@ -264,6 +303,21 @@
         {
             await SyncGists();
         }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+
+        if (!FavoritesOnly && string.IsNullOrWhiteSpace(CollectionFilter))
+        {
+            var storedValue = await JS.InvokeAsync<string?>("localStorage.getItem", BookmarksOnlyStorageKey);
+            BookmarksOnly = string.Equals(storedValue, "true", StringComparison.OrdinalIgnoreCase);
+        }
+        StateHasChanged();
     }
 
     private async Task LoadLocalGists()
