@@ -5,111 +5,147 @@
     <!-- Active Indicator -->
     <div class="absolute top-0 left-0 w-[3px] h-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
     
-    <div class="p-5">
+    <div class="@(Compact ? "p-3" : "p-5")">
         <!-- Header -->
-        <div class="flex items-start justify-between mb-4">
-            <div class="flex items-center gap-3">
-                @if (ShowCheckbox)
-                {
-                    <div class="relative w-6 h-6 group/check flex-shrink-0">
-                        <input type="checkbox" checked="@IsSelected" @onchange="(e) => OnSelectedChanged.InvokeAsync((bool)(e.Value ?? false))" class="absolute inset-0 opacity-0 z-10 cursor-pointer" />
-                        <div class="absolute inset-0 rounded-md border transition-all duration-200 flex items-center justify-center @(IsSelected ? "bg-primary border-primary" : "bg-muted/50 border-border group-hover/check:border-primary/50")">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check pointer-events-none opacity-0 @(IsSelected ? "opacity-100 scale-100" : "scale-50") transition-all duration-300"><polyline points="20 6 9 17 4 12"/></svg>
+        <div class="flex items-start gap-2 @(Compact || ShowCheckbox || ShowAuthorInfo ? "justify-between" : "justify-end") @(Compact ? "mb-2" : "mb-4")">
+            @if (Compact)
+            {
+                <div class="flex min-w-0 flex-1 items-start gap-2">
+                    @if (ShowCheckbox)
+                    {
+                        <div class="relative w-6 h-6 group/check flex-shrink-0">
+                            <input type="checkbox" checked="@IsSelected" @onchange="(e) => OnSelectedChanged.InvokeAsync((bool)(e.Value ?? false))" class="absolute inset-0 opacity-0 z-10 cursor-pointer" aria-label="Select gist" />
+                            <div class="absolute inset-0 rounded-md border transition-all duration-200 flex items-center justify-center @(IsSelected ? "bg-primary border-primary" : "bg-muted/50 border-border group-hover/check:border-primary/50")">
+                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check pointer-events-none opacity-0 @(IsSelected ? "opacity-100 scale-100" : "scale-50") transition-all duration-300"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
                         </div>
-                    </div>
-                }
-                <div class="w-10 h-10 rounded-lg bg-muted border border-border flex items-center justify-center overflow-hidden transition-all">
-                    <img src="@AvatarUrl" alt="@Author" class="w-full h-full object-cover" />
+                    }
+                    <h3 class="min-w-0 text-sm font-semibold leading-snug line-clamp-2 group-hover:text-primary transition-colors antialiased cursor-pointer" @onclick="() => OnView.InvokeAsync(Id)">@(string.IsNullOrEmpty(Description) ? "Untitled Snippet" : Description)</h3>
                 </div>
-                <div class="flex flex-col">
-                    <span class="text-sm font-semibold leading-tight hover:text-primary cursor-pointer transition-colors antialiased">@(string.IsNullOrEmpty(AuthorName) ? Author : AuthorName)</span>
-                    <div class="flex flex-col mt-0.5">
-                        <span class="text-[11px] text-muted-foreground font-bold leading-tight">@@@Author</span>
-                        <span class="text-[10px] text-muted-foreground/70 font-bold tabular-nums mt-0.5">@TimeAgo</span>
-                    </div>
+            }
+            else if (ShowCheckbox || ShowAuthorInfo)
+            {
+                <div class="flex items-center gap-3">
+                    @if (ShowCheckbox)
+                    {
+                        <div class="relative w-6 h-6 group/check flex-shrink-0">
+                            <input type="checkbox" checked="@IsSelected" @onchange="(e) => OnSelectedChanged.InvokeAsync((bool)(e.Value ?? false))" class="absolute inset-0 opacity-0 z-10 cursor-pointer" aria-label="Select gist" />
+                            <div class="absolute inset-0 rounded-md border transition-all duration-200 flex items-center justify-center @(IsSelected ? "bg-primary border-primary" : "bg-muted/50 border-border group-hover/check:border-primary/50")">
+                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check pointer-events-none opacity-0 @(IsSelected ? "opacity-100 scale-100" : "scale-50") transition-all duration-300"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                        </div>
+                    }
+                    @if (ShowAuthorInfo)
+                    {
+                        <div class="w-10 h-10 rounded-lg bg-muted border border-border flex items-center justify-center overflow-hidden transition-all">
+                            <img src="@AvatarUrl" alt="@Author" class="w-full h-full object-cover" />
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-sm font-semibold leading-tight hover:text-primary cursor-pointer transition-colors antialiased">@(string.IsNullOrEmpty(AuthorName) ? Author : AuthorName)</span>
+                            <div class="flex flex-col mt-0.5">
+                                <span class="text-[11px] text-muted-foreground font-bold leading-tight">@@@Author</span>
+                                <span class="text-[10px] text-muted-foreground/70 font-bold tabular-nums mt-0.5">@TimeAgo</span>
+                            </div>
+                        </div>
+                    }
                 </div>
-            </div>
+            }
 
-            <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
+            <div class="flex items-center gap-1 transition-all @(ShowAuthorInfo ? "opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0" : "opacity-100")">
                 @if (OnEdit.HasDelegate)
                 {
-                    <button @onclick="() => OnEdit.InvokeAsync()" class="p-2 hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-lg transition-colors" title="Edit Gist">
+                    <button @onclick="() => OnEdit.InvokeAsync()" class="p-2 hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-lg transition-colors" title="Edit Gist" aria-label="Edit gist">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                     </button>
                 }
                 @if (OnDelete.HasDelegate)
                 {
-                    <button @onclick="() => OnDelete.InvokeAsync()" class="p-2 hover:bg-destructive/10 text-muted-foreground hover:text-destructive rounded-lg transition-colors" title="Delete Gist">
+                    <button @onclick="() => OnDelete.InvokeAsync()" class="p-2 hover:bg-destructive/10 text-muted-foreground hover:text-destructive rounded-lg transition-colors" title="Delete Gist" aria-label="Delete gist">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
                     </button>
                 }
                 @if (OnClone.HasDelegate)
                 {
-                    <button @onclick="() => OnClone.InvokeAsync()" class="p-2 hover:bg-accent text-primary rounded-lg transition-colors" title="Clone to my gists">
+                    <button @onclick="() => OnClone.InvokeAsync()" class="p-2 hover:bg-accent text-primary rounded-lg transition-colors" title="Clone to my gists" aria-label="Clone to my gists">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-plus"><path d="M12 2H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><polyline points="22 2 15 2 15 9"/><path d="M12 9h9"/><path d="M16.5 13.5v6"/><path d="M13.5 16.5h6"/></svg>
                     </button>
                 }
-                <button @onclick="() => OnView.InvokeAsync(Id)" class="p-2 hover:bg-secondary text-foreground rounded-lg transition-colors">
+                <button @onclick="() => OnView.InvokeAsync(Id)" class="p-2 hover:bg-secondary text-foreground rounded-lg transition-colors" aria-label="Open gist details" title="Open gist details">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
                 </button>
             </div>
         </div>
 
         <!-- Content -->
-        <div class="space-y-4 cursor-pointer" @onclick="() => OnView.InvokeAsync(Id)">
-            <h3 class="text-base font-semibold leading-snug line-clamp-2 group-hover:text-primary transition-colors antialiased">@(string.IsNullOrEmpty(Description) ? "Untitled Snippet" : Description)</h3>
+        <div class="@(Compact ? "space-y-2" : "space-y-4") cursor-pointer" @onclick="() => OnView.InvokeAsync(Id)">
+            @if (!Compact)
+            {
+                <h3 class="text-base font-semibold leading-snug line-clamp-2 group-hover:text-primary transition-colors antialiased">@(string.IsNullOrEmpty(Description) ? "Untitled Snippet" : Description)</h3>
+            }
             
-            <div class="flex flex-wrap gap-1.5">
-                @foreach (var tag in Tags)
-                {
-                    <span class="px-2.5 py-0.5 bg-[#E1F3FE] text-[#1F6C9F] border border-border rounded-full text-[10px] font-bold uppercase tracking-wide transition-all">#@tag</span>
-                }
-                @if (!Tags.Any())
-                {
-                    <span class="text-[10px] text-muted-foreground/40 font-bold uppercase tracking-widest italic">No Tags</span>
-                }
-            </div>
+            @if (Tags.Any() || !Compact)
+            {
+                <div class="flex flex-wrap gap-1.5">
+                    @foreach (var tag in Tags)
+                    {
+                        <span class="px-2.5 py-0.5 bg-[#E1F3FE] text-[#1F6C9F] border border-border rounded-full text-[10px] font-bold uppercase tracking-wide transition-all">#@tag</span>
+                    }
+                    @if (!Tags.Any())
+                    {
+                        <span class="text-[10px] text-muted-foreground/40 font-bold uppercase tracking-widest italic">No Tags</span>
+                    }
+                </div>
+            }
 
             <!-- Code Preview -->
-            <div class="relative bg-[#F7F6F3] dark:bg-muted rounded-lg p-4 overflow-hidden border border-border transition-all duration-300">
-                <div class="font-mono text-[13px] text-[#2F3437] dark:text-foreground line-clamp-4 leading-relaxed antialiased whitespace-pre">@SnippetPreview</div>
-                <div class="absolute inset-x-0 bottom-0 h-12 bg-background/90 pointer-events-none opacity-80"></div>
+            <div class="relative bg-[#F7F6F3] dark:bg-muted rounded-lg @(Compact ? "p-2" : "p-4") overflow-hidden border border-border transition-all duration-300">
+                <div class="font-mono @(Compact ? "text-xs line-clamp-2 leading-snug" : "text-[13px] line-clamp-4 leading-relaxed") text-[#2F3437] dark:text-foreground antialiased whitespace-pre">@SnippetPreview</div>
+                <div class="absolute inset-x-0 bottom-0 @(Compact ? "h-5" : "h-12") bg-background/90 pointer-events-none opacity-80"></div>
             </div>
         </div>
 
         <!-- Footer Info -->
-        <div class="mt-5 pt-4 border-t border-border/40 flex items-center justify-between">
-            <div class="flex items-center gap-4 text-muted-foreground">
-                <div class="flex items-center gap-1.5 group/stat">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star group-hover/stat:fill-yellow-500 group-hover/stat:stroke-yellow-500 transition-all"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    <span class="text-xs font-semibold font-mono">@Stars</span>
+        <div class="@(Compact ? "mt-2 pt-1.5 justify-end" : "mt-5 pt-4 justify-between") border-t border-border/40 flex items-center">
+            @if (!Compact)
+            {
+                <div class="flex items-center gap-4 text-muted-foreground">
+                    <div class="flex items-center gap-1.5 group/stat">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star group-hover/stat:fill-yellow-500 group-hover/stat:stroke-yellow-500 transition-all"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <span class="text-xs font-semibold font-mono">@Stars</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 group/stat">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-git-fork group-hover/stat:stroke-primary transition-all"><path d="m12 12 5-5m-9 0 5 5v7"/><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/></svg>
+                        <span class="text-xs font-semibold font-mono">@Forks</span>
+                    </div>
                 </div>
-                <div class="flex items-center gap-1.5 group/stat">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-git-fork group-hover/stat:stroke-primary transition-all"><path d="m12 12 5-5m-9 0 5 5v7"/><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/></svg>
-                    <span class="text-xs font-semibold font-mono">@Forks</span>
-                </div>
-            </div>
+            }
             
             <div class="flex items-center gap-2">
                 @if (OnCopyRaw.HasDelegate)
                 {
-                    <button @onclick="() => OnCopyRaw.InvokeAsync()" class="inline-flex items-center gap-1.5 px-2 py-1.5 rounded-lg hover:bg-accent @(IsCopied ? "text-[#346538]" : "text-muted-foreground hover:text-primary") transition-colors text-[10px] font-bold uppercase tracking-widest" title="Copy raw content">
+                    <button @onclick="() => OnCopyRaw.InvokeAsync()" class="inline-flex items-center justify-center gap-1.5 @(Compact ? "w-7 h-7" : "px-2 py-1.5") rounded-lg hover:bg-accent @(IsCopied ? "text-[#346538]" : "text-muted-foreground hover:text-primary") transition-colors text-[10px] font-bold uppercase tracking-widest" title="Copy raw content" aria-label="Copy raw content">
                         @if (IsCopied)
                         {
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>
-                            <span>Copied!</span>
+                            @if (!Compact)
+                            {
+                                <span>Copied!</span>
+                            }
                         }
                         else
                         {
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                            <span>Copy Raw</span>
+                            @if (!Compact)
+                            {
+                                <span>Copy Raw</span>
+                            }
                         }
                     </button>
                 }
                 @if (EnableGroupPicker)
                 {
                     <div class="relative" @onkeydown="HandlePopoverKeyDown">
-                        <button @onclick="ToggleGroupPopover" class="p-1.5 rounded-lg hover:bg-primary/10 text-muted-foreground hover:text-primary transition-colors" title="Manage groups" aria-haspopup="true" aria-expanded="@IsGroupPopoverOpen">
+                        <button @onclick="ToggleGroupPopover" class="w-7 h-7 inline-flex items-center justify-center rounded-lg hover:bg-primary/10 text-muted-foreground hover:text-primary transition-colors" title="Manage groups" aria-label="Manage groups" aria-haspopup="true" aria-expanded="@IsGroupPopoverOpen">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-plus"><path d="M12 10v6"/><path d="M9 13h6"/><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 8 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
                         </button>
 
@@ -162,11 +198,14 @@
                     </div>
                 }
 
-                <button @onclick="() => OnToggleBookmark.InvokeAsync(Id)" class="p-1.5 rounded-lg hover:bg-[#FBF3DB] @(IsBookmarked ? "text-[#956400]" : "text-muted-foreground") transition-colors">
+                <button @onclick="() => OnToggleBookmark.InvokeAsync(Id)" class="w-7 h-7 inline-flex items-center justify-center rounded-lg hover:bg-[#FBF3DB] @(IsBookmarked ? "text-[#956400]" : "text-muted-foreground") transition-colors" aria-label="@(IsBookmarked ? "Remove bookmark" : "Add bookmark")" title="@(IsBookmarked ? "Remove bookmark" : "Add bookmark")">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="@(IsBookmarked ? "currentColor" : "none")" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bookmark"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
                 </button>
-                <div class="h-4 w-[1px] bg-border mx-1"></div>
-                <div class="text-[10px] text-muted-foreground font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100 group-hover:text-primary transition-all cursor-pointer" @onclick="() => OnView.InvokeAsync(Id)">Open Details</div>
+                @if (!Compact)
+                {
+                    <div class="h-4 w-[1px] bg-border mx-1"></div>
+                    <div class="text-[10px] text-muted-foreground font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100 group-hover:text-primary transition-all cursor-pointer" @onclick="() => OnView.InvokeAsync(Id)">Open Details</div>
+                }
             </div>
         </div>
     </div>
@@ -178,6 +217,8 @@
     [Parameter] public string Author { get; set; } = "anonymous";
     [Parameter] public string AuthorName { get; set; } = "";
     [Parameter] public string TimeAgo { get; set; } = "just now";
+    [Parameter] public bool ShowAuthorInfo { get; set; } = true;
+    [Parameter] public bool Compact { get; set; }
     [Parameter] public string Description { get; set; } = "No description provided.";
     [Parameter] public List<string> Tags { get; set; } = new();
     [Parameter] public string SnippetPreview { get; set; } = "";

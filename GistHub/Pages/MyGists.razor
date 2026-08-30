@@ -157,15 +157,13 @@
         }
         else
         {
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3 items-start">
                 @foreach (var gist in FilteredGists)
                 {
                     <GistCard
                         Id="@gist.Id"
-                        AvatarUrl="@($"https://github.com/{AppState.CurrentProfile?.GithubUsername}.png")"
-                        Author="@AppState.CurrentProfile?.GithubUsername"
-                        AuthorName="@AppState.CurrentProfile?.Name"
-                        TimeAgo="@gist.UpdatedAt.ToLocalTime().ToString("MMM dd, HH:mm:ss")"
+                        ShowAuthorInfo="false"
+                        Compact="true"
                         Description="@gist.Description"
                         Tags="@gist.Tags"
                         SnippetPreview="@(gist.Files.Values.FirstOrDefault()?.Content ?? "")"
