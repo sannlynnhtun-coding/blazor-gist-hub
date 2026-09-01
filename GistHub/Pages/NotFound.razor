@@ -1,9 +1,9 @@
 @page "/404"
 @layout EmptyLayout
 
-<div class="min-h-screen flex flex-col items-center justify-center p-6 bg-background text-center space-y-8 animate-in zoom-in-95 duration-500">
+<div class="neo-not-found min-h-screen flex flex-col items-center justify-center p-6 bg-background text-center space-y-8 animate-in zoom-in-95 duration-500">
     <div class="relative">
-        <h1 class="text-[180px] font-semibold leading-none text-primary opacity-10">404</h1>
+        <h1 class="neo-404 text-[180px] font-semibold leading-none text-primary">404</h1>
         <div class="absolute inset-x-0 bottom-10 flex flex-col items-center">
             <h2 class="text-3xl font-semibold tracking-tight">Snippet Not Found</h2>
             <p class="text-muted-foreground mt-2 font-medium">The Gist you're looking for has been deleted or moved.</p>
@@ -11,10 +11,10 @@
     </div>
     
     <div class="flex items-center gap-4">
-        <a href="/" class="px-8 py-4 bg-primary text-primary-foreground rounded-md font-semibold active:scale-95 transition-all">
+        <a href="/" class="btn btn-primary btn-xl">
             Return Home
         </a>
-        <button onclick="history.back()" class="px-8 py-4 bg-secondary text-secondary-foreground rounded-md font-semibold hover:bg-secondary/80 transition-all border">
+        <button onclick="history.back()" class="btn btn-secondary btn-xl">
             Go Back
         </button>
     </div>

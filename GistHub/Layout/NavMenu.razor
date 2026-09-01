@@ -1,15 +1,15 @@
-<div class="w-64 border-r bg-card hidden md:flex flex-col h-screen sticky top-0">
+<div class="neo-sidebar w-64 bg-card hidden md:flex flex-col h-screen sticky top-0 z-50">
     <div class="p-6 flex flex-col h-full">
         <!-- Brand/Logo Area -->
         <div class="flex items-center gap-3 mb-8 cursor-pointer group" @onclick='() => Navigation.NavigateTo("")'>
-            <div class="w-11 h-11 rounded-lg overflow-hidden border border-border group-hover:border-primary transition-colors duration-200">
-                <img src="logo.svg" class="w-full h-full object-cover" />
+            <div class="neo-brand-mark w-11 h-11 rounded-md overflow-hidden transition-all duration-200">
+                <img src="logo.svg" class="w-full h-full object-cover" alt="GistHub logo" />
             </div>
             <div class="flex flex-col">
-                <h1 class="font-semibold text-2xl tracking-tight leading-none">GistHub</h1>
+                <h1 class="font-black text-2xl tracking-tight leading-none">GistHub</h1>
                 <div class="flex items-center gap-1.5 mt-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#346538]"></span>
-                    <span class="text-[10px] text-muted-foreground font-bold uppercase tracking-widest leading-none">Local Workspace</span>
+                    <span class="w-2 h-2 bg-[#71D84B] border border-black"></span>
+                    <span class="text-[10px] text-muted-foreground font-black uppercase tracking-widest leading-none">Local workspace</span>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
         <div class="mt-auto pt-6">
             @if (AppState.IsAuthenticated)
             {
-                <div class="p-3 bg-secondary rounded-lg border border-border animate-in fade-in slide-in-from-bottom-4">
+                <div class="neo-profile-card p-3 bg-secondary rounded-lg border border-border animate-in fade-in slide-in-from-bottom-4">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-lg bg-muted flex items-center justify-center overflow-hidden border border-border">
                             <img src="@($"https://github.com/{AppState.CurrentProfile?.GithubUsername}.png")" class="w-full h-full object-cover" onerror="this.src='https://github.com/identicons/slh.png'" />
@@ -73,7 +73,7 @@
             }
             else
             {
-                <NavLink href="login" class="p-3 bg-secondary/50 rounded-lg border border-border flex items-center gap-3 hover:bg-secondary transition-all group">
+                <NavLink href="login" class="neo-profile-card p-3 bg-secondary/50 rounded-lg border border-border flex items-center gap-3 hover:bg-secondary transition-all group">
                     <div class="w-8 h-8 rounded-lg bg-muted flex items-center justify-center overflow-hidden border border-border">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-2 text-muted-foreground"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
                     </div>
@@ -86,6 +86,29 @@
         </div>
     </div>
 </div>
+
+<nav class="neo-mobile-nav fixed bottom-4 inset-x-4 z-50 md:hidden grid grid-cols-5 p-1.5 rounded-md" aria-label="Mobile navigation">
+    <NavLink href="" Match="NavLinkMatch.All" ActiveClass="active" class="flex flex-col items-center justify-center gap-1 p-2 rounded-sm text-[9px] font-black uppercase">
+        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        Discover
+    </NavLink>
+    <NavLink href="trending" ActiveClass="active" class="flex flex-col items-center justify-center gap-1 p-2 rounded-sm text-[9px] font-black uppercase">
+        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3Z"/></svg>
+        Trending
+    </NavLink>
+    <a href="my-gists" class="@MobileNavItemClass("my-gists", "view", "editor")">
+        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
+        My Gists
+    </a>
+    <NavLink href="collections" ActiveClass="active" class="flex flex-col items-center justify-center gap-1 p-2 rounded-sm text-[9px] font-black uppercase">
+        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m12.8 2.2-10.2 4.6 9.4 4.3 9.4-4.3Z"/><path d="m22 12.7-10 4.5-10-4.5"/><path d="m22 17.7-10 4.5-10-4.5"/></svg>
+        Lists
+    </NavLink>
+    <NavLink href="slh-collection" ActiveClass="active" class="flex flex-col items-center justify-center gap-1 p-2 rounded-sm text-[9px] font-black uppercase">
+        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 20h18V8H11L9 5H3Z"/></svg>
+        SLH
+    </NavLink>
+</nav>
 
 @if (IsLogoutConfirmOpen)
 {
@@ -115,8 +138,9 @@
 @inject NavigationManager Navigation
 
 @code {
-    private const string NavItemClasses = "nav-item flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all hover:bg-accent group";
-    private const string ActiveNavItemClasses = "bg-accent text-foreground font-semibold border-r-2 border-primary rounded-r-none";
+    private const string NavItemClasses = "nav-item flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-bold transition-all group";
+    private const string ActiveNavItemClasses = "active bg-accent text-foreground font-black";
+    private const string MobileNavItemClasses = "flex flex-col items-center justify-center gap-1 p-2 rounded-sm text-[9px] font-black uppercase";
 
     private bool IsLogoutConfirmOpen { get; set; }
 
@@ -135,6 +159,11 @@
         => IsActive(routePrefixes)
             ? $"{NavItemClasses} {ActiveNavItemClasses} active"
             : NavItemClasses;
+
+    private string MobileNavItemClass(params string[] routePrefixes)
+        => IsActive(routePrefixes)
+            ? $"{MobileNavItemClasses} active"
+            : MobileNavItemClasses;
 
     private bool IsActive(params string[] routePrefixes)
     {

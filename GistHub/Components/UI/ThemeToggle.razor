@@ -1,6 +1,6 @@
 @inject IJSRuntime JS
 
-<button @onclick="ToggleTheme" class="relative inline-flex items-center justify-center p-2 rounded-md bg-card border border-border hover:bg-secondary transition-all group overflow-hidden" title="Toggle Theme">
+<button @onclick="ToggleTheme" class="neo-icon-button relative inline-flex items-center justify-center p-2 rounded-md bg-card border border-border hover:bg-secondary transition-all group overflow-hidden" title="Toggle Theme" aria-label="Toggle color theme" aria-pressed="@(IsDark ? "true" : "false")">
     <div class="relative w-6 h-6">
         <!-- Sun Icon -->
         <div class="absolute inset-0 transform transition-all duration-500 @(IsDark ? "rotate-90 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100")">
@@ -20,8 +20,7 @@
     {
         if (firstRender)
         {
-            var theme = await JS.InvokeAsync<string>("localStorage.getItem", "theme");
-            IsDark = theme == "dark";
+            IsDark = await JS.InvokeAsync<bool>("isDarkThemeActive");
             StateHasChanged();
         }
     }

@@ -1,22 +1,23 @@
 @page "/trending"
 @using GistHub.Components
 
-<div class="space-y-12">
-    <div class="space-y-1 pb-6 border-b">
+<div class="neo-page space-y-12">
+    <div class="neo-page-heading space-y-2 pb-6 border-b">
+        <span class="neo-kicker">Community heat</span>
         <h2 class="text-4xl font-semibold tracking-tight">Trending Gists</h2>
         <p class="text-muted-foreground text-lg">Most popular and forked snippets from the community this week.</p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 opacity-60">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         @for (int i = 0; i < 6; i++)
         {
-            <div class="relative group p-8 border rounded-xl bg-secondary/20 flex flex-col items-center justify-center text-center space-y-4">
+            <div class="neo-coming-card relative group p-8 border rounded-xl bg-secondary/20 flex flex-col items-center justify-center text-center space-y-4">
                 <div class="w-16 h-16 rounded-xl bg-muted flex items-center justify-center text-muted-foreground">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-construction"><rect x="2" y="6" width="20" height="8" rx="1"/><path d="M17 14v7"/><path d="M7 14v7"/><path d="M17 3v3"/><path d="M7 3v3"/><path d="M10 14 2.3 6.3"/><path d="m14 6 7.7 7.7"/><path d="m8 6 8 8"/></svg>
                 </div>
                 <div class="space-y-1">
-                    <h3 class="text-lg font-bold">Coming Soon</h3>
-                    <p class="text-sm text-muted-foreground">The algorithm for calculating trending gists is being refined.</p>
+                    <h3 class="text-lg font-bold text-secondary-foreground">Coming Soon</h3>
+                    <p class="text-sm font-semibold text-secondary-foreground">The algorithm for calculating trending gists is being refined.</p>
                 </div>
             </div>
         }

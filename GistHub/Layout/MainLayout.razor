@@ -1,26 +1,30 @@
 @inherits LayoutComponentBase
 
-<div class="relative min-h-screen flex bg-background text-foreground">
+<div class="neo-app-shell relative min-h-screen flex bg-background text-foreground">
     <!-- Sidebar -->
     <NavMenu />
 
     <!-- Main Content -->
-    <main class="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+    <main class="neo-main flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
         <!-- Topbar -->
-        <header class="h-16 border-b flex items-center justify-between px-6 glass sticky top-0 z-40">
+        <header class="neo-topbar flex items-center justify-between px-6 glass sticky top-0 z-40">
             <div class="flex items-center gap-4">
-                <h1 class="text-xl font-semibold tracking-tight">
-                    GistHub
-                </h1>
+                <div class="neo-brand-mark md:hidden w-9 h-9 overflow-hidden rounded-md">
+                    <img src="logo.svg" class="w-full h-full object-cover" alt="" />
+                </div>
+                <div>
+                    <div class="neo-kicker mb-1">Code stash</div>
+                    <h1 class="text-xl font-black tracking-tight">GistHub</h1>
+                </div>
             </div>
             
             <div class="flex items-center gap-3">
                 <ThemeToggle />
-                <button class="p-2 hover:bg-accent rounded-md transition-colors text-muted-foreground hover:text-foreground" title="Toggle Search (Ctrl+K)">
+                <button class="neo-icon-button p-2 bg-card hover:bg-accent rounded-md transition-all text-foreground" title="Toggle Search (Ctrl+K)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 </button>
-                <div class="h-6 w-[1px] bg-border mx-1"></div>
-                <button class="flex items-center gap-2 px-3 py-1.5 bg-card border text-secondary-foreground hover:bg-secondary rounded-md text-sm font-medium transition-all">
+                <div class="hidden sm:block h-6 w-[2px] bg-border mx-1"></div>
+                <button class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-card border-2 text-foreground hover:bg-secondary hover:text-secondary-foreground rounded-md text-xs font-black uppercase tracking-wider transition-all">
                     <div class="w-2 h-2 rounded-full bg-[#346538]"></div>
                     Online
                 </button>
@@ -28,8 +32,10 @@
         </header>
 
         <!-- Scrollable Area -->
-        <div class="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar">
-            <div class="max-w-6xl mx-auto space-y-10 animate-in fade-in duration-500">
+        <div class="neo-canvas flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar">
+            <div class="neo-decor neo-decor--pink" aria-hidden="true"></div>
+            <div class="neo-decor neo-decor--purple" aria-hidden="true"></div>
+            <div class="neo-content max-w-6xl mx-auto space-y-10 animate-in fade-in duration-500">
                 @Body
             </div>
         </div>

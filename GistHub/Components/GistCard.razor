@@ -1,6 +1,6 @@
 @using Microsoft.AspNetCore.Components.Web
 
-<div class="group relative bg-card border border-border rounded-xl overflow-visible hover:border-primary/30 transition-colors duration-200 @(IsSelected ? "ring-1 ring-primary border-primary" : "")">
+<div class="neo-gist-card group relative bg-card border border-border rounded-xl overflow-visible transition-all duration-200 @(IsSelected ? "ring-1 ring-primary border-primary" : "")">
     
     <!-- Active Indicator -->
     <div class="absolute top-0 left-0 w-[3px] h-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -44,7 +44,7 @@
                             <span class="text-sm font-semibold leading-tight hover:text-primary cursor-pointer transition-colors antialiased">@(string.IsNullOrEmpty(AuthorName) ? Author : AuthorName)</span>
                             <div class="flex flex-col mt-0.5">
                                 <span class="text-[11px] text-muted-foreground font-bold leading-tight">@@@Author</span>
-                                <span class="text-[10px] text-muted-foreground/70 font-bold tabular-nums mt-0.5">@TimeAgo</span>
+                                <span class="text-[10px] text-muted-foreground font-bold tabular-nums mt-0.5">@TimeAgo</span>
                             </div>
                         </div>
                     }
@@ -92,15 +92,14 @@
                     }
                     @if (!Tags.Any())
                     {
-                        <span class="text-[10px] text-muted-foreground/40 font-bold uppercase tracking-widest italic">No Tags</span>
+                        <span class="text-[10px] text-muted-foreground font-bold uppercase tracking-widest italic">No Tags</span>
                     }
                 </div>
             }
 
             <!-- Code Preview -->
-            <div class="relative bg-[#F7F6F3] dark:bg-muted rounded-lg @(Compact ? "p-2" : "p-4") overflow-hidden border border-border transition-all duration-300">
-                <div class="font-mono @(Compact ? "text-xs line-clamp-2 leading-snug" : "text-[13px] line-clamp-4 leading-relaxed") text-[#2F3437] dark:text-foreground antialiased whitespace-pre">@SnippetPreview</div>
-                <div class="absolute inset-x-0 bottom-0 @(Compact ? "h-5" : "h-12") bg-background/90 pointer-events-none opacity-80"></div>
+            <div class="neo-code-preview relative bg-[#F7F6F3] dark:bg-muted rounded-lg @(Compact ? "p-2" : "p-4") overflow-hidden border border-border transition-all duration-300">
+                <div class="neo-code-preview__content font-mono @(Compact ? "text-xs line-clamp-2 leading-snug" : "text-[13px] line-clamp-4 leading-relaxed") text-[#2F3437] dark:text-foreground antialiased whitespace-pre-wrap break-words">@SnippetPreview</div>
             </div>
         </div>
 
@@ -204,7 +203,7 @@
                 @if (!Compact)
                 {
                     <div class="h-4 w-[1px] bg-border mx-1"></div>
-                    <div class="text-[10px] text-muted-foreground font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100 group-hover:text-primary transition-all cursor-pointer" @onclick="() => OnView.InvokeAsync(Id)">Open Details</div>
+                    <div class="text-[10px] text-muted-foreground font-bold uppercase tracking-widest group-hover:text-primary transition-all cursor-pointer" @onclick="() => OnView.InvokeAsync(Id)">Open Details</div>
                 }
             </div>
         </div>

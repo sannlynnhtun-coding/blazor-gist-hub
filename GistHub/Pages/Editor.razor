@@ -8,16 +8,17 @@
 @inject NavigationManager Navigation
 @inject IGithubService Github
 
-<div class="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+<div class="neo-page max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
     <!-- Header -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+    <div class="neo-page-heading flex flex-col md:flex-row md:items-center justify-between gap-6 pb-7 border-b">
         <div class="flex items-center gap-4">
             <button @onclick='() => Navigation.NavigateTo("/my-gists")' class="btn btn-outline btn-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
             </button>
             <div>
-                <h1 class="text-3xl font-semibold tracking-tight">@(string.IsNullOrEmpty(GistId) ? "Create Snippet" : "Edit Snippet")</h1>
-                <p class="text-muted-foreground text-sm">Professional editing environment for your cloud gists.</p>
+                <span class="neo-kicker mb-2">Code workshop</span>
+                <h1 class="text-3xl font-semibold tracking-tight">@(string.IsNullOrEmpty(GistId) ? "Create a new gist" : "Edit your gist")</h1>
+                <p class="text-muted-foreground text-sm font-semibold">A focused workspace for your cloud snippets.</p>
             </div>
         </div>
         <div class="flex items-center gap-3">

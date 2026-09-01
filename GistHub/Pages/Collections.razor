@@ -4,8 +4,9 @@
 @inject IStorageService Storage
 @inject AppState AppState
 
-<div class="max-w-7xl mx-auto space-y-10 pb-20 animate-in fade-in duration-700">
-    <div class="flex flex-col gap-2">
+<div class="neo-page max-w-7xl mx-auto space-y-10 pb-20 animate-in fade-in duration-700">
+    <div class="neo-page-heading flex flex-col gap-2 pb-7 border-b">
+        <span class="neo-kicker w-fit">Smart organization</span>
         <h1 class="text-4xl font-semibold tracking-tight">Your Collections</h1>
         <p class="text-muted-foreground font-medium">Organize your snippets into smart groups and custom folders.</p>
     </div>
@@ -59,7 +60,7 @@
 
             @if (!Groups.Any())
             {
-                <div class="col-span-full py-12 flex flex-col items-center justify-center text-center space-y-4 opacity-40 grayscale">
+                <div class="col-span-full py-12 flex flex-col items-center justify-center text-center space-y-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2a2 2 0 0 0-1.66-.9H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2Z"/><line x1="12" x2="12" y1="10" y2="16"/><line x1="9" x2="15" y1="13" y2="13"/></svg>
                     <p class="text-sm font-medium">Your custom project folders will appear here.</p>
                 </div>
