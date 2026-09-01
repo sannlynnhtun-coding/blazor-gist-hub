@@ -14,12 +14,18 @@
     <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
     <link rel="stylesheet" href="css/atom-one-dark.min.css">
     <script>
-        // Init Theme
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
+        // Keep the page and installed-app chrome aligned with the selected theme.
+        window.applyGistHubTheme = (theme) => {
+            const isDark = theme === 'dark';
+            document.documentElement.classList.toggle('dark', isDark);
+            document.querySelector('meta[name="theme-color"]')
+                ?.setAttribute('content', isDark ? '#24242F' : '#FFD524');
+        };
+
+        const storedTheme = localStorage.getItem('theme');
+        const initialTheme = storedTheme ??
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        window.applyGistHubTheme(initialTheme);
         window.isDarkThemeActive = () => document.documentElement.classList.contains('dark');
     </script>
 </head>

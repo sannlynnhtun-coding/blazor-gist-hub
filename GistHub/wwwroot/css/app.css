@@ -41,44 +41,57 @@
     --neo-purple: #7d5cff;
     --neo-green: #71d84b;
     --neo-cyan: #78dce8;
+    --neo-red: #ff9fba;
     --neo-paper: #fffaf0;
+    --neo-code-text: #fffaf0;
     --neo-shadow: #0c0c0c;
     --neo-interactive: #35105f;
     --neo-on-accent: #0c0c0c;
+    --neo-grid-opacity: 0.18;
+    --neo-canvas-grid-opacity: 0.2;
   }
 
   .dark {
-    --background: 240 15% 10%;
-    --foreground: 42 100% 94%;
+    --background: 240 14% 10%;
+    --foreground: 38 18% 82%;
 
-    --card: 240 12% 15%;
-    --card-foreground: 42 100% 94%;
+    --card: 240 11% 15%;
+    --card-foreground: 38 18% 82%;
 
-    --popover: 240 12% 15%;
-    --popover-foreground: 42 100% 94%;
+    --popover: 240 11% 15%;
+    --popover-foreground: 38 18% 82%;
 
-    --primary: 49 100% 57%;
+    --primary: 44 57% 52%;
     --primary-foreground: 0 0% 5%;
 
-    --secondary: 188 71% 58%;
+    --secondary: 188 31% 49%;
     --secondary-foreground: 0 0% 5%;
 
-    --muted: 240 10% 22%;
-    --muted-foreground: 42 18% 73%;
+    --muted: 240 9% 22%;
+    --muted-foreground: 38 11% 66%;
 
-    --accent: 338 100% 65%;
+    --accent: 340 42% 57%;
     --accent-foreground: 0 0% 5%;
 
-    --destructive: 350 100% 64%;
+    --destructive: 351 38% 57%;
     --destructive-foreground: 0 0% 5%;
 
-    --border: 42 100% 94%;
-    --input: 42 100% 94%;
-    --ring: 49 100% 57%;
-    --neo-paper: #262633;
-    --neo-shadow: #ffd524;
-    --neo-interactive: #ffd524;
+    --border: 38 12% 62%;
+    --input: 38 12% 62%;
+    --ring: 258 42% 60%;
+    --neo-yellow: #c6a344;
+    --neo-pink: #ba6680;
+    --neo-purple: #7765b5;
+    --neo-green: #6f9f63;
+    --neo-cyan: #609ba3;
+    --neo-red: #b96875;
+    --neo-paper: #252530;
+    --neo-code-text: #d4cec3;
+    --neo-shadow: #74643b;
+    --neo-interactive: #d0ae55;
     --neo-on-accent: #0c0c0c;
+    --neo-grid-opacity: 0.08;
+    --neo-canvas-grid-opacity: 0.1;
   }
 }
 
@@ -90,7 +103,7 @@
     @apply bg-background text-foreground;
     font-family: "Aptos", "Trebuchet MS", system-ui, sans-serif;
     line-height: 1.55;
-    background-image: radial-gradient(hsl(var(--foreground) / 0.18) 1px, transparent 1px);
+    background-image: radial-gradient(hsl(var(--foreground) / var(--neo-grid-opacity)) 1px, transparent 1px);
     background-size: 18px 18px;
     background-attachment: fixed;
   }
@@ -226,7 +239,7 @@
   isolation: isolate;
   overflow-x: hidden;
   background-color: hsl(var(--background) / 0.96);
-  background-image: radial-gradient(hsl(var(--foreground) / 0.2) 1px, transparent 1px);
+  background-image: radial-gradient(hsl(var(--foreground) / var(--neo-canvas-grid-opacity)) 1px, transparent 1px);
   background-size: 18px 18px;
 }
 
@@ -260,6 +273,10 @@
   background: var(--neo-purple);
   border: 3px solid hsl(var(--border));
   border-radius: 50%;
+}
+
+.dark .neo-decor {
+  opacity: 0.68;
 }
 
 .neo-kicker {
@@ -415,8 +432,8 @@ span[class~="rounded-md"][class~="border"] {
 }
 
 [class*="bg-[#FBF3DB]"] { background-color: var(--neo-yellow) !important; }
-[class*="bg-[#FDEBEC]"] { background-color: #ff9fba !important; }
-[class*="bg-[#EDF3EC]"] { background-color: #a5ec82 !important; }
+[class*="bg-[#FDEBEC]"] { background-color: var(--neo-red) !important; }
+[class*="bg-[#EDF3EC]"] { background-color: var(--neo-green) !important; }
 [class*="bg-[#E1F3FE]"] { background-color: var(--neo-cyan) !important; }
 [class*="text-[#956400]"],
 [class*="text-[#9F2F2D]"],
@@ -477,13 +494,13 @@ span[class~="rounded-md"][class~="border"] {
 .neo-gist-card:nth-child(4n + 4)::before { background: var(--neo-cyan); }
 
 .neo-code-preview {
-  color: #fffaf0 !important;
+  color: var(--neo-code-text) !important;
   background: #141414 !important;
   border: 2px solid #0c0c0c !important;
 }
 
 .neo-code-preview__content {
-  color: #fffaf0 !important;
+  color: var(--neo-code-text) !important;
   overflow-wrap: anywhere;
 }
 
@@ -495,7 +512,7 @@ span[class~="rounded-md"][class~="border"] {
 .neo-login-screen,
 .neo-not-found {
   background-color: hsl(var(--background));
-  background-image: radial-gradient(hsl(var(--foreground) / 0.24) 1px, transparent 1px);
+  background-image: radial-gradient(hsl(var(--foreground) / var(--neo-grid-opacity)) 1px, transparent 1px);
   background-size: 18px 18px;
 }
 

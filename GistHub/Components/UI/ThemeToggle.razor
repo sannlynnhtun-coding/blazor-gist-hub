@@ -28,15 +28,8 @@
     private async Task ToggleTheme()
     {
         IsDark = !IsDark;
-        if (IsDark)
-        {
-            await JS.InvokeVoidAsync("document.documentElement.classList.add", "dark");
-            await JS.InvokeVoidAsync("localStorage.setItem", "theme", "dark");
-        }
-        else
-        {
-            await JS.InvokeVoidAsync("document.documentElement.classList.remove", "dark");
-            await JS.InvokeVoidAsync("localStorage.setItem", "theme", "light");
-        }
+        var theme = IsDark ? "dark" : "light";
+        await JS.InvokeVoidAsync("applyGistHubTheme", theme);
+        await JS.InvokeVoidAsync("localStorage.setItem", "theme", theme);
     }
 }
