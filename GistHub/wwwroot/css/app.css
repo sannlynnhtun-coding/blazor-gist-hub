@@ -189,6 +189,25 @@
     outline: 3px solid hsl(var(--ring));
     outline-offset: 3px;
   }
+
+  .bookmark-toggle {
+    @apply min-h-12 w-full justify-start px-4;
+  }
+
+  .bookmark-toggle[aria-pressed="false"] {
+    color: hsl(var(--card-foreground));
+    background: hsl(var(--card));
+  }
+
+  .bookmark-toggle[aria-pressed="true"] {
+    color: var(--neo-on-accent);
+    background: var(--neo-yellow);
+  }
+
+  .bookmark-toggle:focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 3px;
+  }
 }
 
 /* Opaque inked surfaces: translucency works against the paper aesthetic. */
