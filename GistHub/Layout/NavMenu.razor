@@ -1,3 +1,5 @@
+@if (IsVisible)
+{
 <div class="neo-sidebar w-64 bg-card hidden md:flex flex-col h-screen sticky top-0 z-50">
     <div class="p-6 flex flex-col h-full">
         <!-- Brand/Logo Area -->
@@ -86,6 +88,7 @@
         </div>
     </div>
 </div>
+}
 
 <nav class="neo-mobile-nav fixed bottom-4 inset-x-4 z-50 md:hidden grid grid-cols-5 p-1.5 rounded-md" aria-label="Mobile navigation">
     <NavLink href="" Match="NavLinkMatch.All" ActiveClass="active" class="flex flex-col items-center justify-center gap-1 p-2 rounded-sm text-[9px] font-black uppercase">
@@ -143,6 +146,9 @@
     private const string MobileNavItemClasses = "flex flex-col items-center justify-center gap-1 p-2 rounded-sm text-[9px] font-black uppercase";
 
     private bool IsLogoutConfirmOpen { get; set; }
+
+    [Parameter]
+    public bool IsVisible { get; set; } = true;
 
     protected override void OnInitialized()
     {
