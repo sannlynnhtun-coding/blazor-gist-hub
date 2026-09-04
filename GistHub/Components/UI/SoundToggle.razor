@@ -1,0 +1,48 @@
+@inject IJSRuntime JS
+
+<button @onclick="ToggleSound" class="neo-icon-button relative inline-flex items-center justify-center p-2 rounded-md bg-card border border-border hover:bg-secondary transition-all" title="@ButtonLabel" aria-label="@ButtonLabel" aria-pressed="@(IsSoundEnabled ? "true" : "false")" data-sound-toggle>
+    @if (IsSoundEnabled)
+    {
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 5 6 9H2v6h4l5 4Z" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+        </svg>
+    }
+    else
+    {
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 5 6 9H2v6h4l5 4Z" />
+            <path d="m23 9-6 6" />
+            <path d="m17 9 6 6" />
+        </svg>
+    }
+</button>
+
+@code {
+    private bool IsSoundEnabled { get; set; } = true;
+    private string ButtonLabel => IsSoundEnabled ? "Turn button sounds off" : "Turn button sounds on";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+
+        IsSoundEnabled = await JS.InvokeAsync<bool>("gistHubSound.isEnabled");
+        await JS.InvokeVoidAsync("gistHubSound.setup");
+        StateHasChanged();
+    }
+
+    private async Task ToggleSound()
+    {
+        IsSoundEnabled = !IsSoundEnabled;
+        await JS.InvokeVoidAsync("gistHubSound.setEnabled", IsSoundEnabled);
+
+        if (IsSoundEnabled)
+        {
+            await JS.InvokeVoidAsync("gistHubSound.playEnabledChime");
+        }
+    }
+}

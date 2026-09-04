@@ -27,6 +27,68 @@
             (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         window.applyGistHubTheme(initialTheme);
         window.isDarkThemeActive = () => document.documentElement.classList.contains('dark');
+
+        // A short synthesized click keeps interactions playful without adding an audio asset.
+        window.gistHubSound = (() => {
+            const storageKey = 'button-sounds-enabled';
+            let context;
+            let isListening = false;
+
+            const isEnabled = () => localStorage.getItem(storageKey) !== 'false';
+            const setEnabled = (enabled) => localStorage.setItem(storageKey, enabled ? 'true' : 'false');
+
+            const getContext = () => {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return null;
+
+                context ??= new AudioContext();
+                if (context.state === 'suspended') {
+                    context.resume();
+                }
+                return context;
+            };
+
+            const playTone = (frequency, startOffset, duration, volume) => {
+                const audio = getContext();
+                if (!audio) return;
+                const start = audio.currentTime + startOffset;
+                const oscillator = audio.createOscillator();
+                const gain = audio.createGain();
+
+                oscillator.type = 'triangle';
+                oscillator.frequency.setValueAtTime(frequency, start);
+                oscillator.frequency.exponentialRampToValueAtTime(frequency * 1.35, start + duration);
+                gain.gain.setValueAtTime(0.0001, start);
+                gain.gain.exponentialRampToValueAtTime(volume, start + 0.008);
+                gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+                oscillator.connect(gain).connect(audio.destination);
+                oscillator.start(start);
+                oscillator.stop(start + duration + 0.02);
+            };
+
+            const playClick = () => {
+                if (!isEnabled()) return;
+                playTone(600, 0, 0.055, 0.045);
+                playTone(920, 0.035, 0.045, 0.028);
+            };
+
+            const playEnabledChime = () => {
+                playTone(660, 0, 0.06, 0.045);
+                playTone(990, 0.055, 0.08, 0.035);
+            };
+
+            const setup = () => {
+                if (isListening) return;
+                isListening = true;
+                document.addEventListener('click', (event) => {
+                    if (event.button !== 0) return;
+                    const control = event.target.closest('button:not(:disabled), a.btn');
+                    if (control && !control.hasAttribute('data-sound-toggle')) playClick();
+                }, true);
+            };
+
+            return { isEnabled, setEnabled, playEnabledChime, setup };
+        })();
     </script>
 </head>
 
