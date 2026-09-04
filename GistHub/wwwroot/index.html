@@ -28,7 +28,7 @@
         window.applyGistHubTheme(initialTheme);
         window.isDarkThemeActive = () => document.documentElement.classList.contains('dark');
 
-        // A short synthesized click keeps interactions playful without adding an audio asset.
+        // Synthesized cues make the outcome of each kind of action recognizable without audio assets.
         window.gistHubSound = (() => {
             const storageKey = 'button-sounds-enabled';
             let context;
@@ -48,16 +48,16 @@
                 return context;
             };
 
-            const playTone = (frequency, startOffset, duration, volume) => {
+            const playTone = (frequency, startOffset, duration, volume, options = {}) => {
                 const audio = getContext();
                 if (!audio) return;
                 const start = audio.currentTime + startOffset;
                 const oscillator = audio.createOscillator();
                 const gain = audio.createGain();
 
-                oscillator.type = 'triangle';
+                oscillator.type = options.waveform ?? 'triangle';
                 oscillator.frequency.setValueAtTime(frequency, start);
-                oscillator.frequency.exponentialRampToValueAtTime(frequency * 1.35, start + duration);
+                oscillator.frequency.exponentialRampToValueAtTime(options.endFrequency ?? frequency * 1.35, start + duration);
                 gain.gain.setValueAtTime(0.0001, start);
                 gain.gain.exponentialRampToValueAtTime(volume, start + 0.008);
                 gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
@@ -66,10 +66,70 @@
                 oscillator.stop(start + duration + 0.02);
             };
 
-            const playClick = () => {
+            const sounds = {
+                default: () => playTone(600, 0, 0.055, 0.045),
+                navigate: () => {
+                    playTone(420, 0, 0.05, 0.035);
+                    playTone(620, 0.04, 0.05, 0.03);
+                },
+                edit: () => {
+                    playTone(520, 0, 0.045, 0.035);
+                    playTone(780, 0.03, 0.06, 0.032);
+                },
+                copy: () => {
+                    playTone(720, 0, 0.04, 0.035, { waveform: 'square', endFrequency: 720 });
+                    playTone(960, 0.045, 0.055, 0.028, { waveform: 'square', endFrequency: 960 });
+                },
+                confirm: () => {
+                    playTone(500, 0, 0.045, 0.035);
+                    playTone(750, 0.035, 0.05, 0.032);
+                    playTone(1000, 0.07, 0.07, 0.028);
+                },
+                dismiss: () => {
+                    playTone(580, 0, 0.055, 0.035, { endFrequency: 410 });
+                    playTone(390, 0.04, 0.05, 0.025, { endFrequency: 300 });
+                },
+                destructive: () => {
+                    playTone(310, 0, 0.07, 0.035, { waveform: 'sawtooth', endFrequency: 190 });
+                    playTone(180, 0.055, 0.07, 0.025, { waveform: 'sawtooth', endFrequency: 120 });
+                },
+                toggle: (isOn) => {
+                    const low = isOn ? 430 : 680;
+                    const high = isOn ? 700 : 430;
+                    playTone(low, 0, 0.055, 0.035, { endFrequency: low });
+                    playTone(high, 0.04, 0.06, 0.03, { endFrequency: high });
+                }
+            };
+
+            const actionFor = (control) => {
+                const explicitAction = control.dataset.sound;
+                if (explicitAction && sounds[explicitAction]) return explicitAction;
+
+                const description = [
+                    control.getAttribute('aria-label'),
+                    control.getAttribute('title'),
+                    control.textContent,
+                    control.getAttribute('href')
+                ].filter(Boolean).join(' ').toLowerCase();
+
+                if (/delete|remove|discard/.test(description)) return 'destructive';
+                if (/copy|clone/.test(description)) return 'copy';
+                if (/save|create|add|import|login|connect|confirm|retry|sync|load/.test(description)) return 'confirm';
+                if (/cancel|close|back|clear|hide/.test(description)) return 'dismiss';
+                if (/edit|manage|preview/.test(description)) return 'edit';
+                if (control.hasAttribute('aria-pressed') || /toggle|bookmark|favorite/.test(description)) return 'toggle';
+                if (control.tagName === 'A' || /open|view|show|go to/.test(description)) return 'navigate';
+                return 'default';
+            };
+
+            const playAction = (control) => {
                 if (!isEnabled()) return;
-                playTone(600, 0, 0.055, 0.045);
-                playTone(920, 0.035, 0.045, 0.028);
+                const action = actionFor(control);
+                if (action === 'toggle') {
+                    sounds.toggle(control.getAttribute('aria-pressed') !== 'true');
+                    return;
+                }
+                sounds[action]();
             };
 
             const playEnabledChime = () => {
@@ -82,12 +142,13 @@
                 isListening = true;
                 document.addEventListener('click', (event) => {
                     if (event.button !== 0) return;
-                    const control = event.target.closest('button:not(:disabled), a.btn');
-                    if (control && !control.hasAttribute('data-sound-toggle')) playClick();
+                    if (!(event.target instanceof Element)) return;
+                    const control = event.target.closest('button:not(:disabled), a[href], input:not(:disabled)[type="button"], input:not(:disabled)[type="submit"]');
+                    if (control && !control.hasAttribute('data-sound-toggle')) playAction(control);
                 }, true);
             };
 
-            return { isEnabled, setEnabled, playEnabledChime, setup };
+            return { isEnabled, setEnabled, playAction, playEnabledChime, setup };
         })();
     </script>
 </head>
