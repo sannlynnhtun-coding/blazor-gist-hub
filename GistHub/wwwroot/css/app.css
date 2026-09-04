@@ -209,18 +209,6 @@
     outline-offset: 3px;
   }
 
-  .bookmark-reorder-hint {
-    @apply flex items-center justify-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[10px] font-bold;
-    width: fit-content;
-    margin-inline: auto;
-    color: hsl(var(--foreground));
-    background: var(--neo-cyan);
-    border-color: hsl(var(--border));
-    box-shadow: 3px 3px 0 var(--neo-shadow);
-    letter-spacing: 0.015em;
-    text-align: center;
-  }
-
   .bookmark-draggable {
     cursor: grab;
     transition: transform 160ms ease, opacity 160ms ease;
