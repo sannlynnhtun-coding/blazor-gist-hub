@@ -65,21 +65,29 @@
                     </div>
                 </div>
 
-                <div class="space-y-2">
-                    <label class="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Privacy Level</label>
-                    <div class="grid grid-cols-2 gap-2 p-1 bg-secondary/50 rounded-lg border">
-                        <button @onclick="() => IsPublic = true" disabled="@(!string.IsNullOrEmpty(GistId))" class="btn btn-sm @(IsPublic ? "btn-secondary bg-background" : "btn-ghost text-muted-foreground") @(!string.IsNullOrEmpty(GistId) ? "cursor-not-allowed opacity-50" : "")">
+                <fieldset class="space-y-2">
+                    <legend class="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Privacy Level</legend>
+                    <div class="privacy-selector">
+                        <button type="button" @onclick="() => IsPublic = true" aria-pressed="@(IsPublic ? "true" : "false")" disabled="@(!string.IsNullOrEmpty(GistId))" class="btn btn-sm privacy-option @(!string.IsNullOrEmpty(GistId) ? "cursor-not-allowed" : "")">
                             Public
+                            @if (IsPublic)
+                            {
+                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6" /></svg>
+                            }
                         </button>
-                        <button @onclick="() => IsPublic = false" disabled="@(!string.IsNullOrEmpty(GistId))" class="btn btn-sm @(!IsPublic ? "btn-secondary bg-background" : "btn-ghost text-muted-foreground") @(!string.IsNullOrEmpty(GistId) ? "cursor-not-allowed opacity-50" : "")">
+                        <button type="button" @onclick="() => IsPublic = false" aria-pressed="@(!IsPublic ? "true" : "false")" disabled="@(!string.IsNullOrEmpty(GistId))" class="btn btn-sm privacy-option @(!string.IsNullOrEmpty(GistId) ? "cursor-not-allowed" : "")">
                             Secret
+                            @if (!IsPublic)
+                            {
+                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6" /></svg>
+                            }
                         </button>
                     </div>
                     @if (!string.IsNullOrEmpty(GistId))
                     {
                         <p class="text-[10px] text-muted-foreground mt-1 px-1">Note: GitHub doesn't allow changing privacy after creation.</p>
                     }
-                </div>
+                </fieldset>
             </div>
 
             <!-- Helpful Tips -->

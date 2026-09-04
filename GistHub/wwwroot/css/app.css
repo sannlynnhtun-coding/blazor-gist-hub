@@ -167,6 +167,28 @@
   .btn-xl { @apply h-14 rounded-lg px-10 text-lg font-bold; }
   .btn-icon { @apply h-9 w-9; }
   .btn-icon-sm { @apply h-8 w-8; }
+
+  .privacy-selector {
+    @apply grid grid-cols-2 gap-2 rounded-lg border p-1;
+    background: hsl(var(--muted));
+  }
+
+  .privacy-option[aria-pressed="false"] {
+    color: hsl(var(--card-foreground));
+    background: hsl(var(--card));
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  .privacy-option[aria-pressed="true"] {
+    color: var(--neo-on-accent);
+    background: var(--neo-cyan);
+  }
+
+  .privacy-option:focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 3px;
+  }
 }
 
 /* Opaque inked surfaces: translucency works against the paper aesthetic. */
