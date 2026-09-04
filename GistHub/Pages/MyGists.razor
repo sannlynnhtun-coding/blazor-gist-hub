@@ -117,6 +117,14 @@
         </div>
     }
 
+    @if (BookmarksOnly && BookmarkedGistsCount > 1)
+    {
+        <div class="bookmark-reorder-hint" role="status">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/></svg>
+            <span>Drag bookmarked cards to set their order.</span>
+        </div>
+    }
+
     @if (!string.IsNullOrWhiteSpace(GroupMessage))
     {
         <div class="p-3 rounded-xl border border-border bg-[#FBF3DB] text-sm text-[#956400] font-semibold">@GroupMessage</div>
@@ -157,32 +165,41 @@
         }
         else
         {
-            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3 items-start">
+            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3 items-start" aria-label="@(BookmarksOnly ? "Reorderable bookmarked gists" : "Gists")">
                 @foreach (var gist in FilteredGists)
                 {
-                    <GistCard
-                        Id="@gist.Id"
-                        ShowAuthorInfo="false"
-                        Compact="true"
-                        Description="@gist.Description"
-                        Tags="@gist.Tags"
-                        SnippetPreview="@(gist.Files.Values.FirstOrDefault()?.Content ?? "")"
-                        Stars="0"
-                        Forks="0"
-                        IsBookmarked="@gist.IsBookmarked"
-                        EnableGroupPicker="true"
-                        AvailableGroups="@GroupNames"
-                        SelectedGroups="@gist.CollectionNames"
-                        OnCreateGroup="@(name => CreateGroupFromCard(name))"
-                        OnToggleGroupOn="@(name => AddGroupToGist(gist, name))"
-                        OnToggleGroupOff="@(name => RemoveGroupFromGist(gist, name))"
-                        OnEdit="@(() => Navigation.NavigateTo($"/editor/{gist.Id}"))"
-                        OnDelete="@(() => HandleDelete(gist))"
-                        OnCopyRaw="@(() => HandleCopyRaw(gist))"
-                        IsCopied="@(CopiedGistId == gist.Id)"
-                        OnToggleBookmark="@(() => ToggleBookmark(gist))"
-                        OnView="@((id) => Navigation.NavigateTo($"/view/{gist.Id}"))"
-                    />
+                    <div @key="gist.Id"
+                         draggable="@BookmarksOnly"
+                         class="@(BookmarksOnly ? $"bookmark-draggable {(DraggedBookmarkId == gist.Id ? "is-dragging" : "")} {(DropTargetBookmarkId == gist.Id ? "is-drop-target" : "")}" : "")"
+                         @ondragstart="() => BeginBookmarkDrag(gist.Id)"
+                         @ondragend="EndBookmarkDrag"
+                         @ondragenter="() => SetBookmarkDropTarget(gist.Id)"
+                         @ondragover:preventDefault="true"
+                         @ondrop="() => DropBookmarkAsync(gist.Id)">
+                        <GistCard
+                            Id="@gist.Id"
+                            ShowAuthorInfo="false"
+                            Compact="true"
+                            Description="@gist.Description"
+                            Tags="@gist.Tags"
+                            SnippetPreview="@(gist.Files.Values.FirstOrDefault()?.Content ?? "")"
+                            Stars="0"
+                            Forks="0"
+                            IsBookmarked="@gist.IsBookmarked"
+                            EnableGroupPicker="true"
+                            AvailableGroups="@GroupNames"
+                            SelectedGroups="@gist.CollectionNames"
+                            OnCreateGroup="@(name => CreateGroupFromCard(name))"
+                            OnToggleGroupOn="@(name => AddGroupToGist(gist, name))"
+                            OnToggleGroupOff="@(name => RemoveGroupFromGist(gist, name))"
+                            OnEdit="@(() => Navigation.NavigateTo($"/editor/{gist.Id}"))"
+                            OnDelete="@(() => HandleDelete(gist))"
+                            OnCopyRaw="@(() => HandleCopyRaw(gist))"
+                            IsCopied="@(CopiedGistId == gist.Id)"
+                            OnToggleBookmark="@(() => ToggleBookmark(gist))"
+                            OnView="@((id) => Navigation.NavigateTo($"/view/{gist.Id}"))"
+                        />
+                    </div>
                 }
             </div>
         }
@@ -261,6 +278,8 @@
     private string ImportValidationMessage = "";
     private string ImportMessage = "";
     private string? CopiedGistId = null;
+    private string? DraggedBookmarkId = null;
+    private string? DropTargetBookmarkId = null;
 
     private List<string> GroupNames => Groups.Select(g => g.Name).ToList();
 
@@ -272,7 +291,11 @@
          (g.Description?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ?? false) ||
          g.Files.Values.Any(f => f.Filename?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ?? false) ||
          g.Tags.Any(t => t.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase)))
-    ).ToList();
+    )
+    .OrderBy(g => BookmarksOnly && g.IsBookmarked && g.BookmarkOrder > 0 ? 0 : 1)
+    .ThenBy(g => BookmarksOnly && g.IsBookmarked && g.BookmarkOrder > 0 ? g.BookmarkOrder : int.MaxValue)
+    .ThenByDescending(g => g.UpdatedAt)
+    .ToList();
 
     private int TotalGistsCount => LocalGists.Count;
     private int PublicGistsCount => LocalGists.Count(g => g.Public);
@@ -362,6 +385,7 @@
                     if (existingById.TryGetValue(fullGist.Id, out var existing))
                     {
                         fullGist.IsBookmarked = existing.IsBookmarked;
+                        fullGist.BookmarkOrder = existing.BookmarkOrder;
                         fullGist.CollectionNames = existing.CollectionNames
                             .Distinct(StringComparer.OrdinalIgnoreCase)
                             .ToList();
@@ -420,7 +444,79 @@
     private async Task ToggleBookmark(LocalGist gist)
     {
         gist.IsBookmarked = !gist.IsBookmarked;
+        if (gist.IsBookmarked)
+        {
+            gist.BookmarkOrder = LocalGists
+                .Where(item => item.IsBookmarked)
+                .Select(item => item.BookmarkOrder)
+                .DefaultIfEmpty()
+                .Max() + 1;
+        }
+        else
+        {
+            gist.BookmarkOrder = 0;
+        }
         await Storage.SaveGistAsync(gist);
+        StateHasChanged();
+    }
+
+    private void BeginBookmarkDrag(string gistId)
+    {
+        if (!BookmarksOnly)
+        {
+            return;
+        }
+
+        DraggedBookmarkId = gistId;
+        DropTargetBookmarkId = gistId;
+    }
+
+    private void SetBookmarkDropTarget(string gistId)
+    {
+        if (BookmarksOnly && DraggedBookmarkId is not null)
+        {
+            DropTargetBookmarkId = gistId;
+        }
+    }
+
+    private void EndBookmarkDrag()
+    {
+        DraggedBookmarkId = null;
+        DropTargetBookmarkId = null;
+    }
+
+    private async Task DropBookmarkAsync(string targetId)
+    {
+        if (!BookmarksOnly || string.IsNullOrWhiteSpace(DraggedBookmarkId) || DraggedBookmarkId == targetId)
+        {
+            EndBookmarkDrag();
+            return;
+        }
+
+        var orderedBookmarks = LocalGists
+            .Where(gist => gist.IsBookmarked)
+            .OrderBy(gist => gist.BookmarkOrder > 0 ? 0 : 1)
+            .ThenBy(gist => gist.BookmarkOrder > 0 ? gist.BookmarkOrder : int.MaxValue)
+            .ThenByDescending(gist => gist.UpdatedAt)
+            .ToList();
+        var dragged = orderedBookmarks.FirstOrDefault(gist => gist.Id == DraggedBookmarkId);
+        var targetIndex = orderedBookmarks.FindIndex(gist => gist.Id == targetId);
+
+        if (dragged is not null && targetIndex >= 0)
+        {
+            orderedBookmarks.Remove(dragged);
+            targetIndex = orderedBookmarks.FindIndex(gist => gist.Id == targetId);
+            orderedBookmarks.Insert(targetIndex, dragged);
+
+            for (var index = 0; index < orderedBookmarks.Count; index++)
+            {
+                orderedBookmarks[index].BookmarkOrder = index + 1;
+            }
+
+            await Task.WhenAll(orderedBookmarks.Select(Storage.SaveGistAsync));
+        }
+
+        EndBookmarkDrag();
         StateHasChanged();
     }
 

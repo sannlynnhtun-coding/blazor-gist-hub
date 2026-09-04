@@ -208,6 +208,39 @@
     outline: 3px solid hsl(var(--ring));
     outline-offset: 3px;
   }
+
+  .bookmark-reorder-hint {
+    @apply flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-bold;
+    width: fit-content;
+    color: hsl(var(--foreground));
+    background: var(--neo-cyan);
+    border-color: hsl(var(--border));
+    box-shadow: 3px 3px 0 var(--neo-shadow);
+  }
+
+  .bookmark-draggable {
+    cursor: grab;
+    transition: transform 160ms ease, opacity 160ms ease;
+  }
+
+  .bookmark-draggable:active,
+  .bookmark-draggable.is-dragging {
+    cursor: grabbing;
+  }
+
+  .bookmark-draggable.is-dragging {
+    opacity: 0.45;
+    transform: scale(0.98);
+  }
+
+  .bookmark-draggable.is-drop-target {
+    transform: translateY(-3px);
+  }
+
+  .bookmark-draggable.is-drop-target .neo-gist-card {
+    outline: 3px dashed var(--neo-purple);
+    outline-offset: 4px;
+  }
 }
 
 /* Opaque inked surfaces: translucency works against the paper aesthetic. */

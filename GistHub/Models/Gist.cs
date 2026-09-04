@@ -40,6 +40,8 @@ public class LocalGist
     public string? CollectionName { get; set; }
     public bool IsSynced { get; set; } = true;
     public bool IsBookmarked { get; set; } = false;
+    // A local-only rank used when displaying bookmarked gists. Zero means no custom position yet.
+    public int BookmarkOrder { get; set; }
 
     [JsonPropertyName("owner")]
     public GistOwner? Owner { get; set; }

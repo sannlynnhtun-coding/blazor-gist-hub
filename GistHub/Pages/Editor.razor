@@ -160,6 +160,7 @@
     private string Content { get; set; } = "";
     private bool IsPublic { get; set; } = true;
     private bool IsBookmarked { get; set; } = false;
+    private int BookmarkOrder { get; set; }
     private bool IsLoading { get; set; } = false;
     private bool IsPreview { get; set; } = false;
     private bool IsEditorUnavailable { get; set; } = false;
@@ -194,6 +195,7 @@
                 freshGist.IsSynced = true;
                 freshGist.Tags = ParseTags(freshGist.Description);
                 freshGist.IsBookmarked = gist?.IsBookmarked ?? false;
+                freshGist.BookmarkOrder = gist?.BookmarkOrder ?? 0;
                 await Storage.SaveGistAsync(freshGist);
                 gist = freshGist;
             }
@@ -215,6 +217,7 @@
         Content = firstFile.Value?.Content ?? "";
         IsPublic = gist.Public;
         IsBookmarked = gist.IsBookmarked;
+        BookmarkOrder = gist.BookmarkOrder;
     }
 
     private static bool HasEditableContent(LocalGist? gist)
@@ -288,6 +291,15 @@
                 result.IsSynced = true;
                 result.Tags = ParseTags(Description);
                 result.IsBookmarked = IsBookmarked;
+                result.BookmarkOrder = IsBookmarked
+                    ? BookmarkOrder > 0
+                        ? BookmarkOrder
+                        : (await Storage.GetLocalGistsAsync())
+                            .Where(gist => gist.IsBookmarked)
+                            .Select(gist => gist.BookmarkOrder)
+                            .DefaultIfEmpty()
+                            .Max() + 1
+                    : 0;
                 await Storage.SaveGistAsync(result);
                 Navigation.NavigateTo("/my-gists");
             }
