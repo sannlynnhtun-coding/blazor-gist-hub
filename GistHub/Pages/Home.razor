@@ -66,7 +66,7 @@
 
     @if (IsLoading && !Gists.Any())
     {
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div class="gist-masonry" aria-busy="true">
             @for (int i = 0; i < 6; i++)
             {
                 <div class="h-64 bg-muted animate-pulse rounded-xl border border-border"></div>
@@ -84,7 +84,7 @@
     else
     {
         <!-- Feed Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 font-primary pb-32">
+    <div class="gist-masonry font-primary pb-32" aria-label="Gists">
         @foreach (var gist in FilteredGists)
         {
             <GistCard 

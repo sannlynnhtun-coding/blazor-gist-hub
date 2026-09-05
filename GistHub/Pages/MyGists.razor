@@ -12,19 +12,20 @@
 <div class="neo-page relative space-y-12 pb-20">
     <button
         @onclick="ToggleProfileTools"
-        class="absolute top-0 right-0 z-10 btn btn-outline h-11 w-11 !m-0"
+        class="neo-sidebar-toggle absolute top-0 right-0 z-10 !m-0"
+        type="button"
+        role="switch"
         aria-label="@(IsProfileToolsVisible ? "Hide profile and collection actions" : "Show profile and collection actions")"
+        aria-checked="@IsProfileToolsVisible"
         aria-expanded="@(IsProfileToolsVisible ? "true" : "false")"
         aria-controls="profile-tools"
         title="@(IsProfileToolsVisible ? "Hide profile and collection actions" : "Show profile and collection actions")">
-        @if (IsProfileToolsVisible)
-        {
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
-        }
-        else
-        {
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-        }
+        <span class="neo-sidebar-toggle__label">Actions</span>
+        <span class="neo-sidebar-toggle__options" aria-hidden="true">
+            <span class="neo-sidebar-toggle__option @(IsProfileToolsVisible ? "is-selected" : "")"><span class="neo-sidebar-toggle__radio"></span>On</span>
+            <span class="neo-sidebar-toggle__option @(!IsProfileToolsVisible ? "is-selected" : "")"><span class="neo-sidebar-toggle__radio"></span>Off</span>
+        </span>
+        <span class="sr-only">@(IsProfileToolsVisible ? "Hide profile and collection actions" : "Show profile and collection actions")</span>
     </button>
 
     <div id="profile-tools" hidden="@(!IsProfileToolsVisible)" class="@(IsProfileToolsVisible ? "flex" : "hidden") flex-col md:flex-row items-center justify-between gap-6 pb-8 pr-14 border-b !mt-0">
@@ -157,7 +158,7 @@
         }
         else
         {
-            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3 items-start" aria-label="@(BookmarksOnly ? "Reorderable bookmarked gists" : "Gists")">
+            <div class="gist-masonry gist-masonry--compact" aria-label="@(BookmarksOnly ? "Reorderable bookmarked gists" : "Gists")">
                 @foreach (var gist in FilteredGists)
                 {
                     <div @key="gist.Id"
@@ -245,6 +246,7 @@
 
 @code {
     private const string BookmarksOnlyStorageKey = "gisthub:bookmarks-only";
+    private const string ProfileToolsVisibleStorageKey = "gisthub:profile-tools-visible";
 
     [Parameter]
     [SupplyParameterFromQuery(Name = "favorites")]
@@ -297,9 +299,10 @@
     private int SecretGistsCount => LocalGists.Count(g => !g.Public);
     private int BookmarkedGistsCount => LocalGists.Count(g => g.IsBookmarked);
 
-    private void ToggleProfileTools()
+    private async Task ToggleProfileTools()
     {
         IsProfileToolsVisible = !IsProfileToolsVisible;
+        await JS.InvokeVoidAsync("localStorage.setItem", ProfileToolsVisibleStorageKey, IsProfileToolsVisible ? "true" : "false");
     }
 
     private async Task ToggleBookmarksOnly()
@@ -333,6 +336,9 @@
             var storedValue = await JS.InvokeAsync<string?>("localStorage.getItem", BookmarksOnlyStorageKey);
             BookmarksOnly = string.Equals(storedValue, "true", StringComparison.OrdinalIgnoreCase);
         }
+
+        var profileToolsStoredValue = await JS.InvokeAsync<string?>("localStorage.getItem", ProfileToolsVisibleStorageKey);
+        IsProfileToolsVisible = !string.Equals(profileToolsStoredValue, "false", StringComparison.OrdinalIgnoreCase);
         StateHasChanged();
     }
 

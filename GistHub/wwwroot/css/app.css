@@ -121,6 +121,40 @@
 }
 
 @layer components {
+  /* Keep the existing card treatment while letting each gist occupy its own
+     vertical space, instead of reserving a shared grid row for every card. */
+  .gist-masonry {
+    column-count: 1;
+    column-gap: 2rem;
+  }
+
+  .gist-masonry > * {
+    break-inside: avoid;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .gist-masonry--compact {
+    column-gap: 0.75rem;
+  }
+
+  .gist-masonry--compact > * {
+    margin-bottom: 0.75rem;
+  }
+
+  @media (min-width: 1024px) {
+    .gist-masonry {
+      column-count: 2;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .gist-masonry {
+      column-count: 3;
+    }
+  }
+
   .btn {
     @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-bold transition-all focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50;
     border: 2px solid hsl(var(--border));

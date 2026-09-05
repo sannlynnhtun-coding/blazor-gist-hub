@@ -61,8 +61,11 @@
 
 @inject AppState AppState
 @inject IStorageService Storage
+@inject IJSRuntime JS
 
 @code {
+    private const string SidebarVisibleStorageKey = "gisthub:sidebar-visible";
+
     private bool IsSidebarVisible { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
@@ -78,8 +81,21 @@
         }
     }
 
-    private void ToggleSidebar()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+
+        var storedValue = await JS.InvokeAsync<string?>("localStorage.getItem", SidebarVisibleStorageKey);
+        IsSidebarVisible = !string.Equals(storedValue, "false", StringComparison.OrdinalIgnoreCase);
+        StateHasChanged();
+    }
+
+    private async Task ToggleSidebar()
     {
         IsSidebarVisible = !IsSidebarVisible;
+        await JS.InvokeVoidAsync("localStorage.setItem", SidebarVisibleStorageKey, IsSidebarVisible ? "true" : "false");
     }
 }
