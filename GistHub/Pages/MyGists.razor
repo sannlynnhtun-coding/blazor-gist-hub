@@ -177,6 +177,9 @@
                             SnippetPreview="@(gist.Files.Values.FirstOrDefault()?.Content ?? "")"
                             Stars="0"
                             Forks="0"
+                            IsPublic="@gist.Public"
+                            ShowVisibilityToggle="true"
+                            OnVisibilityChanged="@(isPublic => SetVisibility(gist, isPublic))"
                             IsBookmarked="@gist.IsBookmarked"
                             EnableGroupPicker="true"
                             AvailableGroups="@GroupNames"
@@ -448,6 +451,18 @@
         {
             gist.BookmarkOrder = 0;
         }
+        await Storage.SaveGistAsync(gist);
+        StateHasChanged();
+    }
+
+    private async Task SetVisibility(LocalGist gist, bool isPublic)
+    {
+        if (gist.Public == isPublic)
+        {
+            return;
+        }
+
+        gist.Public = isPublic;
         await Storage.SaveGistAsync(gist);
         StateHasChanged();
     }

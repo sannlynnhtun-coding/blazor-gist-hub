@@ -120,6 +120,17 @@
             }
             
             <div class="flex items-center gap-2">
+                @if (ShowVisibilityToggle)
+                {
+                    <div class="inline-flex items-center rounded-lg border border-border bg-muted/30 p-0.5" role="group" aria-label="Gist visibility">
+                        <button @onclick="() => SetVisibility(true)" @onclick:stopPropagation="true" class="px-2 py-1 rounded-md text-[9px] font-bold uppercase tracking-wider transition-colors @(IsPublic ? "bg-[#EDF3EC] text-[#346538] shadow-sm" : "text-muted-foreground hover:text-foreground")" aria-pressed="@(IsPublic ? "true" : "false")" title="Make public">
+                            Public
+                        </button>
+                        <button @onclick="() => SetVisibility(false)" @onclick:stopPropagation="true" class="px-2 py-1 rounded-md text-[9px] font-bold uppercase tracking-wider transition-colors @(!IsPublic ? "bg-[#FBF3DB] text-[#956400] shadow-sm" : "text-muted-foreground hover:text-foreground")" aria-pressed="@(!IsPublic ? "true" : "false")" title="Make secret">
+                            Secret
+                        </button>
+                    </div>
+                }
                 @if (OnCopyRaw.HasDelegate)
                 {
                     <button @onclick="() => OnCopyRaw.InvokeAsync()" class="inline-flex items-center justify-center gap-1.5 @(Compact ? "w-7 h-7" : "px-2 py-1.5") rounded-lg hover:bg-accent @(IsCopied ? "text-[#346538]" : "text-muted-foreground hover:text-primary") transition-colors text-[10px] font-bold uppercase tracking-widest" title="Copy raw content" aria-label="Copy raw content">
@@ -227,6 +238,9 @@
     [Parameter] public EventCallback<bool> OnSelectedChanged { get; set; }
     [Parameter] public bool ShowCheckbox { get; set; } = false;
     [Parameter] public bool IsBookmarked { get; set; }
+    [Parameter] public bool IsPublic { get; set; }
+    [Parameter] public bool ShowVisibilityToggle { get; set; }
+    [Parameter] public EventCallback<bool> OnVisibilityChanged { get; set; }
     [Parameter] public EventCallback OnDelete { get; set; }
     [Parameter] public EventCallback OnEdit { get; set; }
     [Parameter] public EventCallback OnClone { get; set; }
@@ -274,6 +288,16 @@
     {
         IsGroupPopoverOpen = false;
         GroupValidationMessage = "";
+    }
+
+    private async Task SetVisibility(bool isPublic)
+    {
+        if (IsPublic == isPublic)
+        {
+            return;
+        }
+
+        await OnVisibilityChanged.InvokeAsync(isPublic);
     }
 
     private async Task ToggleGroupMembership(string groupName, bool isEnabled)
