@@ -685,11 +685,27 @@ span[class~="rounded-md"][class~="border"] {
   color: var(--neo-code-text) !important;
   background: #141414 !important;
   border: 2px solid #0c0c0c !important;
+  /* Previews size to their content, then scroll after roughly 12 lines. */
+  max-height: 16rem;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground) / 0.55) transparent;
 }
 
 .neo-code-preview__content {
   color: var(--neo-code-text) !important;
   overflow-wrap: anywhere;
+  margin: 0;
+}
+
+.neo-code-preview::-webkit-scrollbar {
+  width: 0.45rem;
+  height: 0.45rem;
+}
+
+.neo-code-preview::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.55);
 }
 
 .neo-coming-card:nth-child(4n + 1) { background: var(--neo-yellow) !important; }

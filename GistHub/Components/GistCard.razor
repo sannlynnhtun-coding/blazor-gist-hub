@@ -98,8 +98,12 @@
             }
 
             <!-- Code Preview -->
-            <div class="neo-code-preview relative bg-[#F7F6F3] dark:bg-muted rounded-lg @(Compact ? "p-2" : "p-4") overflow-hidden border border-border transition-all duration-300">
-                <div class="neo-code-preview__content font-mono @(Compact ? "text-xs line-clamp-2 leading-snug" : "text-[13px] line-clamp-4 leading-relaxed") text-[#2F3437] dark:text-foreground antialiased whitespace-pre-wrap break-words">@SnippetPreview</div>
+            <div class="neo-code-preview relative bg-[#F7F6F3] dark:bg-muted rounded-lg @(Compact ? "p-2" : "p-4") border border-border transition-all duration-300"
+                 role="region"
+                 aria-label="Code preview"
+                 tabindex="0"
+                 @onclick:stopPropagation="true">
+                <pre class="neo-code-preview__content font-mono @(Compact ? "text-xs leading-snug" : "text-[13px] leading-relaxed") text-[#2F3437] dark:text-foreground antialiased whitespace-pre-wrap break-words">@SnippetPreview</pre>
             </div>
         </div>
 

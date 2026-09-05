@@ -145,10 +145,20 @@
                 return;
             }
 
-            SlhGists = gists
+            var collectionGists = gists
                 .Where(g => g.Public && string.Equals(g.Owner?.Login, SlhUsername, StringComparison.OrdinalIgnoreCase))
                 .OrderByDescending(g => g.UpdatedAt)
                 .ToList();
+
+            // GitHub's list endpoint does not include file contents. Hydrate the
+            // summaries so visitors can read code directly from each card.
+            var hydratedGists = await Task.WhenAll(collectionGists.Select(async gist =>
+            {
+                var fullGist = await Github.GetGistByIdAsync(gist.Id, token);
+                return fullGist is { Files.Count: > 0 } ? fullGist : gist;
+            }));
+
+            SlhGists = hydratedGists.ToList();
 
             foreach (var gist in SlhGists)
             {
