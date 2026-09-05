@@ -143,6 +143,23 @@
     margin-bottom: 0.75rem;
   }
 
+  /* Collection cards should use the extra room on wider screens without
+     becoming hard to scan when a collection has only a few items. */
+  .gist-collection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17.5rem), 23rem));
+    justify-content: center;
+    align-items: start;
+    gap: 1rem;
+  }
+
+  .gist-collection-grid > * {
+    break-inside: auto;
+    display: block;
+    width: 100%;
+    margin-bottom: 0;
+  }
+
   @media (min-width: 1024px) {
     .gist-masonry {
       column-count: 2;
@@ -152,6 +169,12 @@
   @media (min-width: 1280px) {
     .gist-masonry {
       column-count: 3;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .gist-collection-grid {
+      gap: 1.5rem;
     }
   }
 

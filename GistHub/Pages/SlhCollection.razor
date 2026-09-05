@@ -60,7 +60,7 @@
 
     @if (IsLoading && !SlhGists.Any())
     {
-        <div class="gist-masonry" aria-busy="true">
+        <div class="gist-collection-grid" aria-busy="true">
             @for (int i = 0; i < 4; i++)
             {
                 <div class="h-64 bg-muted animate-pulse rounded-xl border border-border"></div>
@@ -82,7 +82,7 @@
     }
     else
     {
-        <div class="gist-masonry" aria-label="SLH collection gists">
+        <div class="gist-collection-grid" aria-label="SLH collection gists">
             @foreach (var gist in FilteredGists)
             {
                 <GistCard
