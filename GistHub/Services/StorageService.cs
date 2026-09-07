@@ -21,11 +21,13 @@ public interface IStorageService
 public class IndexedDbService : IStorageService
 {
     private readonly IJSRuntime _js;
+    private readonly AppState _appState;
     private IJSObjectReference? _module;
 
-    public IndexedDbService(IJSRuntime js)
+    public IndexedDbService(IJSRuntime js, AppState appState)
     {
         _js = js;
+        _appState = appState;
     }
 
     public async Task InitAsync()
@@ -55,6 +57,7 @@ public class IndexedDbService : IStorageService
     public async Task SaveGistAsync(LocalGist gist)
     {
         await EnsureModule();
+        SetGistScope(gist);
         NormalizeGistCollections(gist);
         await _module!.InvokeVoidAsync("saveItem", "gists", gist);
     }
@@ -63,20 +66,25 @@ public class IndexedDbService : IStorageService
     {
         await EnsureModule();
         var gists = await _module!.InvokeAsync<List<LocalGist>>("getAllItems", "gists");
-        foreach (var gist in gists)
+        var currentUsername = GetCurrentUsername();
+        var accountGists = gists
+            .Where(gist => string.Equals(gist.CacheOwnerUsername, currentUsername, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        foreach (var gist in accountGists)
         {
             if (NormalizeGistCollections(gist))
             {
                 await _module!.InvokeVoidAsync("saveItem", "gists", gist);
             }
         }
-        return gists;
+        return accountGists;
     }
 
     public async Task DeleteGistAsync(string id)
     {
         await EnsureModule();
-        await _module!.InvokeVoidAsync("deleteItem", "gists", id);
+        await _module!.InvokeVoidAsync("deleteItem", "gists", CreateGistStorageKey(GetCurrentUsername(), id));
     }
 
     public async Task SaveGroupAsync(GistGroup group)
@@ -115,6 +123,24 @@ public class IndexedDbService : IStorageService
             await InitAsync();
         }
     }
+
+    private void SetGistScope(LocalGist gist)
+    {
+        var username = GetCurrentUsername();
+        if (string.IsNullOrWhiteSpace(username))
+        {
+            throw new InvalidOperationException("A GitHub profile is required to save a local gist.");
+        }
+
+        gist.CacheOwnerUsername = username;
+        gist.StorageKey = CreateGistStorageKey(username, gist.Id);
+    }
+
+    private string GetCurrentUsername()
+        => _appState.CurrentProfile?.GithubUsername?.Trim().ToLowerInvariant() ?? string.Empty;
+
+    private static string CreateGistStorageKey(string username, string gistId)
+        => $"{username}:{gistId}";
 
     private static bool NormalizeGistCollections(LocalGist gist)
     {

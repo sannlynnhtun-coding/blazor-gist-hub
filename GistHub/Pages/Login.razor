@@ -161,6 +161,13 @@
         IsSyncing = true;
         StateHasChanged();
 
+        // Keep bookmark and collection data that was cached for this GitHub user,
+        // even when their saved token/profile was removed and they reconnect.
+        var existingById = (await Storage.GetLocalGistsAsync())
+            .Where(gist => !string.IsNullOrWhiteSpace(gist.Id))
+            .GroupBy(gist => gist.Id)
+            .ToDictionary(group => group.Key, group => group.First());
+
         var userGistsList = await Github.GetUserGistsAsync(Token);
         if (userGistsList != null)
         {
@@ -171,6 +178,17 @@
                 {
                     fullGist.IsSynced = true;
                     fullGist.Tags = ParseTags(fullGist.Description);
+
+                    if (existingById.TryGetValue(fullGist.Id, out var cachedGist))
+                    {
+                        fullGist.IsBookmarked = cachedGist.IsBookmarked;
+                        fullGist.BookmarkOrder = cachedGist.BookmarkOrder;
+                        fullGist.CollectionNames = cachedGist.CollectionNames
+                            .Distinct(StringComparer.OrdinalIgnoreCase)
+                            .ToList();
+                        fullGist.CollectionName = fullGist.CollectionNames.FirstOrDefault();
+                    }
+
                     await Storage.SaveGistAsync(fullGist);
                 }
             });

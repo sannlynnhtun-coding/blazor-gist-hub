@@ -16,6 +16,15 @@ public class LocalGist
     [JsonPropertyName("id")]
     public string Id { get; set; } = string.Empty;
 
+    // Local cache ownership is separate from the GitHub gist owner. A user can
+    // view another user's gist, but bookmark state belongs to the signed-in user.
+    [JsonPropertyName("cacheOwnerUsername")]
+    public string CacheOwnerUsername { get; set; } = string.Empty;
+
+    // IndexedDB's account-qualified primary key. The GitHub API still uses Id.
+    [JsonPropertyName("storageKey")]
+    public string StorageKey { get; set; } = string.Empty;
+
     [JsonPropertyName("description")]
     public string Description { get; set; } = string.Empty;
 
