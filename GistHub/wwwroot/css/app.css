@@ -277,12 +277,29 @@
   }
 
   .bookmark-draggable {
-    cursor: grab;
     transition: transform 160ms ease, opacity 160ms ease;
   }
 
-  .bookmark-draggable:active,
-  .bookmark-draggable.is-dragging {
+  .bookmark-drag-handle {
+    display: inline-flex;
+    width: 2rem;
+    height: 2rem;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    color: hsl(var(--muted-foreground));
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .bookmark-drag-handle:hover {
+    color: hsl(var(--foreground));
+    background: hsl(var(--muted));
+  }
+
+  .bookmark-drag-handle:active {
     cursor: grabbing;
   }
 

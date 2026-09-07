@@ -161,7 +161,6 @@
                 @foreach (var gist in FilteredGists)
                 {
                     <div @key="gist.Id"
-                         draggable="@BookmarksOnly"
                          class="@(BookmarksOnly ? $"bookmark-draggable {(DraggedBookmarkId == gist.Id ? "is-dragging" : "")} {(DropTargetBookmarkId == gist.Id ? "is-drop-target" : "")}" : "")"
                          @ondragstart="() => BeginBookmarkDrag(gist.Id)"
                          @ondragend="EndBookmarkDrag"
@@ -181,6 +180,7 @@
                             ShowVisibilityToggle="true"
                             OnVisibilityChanged="@(isPublic => SetVisibility(gist, isPublic))"
                             IsBookmarked="@gist.IsBookmarked"
+                            EnableDragHandle="@BookmarksOnly"
                             EnableGroupPicker="true"
                             AvailableGroups="@GroupNames"
                             SelectedGroups="@gist.CollectionNames"
