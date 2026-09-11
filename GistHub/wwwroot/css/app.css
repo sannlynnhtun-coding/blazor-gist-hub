@@ -379,6 +379,462 @@
   box-shadow: 3px 3px 0 var(--neo-shadow);
 }
 
+.neo-json-parser-trigger {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.7rem;
+  color: #0c0c0c;
+  background: var(--neo-cyan);
+  border: 2px solid hsl(var(--border));
+  border-radius: 0.35rem;
+  box-shadow: 3px 3px 0 var(--neo-shadow);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.neo-json-parser-trigger:hover {
+  background: var(--neo-green);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--neo-shadow);
+}
+
+.neo-json-parser-trigger:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--neo-shadow);
+}
+
+/* Full-page parser workbench. The conversion pipeline in the masthead makes
+   the escaped-string-to-object transformation visible at a glance. */
+.json-parser-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  min-width: 0;
+  min-height: 100dvh;
+  flex-direction: column;
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--background));
+  background-image: radial-gradient(hsl(var(--foreground) / var(--neo-grid-opacity)) 1px, transparent 1px);
+  background-size: 18px 18px;
+  animation: json-parser-enter 180ms ease-out;
+}
+
+.json-parser-header {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  min-height: 5rem;
+  grid-template-columns: minmax(14rem, 1fr) auto minmax(14rem, 1fr);
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--neo-yellow);
+  border-bottom: 3px solid #0c0c0c;
+  box-shadow: 0 5px 0 var(--neo-shadow);
+}
+
+.json-parser-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #0c0c0c;
+}
+
+.json-parser-title-group h1 {
+  margin: 0.15rem 0 0;
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+}
+
+.json-parser-title-group .neo-kicker {
+  color: #0c0c0c;
+}
+
+.json-parser-mark,
+.json-parser-empty-mark {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  flex: 0 0 auto;
+  color: #fffaf0;
+  background: #141414;
+  border: 2px solid #0c0c0c;
+  border-radius: 0.3rem;
+  box-shadow: 4px 4px 0 var(--neo-purple);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.json-parser-pipeline {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: #0c0c0c;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.json-parser-pipeline svg {
+  width: 2.4rem;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.json-parser-close {
+  display: inline-grid;
+  width: 2.7rem;
+  height: 2.7rem;
+  justify-self: end;
+  place-items: center;
+  color: #0c0c0c;
+  background: var(--neo-pink);
+  border: 2px solid #0c0c0c;
+  border-radius: 0.3rem;
+  box-shadow: 3px 3px 0 #0c0c0c;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.json-parser-close:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 #0c0c0c;
+}
+
+.json-parser-workspace {
+  position: relative;
+  display: grid;
+  min-height: 0;
+  flex: 1;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.json-parser-pane {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  padding: 1.25rem;
+}
+
+.json-parser-pane--input {
+  border-right: 3px solid hsl(var(--border));
+}
+
+.json-parser-pane--output {
+  background: hsl(var(--secondary) / 0.22);
+}
+
+.json-parser-pane-header,
+.json-parser-pane-footer {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.json-parser-pane-header {
+  min-height: 4rem;
+  padding: 0 0.2rem 1rem;
+}
+
+.json-parser-pane-header h2 {
+  margin-top: 0.25rem;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+}
+
+.json-parser-step {
+  color: hsl(var(--muted-foreground));
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.json-parser-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.json-parser-text-button {
+  padding: 0.35rem 0.5rem;
+  color: hsl(var(--foreground));
+  border-bottom: 2px solid currentColor;
+  font-size: 0.72rem;
+  font-weight: 900;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.json-parser-text-button:hover:not(:disabled) {
+  color: hsl(var(--muted-foreground));
+}
+
+.json-parser-text-button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.json-parser-editor-wrap,
+.json-parser-result-wrap {
+  position: relative;
+  min-height: 12rem;
+  flex: 1;
+}
+
+.json-parser-input,
+.json-parser-result {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 1.25rem;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border-radius: 0.35rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: clamp(0.78rem, 1.1vw, 0.92rem);
+  line-height: 1.7;
+  tab-size: 2;
+  white-space: pre;
+}
+
+.json-parser-input {
+  min-height: 100%;
+  resize: none;
+  border-width: 3px !important;
+  box-shadow: 7px 7px 0 var(--neo-pink) !important;
+}
+
+.json-parser-result-wrap {
+  color: var(--neo-code-text);
+  background: #141414;
+  border: 3px solid #0c0c0c;
+  border-radius: 0.35rem;
+  box-shadow: 7px 7px 0 var(--neo-purple);
+  overflow: hidden;
+}
+
+.json-parser-result {
+  color: var(--neo-code-text);
+}
+
+.json-parser-corner-label {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  padding: 0.18rem 0.4rem;
+  color: #0c0c0c;
+  background: var(--neo-pink);
+  border: 1px solid #0c0c0c;
+  border-radius: 0.15rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.json-parser-corner-label--result {
+  background: var(--neo-purple);
+}
+
+.json-parser-pane-footer {
+  min-height: 4.5rem;
+  padding: 1rem 0.2rem 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.json-parser-pane-footer > span:first-child {
+  max-width: 32rem;
+}
+
+.json-parser-valid-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.55rem;
+  color: #0c0c0c;
+  background: var(--neo-green);
+  border: 2px solid #0c0c0c;
+  border-radius: 0.25rem;
+  font-size: 0.64rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.json-parser-valid-badge > span {
+  width: 0.45rem;
+  height: 0.45rem;
+  background: #0c0c0c;
+  border-radius: 50%;
+}
+
+.json-parser-transfer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  color: #0c0c0c;
+  background: var(--neo-yellow);
+  border: 3px solid #0c0c0c;
+  border-radius: 50%;
+  box-shadow: 4px 4px 0 var(--neo-shadow);
+  transform: translate(-50%, -50%);
+}
+
+.json-parser-transfer svg {
+  width: 1.3rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.json-parser-message {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  color: var(--neo-code-text);
+}
+
+.json-parser-message > div:last-child {
+  display: flex;
+  max-width: 28rem;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.json-parser-message strong {
+  color: #fffaf0;
+  font-family: "Arial Black", "Aptos Display", "Franklin Gothic Heavy", sans-serif;
+  font-size: 1rem;
+}
+
+.json-parser-message span {
+  color: #bdb7ac;
+  font-size: 0.8rem;
+}
+
+.json-parser-message--error {
+  color: var(--neo-pink);
+}
+
+.json-parser-empty-mark {
+  background: var(--neo-yellow);
+  color: #0c0c0c;
+  box-shadow: 4px 4px 0 var(--neo-pink);
+}
+
+@keyframes json-parser-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1023px) {
+  .json-parser-header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .json-parser-pipeline {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .neo-json-parser-trigger {
+    width: 2.5rem;
+    padding: 0;
+  }
+
+  .json-parser-header {
+    min-height: 4.25rem;
+    padding: 0.55rem 0.8rem;
+  }
+
+  .json-parser-mark {
+    width: 2.55rem;
+    height: 2.55rem;
+  }
+
+  .json-parser-title-group h1 {
+    font-size: 1.2rem;
+  }
+
+  .json-parser-workspace {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .json-parser-pane {
+    padding: 0.75rem;
+  }
+
+  .json-parser-pane--input {
+    border-right: 0;
+    border-bottom: 3px solid hsl(var(--border));
+  }
+
+  .json-parser-pane-header {
+    min-height: 3rem;
+    padding-bottom: 0.6rem;
+  }
+
+  .json-parser-pane-header h2 {
+    font-size: 1rem;
+  }
+
+  .json-parser-pane-footer {
+    min-height: 3.6rem;
+    padding-top: 0.65rem;
+  }
+
+  .json-parser-pane-footer > span:first-child {
+    display: none;
+  }
+
+  .json-parser-transfer {
+    top: 50%;
+  }
+
+  .json-parser-transfer svg {
+    transform: rotate(90deg);
+  }
+
+  .json-parser-input,
+  .json-parser-result {
+    padding: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .json-parser-actions {
+    gap: 0.15rem;
+  }
+}
+
 .neo-sidebar-toggle {
   align-items: center;
   gap: 0.55rem;
