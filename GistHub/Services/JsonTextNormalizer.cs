@@ -17,13 +17,19 @@ public static class JsonTextNormalizer
         CommentHandling = JsonCommentHandling.Skip
     };
 
-    private static readonly JsonSerializerOptions SerializerOptions = new()
+    private static readonly JsonSerializerOptions IndentedSerializerOptions = new()
     {
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         WriteIndented = true
     };
 
-    public static JsonNormalizationResult Normalize(string? input)
+    private static readonly JsonSerializerOptions CompactSerializerOptions = new()
+    {
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+        WriteIndented = false
+    };
+
+    public static JsonNormalizationResult Normalize(string? input, bool writeIndented = true)
     {
         if (string.IsNullOrWhiteSpace(input))
         {
@@ -54,7 +60,7 @@ public static class JsonTextNormalizer
 
                 return new(
                     true,
-                    JsonSerializer.Serialize(root, SerializerOptions),
+                    JsonSerializer.Serialize(root, writeIndented ? IndentedSerializerOptions : CompactSerializerOptions),
                     "Parsed successfully.",
                     Describe(root));
             }

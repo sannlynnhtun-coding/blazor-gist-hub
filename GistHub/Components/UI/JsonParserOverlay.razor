@@ -74,20 +74,47 @@
                         <span class="json-parser-step">02 · Result</span>
                         <h2 id="json-output-heading">Deserialized object</h2>
                     </div>
-                    @if (ParseResult.Success)
-                    {
-                        <span class="json-parser-valid-badge">
-                            <span aria-hidden="true"></span>
-                            Valid JSON
-                        </span>
-                    }
+                    <div class="json-parser-output-controls">
+                        <div class="json-parser-mode-toggle" role="group" aria-label="JSON output style">
+                            <button type="button"
+                                    aria-pressed="@(WriteIndented ? "true" : "false")"
+                                    @onclick="() => SetOutputMode(true)"
+                                    title="Show indented JSON">
+                                Format
+                            </button>
+                            <button type="button"
+                                    aria-pressed="@(!WriteIndented ? "true" : "false")"
+                                    @onclick="() => SetOutputMode(false)"
+                                    title="Show JSON on one line">
+                                Compress
+                            </button>
+                        </div>
+                        @if (ParseResult.Success)
+                        {
+                            <span class="json-parser-valid-badge">
+                                <span aria-hidden="true"></span>
+                                Valid JSON
+                            </span>
+                        }
+                    </div>
                 </div>
+
+                @if (ParseResult.Success)
+                {
+                    <div class="json-parser-type-legend" aria-label="JSON syntax color legend">
+                        <span><i class="json-token-field" aria-hidden="true"></i>Field</span>
+                        <span><i class="json-token-string" aria-hidden="true"></i>String</span>
+                        <span><i class="json-token-number" aria-hidden="true"></i>Number</span>
+                        <span><i class="json-token-boolean" aria-hidden="true"></i>Boolean</span>
+                        <span><i class="json-token-null" aria-hidden="true"></i>Null</span>
+                    </div>
+                }
 
                 <div class="json-parser-result-wrap" aria-live="polite">
                     @if (ParseResult.Success)
                     {
-                        <pre class="json-parser-result custom-scrollbar"><code>@ParseResult.Output</code></pre>
-                        <span class="json-parser-corner-label json-parser-corner-label--result">OBJECT</span>
+                        <pre class="json-parser-result custom-scrollbar"><code>@HighlightedOutput</code></pre>
+                        <span class="json-parser-corner-label json-parser-corner-label--result">@(WriteIndented ? "FORMATTED" : "COMPRESSED")</span>
                     }
                     else if (!string.IsNullOrWhiteSpace(InputText))
                     {
@@ -114,7 +141,7 @@
                 </div>
 
                 <div class="json-parser-pane-footer json-parser-pane-footer--output">
-                    <span>@(ParseResult.Success ? ParseResult.Summary : "Waiting for valid JSON")</span>
+                    <span>@(ParseResult.Success ? $"{ParseResult.Summary} · {(WriteIndented ? "Indented" : "Compressed")}" : "Waiting for valid JSON")</span>
                     <button type="button" class="btn btn-secondary btn-md" @onclick="CopyResultAsync" disabled="@(!ParseResult.Success)">
                         @if (IsCopied)
                         {
@@ -141,9 +168,13 @@
     private ElementReference InputElement;
     private string InputText { get; set; } = string.Empty;
     private JsonNormalizationResult ParseResult { get; set; } = JsonTextNormalizer.Normalize(null);
+    private bool WriteIndented { get; set; } = true;
     private bool IsCopied { get; set; }
     private bool ShouldFocusInput { get; set; }
     private bool WasOpen { get; set; }
+
+    private MarkupString HighlightedOutput
+        => new(JsonSyntaxHighlighter.Highlight(ParseResult.Output));
 
     [Parameter]
     public bool IsOpen { get; set; }
@@ -178,8 +209,19 @@
 
     private void ParseInput()
     {
-        ParseResult = JsonTextNormalizer.Normalize(InputText);
+        ParseResult = JsonTextNormalizer.Normalize(InputText, WriteIndented);
         IsCopied = false;
+    }
+
+    private void SetOutputMode(bool writeIndented)
+    {
+        if (WriteIndented == writeIndented)
+        {
+            return;
+        }
+
+        WriteIndented = writeIndented;
+        ParseInput();
     }
 
     private void UseExample()
