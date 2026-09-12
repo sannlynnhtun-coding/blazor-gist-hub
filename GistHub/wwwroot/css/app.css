@@ -1391,6 +1391,637 @@ span[class~="rounded-md"][class~="border"] {
   }
 }
 
+/* Responsive shell and content rules. The mobile experience keeps the visual
+   language intact while giving navigation, code, and card actions room to work. */
+@media (max-width: 1023px) {
+  .neo-topbar {
+    padding-inline: 1rem !important;
+  }
+
+  .neo-topbar-actions {
+    gap: 0.5rem !important;
+  }
+
+  .neo-sidebar-toggle__label,
+  .neo-online-divider,
+  .neo-online-status,
+  .neo-topbar-search {
+    display: none !important;
+  }
+
+  .neo-canvas {
+    padding-inline: 1.5rem !important;
+  }
+}
+
+@media (max-width: 767px) {
+  html,
+  body,
+  #app {
+    width: 100%;
+    min-width: 0;
+    min-height: 100%;
+  }
+
+  body {
+    background-attachment: scroll;
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+
+  .neo-app-shell,
+  .neo-main {
+    width: 100%;
+    min-width: 0;
+    min-height: 100dvh;
+  }
+
+  .neo-main {
+    height: 100dvh !important;
+  }
+
+  .neo-topbar {
+    min-height: calc(4.25rem + env(safe-area-inset-top));
+    flex: 0 0 auto;
+    gap: 0.5rem;
+    padding-top: env(safe-area-inset-top) !important;
+    padding-right: max(0.75rem, env(safe-area-inset-right)) !important;
+    padding-left: max(0.75rem, env(safe-area-inset-left)) !important;
+  }
+
+  .neo-topbar-brand {
+    min-width: 0;
+    flex: 0 1 auto;
+    gap: 0.5rem !important;
+  }
+
+  .neo-topbar-brand .neo-brand-mark {
+    width: 2rem !important;
+    height: 2rem !important;
+    flex: 0 0 auto;
+    box-shadow: 2px 2px 0 var(--neo-shadow);
+  }
+
+  .neo-topbar-brand > div:last-child {
+    min-width: 0;
+  }
+
+  .neo-topbar-brand .neo-kicker,
+  .neo-sound-toggle,
+  .neo-topbar-search {
+    display: none !important;
+  }
+
+  .neo-topbar-brand h1 {
+    overflow: hidden;
+    font-size: 1.05rem;
+    line-height: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .neo-topbar-actions {
+    flex: 0 0 auto;
+    gap: 0.45rem !important;
+  }
+
+  .neo-json-parser-trigger,
+  .neo-new-snippet,
+  .neo-theme-toggle {
+    width: 2.75rem !important;
+    min-width: 2.75rem;
+    height: 2.75rem !important;
+    min-height: 2.75rem;
+    padding: 0 !important;
+  }
+
+  .neo-canvas {
+    padding-top: 1.25rem !important;
+    padding-right: max(0.875rem, env(safe-area-inset-right)) !important;
+    padding-bottom: calc(6.75rem + env(safe-area-inset-bottom)) !important;
+    padding-left: max(0.875rem, env(safe-area-inset-left)) !important;
+    overscroll-behavior: contain;
+  }
+
+  .neo-content,
+  .neo-page,
+  .neo-page-heading,
+  .neo-page-heading > * {
+    min-width: 0;
+  }
+
+  .neo-content {
+    width: 100%;
+  }
+
+  .neo-page > :not([hidden]) ~ :not([hidden]) {
+    margin-top: 2rem;
+  }
+
+  .neo-page-heading {
+    gap: 1.25rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  .neo-page-heading > :last-child {
+    width: 100%;
+  }
+
+  .neo-page-heading > :last-child:is(.flex) {
+    flex-wrap: wrap;
+  }
+
+  .neo-page-heading > :last-child:is(.flex) > .btn {
+    min-height: 2.75rem;
+    flex: 1 1 auto;
+  }
+
+  .neo-page-heading h1,
+  .neo-page h1,
+  .neo-page h2,
+  .neo-page h3,
+  .neo-page p {
+    overflow-wrap: anywhere;
+  }
+
+  .neo-content [class~="text-5xl"],
+  .neo-content [class~="text-4xl"] {
+    font-size: clamp(2rem, 10vw, 2.35rem) !important;
+  }
+
+  .neo-content [class~="text-3xl"] {
+    font-size: 1.75rem !important;
+  }
+
+  .neo-content [class~="p-12"],
+  .neo-content [class~="p-8"][class~="rounded-xl"] {
+    padding: 1.25rem !important;
+  }
+
+  .neo-content [class~="p-6"][class~="rounded-xl"] {
+    padding: 1rem !important;
+  }
+
+  .neo-content [class~="py-40"] {
+    padding-block: 4rem !important;
+  }
+
+  .neo-content [class~="py-20"] {
+    padding-block: 3rem !important;
+  }
+
+  .gist-masonry,
+  .gist-collection-grid {
+    column-gap: 0;
+  }
+
+  .gist-masonry > *,
+  .gist-collection-grid > * {
+    margin-bottom: 1.25rem;
+  }
+
+  .neo-gist-card {
+    max-width: 100%;
+    box-shadow: 4px 4px 0 var(--neo-shadow) !important;
+  }
+
+  .neo-gist-card > div {
+    padding: 1rem !important;
+  }
+
+  .neo-gist-card--compact > div {
+    padding: 0.75rem !important;
+  }
+
+  .neo-gist-card::before {
+    left: 0.75rem;
+  }
+
+  .neo-gist-card__header,
+  .neo-gist-card__header > :first-child,
+  .neo-gist-card__header > :first-child > :last-child {
+    min-width: 0;
+  }
+
+  .neo-gist-card__header > :first-child {
+    overflow: hidden;
+  }
+
+  .neo-gist-card__header > :first-child span {
+    display: block;
+    max-width: 8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .neo-gist-card__actions {
+    flex: 0 0 auto;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .neo-gist-card__actions button,
+  .neo-gist-card__actions .bookmark-drag-handle {
+    display: inline-flex;
+    width: 2.5rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    min-height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+  }
+
+  .neo-gist-card--compact .neo-gist-card__header {
+    flex-wrap: wrap;
+  }
+
+  .neo-gist-card--compact .neo-gist-card__header > :first-child {
+    flex-basis: 100%;
+  }
+
+  .neo-gist-card--compact .neo-gist-card__actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .neo-gist-card__footer {
+    min-width: 0;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .neo-gist-card__footer-actions {
+    margin-left: auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .neo-gist-card__footer-actions button {
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+  }
+
+  .neo-gist-card--compact .neo-gist-card__footer-actions {
+    width: 100%;
+  }
+
+  .neo-gist-card__group-popover {
+    right: -0.25rem;
+    width: min(18rem, calc(100vw - 2rem)) !important;
+    max-height: min(24rem, calc(100dvh - 8rem));
+    overflow-y: auto;
+  }
+
+  .neo-search-bar {
+    min-width: 0;
+    padding-inline: 0.75rem !important;
+  }
+
+  .neo-search-bar > svg {
+    flex: 0 0 auto;
+    margin-right: 0.5rem !important;
+  }
+
+  .neo-search-bar input {
+    min-width: 0;
+  }
+
+  .neo-search-bar > button {
+    flex: 0 0 auto;
+    margin-left: 0.25rem !important;
+  }
+
+  .neo-search-results {
+    flex: 0 0 auto;
+    margin-left: 0.5rem !important;
+    padding-left: 0.5rem !important;
+  }
+
+  .neo-profile-tools {
+    align-items: stretch !important;
+    padding-right: 3.5rem !important;
+  }
+
+  .neo-profile-summary {
+    min-width: 0;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+
+  .neo-profile-summary [class~="w-20"] {
+    width: 3.5rem !important;
+    height: 3.5rem !important;
+    flex: 0 0 auto;
+  }
+
+  .neo-profile-summary > div:last-child {
+    min-width: 0;
+  }
+
+  .neo-profile-summary h1,
+  .neo-profile-summary [class~="font-mono"] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .neo-profile-stats {
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem !important;
+  }
+
+  .neo-profile-actions {
+    display: grid !important;
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem !important;
+  }
+
+  .neo-profile-actions .btn {
+    min-width: 0;
+    height: auto;
+    min-height: 2.75rem;
+    padding-inline: 0.5rem;
+    font-size: 0.65rem;
+    white-space: normal;
+  }
+
+  .neo-editor-actions,
+  .neo-detail-actions {
+    width: 100%;
+  }
+
+  .neo-editor-actions .btn,
+  .neo-detail-actions .btn {
+    width: 100%;
+  }
+
+  .neo-editor-grid [class~="p-6"] {
+    padding: 1rem !important;
+  }
+
+  .neo-editor-console {
+    height: 62dvh !important;
+    min-height: 28rem !important;
+  }
+
+  .neo-editor-surface {
+    min-width: 0;
+  }
+
+  .neo-editor-toolbar,
+  .neo-code-window-bar {
+    gap: 0.75rem;
+    padding-inline: 1rem !important;
+  }
+
+  .neo-editor-toolbar > :last-child,
+  .neo-code-window-bar > :last-child {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .neo-editor-toolbar > :last-child > span,
+  .neo-code-window-bar > :last-child > span {
+    display: block;
+    max-width: 11rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .neo-editor-input {
+    padding: 4rem 1rem 3.75rem !important;
+  }
+
+  .neo-editor-status {
+    right: 0.75rem !important;
+    bottom: 0.75rem !important;
+  }
+
+  .neo-detail-heading-main {
+    min-width: 0;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+
+  .neo-detail-heading-main > .btn {
+    flex: 0 0 auto;
+  }
+
+  .neo-detail-heading-main > div,
+  .neo-detail-heading-title-row,
+  .neo-detail-heading-title-row h1 {
+    min-width: 0;
+  }
+
+  .neo-detail-heading-title-row {
+    flex-wrap: wrap;
+  }
+
+  .neo-detail-heading-title-row h1 {
+    flex: 1 1 12rem;
+  }
+
+  .neo-detail-meta {
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem !important;
+    font-size: 0.7rem !important;
+    letter-spacing: 0.06em !important;
+  }
+
+  .neo-detail-meta > span {
+    display: none;
+  }
+
+  .neo-code-window {
+    max-width: 100%;
+  }
+
+  .neo-code-window-content {
+    min-height: 22rem !important;
+    padding: 1rem !important;
+    overscroll-behavior-x: contain;
+  }
+
+  .neo-bulk-actions {
+    right: max(0.75rem, env(safe-area-inset-right));
+    bottom: calc(5.75rem + env(safe-area-inset-bottom)) !important;
+    left: max(0.75rem, env(safe-area-inset-left)) !important;
+    transform: none !important;
+  }
+
+  .neo-bulk-actions__surface {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 0.75rem !important;
+    padding: 0.75rem !important;
+  }
+
+  .neo-bulk-actions__divider {
+    display: none;
+  }
+
+  .neo-bulk-actions__buttons {
+    display: grid !important;
+    width: 100%;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 0.5rem !important;
+  }
+
+  .neo-bulk-actions__buttons .btn {
+    min-width: 0;
+    padding-inline: 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .neo-mobile-nav {
+    right: max(0.75rem, env(safe-area-inset-right)) !important;
+    bottom: max(0.75rem, env(safe-area-inset-bottom)) !important;
+    left: max(0.75rem, env(safe-area-inset-left)) !important;
+    width: auto;
+    gap: 0.1rem;
+    padding: 0.3rem !important;
+    border-radius: 0.55rem !important;
+  }
+
+  .neo-mobile-nav a {
+    min-width: 0;
+    min-height: 3.25rem;
+    padding: 0.35rem 0.1rem !important;
+    overflow: hidden;
+    font-size: 0.52rem !important;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .neo-mobile-nav svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex: 0 0 auto;
+  }
+
+  [class~="fixed"][class~="inset-0"] > [class~="relative"][class~="w-full"] {
+    max-height: calc(100dvh - 2rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    overflow-y: auto;
+  }
+
+  .neo-login-screen,
+  .neo-not-found {
+    min-height: 100dvh !important;
+    padding-top: max(1rem, env(safe-area-inset-top)) !important;
+    padding-right: max(1rem, env(safe-area-inset-right)) !important;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom)) !important;
+    padding-left: max(1rem, env(safe-area-inset-left)) !important;
+  }
+
+  .neo-login-screen {
+    height: 100dvh;
+    align-items: flex-start !important;
+    overflow-y: auto !important;
+  }
+
+  .neo-login-screen > [class~="max-w-md"] {
+    margin-block: auto;
+  }
+
+  .neo-login-screen [class~="p-8"][class~="bg-card"] {
+    padding: 1.25rem !important;
+  }
+
+  .neo-login-screen [class~="w-20"][class~="h-20"] {
+    width: 4rem !important;
+    height: 4rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .neo-login-screen h1 {
+    font-size: 2.5rem !important;
+  }
+
+  .neo-login-screen [class~="grid-cols-2"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .neo-login-screen::before,
+  .neo-login-screen::after,
+  .neo-not-found::before,
+  .neo-not-found::after {
+    width: 7rem;
+    height: 7rem;
+  }
+
+  .json-parser-overlay {
+    height: 100dvh;
+    overflow-y: auto;
+  }
+
+  .json-parser-header {
+    min-height: calc(4.25rem + env(safe-area-inset-top));
+    flex: 0 0 auto;
+    padding-top: max(0.55rem, env(safe-area-inset-top));
+    padding-right: max(0.8rem, env(safe-area-inset-right));
+    padding-left: max(0.8rem, env(safe-area-inset-left));
+  }
+
+  .json-parser-pane-footer {
+    min-height: 3rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .json-parser-pane-footer .btn {
+    min-height: 2.75rem;
+  }
+
+  .json-parser-workspace {
+    min-height: 34rem;
+    flex: 1 0 34rem;
+  }
+
+  .json-parser-editor-wrap,
+  .json-parser-result-wrap {
+    min-height: 6rem;
+  }
+}
+
+@media (max-width: 359px) {
+  .neo-search-results > span:first-child,
+  .json-parser-title-group .neo-kicker {
+    display: none;
+  }
+
+  .neo-mobile-nav a {
+    font-size: 0.48rem !important;
+  }
+
+  .neo-gist-card__header > :first-child span {
+    max-width: 6.5rem;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .neo-gist-card:hover {
+    transform: none;
+    box-shadow: 6px 6px 0 var(--neo-shadow) !important;
+  }
+
+  .btn:hover:not(:disabled),
+  .neo-json-parser-trigger:hover {
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;

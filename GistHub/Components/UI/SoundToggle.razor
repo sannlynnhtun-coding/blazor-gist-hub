@@ -1,6 +1,6 @@
 @inject IJSRuntime JS
 
-<button @onclick="ToggleSound" class="neo-icon-button relative inline-flex items-center justify-center p-2 rounded-md bg-card border border-border hover:bg-secondary transition-all" title="@ButtonLabel" aria-label="@ButtonLabel" aria-pressed="@(IsSoundEnabled ? "true" : "false")" data-sound-toggle>
+<button @onclick="ToggleSound" class="neo-sound-toggle neo-icon-button relative inline-flex items-center justify-center p-2 rounded-md bg-card border border-border hover:bg-secondary transition-all" title="@ButtonLabel" aria-label="@ButtonLabel" aria-pressed="@(IsSoundEnabled ? "true" : "false")" data-sound-toggle>
     @if (IsSoundEnabled)
     {
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

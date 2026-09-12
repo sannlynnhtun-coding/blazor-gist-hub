@@ -1,13 +1,13 @@
 @using Microsoft.AspNetCore.Components.Web
 
-<div class="neo-gist-card group relative bg-card border border-border rounded-xl overflow-visible transition-all duration-200 @(IsSelected ? "ring-1 ring-primary border-primary" : "")">
+<div class="neo-gist-card @(Compact ? "neo-gist-card--compact" : "") group relative bg-card border border-border rounded-xl overflow-visible transition-all duration-200 @(IsSelected ? "ring-1 ring-primary border-primary" : "")">
     
     <!-- Active Indicator -->
     <div class="absolute top-0 left-0 w-[3px] h-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
     
     <div class="@(Compact ? "p-3" : "p-5")">
         <!-- Header -->
-        <div class="flex items-start gap-2 @(Compact || ShowCheckbox || ShowAuthorInfo ? "justify-between" : "justify-end") @(Compact ? "mb-2" : "mb-4")">
+        <div class="neo-gist-card__header flex items-start gap-2 @(Compact || ShowCheckbox || ShowAuthorInfo ? "justify-between" : "justify-end") @(Compact ? "mb-2" : "mb-4")">
             @if (Compact)
             {
                 <div class="flex min-w-0 flex-1 items-start gap-2">
@@ -51,7 +51,7 @@
                 </div>
             }
 
-            <div class="flex items-center gap-1 transition-all @(ShowAuthorInfo ? "opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0" : "opacity-100")">
+            <div class="neo-gist-card__actions flex items-center gap-1 transition-all @(ShowAuthorInfo ? "opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0" : "opacity-100")">
                 @if (EnableDragHandle)
                 {
                     <span class="bookmark-drag-handle"
@@ -118,7 +118,7 @@
         </div>
 
         <!-- Footer Info -->
-        <div class="@(Compact ? "mt-2 pt-1.5 justify-end" : "mt-5 pt-4 justify-between") border-t border-border/40 flex items-center">
+        <div class="neo-gist-card__footer @(Compact ? "mt-2 pt-1.5 justify-end" : "mt-5 pt-4 justify-between") border-t border-border/40 flex items-center">
             @if (!Compact)
             {
                 <div class="flex items-center gap-4 text-muted-foreground">
@@ -133,7 +133,7 @@
                 </div>
             }
             
-            <div class="flex items-center gap-2">
+            <div class="neo-gist-card__footer-actions flex items-center gap-2">
                 @if (ShowVisibilityToggle)
                 {
                     <button @onclick="ToggleVisibility" @onclick:stopPropagation="true" class="w-7 h-7 inline-flex items-center justify-center rounded-lg transition-colors @(IsPublic ? "bg-[#EDF3EC] text-[#346538] hover:bg-[#DCEBDC]" : "bg-[#FBF3DB] text-[#956400] hover:bg-[#F3E7BF]")" aria-label="@(IsPublic ? "Public gist. Change to secret" : "Secret gist. Change to public")" aria-pressed="@(IsPublic ? "true" : "false")" title="@(IsPublic ? "Public — change to secret" : "Secret — change to public")">
@@ -178,7 +178,7 @@
                         @if (IsGroupPopoverOpen)
                         {
                             <button class="fixed inset-0 z-40 cursor-default" aria-label="Close group selector" @onclick="CloseGroupPopover"></button>
-                            <div class="absolute right-0 bottom-10 z-50 w-72 rounded-xl border bg-card p-3 space-y-3" tabindex="0" @ref="PopoverRef" @onclick:stopPropagation="true" @onkeydown="HandlePopoverKeyDown">
+                            <div class="neo-gist-card__group-popover absolute right-0 bottom-10 z-50 w-72 rounded-xl border bg-card p-3 space-y-3" tabindex="0" @ref="PopoverRef" @onclick:stopPropagation="true" @onkeydown="HandlePopoverKeyDown">
                                 <div class="flex items-center justify-between">
                                     <span class="text-xs font-bold uppercase tracking-widest text-muted-foreground">Groups</span>
                                     <span class="text-[10px] font-bold text-muted-foreground">@SelectedGroups.Count selected</span>

@@ -109,16 +109,16 @@
     <!-- Floating Bulk Actions -->
     @if (SelectedGistIds.Any())
     {
-        <div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-8 duration-500">
-            <div class="bg-card border border-border rounded-xl px-6 py-4 flex items-center gap-8">
+        <div class="neo-bulk-actions fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-8 duration-500">
+            <div class="neo-bulk-actions__surface bg-card border border-border rounded-xl px-6 py-4 flex items-center gap-8">
                 <div class="flex flex-col">
                     <span class="text-xs font-bold uppercase tracking-widest text-muted-foreground">Bulk Actions</span>
                     <span class="text-sm font-semibold">@SelectedGistIds.Count items selected</span>
                 </div>
                 
-                <div class="h-8 w-[1px] bg-border"></div>
+                <div class="neo-bulk-actions__divider h-8 w-[1px] bg-border"></div>
                 
-                <div class="flex items-center gap-3">
+                <div class="neo-bulk-actions__buttons flex items-center gap-3">
                     <button @onclick="ClearSelection" class="btn btn-ghost btn-md text-muted-foreground">Cancel</button>
                     <button @onclick="BulkClone" disabled="@IsBulkCloning" class="btn btn-primary btn-md">
                         @if (IsBulkCloning)

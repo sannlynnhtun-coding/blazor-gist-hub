@@ -30,16 +30,16 @@
     else
     {
         <div class="neo-page-heading flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b">
-            <div class="flex items-center gap-6">
+            <div class="neo-detail-heading-main flex items-center gap-6">
                 <button @onclick='() => Navigation.NavigateTo("/slh-collection")' class="btn btn-outline btn-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
                 </button>
                 <div class="space-y-1">
-                    <div class="flex items-center gap-3">
+                    <div class="neo-detail-heading-title-row flex items-center gap-3">
                         <h1 class="text-4xl font-semibold tracking-tight">@ViewingGist.Description</h1>
                         <span class="px-2 py-0.5 rounded-md bg-[#EDF3EC] text-[#346538] text-[10px] font-bold uppercase tracking-widest border border-border">Public</span>
                     </div>
-                    <div class="flex items-center gap-4 text-sm font-bold text-muted-foreground uppercase tracking-widest">
+                    <div class="neo-detail-meta flex items-center gap-4 text-sm font-bold text-muted-foreground uppercase tracking-widest">
                         <div class="flex items-center gap-1.5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
                             @@@ViewingGist.Owner?.Login
@@ -58,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="flex items-center gap-3">
+            <div class="neo-detail-actions flex items-center gap-3">
                 <button @onclick="HandleCopy" class="btn btn-secondary btn-lg">
                     @if (IsCopied)
                     {
@@ -74,8 +74,8 @@
             </div>
         </div>
 
-        <div class="bg-[#111111] rounded-xl border border-border relative overflow-hidden group">
-            <div class="h-12 bg-card border-b border-border flex items-center justify-between px-8">
+        <div class="neo-code-window bg-[#111111] rounded-xl border border-border relative overflow-hidden group">
+            <div class="neo-code-window-bar h-12 bg-card border-b border-border flex items-center justify-between px-8">
                 <div class="flex gap-1.5">
                     <div class="w-3 h-3 rounded-full bg-border"></div>
                     <div class="w-3 h-3 rounded-full bg-border"></div>
@@ -88,7 +88,7 @@
                 </div>
             </div>
 
-            <div class="p-4 md:p-10 overflow-auto custom-scrollbar bg-transparent min-h-[500px]">
+            <div class="neo-code-window-content p-4 md:p-10 overflow-auto custom-scrollbar bg-transparent min-h-[500px]">
                 @if (IsMarkdown)
                 {
                     <div @ref="markdownContainer" class="prose prose-invert max-w-none prose-pre:bg-transparent prose-pre:p-0"></div>

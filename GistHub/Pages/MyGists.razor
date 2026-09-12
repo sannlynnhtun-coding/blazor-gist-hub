@@ -27,8 +27,8 @@
         }
     </button>
 
-    <div id="profile-tools" hidden="@(!IsProfileToolsVisible)" class="@(IsProfileToolsVisible ? "flex" : "hidden") flex-col md:flex-row items-center justify-between gap-6 pb-8 pr-14 border-b !mt-0">
-        <div class="flex items-center gap-6">
+    <div id="profile-tools" hidden="@(!IsProfileToolsVisible)" class="neo-profile-tools @(IsProfileToolsVisible ? "flex" : "hidden") flex-col md:flex-row items-center justify-between gap-6 pb-8 pr-14 border-b !mt-0">
+        <div class="neo-profile-summary flex items-center gap-6">
             @if (AppState.IsAuthenticated)
             {
                 <div class="relative">
@@ -41,7 +41,7 @@
                         <h1 class="text-2xl font-semibold tracking-tight">@AppState.CurrentProfile?.Name</h1>
                         <div class="px-1.5 py-0.5 rounded bg-[#EDF3EC] text-[#346538] text-[8px] font-bold uppercase tracking-widest border border-border">Verified</div>
                     </div>
-                    <div class="flex items-center gap-4">
+                    <div class="neo-profile-stats flex items-center gap-4">
                         <span class="text-xs font-mono font-bold text-muted-foreground">@@@AppState.CurrentProfile?.GithubUsername</span>
                         <span class="w-1 h-1 rounded-full bg-border"></span>
                         <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
@@ -55,7 +55,7 @@
             }
         </div>
 
-        <div class="flex items-center gap-3">
+        <div class="neo-profile-actions flex items-center gap-3">
             <button @onclick="SyncGists" disabled="@IsSyncing" class="btn btn-secondary btn-md">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-cw @(IsSyncing ? "animate-spin" : "")"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
                 Sync Cloud
@@ -76,7 +76,7 @@
     </div>
 
     <div class="relative group max-w-2xl mx-auto w-full @(IsProfileToolsVisible ? "-mt-6" : "!mt-0 pr-14 md:pr-0")">
-        <div class="relative flex items-center bg-card border border-border rounded-xl px-4 py-2 transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10">
+        <div class="neo-search-bar relative flex items-center bg-card border border-border rounded-xl px-4 py-2 transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search text-muted-foreground mr-3"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <input
                 type="text"
@@ -102,7 +102,7 @@
                 <span class="hidden sm:inline text-xs font-semibold">Bookmarks</span>
             </button>
 
-            <div class="ml-4 pl-4 border-l border-border flex items-center gap-2">
+            <div class="neo-search-results ml-4 pl-4 border-l border-border flex items-center gap-2">
                 <span class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Filtered</span>
                 <span class="text-xs font-bold tabular-nums">@FilteredGists.Count</span>
             </div>

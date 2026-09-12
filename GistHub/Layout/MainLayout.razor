@@ -10,7 +10,7 @@
     <main class="neo-main flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
         <!-- Topbar -->
         <header class="neo-topbar flex items-center justify-between px-6 glass sticky top-0 z-40">
-            <div class="flex items-center gap-4">
+            <div class="neo-topbar-brand flex items-center gap-4">
                 <div class="neo-brand-mark md:hidden w-9 h-9 overflow-hidden rounded-md">
                     <img src="logo.svg" class="w-full h-full object-cover" alt="" />
                 </div>
@@ -20,7 +20,7 @@
                 </div>
             </div>
             
-            <div class="flex items-center gap-3">
+            <div class="neo-topbar-actions flex items-center gap-3">
                 <button @onclick="ToggleSidebar" class="neo-sidebar-toggle hidden md:inline-flex" type="button" role="switch" aria-checked="@IsSidebarVisible" title="@(IsSidebarVisible ? "Hide sidebar" : "Show sidebar")">
                     <span class="neo-sidebar-toggle__label">Sidebar</span>
                     <span class="neo-sidebar-toggle__options" aria-hidden="true">
@@ -42,16 +42,16 @@
                         <path d="M12 5v14" />
                         <path d="M5 12h14" />
                     </svg>
-                    <span class="hidden sm:inline">New Snippet</span>
-                    <span class="sr-only sm:hidden">New Snippet</span>
+                    <span class="hidden xl:inline">New Snippet</span>
+                    <span class="sr-only xl:hidden">New Snippet</span>
                 </NavLink>
                 <SoundToggle />
                 <ThemeToggle />
-                <button class="neo-icon-button p-2 bg-card hover:bg-accent rounded-md transition-all text-foreground" title="Toggle Search (Ctrl+K)">
+                <button class="neo-topbar-search neo-icon-button p-2 bg-card hover:bg-accent rounded-md transition-all text-foreground" title="Toggle Search (Ctrl+K)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 </button>
-                <div class="hidden sm:block h-6 w-[2px] bg-border mx-1"></div>
-                <button class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-card border-2 text-foreground hover:bg-secondary hover:text-secondary-foreground rounded-md text-xs font-black uppercase tracking-wider transition-all">
+                <div class="neo-online-divider hidden sm:block h-6 w-[2px] bg-border mx-1"></div>
+                <button class="neo-online-status hidden sm:flex items-center gap-2 px-3 py-1.5 bg-card border-2 text-foreground hover:bg-secondary hover:text-secondary-foreground rounded-md text-xs font-black uppercase tracking-wider transition-all">
                     <div class="w-2 h-2 rounded-full bg-[#346538]"></div>
                     Online
                 </button>
