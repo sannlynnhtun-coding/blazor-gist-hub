@@ -87,7 +87,7 @@
                         {
                             <button type="button"
                                     aria-pressed="@(SelectedFormat == format.Value ? "true" : "false")"
-                                    @onclick="() => SelectedFormat = format.Value">
+                                    @onclick="() => SelectFormat(format.Value)">
                                 <i class="code-image-format-icon code-image-format-icon--@format.Value" aria-hidden="true"></i>
                                 <span>@format.Label</span>
                             </button>
@@ -151,7 +151,7 @@
                 <div class="code-image-export-bar">
                     <div>
                         <strong>Export locally</strong>
-                        <span>High-resolution PNG · no upload</span>
+                        <span class="@(ClipboardCopyFailed ? "is-error" : ImageCopied ? "is-success" : null)" role="status" aria-live="polite">@ExportStatus</span>
                     </div>
                     <div class="code-image-export-actions">
                         <button type="button" class="btn btn-secondary btn-md" @onclick="CopySettingsAsync">
@@ -166,7 +166,28 @@
                                 <span>Copy settings</span>
                             }
                         </button>
-                        <button type="button" class="btn btn-primary btn-md" @onclick="DownloadAsync" disabled="@IsExporting">
+                        <button type="button"
+                                class="code-image-copy-button btn btn-secondary btn-md @(ImageCopied ? "is-success" : ClipboardCopyFailed ? "is-error" : null)"
+                                @onclick="CopyImageAsync"
+                                disabled="@IsCopyingImage"
+                                title="Copy image to clipboard">
+                            @if (IsCopyingImage)
+                            {
+                                <span class="code-image-spinner" aria-hidden="true"></span>
+                                <span>Copying…</span>
+                            }
+                            else if (ImageCopied)
+                            {
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m20 6-11 11-5-5" /></svg>
+                                <span>Image copied</span>
+                            }
+                            else
+                            {
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="m21 15-5-5L5 21" /></svg>
+                                <span>Copy image</span>
+                            }
+                        </button>
+                        <button type="button" class="code-image-download-button btn btn-primary btn-md" @onclick="DownloadAsync" disabled="@IsExporting">
                             @if (IsExporting)
                             {
                                 <span class="code-image-spinner" aria-hidden="true"></span>
@@ -252,6 +273,9 @@
     private int FontSize { get; set; } = 18;
     private int CanvasPadding { get; set; } = 64;
     private bool IsExporting { get; set; }
+    private bool IsCopyingImage { get; set; }
+    private bool ImageCopied { get; set; }
+    private bool ClipboardCopyFailed { get; set; }
     private bool SettingsCopied { get; set; }
     private bool ShouldFocusInput { get; set; }
     private bool ShouldRefreshPreview { get; set; }
@@ -270,6 +294,11 @@
     private string DisplayAuthor => string.IsNullOrWhiteSpace(Author) ? "Anonymous maker" : Author.Trim();
     private string LanguageLabel => Languages.First(language => language.Value == SelectedLanguage).Label;
     private string PreviewStyle => $"--capture-bg:{ActiveTheme.Background};--capture-glow:{ActiveTheme.Glow};--capture-accent:{ActiveTheme.Accent};--capture-card:{ActiveTheme.Card};--capture-text:{ActiveTheme.Text};--capture-muted:{ActiveTheme.Muted};--capture-padding:{CanvasPadding}px";
+    private string ExportStatus => ClipboardCopyFailed
+        ? "Clipboard image access is unavailable — download still works"
+        : ImageCopied
+            ? "PNG copied to your clipboard"
+            : "High-resolution PNG · no upload";
 
     protected override void OnParametersSet()
     {
@@ -300,48 +329,57 @@
     private void HandleCodeInput(ChangeEventArgs args)
     {
         Code = args.Value?.ToString() ?? string.Empty;
-        SettingsCopied = false;
+        ResetCopyFeedback();
         RefreshPreview();
     }
 
     private void HandleLanguageChanged(ChangeEventArgs args)
     {
         SelectedLanguage = args.Value?.ToString() ?? "auto";
-        SettingsCopied = false;
+        ResetCopyFeedback();
         RefreshPreview();
     }
 
     private void HandleLineNumbersChanged(ChangeEventArgs args)
-        => ShowLineNumbers = args.Value is bool enabled && enabled;
+    {
+        ShowLineNumbers = args.Value is bool enabled && enabled;
+        ResetCopyFeedback();
+    }
 
     private void HandleTitleInput(ChangeEventArgs args)
     {
         Title = args.Value?.ToString() ?? string.Empty;
-        SettingsCopied = false;
+        ResetCopyFeedback();
     }
 
     private void HandleAuthorInput(ChangeEventArgs args)
     {
         Author = args.Value?.ToString() ?? string.Empty;
-        SettingsCopied = false;
+        ResetCopyFeedback();
     }
 
     private void HandleFontSizeChanged(ChangeEventArgs args)
     {
         if (int.TryParse(args.Value?.ToString(), out var value)) FontSize = value;
-        SettingsCopied = false;
+        ResetCopyFeedback();
     }
 
     private void HandlePaddingChanged(ChangeEventArgs args)
     {
         if (int.TryParse(args.Value?.ToString(), out var value)) CanvasPadding = value;
-        SettingsCopied = false;
+        ResetCopyFeedback();
     }
 
     private void SelectTheme(string theme)
     {
         SelectedTheme = theme;
-        SettingsCopied = false;
+        ResetCopyFeedback();
+    }
+
+    private void SelectFormat(string format)
+    {
+        SelectedFormat = format;
+        ResetCopyFeedback();
     }
 
     private void UseExample()
@@ -361,7 +399,14 @@
     private void RefreshPreview()
     {
         ShouldRefreshPreview = true;
+        ResetCopyFeedback();
+    }
+
+    private void ResetCopyFeedback()
+    {
         SettingsCopied = false;
+        ImageCopied = false;
+        ClipboardCopyFailed = false;
     }
 
     private async Task CopySettingsAsync()
@@ -382,6 +427,29 @@
         SettingsCopied = true;
     }
 
+    private async Task CopyImageAsync()
+    {
+        if (IsCopyingImage) return;
+
+        IsCopyingImage = true;
+        ImageCopied = false;
+        ClipboardCopyFailed = false;
+
+        try
+        {
+            ImageCopied = await JS.InvokeAsync<bool>("copyCodeImageToClipboard", CreateExportOptions());
+            ClipboardCopyFailed = !ImageCopied;
+        }
+        catch (JSException)
+        {
+            ClipboardCopyFailed = true;
+        }
+        finally
+        {
+            IsCopyingImage = false;
+        }
+    }
+
     private async Task DownloadAsync()
     {
         if (IsExporting) return;
@@ -389,19 +457,7 @@
         IsExporting = true;
         try
         {
-            await JS.InvokeVoidAsync("downloadCodeImage", new
-            {
-                code = Code,
-                language = SelectedLanguage,
-                languageLabel = LanguageLabel,
-                theme = SelectedTheme,
-                format = SelectedFormat,
-                title = DisplayTitle,
-                author = DisplayAuthor,
-                showLineNumbers = ShowLineNumbers,
-                fontSize = FontSize,
-                padding = CanvasPadding
-            });
+            await JS.InvokeVoidAsync("downloadCodeImage", CreateExportOptions());
         }
         finally
         {
@@ -415,6 +471,20 @@
     }
 
     private Task CloseAsync() => OnClose.InvokeAsync();
+
+    private object CreateExportOptions() => new
+    {
+        code = Code,
+        language = SelectedLanguage,
+        languageLabel = LanguageLabel,
+        theme = SelectedTheme,
+        format = SelectedFormat,
+        title = DisplayTitle,
+        author = DisplayAuthor,
+        showLineNumbers = ShowLineNumbers,
+        fontSize = FontSize,
+        padding = CanvasPadding
+    };
 
     private sealed record ThemePreset(
         string Value,

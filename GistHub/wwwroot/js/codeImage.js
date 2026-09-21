@@ -273,4 +273,28 @@
         link.remove();
     };
 
+    window.copyCodeImageToClipboard = async (options) => {
+        if (!navigator.clipboard?.write || typeof ClipboardItem === 'undefined') {
+            return false;
+        }
+
+        try {
+            const canvas = createCanvas(options || {});
+            const blob = await new Promise((resolve, reject) => {
+                canvas.toBlob((result) => {
+                    if (result) resolve(result);
+                    else reject(new Error('The image could not be rendered.'));
+                }, 'image/png');
+            });
+
+            await navigator.clipboard.write([
+                new ClipboardItem({ 'image/png': blob })
+            ]);
+            return true;
+        } catch (error) {
+            console.warn('Copying the code image to the clipboard failed.', error);
+            return false;
+        }
+    };
+
 })();

@@ -2746,10 +2746,34 @@ span[class~="rounded-md"][class~="border"] {
   font-weight: 700;
 }
 
+.code-image-export-bar > div:first-child span.is-success {
+  color: #39772c;
+}
+
+.code-image-export-bar > div:first-child span.is-error {
+  color: hsl(var(--destructive));
+}
+
 .code-image-export-actions {
-  display: flex;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: center;
   gap: 0.55rem;
+}
+
+.code-image-export-bar {
+  flex-wrap: wrap;
+}
+
+.code-image-copy-button.is-success {
+  color: #0c0c0c;
+  background: var(--neo-green);
+}
+
+.code-image-copy-button.is-error {
+  color: hsl(var(--destructive));
+  border-color: hsl(var(--destructive));
 }
 
 .code-image-spinner {
@@ -2867,8 +2891,9 @@ span[class~="rounded-md"][class~="border"] {
   }
   .code-image-preview-frame--portrait { min-width: 25rem; }
   .code-image-export-bar { align-items: stretch; flex-direction: column; }
-  .code-image-export-actions { display: grid; grid-template-columns: 1fr 1fr; }
+  .code-image-export-actions { grid-template-columns: 1fr 1fr; }
   .code-image-export-actions .btn { min-width: 0; padding-inline: 0.55rem; }
+  .code-image-download-button { grid-column: 1 / -1; }
   .code-image-stage,
   .code-image-controls,
   .code-image-editor-pane { padding: 0.9rem; }
