@@ -121,34 +121,10 @@
 }
 
 @layer components {
-  .gist-blur-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 1.75rem;
-    padding: 0.2rem 0.55rem;
-    border: 1px solid hsl(var(--border));
-    border-radius: 0.375rem;
-    background: hsl(var(--card));
-    color: hsl(var(--foreground));
-    font-size: 0.65rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  .gist-blur-button:hover {
-    background: hsl(var(--primary));
-    color: hsl(var(--primary-foreground));
-  }
-
-  .gist-blur-button:focus-visible {
-    outline: 2px solid hsl(var(--ring));
-    outline-offset: 2px;
-  }
-
-  .gist-file-blurred {
+  .gist-files-blurred .neo-code-preview__content,
+  .gist-files-blurred .neo-code-window-content > pre,
+  .gist-files-blurred .neo-code-window-content > .prose,
+  .gist-files-blurred .neo-editor-input {
     filter: blur(8px);
     pointer-events: none;
     user-select: none;
@@ -404,6 +380,35 @@
   height: auto;
   border-bottom: 3px solid hsl(var(--border));
   box-shadow: 0 5px 0 var(--neo-shadow);
+}
+
+.neo-file-blur-toggle {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.7rem;
+  color: hsl(var(--foreground));
+  background: hsl(var(--card));
+  border: 2px solid hsl(var(--border));
+  border-radius: 0.35rem;
+  box-shadow: 3px 3px 0 var(--neo-shadow);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.neo-file-blur-toggle[aria-pressed="true"] {
+  color: hsl(var(--primary-foreground));
+  background: hsl(var(--primary));
+}
+
+.neo-file-blur-toggle:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 3px;
 }
 
 .neo-brand-mark,
@@ -1559,6 +1564,7 @@ span[class~="rounded-md"][class~="border"] {
 
   .neo-json-parser-trigger,
   .neo-code-image-trigger,
+  .neo-file-blur-toggle,
   .neo-new-snippet,
   .neo-theme-toggle {
     width: 2.75rem !important;

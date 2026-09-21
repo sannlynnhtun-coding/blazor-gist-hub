@@ -81,24 +81,21 @@
                     <div class="w-3 h-3 rounded-full bg-border"></div>
                     <div class="w-3 h-3 rounded-full bg-border"></div>
                 </div>
-                <div class="flex items-center gap-3 min-w-0">
-                    <span class="text-[10px] font-mono text-muted-foreground uppercase tracking-widest font-bold truncate">
+                <div class="flex items-center gap-4">
+                    <span class="text-[10px] font-mono text-muted-foreground uppercase tracking-widest font-bold">
                         @ViewingGist.Files.Keys.FirstOrDefault() - UTF-8
                     </span>
-                    <button type="button" @onclick="ToggleFileBlur" class="gist-blur-button shrink-0" aria-label="@(IsFileBlurred ? "Reveal gist file" : "Blur gist file")" aria-pressed="@IsFileBlurred" title="@(IsFileBlurred ? "Reveal file" : "Blur file")">
-                        @(IsFileBlurred ? "Reveal" : "Blur")
-                    </button>
                 </div>
             </div>
 
             <div class="neo-code-window-content p-4 md:p-10 overflow-auto custom-scrollbar bg-transparent min-h-[500px]">
                 @if (IsMarkdown)
                 {
-                    <div @ref="markdownContainer" class="prose prose-invert max-w-none prose-pre:bg-transparent prose-pre:p-0 @(IsFileBlurred ? "gist-file-blurred" : "")" aria-hidden="@IsFileBlurred" inert="@(IsFileBlurred ? "" : null)"></div>
+                    <div @ref="markdownContainer" class="prose prose-invert max-w-none prose-pre:bg-transparent prose-pre:p-0"></div>
                 }
                 else
                 {
-                    <pre class="font-mono text-sm md:text-base leading-relaxed text-zinc-100 float-left min-w-full @(IsFileBlurred ? "gist-file-blurred" : "")" aria-hidden="@IsFileBlurred"><code @ref="codeElement" class="@GetLanguageClass(ViewingGist.Files.Keys.FirstOrDefault())">@ViewingGist.Files.Values.FirstOrDefault()?.Content</code></pre>
+                    <pre class="font-mono text-sm md:text-base leading-relaxed text-zinc-100 float-left min-w-full"><code @ref="codeElement" class="@GetLanguageClass(ViewingGist.Files.Keys.FirstOrDefault())">@ViewingGist.Files.Values.FirstOrDefault()?.Content</code></pre>
                 }
             </div>
         </div>
@@ -125,12 +122,9 @@
     private bool IsLoading = true;
     private bool IsNotFound = false;
     private bool IsCopied = false;
-    private bool IsFileBlurred;
     private bool shouldHighlight = false;
     private bool shouldRenderMarkdown = false;
     private bool IsMarkdown => Path.GetExtension(ViewingGist?.Files.Keys.FirstOrDefault() ?? "").ToLower() == ".md";
-
-    private void ToggleFileBlur() => IsFileBlurred = !IsFileBlurred;
 
     protected override async Task OnParametersSetAsync()
     {
@@ -141,7 +135,6 @@
     {
         IsLoading = true;
         IsNotFound = false;
-        IsFileBlurred = false;
         ViewingGist = null;
         shouldHighlight = false;
         shouldRenderMarkdown = false;

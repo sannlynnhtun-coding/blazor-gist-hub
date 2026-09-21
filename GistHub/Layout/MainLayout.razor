@@ -1,6 +1,6 @@
 @inherits LayoutComponentBase
 
-<div class="neo-app-shell relative min-h-screen flex bg-background text-foreground"
+<div class="neo-app-shell relative min-h-screen flex bg-background text-foreground @(AreFilesBlurred ? "gist-files-blurred" : "")"
      aria-hidden="@(IsUtilityOpen ? "true" : null)"
      inert="@(IsUtilityOpen ? "" : null)">
     <!-- Sidebar -->
@@ -21,6 +21,17 @@
             </div>
             
             <div class="neo-topbar-actions flex items-center gap-3">
+                <button @onclick="ToggleFileBlur" class="neo-file-blur-toggle" type="button" aria-pressed="@AreFilesBlurred" aria-label="@(AreFilesBlurred ? "Show gist files" : "Blur gist files")" title="@(AreFilesBlurred ? "Show gist files" : "Blur gist files")">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                        <circle cx="12" cy="12" r="3" />
+                        @if (AreFilesBlurred)
+                        {
+                            <path d="M3 21 21 3" />
+                        }
+                    </svg>
+                    <span class="hidden xl:inline">@(AreFilesBlurred ? "Show Files" : "Blur Files")</span>
+                </button>
                 <button @onclick="ToggleSidebar" class="neo-sidebar-toggle hidden md:inline-flex" type="button" role="switch" aria-checked="@IsSidebarVisible" title="@(IsSidebarVisible ? "Hide sidebar" : "Show sidebar")">
                     <span class="neo-sidebar-toggle__label">Sidebar</span>
                     <span class="neo-sidebar-toggle__options" aria-hidden="true">
@@ -89,6 +100,7 @@
     private const string SidebarVisibleStorageKey = "gisthub:sidebar-visible";
 
     private bool IsSidebarVisible { get; set; } = true;
+    private bool AreFilesBlurred { get; set; }
     private bool IsJsonParserOpen { get; set; }
     private bool IsCodeImageOpen { get; set; }
     private bool ShouldRestoreJsonParserFocus { get; set; }
@@ -137,6 +149,8 @@
         IsSidebarVisible = !IsSidebarVisible;
         await JS.InvokeVoidAsync("localStorage.setItem", SidebarVisibleStorageKey, IsSidebarVisible ? "true" : "false");
     }
+
+    private void ToggleFileBlur() => AreFilesBlurred = !AreFilesBlurred;
 
     private void OpenJsonParser()
     {
