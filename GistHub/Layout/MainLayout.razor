@@ -1,8 +1,8 @@
 @inherits LayoutComponentBase
 
 <div class="neo-app-shell relative min-h-screen flex bg-background text-foreground"
-     aria-hidden="@(IsJsonParserOpen ? "true" : null)"
-     inert="@(IsJsonParserOpen ? "" : null)">
+     aria-hidden="@(IsUtilityOpen ? "true" : null)"
+     inert="@(IsUtilityOpen ? "" : null)">
     <!-- Sidebar -->
     <NavMenu IsVisible="@IsSidebarVisible" />
 
@@ -37,6 +37,15 @@
                     <span class="hidden xl:inline">JSON Parser</span>
                     <span class="sr-only xl:hidden">JSON Parser</span>
                 </button>
+                <button @ref="CodeImageTrigger" @onclick="OpenCodeImage" class="neo-code-image-trigger" type="button" title="Open code to image">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect width="18" height="18" x="3" y="3" rx="2" />
+                        <path d="m9 9-3 3 3 3" />
+                        <path d="m15 9 3 3-3 3" />
+                    </svg>
+                    <span class="hidden xl:inline">Code Image</span>
+                    <span class="sr-only xl:hidden">Code to Image</span>
+                </button>
                 <NavLink href="editor" class="neo-new-snippet btn btn-primary btn-md" title="Create a new snippet">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M12 5v14" />
@@ -70,6 +79,7 @@
 </div>
 
 <JsonParserOverlay IsOpen="@IsJsonParserOpen" OnClose="CloseJsonParser" />
+<CodeImageOverlay IsOpen="@IsCodeImageOpen" OnClose="CloseCodeImage" />
 
 @inject AppState AppState
 @inject IStorageService Storage
@@ -80,8 +90,12 @@
 
     private bool IsSidebarVisible { get; set; } = true;
     private bool IsJsonParserOpen { get; set; }
+    private bool IsCodeImageOpen { get; set; }
     private bool ShouldRestoreJsonParserFocus { get; set; }
+    private bool ShouldRestoreCodeImageFocus { get; set; }
     private ElementReference JsonParserTrigger { get; set; }
+    private ElementReference CodeImageTrigger { get; set; }
+    private bool IsUtilityOpen => IsJsonParserOpen || IsCodeImageOpen;
 
     protected override async Task OnInitializedAsync()
     {
@@ -110,6 +124,12 @@
             ShouldRestoreJsonParserFocus = false;
             await JsonParserTrigger.FocusAsync();
         }
+
+        if (ShouldRestoreCodeImageFocus)
+        {
+            ShouldRestoreCodeImageFocus = false;
+            await CodeImageTrigger.FocusAsync();
+        }
     }
 
     private async Task ToggleSidebar()
@@ -127,5 +147,16 @@
     {
         IsJsonParserOpen = false;
         ShouldRestoreJsonParserFocus = true;
+    }
+
+    private void OpenCodeImage()
+    {
+        IsCodeImageOpen = true;
+    }
+
+    private void CloseCodeImage()
+    {
+        IsCodeImageOpen = false;
+        ShouldRestoreCodeImageFocus = true;
     }
 }
