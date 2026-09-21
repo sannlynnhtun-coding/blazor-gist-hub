@@ -113,7 +113,12 @@
                  aria-label="Code preview"
                  tabindex="0"
                  @onclick:stopPropagation="true">
-                <pre class="neo-code-preview__content font-mono @(Compact ? "text-xs leading-snug" : "text-[13px] leading-relaxed") text-[#2F3437] dark:text-foreground antialiased whitespace-pre-wrap break-words">@SnippetPreview</pre>
+                <div class="flex justify-end mb-1">
+                    <button type="button" @onclick="ToggleFileBlur" class="gist-blur-button" aria-label="@(IsFileBlurred ? "Reveal gist file preview" : "Blur gist file preview")" aria-pressed="@IsFileBlurred" title="@(IsFileBlurred ? "Reveal file" : "Blur file")">
+                        @(IsFileBlurred ? "Reveal" : "Blur")
+                    </button>
+                </div>
+                <pre class="neo-code-preview__content font-mono @(Compact ? "text-xs leading-snug" : "text-[13px] leading-relaxed") text-[#2F3437] dark:text-foreground antialiased whitespace-pre-wrap break-words @(IsFileBlurred ? "gist-file-blurred" : "")" aria-hidden="@IsFileBlurred">@SnippetPreview</pre>
             </div>
         </div>
 
@@ -274,10 +279,23 @@
     [Parameter] public EventCallback<string> OnCreateGroup { get; set; }
 
     private bool IsGroupPopoverOpen { get; set; }
+    private bool IsFileBlurred { get; set; }
+    private string? BlurredGistId;
     private string NewGroupName { get; set; } = "";
     private string GroupValidationMessage { get; set; } = "";
     private ElementReference PopoverRef;
     private bool FocusPopoverPending;
+
+    protected override void OnParametersSet()
+    {
+        if (BlurredGistId != Id)
+        {
+            BlurredGistId = Id;
+            IsFileBlurred = false;
+        }
+    }
+
+    private void ToggleFileBlur() => IsFileBlurred = !IsFileBlurred;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

@@ -121,6 +121,39 @@
 }
 
 @layer components {
+  .gist-blur-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.75rem;
+    padding: 0.2rem 0.55rem;
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.375rem;
+    background: hsl(var(--card));
+    color: hsl(var(--foreground));
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .gist-blur-button:hover {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+
+  .gist-blur-button:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  .gist-file-blurred {
+    filter: blur(8px);
+    pointer-events: none;
+    user-select: none;
+  }
+
   /* Keep the existing card treatment while letting each gist occupy its own
      vertical space, instead of reserving a shared grid row for every card. */
   .gist-masonry {
