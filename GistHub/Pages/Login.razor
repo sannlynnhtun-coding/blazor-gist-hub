@@ -8,6 +8,22 @@
 @inject IGithubService Github
 
 <div class="neo-login-screen min-h-screen flex items-center justify-center p-6 bg-background relative overflow-hidden">
+    @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+    {
+        <div role="alert" aria-live="assertive" class="fixed top-6 right-6 z-50 w-[min(calc(100vw-3rem),24rem)] p-4 bg-[#FDEBEC] text-[#9F2F2D] border-2 border-[#9F2F2D] rounded-lg shadow-[6px_6px_0_0_#9F2F2D] animate-in slide-in-from-top-4 fade-in duration-200">
+            <div class="flex items-start gap-3">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                <div class="min-w-0 flex-1">
+                    <p class="text-sm font-bold">Unable to connect</p>
+                    <p class="mt-1 text-xs font-semibold break-words">@ErrorMessage</p>
+                </div>
+                <button type="button" @onclick="DismissError" aria-label="Dismiss error" class="-mt-1 -mr-1 p-1 rounded hover:bg-[#9F2F2D]/10 transition-colors">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+            </div>
+        </div>
+    }
+
     <!-- Login Card -->
     <div class="w-full max-w-md space-y-8 animate-in slide-in-from-bottom-10 fade-in duration-700">
         <div class="text-center space-y-2">
@@ -20,7 +36,8 @@
         </div>
 
         <div class="p-8 bg-card border rounded-xl space-y-6">
-            <div class="space-y-4">
+            <form @onsubmit="HandleLogin" @onsubmit:preventDefault="true" class="space-y-6">
+                <div class="space-y-4">
                 <div class="space-y-2">
                     <label class="text-sm font-semibold ml-1">Profile Name</label>
                     <div class="relative group">
@@ -43,27 +60,21 @@
                         <input type="password" @bind="Token" placeholder="ghp_xxxxxxxxxxxx" class="w-full bg-background border px-11 py-3.5 rounded-md outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all font-mono text-sm" />
                     </div>
                 </div>
-            </div>
-
-            @if (!string.IsNullOrEmpty(ErrorMessage))
-            {
-                <div class="p-3 bg-[#FDEBEC] text-[#9F2F2D] text-xs font-bold rounded-md border border-border animate-in fade-in zoom-in-95">
-                    @ErrorMessage
                 </div>
-            }
 
-            <button @onclick="HandleLogin" disabled="@IsLoading" class="btn btn-primary btn-xl w-full">
-                @if (IsLoading)
-                {
-                    <div class="w-5 h-5 border-2 border-primary-foreground/20 border-t-primary-foreground rounded-full animate-spin"></div>
-                    <span>@(IsSyncing ? "Deep Sync..." : "Verifying...")</span>
-                }
-                else
-                {
-                    <span>Verify and Connect</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                }
-            </button>
+                <button type="submit" disabled="@IsLoading" class="btn btn-primary btn-xl w-full">
+                    @if (IsLoading)
+                    {
+                        <div class="w-5 h-5 border-2 border-primary-foreground/20 border-t-primary-foreground rounded-full animate-spin"></div>
+                        <span>@(IsSyncing ? "Deep Sync..." : "Verifying...")</span>
+                    }
+                    else
+                    {
+                        <span>Verify and Connect</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    }
+                </button>
+            </form>
 
             @if (SavedProfiles.Any())
             {
@@ -128,78 +139,93 @@
         }
 
         IsLoading = true;
+        IsSyncing = false;
         ErrorMessage = "";
 
-        // Verify token and fetch real user info
-        var userInfo = await Github.GetUserInfoAsync(Token);
-        if (userInfo == null)
+        try
         {
-            ErrorMessage = Github.LastError?.Message ?? "Invalid token or network error.";
-            IsLoading = false;
-            return;
-        }
-
-        var existing = SavedProfiles.FirstOrDefault(p => p.GithubUsername.Equals(userInfo.Login, StringComparison.OrdinalIgnoreCase));
-        
-        var profileToSave = existing ?? new GistProfile();
-        profileToSave.Name = ProfileName;
-        profileToSave.AccessToken = Token;
-        profileToSave.GithubUsername = userInfo.Login;
-        profileToSave.Bio = userInfo.Bio ?? "No bio available.";
-
-        await Storage.SaveProfileAsync(profileToSave);
-        AppState.SetProfile(profileToSave);
-
-        // If user already existed, auto-login immediately
-        if (existing != null)
-        {
-            Navigation.NavigateTo("/");
-            return;
-        }
-
-        // Initial Deep Sync for NEW users (Fetch full content for each gist)
-        IsSyncing = true;
-        StateHasChanged();
-
-        // Keep bookmark and collection data that was cached for this GitHub user,
-        // even when their saved token/profile was removed and they reconnect.
-        var existingById = (await Storage.GetLocalGistsAsync())
-            .Where(gist => !string.IsNullOrWhiteSpace(gist.Id))
-            .GroupBy(gist => gist.Id)
-            .ToDictionary(group => group.Key, group => group.First());
-
-        var userGistsList = await Github.GetUserGistsAsync(Token);
-        if (userGistsList != null)
-        {
-            var tasks = userGistsList.Take(30).Select(async gist => 
+            // Verify token and fetch real user info
+            var userInfo = await Github.GetUserInfoAsync(Token);
+            if (userInfo == null)
             {
-                var fullGist = await Github.GetGistByIdAsync(gist.Id, Token);
-                if (fullGist != null)
+                ErrorMessage = Github.LastError?.Message ?? "Invalid token or network error.";
+                return;
+            }
+
+            var existing = SavedProfiles.FirstOrDefault(p =>
+                string.Equals(p.GithubUsername, userInfo.Login, StringComparison.OrdinalIgnoreCase));
+
+            var profileToSave = existing ?? new GistProfile();
+            profileToSave.Name = ProfileName;
+            profileToSave.AccessToken = Token;
+            profileToSave.GithubUsername = userInfo.Login;
+            profileToSave.Bio = userInfo.Bio ?? "No bio available.";
+
+            await Storage.SaveProfileAsync(profileToSave);
+            AppState.SetProfile(profileToSave);
+
+            // If user already existed, auto-login immediately
+            if (existing != null)
+            {
+                Navigation.NavigateTo("/");
+                return;
+            }
+
+            // Initial Deep Sync for NEW users (Fetch full content for each gist)
+            IsSyncing = true;
+            StateHasChanged();
+
+            // Keep bookmark and collection data that was cached for this GitHub user,
+            // even when their saved token/profile was removed and they reconnect.
+            var existingById = (await Storage.GetLocalGistsAsync())
+                .Where(gist => !string.IsNullOrWhiteSpace(gist.Id))
+                .GroupBy(gist => gist.Id)
+                .ToDictionary(group => group.Key, group => group.First());
+
+            var userGistsList = await Github.GetUserGistsAsync(Token);
+            if (userGistsList != null)
+            {
+                var tasks = userGistsList.Take(30).Select(async gist =>
                 {
-                    fullGist.IsSynced = true;
-                    fullGist.Tags = ParseTags(fullGist.Description);
-
-                    if (existingById.TryGetValue(fullGist.Id, out var cachedGist))
+                    var fullGist = await Github.GetGistByIdAsync(gist.Id, Token);
+                    if (fullGist != null)
                     {
-                        fullGist.IsBookmarked = cachedGist.IsBookmarked;
-                        fullGist.BookmarkOrder = cachedGist.BookmarkOrder;
-                        fullGist.CollectionNames = cachedGist.CollectionNames
-                            .Distinct(StringComparer.OrdinalIgnoreCase)
-                            .ToList();
-                        fullGist.CollectionName = fullGist.CollectionNames.FirstOrDefault();
+                        fullGist.IsSynced = true;
+                        fullGist.Tags = ParseTags(fullGist.Description);
+
+                        if (existingById.TryGetValue(fullGist.Id, out var cachedGist))
+                        {
+                            fullGist.IsBookmarked = cachedGist.IsBookmarked;
+                            fullGist.BookmarkOrder = cachedGist.BookmarkOrder;
+                            fullGist.CollectionNames = cachedGist.CollectionNames
+                                .Distinct(StringComparer.OrdinalIgnoreCase)
+                                .ToList();
+                            fullGist.CollectionName = fullGist.CollectionNames.FirstOrDefault();
+                        }
+
+                        await Storage.SaveGistAsync(fullGist);
                     }
+                });
 
-                    await Storage.SaveGistAsync(fullGist);
-                }
-            });
+                await Task.WhenAll(tasks);
+            }
 
-            await Task.WhenAll(tasks);
+            Navigation.NavigateTo("/");
         }
-        
-        IsLoading = false;
-        IsSyncing = false;
-        Navigation.NavigateTo("/");
+        catch (Exception ex)
+        {
+            ErrorMessage = string.IsNullOrWhiteSpace(ex.Message)
+                ? "An unexpected error occurred. Please try again."
+                : ex.Message;
+        }
+        finally
+        {
+            IsLoading = false;
+            IsSyncing = false;
+        }
     }
+
+    private void DismissError() => ErrorMessage = "";
 
     private void SelectProfile(GistProfile profile)
     {
