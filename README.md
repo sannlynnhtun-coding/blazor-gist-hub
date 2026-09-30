@@ -35,7 +35,7 @@ Blazor pages and components
 - Single and bulk cloning into the connected GitHub account
 - Personal gist create, view, edit, delete, sync, and JSON import
 - Search by description, file, content, or parsed `#tags`
-- Local bookmarks with drag-and-drop ordering
+- Local bookmarks with drag-and-drop ordering and account-scoped JSON backup/restore
 - Local multi-collection assignment and collection filtering
 - Curated `@sannlynnhtun-coding` public-gist collection
 - Markdown, Mermaid, and syntax-highlighted code previews

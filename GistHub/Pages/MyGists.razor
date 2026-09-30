@@ -55,7 +55,7 @@
             }
         </div>
 
-        <div class="neo-profile-actions flex items-center gap-3">
+        <div class="neo-profile-actions flex flex-wrap items-center justify-end gap-3">
             <button @onclick="SyncGists" disabled="@IsSyncing" class="btn btn-secondary btn-md">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-cw @(IsSyncing ? "animate-spin" : "")"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
                 Sync Cloud
@@ -68,6 +68,22 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-paste"><path d="M19 4h-3a2 2 0 0 0-4 0H9"/><path d="M5 7v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7"/><path d="M13 10H9"/><path d="M9 14h6"/><path d="M9 18h6"/></svg>
                 Paste JSON
             </button>
+            <button @onclick="DownloadBookmarksAsync" disabled="@(!AppState.IsAuthenticated || IsRestoringBookmarks)" class="btn btn-outline btn-md" title="Download bookmark backup as JSON">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                Download bookmarks
+            </button>
+            <button @onclick="OpenBookmarkRestorePickerAsync" disabled="@(!AppState.IsAuthenticated || IsRestoringBookmarks)" class="btn btn-outline btn-md" title="Restore bookmarks from JSON">
+                @if (IsRestoringBookmarks)
+                {
+                    <div class="w-4 h-4 border-2 border-current/30 border-t-current rounded-full animate-spin"></div>
+                }
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                Restore bookmarks
+            </button>
+            <InputFile id="bookmark-restore-input"
+                       class="sr-only"
+                       accept=".json,application/json"
+                       OnChange="RestoreBookmarksAsync" />
             <button @onclick='() => Navigation.NavigateTo("/editor")' class="btn btn-primary btn-md">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
                 New Snippet
@@ -126,6 +142,13 @@
     {
         <div class="p-3 rounded-xl border text-sm font-semibold @(ImportWasSuccessful ? "border-border bg-[#EDF3EC] text-[#346538]" : "border-border bg-[#FDEBEC] text-[#9F2F2D]")">
             @ImportMessage
+        </div>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(BookmarkBackupMessage))
+    {
+        <div role="status" class="p-3 rounded-xl border text-sm font-semibold @(BookmarkBackupWasSuccessful ? "border-border bg-[#EDF3EC] text-[#346538]" : "border-border bg-[#FDEBEC] text-[#9F2F2D]")">
+            @BookmarkBackupMessage
         </div>
     }
 
@@ -246,6 +269,8 @@
 @code {
     private const string BookmarksOnlyStorageKey = "gisthub:bookmarks-only";
     private const string ProfileToolsVisibleStorageKey = "gisthub:profile-tools-visible";
+    private const string BookmarkRestoreInputId = "bookmark-restore-input";
+    private const long MaxBookmarkBackupBytes = 1024 * 1024;
 
     [Parameter]
     [SupplyParameterFromQuery(Name = "favorites")]
@@ -276,6 +301,9 @@
     private string? CopiedGistId = null;
     private string? DraggedBookmarkId = null;
     private string? DropTargetBookmarkId = null;
+    private bool IsRestoringBookmarks = false;
+    private bool BookmarkBackupWasSuccessful = false;
+    private string BookmarkBackupMessage = "";
 
     private List<string> GroupNames => Groups.Select(g => g.Name).ToList();
 
@@ -309,6 +337,118 @@
         BookmarksOnly = !BookmarksOnly;
         FavoritesOnly = false;
         await JS.InvokeVoidAsync("localStorage.setItem", BookmarksOnlyStorageKey, BookmarksOnly ? "true" : "false");
+    }
+
+    private async Task DownloadBookmarksAsync()
+    {
+        BookmarkBackupMessage = "";
+        BookmarkBackupWasSuccessful = false;
+
+        var username = AppState.CurrentProfile?.GithubUsername;
+        if (string.IsNullOrWhiteSpace(username))
+        {
+            BookmarkBackupMessage = "Connect to GitHub before downloading bookmarks.";
+            return;
+        }
+
+        var json = BookmarkBackupSerializer.CreateJson(LocalGists, username);
+        var filename = $"gisthub-bookmarks-{DateTime.UtcNow:yyyyMMdd-HHmmss}.json";
+        await JS.InvokeVoidAsync("downloadTextFile", filename, json, "application/json");
+
+        BookmarkBackupWasSuccessful = true;
+        BookmarkBackupMessage = $"Downloaded {BookmarkedGistsCount} bookmark{(BookmarkedGistsCount == 1 ? "" : "s")}.";
+    }
+
+    private async Task OpenBookmarkRestorePickerAsync()
+    {
+        BookmarkBackupMessage = "";
+        await JS.InvokeVoidAsync("openFilePicker", BookmarkRestoreInputId);
+    }
+
+    private async Task RestoreBookmarksAsync(InputFileChangeEventArgs args)
+    {
+        BookmarkBackupMessage = "";
+        BookmarkBackupWasSuccessful = false;
+
+        var username = AppState.CurrentProfile?.GithubUsername;
+        if (string.IsNullOrWhiteSpace(username))
+        {
+            BookmarkBackupMessage = "Connect to GitHub before restoring bookmarks.";
+            return;
+        }
+
+        var file = args.File;
+        if (file.Size > MaxBookmarkBackupBytes)
+        {
+            BookmarkBackupMessage = "The bookmark backup is larger than 1 MB.";
+            return;
+        }
+
+        IsRestoringBookmarks = true;
+        StateHasChanged();
+
+        try
+        {
+            using var stream = file.OpenReadStream(MaxBookmarkBackupBytes);
+            using var reader = new StreamReader(stream);
+            var json = await reader.ReadToEndAsync();
+
+            if (!BookmarkBackupSerializer.TryParse(json, username, out var backup, out var validationError))
+            {
+                BookmarkBackupMessage = validationError;
+                return;
+            }
+
+            var restoredOrderById = backup!.Bookmarks!
+                .OrderBy(item => item.Order)
+                .Select((item, index) => new { Id = item.GistId.Trim(), Order = index + 1 })
+                .ToDictionary(item => item.Id, item => item.Order, StringComparer.OrdinalIgnoreCase);
+
+            var matchingCount = LocalGists.Count(gist => restoredOrderById.ContainsKey(gist.Id));
+            var missingCount = restoredOrderById.Count - matchingCount;
+            if (restoredOrderById.Count > 0 && matchingCount == 0)
+            {
+                BookmarkBackupMessage = "None of the backup's bookmarks exist in this local gist library. Sync your gists and try again.";
+                return;
+            }
+
+            var missingText = missingCount > 0 ? $" {missingCount} backup item{(missingCount == 1 ? " is" : "s are")} not in this local library and will be skipped." : "";
+            var confirmed = await JS.InvokeAsync<bool>(
+                "confirm",
+                $"Restore {matchingCount} bookmark{(matchingCount == 1 ? "" : "s")}? This replaces your current {BookmarkedGistsCount} bookmark{(BookmarkedGistsCount == 1 ? "" : "s")}.{missingText}");
+            if (!confirmed)
+            {
+                return;
+            }
+
+            var changedGists = new List<LocalGist>();
+            foreach (var gist in LocalGists)
+            {
+                var shouldBeBookmarked = restoredOrderById.TryGetValue(gist.Id, out var restoredOrder);
+                var nextOrder = shouldBeBookmarked ? restoredOrder : 0;
+                if (gist.IsBookmarked == shouldBeBookmarked && gist.BookmarkOrder == nextOrder)
+                {
+                    continue;
+                }
+
+                gist.IsBookmarked = shouldBeBookmarked;
+                gist.BookmarkOrder = nextOrder;
+                changedGists.Add(gist);
+            }
+
+            await Task.WhenAll(changedGists.Select(Storage.SaveGistAsync));
+            BookmarkBackupWasSuccessful = true;
+            BookmarkBackupMessage = $"Restored {matchingCount} bookmark{(matchingCount == 1 ? "" : "s")}.{missingText}";
+        }
+        catch (Exception ex)
+        {
+            BookmarkBackupMessage = $"Bookmark restore failed: {ex.Message}";
+        }
+        finally
+        {
+            IsRestoringBookmarks = false;
+            StateHasChanged();
+        }
     }
 
     protected override async Task OnInitializedAsync()

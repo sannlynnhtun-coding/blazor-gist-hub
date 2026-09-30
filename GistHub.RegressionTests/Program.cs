@@ -27,6 +27,28 @@ Assert(!string.IsNullOrWhiteSpace(GetProperty<string>(login, "ErrorMessage")), "
 
 Console.WriteLine("PASS: login errors stop loading and expose a toast message.");
 
+var bookmarkGists = new List<LocalGist>
+{
+    new() { Id = "newer", IsBookmarked = true, BookmarkOrder = 2, UpdatedAt = new DateTime(2026, 1, 2) },
+    new() { Id = "first", IsBookmarked = true, BookmarkOrder = 1, UpdatedAt = new DateTime(2026, 1, 1) },
+    new() { Id = "ignored", IsBookmarked = false, UpdatedAt = new DateTime(2026, 1, 3) }
+};
+var bookmarkJson = BookmarkBackupSerializer.CreateJson(
+    bookmarkGists,
+    "ExampleUser",
+    new DateTimeOffset(2026, 1, 3, 4, 5, 6, TimeSpan.Zero));
+
+Assert(
+    BookmarkBackupSerializer.TryParse(bookmarkJson, "exampleuser", out var bookmarkBackup, out var bookmarkError),
+    $"Generated bookmark JSON should parse: {bookmarkError}");
+Assert(bookmarkBackup!.Bookmarks!.Count == 2, "Only bookmarked gists should be exported.");
+Assert(bookmarkBackup.Bookmarks[0].GistId == "first", "Bookmark order should be preserved in the backup.");
+Assert(
+    !BookmarkBackupSerializer.TryParse(bookmarkJson, "another-user", out _, out var accountError) && accountError.Contains("belongs to"),
+    "A bookmark backup from another account must be rejected.");
+
+Console.WriteLine("PASS: bookmark backups preserve order and enforce account scope.");
+
 static void SetProperty(object target, string name, object value)
 {
     var property = target.GetType().GetProperty(name, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
