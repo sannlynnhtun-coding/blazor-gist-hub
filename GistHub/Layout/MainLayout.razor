@@ -1,14 +1,12 @@
 @inherits LayoutComponentBase
+@implements IAsyncDisposable
 
 <div class="neo-app-shell relative min-h-screen flex bg-background text-foreground @(AreFilesBlurred ? "gist-files-blurred" : "")"
-     aria-hidden="@(IsUtilityOpen ? "true" : null)"
-     inert="@(IsUtilityOpen ? "" : null)">
-    <!-- Sidebar -->
+     aria-hidden="@(IsModalOpen ? "true" : null)"
+     inert="@(IsModalOpen ? "" : null)">
     <NavMenu IsVisible="@IsSidebarVisible" />
 
-    <!-- Main Content -->
     <main class="neo-main flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
-        <!-- Topbar -->
         <header class="neo-topbar flex items-center justify-between px-6 glass sticky top-0 z-40">
             <div class="neo-topbar-brand flex items-center gap-4">
                 <div class="neo-brand-mark md:hidden w-9 h-9 overflow-hidden rounded-md">
@@ -19,66 +17,129 @@
                     <h1 class="text-xl font-black tracking-tight">GistHub</h1>
                 </div>
             </div>
-            
+
+            @if (IsToolsMenuOpen || IsSettingsMenuOpen)
+            {
+                <div class="neo-toolbar-menu-scrim" @onclick="CloseToolbarMenus"></div>
+            }
+
             <div class="neo-topbar-actions flex items-center gap-3">
-                <button @onclick="ToggleFileBlur" class="neo-file-blur-toggle" type="button" aria-pressed="@AreFilesBlurred" aria-label="@(AreFilesBlurred ? "Show gist files" : "Blur gist files")" title="@(AreFilesBlurred ? "Show gist files" : "Blur gist files")">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
-                        <circle cx="12" cy="12" r="3" />
-                        @if (AreFilesBlurred)
-                        {
-                            <path d="M3 21 21 3" />
-                        }
-                    </svg>
-                    <span class="hidden xl:inline">@(AreFilesBlurred ? "Show Files" : "Blur Files")</span>
-                </button>
-                <button @onclick="ToggleSidebar" class="neo-sidebar-toggle hidden md:inline-flex" type="button" role="switch" aria-checked="@IsSidebarVisible" title="@(IsSidebarVisible ? "Hide sidebar" : "Show sidebar")">
-                    <span class="neo-sidebar-toggle__label">Sidebar</span>
-                    <span class="neo-sidebar-toggle__options" aria-hidden="true">
-                        <span class="neo-sidebar-toggle__option @(IsSidebarVisible ? "is-selected" : "")"><span class="neo-sidebar-toggle__radio"></span>On</span>
-                        <span class="neo-sidebar-toggle__option @(!IsSidebarVisible ? "is-selected" : "")"><span class="neo-sidebar-toggle__radio"></span>Off</span>
-                    </span>
-                    <span class="sr-only">@(IsSidebarVisible ? "Hide sidebar" : "Show sidebar")</span>
-                </button>
-                <button @ref="JsonParserTrigger" @onclick="OpenJsonParser" class="neo-json-parser-trigger" type="button" title="Open JSON parser">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1" />
-                        <path d="M16 3h1a2 2 0 0 1 2 2v5a2 2 0 0 0 2 2 2 2 0 0 0-2 2v5a2 2 0 0 1-2 2h-1" />
-                    </svg>
-                    <span class="hidden xl:inline">JSON Parser</span>
-                    <span class="sr-only xl:hidden">JSON Parser</span>
-                </button>
-                <button @ref="CodeImageTrigger" @onclick="OpenCodeImage" class="neo-code-image-trigger" type="button" title="Open code to image">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <rect width="18" height="18" x="3" y="3" rx="2" />
-                        <path d="m9 9-3 3 3 3" />
-                        <path d="m15 9 3 3-3 3" />
-                    </svg>
-                    <span class="hidden xl:inline">Code Image</span>
-                    <span class="sr-only xl:hidden">Code to Image</span>
-                </button>
-                <NavLink href="editor" class="neo-new-snippet btn btn-primary btn-md" title="Create a new snippet">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M12 5v14" />
-                        <path d="M5 12h14" />
-                    </svg>
-                    <span class="hidden xl:inline">New Snippet</span>
-                    <span class="sr-only xl:hidden">New Snippet</span>
+                <div class="neo-toolbar-menu">
+                    <button data-testid="tools-trigger"
+                            @ref="ToolsMenuTrigger"
+                            @onclick="ToggleToolsMenu"
+                            class="neo-toolbar-menu__trigger neo-tools-trigger"
+                            type="button"
+                            aria-label="Tools"
+                            aria-haspopup="menu"
+                            aria-expanded="@IsToolsMenuOpen"
+                            aria-controls="tools-menu"
+                            title="Open tools menu">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5-5l2.1 2.1-1.4 1.4-2.1-2.1a4 4 0 0 0 5 5l-7.6 7.6a2.1 2.1 0 1 0 3 3l7.6-7.6a4 4 0 0 0 5-5l-2.1 2.1-1.4-1.4 2.1-2.1a4 4 0 0 0-5 5Z"/></svg>
+                        <span class="neo-toolbar-menu__label">Tools</span>
+                        <svg class="neo-toolbar-menu__chevron" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+
+                    @if (IsToolsMenuOpen)
+                    {
+                        <div id="tools-menu" class="neo-toolbar-dropdown neo-toolbar-dropdown--tools" role="menu" aria-label="Tools" @onkeydown="HandleToolsMenuKeyDown">
+                            <div class="neo-toolbar-dropdown__heading">Workbench tools</div>
+                            <button data-testid="json-parser-menu-item"
+                                    @ref="ToolsFirstMenuItem"
+                                    @onclick="OpenJsonParser"
+                                    class="neo-toolbar-menu-item"
+                                    type="button"
+                                    role="menuitem">
+                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan">
+                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1"/><path d="M16 3h1a2 2 0 0 1 2 2v5a2 2 0 0 0 2 2 2 2 0 0 0-2 2v5a2 2 0 0 1-2 2h-1"/></svg>
+                                </span>
+                                <span><strong>JSON Parser</strong><small>Normalize escaped JSON text</small></span>
+                            </button>
+                            <button data-testid="code-image-menu-item"
+                                    @onclick="OpenCodeImage"
+                                    class="neo-toolbar-menu-item"
+                                    type="button"
+                                    role="menuitem">
+                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--pink">
+                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 9-3 3 3 3"/><path d="m15 9 3 3-3 3"/></svg>
+                                </span>
+                                <span><strong>Code Image</strong><small>Export a styled snippet image</small></span>
+                            </button>
+                        </div>
+                    }
+                </div>
+
+                <NavLink href="editor" class="neo-new-snippet btn btn-primary btn-md" title="Create a new snippet" aria-label="New snippet">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                    <span class="neo-new-snippet__label" aria-hidden="true">New Snippet</span>
                 </NavLink>
                 <SoundToggle />
                 <ThemeToggle />
-                <button class="neo-topbar-search neo-icon-button p-2 bg-card hover:bg-accent rounded-md transition-all text-foreground" title="Toggle Search (Ctrl+K)">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <button data-testid="global-search-trigger"
+                        data-global-search-trigger
+                        data-shortcut-ready="@(IsSearchShortcutReady ? "true" : "false")"
+                        @ref="GlobalSearchTrigger"
+                        @onclick="OpenGlobalSearch"
+                        class="neo-topbar-search neo-icon-button"
+                        type="button"
+                        title="Search cached gists (Ctrl+K)"
+                        aria-label="Search cached gists"
+                        aria-haspopup="dialog"
+                        aria-expanded="@IsGlobalSearchOpen">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 </button>
-                <div class="neo-online-divider hidden sm:block h-6 w-[2px] bg-border mx-1"></div>
-                <button class="neo-online-status hidden sm:flex items-center gap-2 px-3 py-1.5 bg-card border-2 text-foreground hover:bg-secondary hover:text-secondary-foreground rounded-md text-xs font-black uppercase tracking-wider transition-all">
-                    <div class="w-2 h-2 rounded-full bg-[#346538]"></div>
-                    Online
-                </button>
+
+                <div class="neo-toolbar-menu">
+                    <button data-testid="settings-trigger"
+                            @ref="SettingsMenuTrigger"
+                            @onclick="ToggleSettingsMenu"
+                            class="neo-toolbar-menu__trigger neo-settings-trigger"
+                            type="button"
+                            aria-label="Settings"
+                            aria-haspopup="menu"
+                            aria-expanded="@IsSettingsMenuOpen"
+                            aria-controls="settings-menu"
+                            title="Open settings menu">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 2h-.4a2 2 0 0 0-2 2v.2a2 2 0 0 1-1 1.7l-.4.2a2 2 0 0 1-2 0l-.1-.1a2 2 0 0 0-2.7.7l-.2.4a2 2 0 0 0 .7 2.7l.1.1a2 2 0 0 1 1 1.7v.5a2 2 0 0 1-1 1.7l-.1.1a2 2 0 0 0-.7 2.7l.2.4a2 2 0 0 0 2.7.7l.1-.1a2 2 0 0 1 2 0l.4.2a2 2 0 0 1 1 1.7v.2a2 2 0 0 0 2 2h.4a2 2 0 0 0 2-2v-.2a2 2 0 0 1 1-1.7l.4-.2a2 2 0 0 1 2 0l.1.1a2 2 0 0 0 2.7-.7l.2-.4a2 2 0 0 0-.7-2.7l-.1-.1a2 2 0 0 1-1-1.7v-.5a2 2 0 0 1 1-1.7l.1-.1a2 2 0 0 0 .7-2.7l-.2-.4a2 2 0 0 0-2.7-.7l-.1.1a2 2 0 0 1-2 0l-.4-.2a2 2 0 0 1-1-1.7V4a2 2 0 0 0-2-2Z"/><circle cx="12" cy="12" r="3"/></svg>
+                        <span class="neo-toolbar-menu__label">Settings</span>
+                        <svg class="neo-toolbar-menu__chevron" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+
+                    @if (IsSettingsMenuOpen)
+                    {
+                        <div id="settings-menu" class="neo-toolbar-dropdown neo-toolbar-dropdown--settings" role="menu" aria-label="Settings" @onkeydown="HandleSettingsMenuKeyDown">
+                            <div class="neo-toolbar-dropdown__heading">Workspace settings</div>
+                            <button data-testid="blur-files-menu-item"
+                                    @ref="SettingsFirstMenuItem"
+                                    @onclick="ToggleFileBlurFromMenuAsync"
+                                    class="neo-toolbar-menu-item neo-toolbar-menu-item--setting"
+                                    type="button"
+                                    role="menuitemcheckbox"
+                                    aria-checked="@AreFilesBlurred">
+                                <span class="neo-toolbar-menu-item__icon">
+                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>@if (AreFilesBlurred) { <path d="M3 21 21 3"/> }</svg>
+                                </span>
+                                <span><strong>Blur Files</strong><small>Hide code previews at a glance</small></span>
+                                <span class="neo-toolbar-switch @(AreFilesBlurred ? "is-on" : "")" aria-hidden="true"><span></span></span>
+                            </button>
+                            <button data-testid="sidebar-menu-item"
+                                    @onclick="ToggleSidebarFromMenuAsync"
+                                    class="neo-toolbar-menu-item neo-toolbar-menu-item--setting"
+                                    type="button"
+                                    role="menuitemcheckbox"
+                                    aria-checked="@IsSidebarVisible">
+                                <span class="neo-toolbar-menu-item__icon">
+                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
+                                </span>
+                                <span><strong>Sidebar</strong><small>Show the desktop navigation rail</small></span>
+                                <span class="neo-toolbar-switch @(IsSidebarVisible ? "is-on" : "")" aria-hidden="true"><span></span></span>
+                            </button>
+                        </div>
+                    }
+                </div>
             </div>
         </header>
 
-        <!-- Scrollable Area -->
         <div class="neo-canvas flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar">
             <div class="neo-decor neo-decor--pink" aria-hidden="true"></div>
             <div class="neo-decor neo-decor--purple" aria-hidden="true"></div>
@@ -89,34 +150,52 @@
     </main>
 </div>
 
+<GlobalGistSearch IsOpen="@IsGlobalSearchOpen"
+                  IsAuthenticated="@AppState.IsAuthenticated"
+                  AccountUsername="@(AppState.CurrentProfile?.GithubUsername ?? string.Empty)"
+                  OnClose="CloseGlobalSearch"
+                  OnSelectGist="OpenGistFromSearch" />
 <JsonParserOverlay IsOpen="@IsJsonParserOpen" OnClose="CloseJsonParser" />
 <CodeImageOverlay IsOpen="@IsCodeImageOpen" OnClose="CloseCodeImage" />
 
 @inject AppState AppState
 @inject IStorageService Storage
 @inject IJSRuntime JS
+@inject NavigationManager Navigation
 
 @code {
     private const string SidebarVisibleStorageKey = "gisthub:sidebar-visible";
+    private const string FilesBlurredStorageKey = "gisthub:files-blurred";
 
     private bool IsSidebarVisible { get; set; } = true;
     private bool AreFilesBlurred { get; set; }
+    private bool IsToolsMenuOpen { get; set; }
+    private bool IsSettingsMenuOpen { get; set; }
+    private bool IsGlobalSearchOpen { get; set; }
+    private bool IsSearchShortcutReady { get; set; }
     private bool IsJsonParserOpen { get; set; }
     private bool IsCodeImageOpen { get; set; }
-    private bool ShouldRestoreJsonParserFocus { get; set; }
-    private bool ShouldRestoreCodeImageFocus { get; set; }
-    private ElementReference JsonParserTrigger { get; set; }
-    private ElementReference CodeImageTrigger { get; set; }
+    private bool ShouldFocusToolsMenu { get; set; }
+    private bool ShouldFocusSettingsMenu { get; set; }
+    private bool ShouldRestoreToolsFocus { get; set; }
+    private bool ShouldRestoreSettingsFocus { get; set; }
+    private bool ShouldRestoreSearchFocus { get; set; }
+    private ElementReference ToolsMenuTrigger { get; set; }
+    private ElementReference SettingsMenuTrigger { get; set; }
+    private ElementReference GlobalSearchTrigger { get; set; }
+    private ElementReference ToolsFirstMenuItem { get; set; }
+    private ElementReference SettingsFirstMenuItem { get; set; }
+    private IJSObjectReference? AppShellModule { get; set; }
     private bool IsUtilityOpen => IsJsonParserOpen || IsCodeImageOpen;
+    private bool IsModalOpen => IsUtilityOpen || IsGlobalSearchOpen;
 
     protected override async Task OnInitializedAsync()
     {
         if (!AppState.IsAuthenticated)
         {
             var profiles = await Storage.GetProfilesAsync();
-            if (profiles != null && profiles.Any())
+            if (profiles is { Count: > 0 })
             {
-                // Auto-restore the last used session
                 AppState.SetProfile(profiles.First());
             }
         }
@@ -126,51 +205,190 @@
     {
         if (firstRender)
         {
-            var storedValue = await JS.InvokeAsync<string?>("localStorage.getItem", SidebarVisibleStorageKey);
-            IsSidebarVisible = !string.Equals(storedValue, "false", StringComparison.OrdinalIgnoreCase);
+            var storedSidebar = await JS.InvokeAsync<string?>("localStorage.getItem", SidebarVisibleStorageKey);
+            var storedBlur = await JS.InvokeAsync<string?>("localStorage.getItem", FilesBlurredStorageKey);
+            IsSidebarVisible = !string.Equals(storedSidebar, "false", StringComparison.OrdinalIgnoreCase);
+            AreFilesBlurred = string.Equals(storedBlur, "true", StringComparison.OrdinalIgnoreCase);
+
+            AppShellModule = await JS.InvokeAsync<IJSObjectReference>("import", "./js/appShell.js");
+            await AppShellModule.InvokeVoidAsync("registerGlobalSearchShortcut");
+            IsSearchShortcutReady = true;
             StateHasChanged();
         }
 
-        if (ShouldRestoreJsonParserFocus)
+        if (ShouldFocusToolsMenu)
         {
-            ShouldRestoreJsonParserFocus = false;
-            await JsonParserTrigger.FocusAsync();
+            ShouldFocusToolsMenu = false;
+            await ToolsFirstMenuItem.FocusAsync();
         }
 
-        if (ShouldRestoreCodeImageFocus)
+        if (ShouldFocusSettingsMenu)
         {
-            ShouldRestoreCodeImageFocus = false;
-            await CodeImageTrigger.FocusAsync();
+            ShouldFocusSettingsMenu = false;
+            await SettingsFirstMenuItem.FocusAsync();
+        }
+
+        if (ShouldRestoreToolsFocus)
+        {
+            ShouldRestoreToolsFocus = false;
+            await ToolsMenuTrigger.FocusAsync();
+        }
+
+        if (ShouldRestoreSettingsFocus)
+        {
+            ShouldRestoreSettingsFocus = false;
+            await SettingsMenuTrigger.FocusAsync();
+        }
+
+        if (ShouldRestoreSearchFocus)
+        {
+            ShouldRestoreSearchFocus = false;
+            await GlobalSearchTrigger.FocusAsync();
         }
     }
 
-    private async Task ToggleSidebar()
+    private void ToggleToolsMenu()
+    {
+        if (IsToolsMenuOpen)
+        {
+            IsToolsMenuOpen = false;
+            return;
+        }
+
+        IsSettingsMenuOpen = false;
+        IsToolsMenuOpen = true;
+        ShouldFocusToolsMenu = true;
+    }
+
+    private void ToggleSettingsMenu()
+    {
+        if (IsSettingsMenuOpen)
+        {
+            IsSettingsMenuOpen = false;
+            return;
+        }
+
+        IsToolsMenuOpen = false;
+        IsSettingsMenuOpen = true;
+        ShouldFocusSettingsMenu = true;
+    }
+
+    private void CloseToolbarMenus()
+    {
+        if (IsToolsMenuOpen)
+        {
+            ShouldRestoreToolsFocus = true;
+        }
+        else if (IsSettingsMenuOpen)
+        {
+            ShouldRestoreSettingsFocus = true;
+        }
+
+        DismissToolbarMenus();
+    }
+
+    private void DismissToolbarMenus()
+    {
+        IsToolsMenuOpen = false;
+        IsSettingsMenuOpen = false;
+        ShouldFocusToolsMenu = false;
+        ShouldFocusSettingsMenu = false;
+    }
+
+    private void HandleToolsMenuKeyDown(KeyboardEventArgs args)
+    {
+        if (args.Key == "Escape")
+        {
+            IsToolsMenuOpen = false;
+            ShouldRestoreToolsFocus = true;
+        }
+    }
+
+    private void HandleSettingsMenuKeyDown(KeyboardEventArgs args)
+    {
+        if (args.Key == "Escape")
+        {
+            IsSettingsMenuOpen = false;
+            ShouldRestoreSettingsFocus = true;
+        }
+    }
+
+    private async Task ToggleFileBlurFromMenuAsync()
+    {
+        AreFilesBlurred = !AreFilesBlurred;
+        await JS.InvokeVoidAsync("localStorage.setItem", FilesBlurredStorageKey, AreFilesBlurred ? "true" : "false");
+        IsSettingsMenuOpen = false;
+        ShouldRestoreSettingsFocus = true;
+    }
+
+    private async Task ToggleSidebarFromMenuAsync()
     {
         IsSidebarVisible = !IsSidebarVisible;
         await JS.InvokeVoidAsync("localStorage.setItem", SidebarVisibleStorageKey, IsSidebarVisible ? "true" : "false");
+        IsSettingsMenuOpen = false;
+        ShouldRestoreSettingsFocus = true;
     }
 
-    private void ToggleFileBlur() => AreFilesBlurred = !AreFilesBlurred;
+    private void OpenGlobalSearch()
+    {
+        if (IsUtilityOpen)
+        {
+            return;
+        }
+
+        DismissToolbarMenus();
+        IsGlobalSearchOpen = true;
+    }
+
+    private void CloseGlobalSearch()
+    {
+        IsGlobalSearchOpen = false;
+        ShouldRestoreSearchFocus = true;
+    }
+
+    private void OpenGistFromSearch(string gistId)
+    {
+        IsGlobalSearchOpen = false;
+        Navigation.NavigateTo($"/view/{Uri.EscapeDataString(gistId)}");
+    }
 
     private void OpenJsonParser()
     {
+        DismissToolbarMenus();
         IsJsonParserOpen = true;
     }
 
     private void CloseJsonParser()
     {
         IsJsonParserOpen = false;
-        ShouldRestoreJsonParserFocus = true;
+        ShouldRestoreToolsFocus = true;
     }
 
     private void OpenCodeImage()
     {
+        DismissToolbarMenus();
         IsCodeImageOpen = true;
     }
 
     private void CloseCodeImage()
     {
         IsCodeImageOpen = false;
-        ShouldRestoreCodeImageFocus = true;
+        ShouldRestoreToolsFocus = true;
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (AppShellModule is not null)
+        {
+            try
+            {
+                await AppShellModule.InvokeVoidAsync("unregisterGlobalSearchShortcut");
+                await AppShellModule.DisposeAsync();
+            }
+            catch (JSDisconnectedException)
+            {
+            }
+        }
+
     }
 }

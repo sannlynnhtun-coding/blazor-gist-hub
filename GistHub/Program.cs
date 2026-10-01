@@ -15,6 +15,7 @@ var githubApiBaseUrl = builder.HostEnvironment.IsDevelopment()
 builder.Services.AddScoped<IGithubService>(sp =>
     new GithubService(sp.GetRequiredService<HttpClient>(), githubApiBaseUrl));
 builder.Services.AddScoped<IStorageService, IndexedDbService>();
+builder.Services.AddScoped<GistSearchService>();
 builder.Services.AddScoped<AppState>();
 
 await builder.Build().RunAsync();

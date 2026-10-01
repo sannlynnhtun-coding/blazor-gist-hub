@@ -49,6 +49,90 @@ Assert(
 
 Console.WriteLine("PASS: bookmark backups preserve order and enforce account scope.");
 
+var searchService = new GistSearchService();
+var searchGists = new List<LocalGist>
+{
+    new()
+    {
+        Id = "description-match",
+        Description = "Needle deployment helper",
+        Tags = ["ops"],
+        Files = new Dictionary<string, GistFile>
+        {
+            ["deploy.ps1"] = new() { Filename = "deploy.ps1", Content = "Write-Host 'ready'" }
+        },
+        IsBookmarked = true,
+        UpdatedAt = new DateTime(2026, 1, 3)
+    },
+    new()
+    {
+        Id = "content-match",
+        Description = "General utilities",
+        Tags = ["reference"],
+        Files = new Dictionary<string, GistFile>
+        {
+            ["first.cs"] = new() { Filename = "first.cs", Content = "var needle = FindValue();" },
+            ["second.cs"] = new() { Filename = "second.cs", Content = "Console.WriteLine(NEEDLE);" }
+        },
+        UpdatedAt = new DateTime(2026, 1, 4)
+    },
+    new()
+    {
+        Id = "filename-and-tag-match",
+        Description = "Handy command",
+        Tags = ["NeedleTag"],
+        Files = new Dictionary<string, GistFile>
+        {
+            ["needle-script.sh"] = new() { Filename = "needle-script.sh", Content = "echo ready" }
+        },
+        UpdatedAt = new DateTime(2026, 1, 2)
+    }
+};
+
+var needleResults = searchService.Search(searchGists, "NEEDLE", bookmarksOnly: false);
+Assert(needleResults.TotalCount == 3, "Search should match descriptions, tags, filenames, and content without case sensitivity.");
+Assert(needleResults.Results.Count(result => result.GistId == "content-match") == 1, "A gist with multiple matching files must appear once.");
+Assert(needleResults.Results[0].GistId == "description-match", "Description matches should rank ahead of tag, filename, and content matches.");
+Assert(needleResults.Results[0].Snippet.Contains("Needle deployment", StringComparison.OrdinalIgnoreCase), "Description matches should show description context rather than unrelated file content.");
+Assert(needleResults.Results.First(result => result.GistId == "content-match").Snippet.Contains("needle", StringComparison.OrdinalIgnoreCase), "Content matches should include the matching text in their snippet.");
+
+var exactTagResult = searchService.Search(
+    [
+        new LocalGist { Id = "exact-tag", Description = "Reference", Tags = ["needle"], UpdatedAt = new DateTime(2026, 1, 1) },
+        new LocalGist { Id = "filename", Description = "Reference", Files = new() { ["needle"] = new() { Filename = "needle" } }, UpdatedAt = new DateTime(2026, 1, 2) }
+    ],
+    "needle",
+    bookmarksOnly: false);
+Assert(exactTagResult.Results[0].GistId == "exact-tag", "An exact tag match should rank ahead of a filename match even when the filename is newer.");
+
+var tiedDescriptionResults = searchService.Search(
+    [
+        new LocalGist { Id = "older", Description = "needle note", UpdatedAt = new DateTime(2026, 1, 1) },
+        new LocalGist { Id = "newer", Description = "needle note", UpdatedAt = new DateTime(2026, 1, 2) }
+    ],
+    "needle",
+    bookmarksOnly: false);
+Assert(tiedDescriptionResults.Results[0].GistId == "newer", "Equally relevant matches should sort by the newest update time.");
+
+var boundaryContent = $"{new string('a', 100)}needle{new string('b', 150)}";
+var boundaryResult = searchService.Search(
+    [new LocalGist { Id = "boundary", Description = "Reference", Files = new() { ["long.txt"] = new() { Filename = "long.txt", Content = boundaryContent } } }],
+    "needle",
+    bookmarksOnly: false).Results[0];
+Assert(boundaryResult.Snippet.StartsWith("...", StringComparison.Ordinal) && boundaryResult.Snippet.EndsWith("...", StringComparison.Ordinal), "Long content snippets should show both clipped boundaries.");
+Assert(boundaryResult.Snippet.Contains("needle", StringComparison.OrdinalIgnoreCase), "A clipped content snippet must keep the matched term in context.");
+
+var bookmarkedResults = searchService.Search(searchGists, "needle", bookmarksOnly: true);
+Assert(bookmarkedResults.TotalCount == 1 && bookmarkedResults.Results[0].GistId == "description-match", "Bookmark filtering should exclude unbookmarked search matches.");
+
+var multiWordResults = searchService.Search(searchGists, "utilities needle", bookmarksOnly: false);
+Assert(multiWordResults.TotalCount == 1 && multiWordResults.Results[0].GistId == "content-match", "Every word in a multi-word query should match somewhere in the same gist.");
+
+var limitedResults = searchService.Search(searchGists, "needle", bookmarksOnly: false, limit: 2);
+Assert(limitedResults.TotalCount == 3 && limitedResults.Results.Count == 2, "Search should retain the total count while limiting rendered results.");
+
+Console.WriteLine("PASS: local gist search ranks fields, groups by gist, filters bookmarks, and returns safe context snippets.");
+
 static void SetProperty(object target, string name, object value)
 {
     var property = target.GetType().GetProperty(name, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
@@ -110,6 +194,7 @@ sealed class FakeStorageService : IStorageService
     public Task DeleteProfileAsync(string id) => Task.CompletedTask;
     public Task SaveGistAsync(LocalGist gist) => Task.CompletedTask;
     public Task<List<LocalGist>> GetLocalGistsAsync() => Task.FromResult(new List<LocalGist>());
+    public Task<List<LocalGist>> GetLocalGistsAsync(string username) => Task.FromResult(new List<LocalGist>());
     public Task DeleteGistAsync(string id) => Task.CompletedTask;
     public Task SaveGroupAsync(GistGroup group) => Task.CompletedTask;
     public Task<List<GistGroup>> GetGroupsAsync() => Task.FromResult(new List<GistGroup>());

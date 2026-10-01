@@ -91,44 +91,21 @@
         </div>
     </div>
 
-    <div class="relative group max-w-2xl mx-auto w-full @(IsProfileToolsVisible ? "-mt-6" : "!mt-0 pr-14 md:pr-0")">
-        <div class="neo-search-bar relative flex items-center bg-card border border-border rounded-xl px-4 py-2 transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search text-muted-foreground mr-3"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input
-                type="text"
-                placeholder="Search your gists, files, or tags..."
-                @bind="SearchQuery"
-                @bind:event="oninput"
-                class="flex-1 bg-transparent border-none outline-none text-sm font-medium placeholder:text-muted-foreground/50 h-10" />
-
-            @if (!string.IsNullOrEmpty(SearchQuery))
-            {
-                <button @onclick='() => SearchQuery = ""' class="p-1.5 hover:bg-muted rounded-lg transition-all text-muted-foreground">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                </button>
-            }
-
-            <button
-                @onclick="ToggleBookmarksOnly"
-                class="ml-2 h-11 px-3 inline-flex items-center gap-2 rounded-lg transition-colors @(BookmarksOnly ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-muted")"
-                aria-label="Show bookmarked gists only"
-                aria-pressed="@(BookmarksOnly ? "true" : "false")"
-                title="Show bookmarked gists only">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="@(BookmarksOnly ? "currentColor" : "none")" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
-                <span class="hidden sm:inline text-xs font-semibold">Bookmarks</span>
-            </button>
-
-            <div class="neo-search-results ml-4 pl-4 border-l border-border flex items-center gap-2">
-                <span class="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50">Filtered</span>
-                <span class="text-xs font-bold tabular-nums">@FilteredGists.Count</span>
-            </div>
-        </div>
-    </div>
-
     @if (!string.IsNullOrWhiteSpace(CollectionFilter))
     {
         <div class="flex items-center justify-between gap-3 max-w-2xl mx-auto w-full rounded-xl border bg-muted/20 px-4 py-3">
             <span class="text-sm font-semibold">Collection: @CollectionFilter</span>
+            <a href="/my-gists" class="text-xs font-bold text-primary hover:underline">Show all gists</a>
+        </div>
+    }
+
+    @if (BookmarksOnly)
+    {
+        <div class="flex items-center justify-between gap-3 max-w-2xl mx-auto w-full rounded-xl border bg-muted/20 px-4 py-3">
+            <span class="inline-flex items-center gap-2 text-sm font-semibold">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                Bookmarks
+            </span>
             <a href="/my-gists" class="text-xs font-bold text-primary hover:underline">Show all gists</a>
         </div>
     }
@@ -174,8 +151,8 @@
                 <div class="w-16 h-16 rounded-2xl bg-muted/20 flex items-center justify-center mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-x text-muted-foreground opacity-30"><path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 </div>
-                <h3 class="text-lg font-bold">@(BookmarksOnly ? "No bookmarked gists found" : "No gists found")</h3>
-                <p class="text-sm text-muted-foreground">@(BookmarksOnly ? "Bookmark a gist or turn off the filter." : "Try a different keyword or tag.")</p>
+                <h3 class="text-lg font-bold">@(BookmarksOnly ? "No bookmarked gists found" : "No gists in this collection")</h3>
+                <p class="text-sm text-muted-foreground">@(BookmarksOnly ? "Bookmark a gist, then return here to reorder it." : "Add a gist to this collection or show all gists.")</p>
             </div>
         }
         else
@@ -267,7 +244,6 @@
 }
 
 @code {
-    private const string BookmarksOnlyStorageKey = "gisthub:bookmarks-only";
     private const string ProfileToolsVisibleStorageKey = "gisthub:profile-tools-visible";
     private const string BookmarkRestoreInputId = "bookmark-restore-input";
     private const long MaxBookmarkBackupBytes = 1024 * 1024;
@@ -290,7 +266,6 @@
     private bool IsSyncing = false;
     private bool IsProfileToolsVisible = true;
     private bool BookmarksOnly = false;
-    private string SearchQuery = "";
     private string GroupMessage = "";
     private bool IsImportDialogOpen = false;
     private bool IsImporting = false;
@@ -310,11 +285,7 @@
     private List<LocalGist> FilteredGists => LocalGists.Where(g =>
         (!BookmarksOnly || g.IsBookmarked) &&
         (string.IsNullOrWhiteSpace(CollectionFilter) ||
-         g.CollectionNames.Any(name => string.Equals(name, CollectionFilter, StringComparison.OrdinalIgnoreCase))) &&
-        (string.IsNullOrWhiteSpace(SearchQuery) ||
-         (g.Description?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ?? false) ||
-         g.Files.Values.Any(f => f.Filename?.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ?? false) ||
-         g.Tags.Any(t => t.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase)))
+         g.CollectionNames.Any(name => string.Equals(name, CollectionFilter, StringComparison.OrdinalIgnoreCase)))
     )
     .OrderBy(g => BookmarksOnly && g.IsBookmarked && g.BookmarkOrder > 0 ? 0 : 1)
     .ThenBy(g => BookmarksOnly && g.IsBookmarked && g.BookmarkOrder > 0 ? g.BookmarkOrder : int.MaxValue)
@@ -330,13 +301,6 @@
     {
         IsProfileToolsVisible = !IsProfileToolsVisible;
         await JS.InvokeVoidAsync("localStorage.setItem", ProfileToolsVisibleStorageKey, IsProfileToolsVisible ? "true" : "false");
-    }
-
-    private async Task ToggleBookmarksOnly()
-    {
-        BookmarksOnly = !BookmarksOnly;
-        FavoritesOnly = false;
-        await JS.InvokeVoidAsync("localStorage.setItem", BookmarksOnlyStorageKey, BookmarksOnly ? "true" : "false");
     }
 
     private async Task DownloadBookmarksAsync()
@@ -451,9 +415,13 @@
         }
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnParametersSet()
     {
         BookmarksOnly = FavoritesOnly;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
         await LoadLocalGists();
         await LoadGroups();
 
@@ -468,12 +436,6 @@
         if (!firstRender)
         {
             return;
-        }
-
-        if (!FavoritesOnly && string.IsNullOrWhiteSpace(CollectionFilter))
-        {
-            var storedValue = await JS.InvokeAsync<string?>("localStorage.getItem", BookmarksOnlyStorageKey);
-            BookmarksOnly = string.Equals(storedValue, "true", StringComparison.OrdinalIgnoreCase);
         }
 
         var profileToolsStoredValue = await JS.InvokeAsync<string?>("localStorage.getItem", ProfileToolsVisibleStorageKey);

@@ -12,6 +12,7 @@ public interface IStorageService
     
     Task SaveGistAsync(LocalGist gist);
     Task<List<LocalGist>> GetLocalGistsAsync();
+    Task<List<LocalGist>> GetLocalGistsAsync(string username);
     Task DeleteGistAsync(string id);
     Task SaveGroupAsync(GistGroup group);
     Task<List<GistGroup>> GetGroupsAsync();
@@ -63,10 +64,13 @@ public class IndexedDbService : IStorageService
     }
 
     public async Task<List<LocalGist>> GetLocalGistsAsync()
+        => await GetLocalGistsAsync(GetCurrentUsername());
+
+    public async Task<List<LocalGist>> GetLocalGistsAsync(string username)
     {
         await EnsureModule();
         var gists = await _module!.InvokeAsync<List<LocalGist>>("getAllItems", "gists");
-        var currentUsername = GetCurrentUsername();
+        var currentUsername = username.Trim().ToLowerInvariant();
         var accountGists = gists
             .Where(gist => string.Equals(gist.CacheOwnerUsername, currentUsername, StringComparison.OrdinalIgnoreCase))
             .ToList();

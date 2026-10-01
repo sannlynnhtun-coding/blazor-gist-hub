@@ -138,6 +138,36 @@ try {
     send("Network.enable", {}, sessionId),
   ]);
 
+  const evaluate = async (expression) => {
+    const evaluation = await send("Runtime.evaluate", {
+      expression,
+      awaitPromise: true,
+      returnByValue: true,
+    }, sessionId);
+    if (evaluation.exceptionDetails) {
+      throw new Error(evaluation.exceptionDetails.exception?.description
+        ?? evaluation.exceptionDetails.text
+        ?? "Browser evaluation failed");
+    }
+    return evaluation.result.value;
+  };
+
+  const waitFor = async (expression, description, timeout = 10000) => {
+    const startedAt = Date.now();
+    while (Date.now() - startedAt < timeout) {
+      if (await evaluate(expression)) return;
+      await delay(100);
+    }
+    const snapshot = await evaluate(`({
+      url: location.href,
+      text: document.body?.innerText?.slice(0, 1600) ?? "",
+      searchAccount: document.querySelector('.global-search-panel')?.dataset.account ?? null,
+      searchGistCount: document.querySelector('.global-search-panel')?.dataset.gistCount ?? null,
+      blazorErrorVisible: !document.querySelector('#blazor-error-ui')?.classList.contains('hidden')
+    })`);
+    throw new Error(`Timed out waiting for ${description}: ${JSON.stringify(snapshot)}`);
+  };
+
   if (process.env.BROWSER_CHECK_PRESEED_IDB === "1") {
     const metadataUrl = new URL("/manifest.webmanifest", url).href;
     await send("Page.navigate", { url: metadataUrl }, sessionId);
@@ -189,6 +219,248 @@ try {
       || expectedStores.some((store) => !database.stores.includes(store))) {
       verificationFailures.push(`IndexedDB schema repair failed: ${JSON.stringify(database ?? null)}`);
     }
+  }
+
+  if (process.env.BROWSER_CHECK_UI === "1") {
+    await evaluate(`(async () => {
+      const db = await new Promise((resolve, reject) => {
+        const request = indexedDB.open("GistHubDB", 4);
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => resolve(request.result);
+      });
+      await new Promise((resolve, reject) => {
+        const transaction = db.transaction(["profiles", "gists"], "readwrite");
+        transaction.oncomplete = resolve;
+        transaction.onerror = () => reject(transaction.error);
+        transaction.onabort = () => reject(transaction.error);
+        transaction.objectStore("profiles").put({
+          id: "browser-profile",
+          name: "Browser Test",
+          accessToken: "browser-test-token",
+          githubUsername: "browser-user",
+          bio: ""
+        });
+        transaction.objectStore("gists").put({
+          id: "search-gist",
+          cacheOwnerUsername: "browser-user",
+          storageKey: "browser-user:search-gist",
+          description: "Browser search sample",
+          files: {
+            "sample.js": {
+              filename: "sample.js",
+              type: "text/javascript",
+              language: "JavaScript",
+              raw_url: "",
+              content: "export const hiddenNeedle = 'indexed-db-result';"
+            }
+          },
+          public: false,
+          html_url: "",
+          created_at: "2026-01-01T00:00:00Z",
+          updated_at: "2026-01-02T00:00:00Z",
+          tags: ["browser"],
+          collectionNames: [],
+          collectionName: null,
+          isSynced: true,
+          isBookmarked: true,
+          bookmarkOrder: 1,
+          owner: null
+        });
+        transaction.objectStore("gists").put({
+          id: "reorder-gist",
+          cacheOwnerUsername: "browser-user",
+          storageKey: "browser-user:reorder-gist",
+          description: "Bookmark reorder sample",
+          files: {
+            "reorder.txt": {
+              filename: "reorder.txt",
+              type: "text/plain",
+              language: "Text",
+              raw_url: "",
+              content: "bookmark workflow regression"
+            }
+          },
+          public: true,
+          html_url: "",
+          created_at: "2026-01-03T00:00:00Z",
+          updated_at: "2026-01-04T00:00:00Z",
+          tags: ["workflow"],
+          collectionNames: ["Regression"],
+          collectionName: "Regression",
+          isSynced: true,
+          isBookmarked: true,
+          bookmarkOrder: 2,
+          owner: null
+        });
+        transaction.objectStore("gists").put({
+          id: "foreign-gist",
+          cacheOwnerUsername: "another-user",
+          storageKey: "another-user:foreign-gist",
+          description: "Other account result",
+          files: {
+            "foreign.js": {
+              filename: "foreign.js",
+              type: "text/javascript",
+              language: "JavaScript",
+              raw_url: "",
+              content: "const hiddenNeedle = 'must-not-leak';"
+            }
+          },
+          public: false,
+          html_url: "",
+          created_at: "2026-01-05T00:00:00Z",
+          updated_at: "2026-01-06T00:00:00Z",
+          tags: ["private"],
+          collectionNames: [],
+          collectionName: null,
+          isSynced: true,
+          isBookmarked: false,
+          bookmarkOrder: 0,
+          owner: null
+        });
+      });
+      db.close();
+      return true;
+    })()`);
+
+    const myGistsUrl = new URL("/my-gists", url).href;
+    await send("Page.navigate", { url: myGistsUrl }, sessionId);
+    await waitFor(`Boolean(document.querySelector('[data-testid="global-search-trigger"]'))`, "the GistHub toolbar");
+
+    const legacySearchExists = await evaluate(`Boolean(document.querySelector('.neo-search-bar'))`);
+    if (legacySearchExists) verificationFailures.push("The My Gists body search bar is still visible.");
+
+    await evaluate(`document.querySelector('[data-testid="global-search-trigger"]').click()`);
+    await waitFor(`Boolean(document.querySelector('[data-testid="global-search-input"]'))`, "the global search dialog");
+    await evaluate(`(() => {
+      const input = document.querySelector('[data-testid="global-search-input"]');
+      const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set;
+      setter.call(input, 'hiddenNeedle');
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(`document.querySelector('[data-testid="global-search-result"]')?.textContent.includes('hiddenNeedle') === true`, "the IndexedDB content search result");
+
+    const resultCount = await evaluate(`document.querySelectorAll('[data-testid="global-search-result"]').length`);
+    if (resultCount !== 1) verificationFailures.push(`Expected one grouped gist result, found ${resultCount}.`);
+
+    await evaluate(`document.querySelector('[data-testid="global-search-input"]').dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }))`);
+    await waitFor(`location.pathname === '/view/search-gist'`, "search result navigation");
+
+    await send("Page.navigate", { url: myGistsUrl }, sessionId);
+    await waitFor(`Boolean(document.querySelector('[data-testid="global-search-trigger"]'))`, "the toolbar after returning to My Gists");
+    await waitFor(`document.querySelector('[data-testid="global-search-trigger"]')?.dataset.shortcutReady === 'true'`, "the global search shortcut registration");
+    await send("Input.dispatchKeyEvent", { type: "keyDown", key: "k", code: "KeyK", modifiers: 2, windowsVirtualKeyCode: 75 }, sessionId);
+    await send("Input.dispatchKeyEvent", { type: "keyUp", key: "k", code: "KeyK", modifiers: 2, windowsVirtualKeyCode: 75 }, sessionId);
+    await waitFor(`Boolean(document.querySelector('[data-testid="global-search-input"]'))`, "the Ctrl+K search shortcut");
+    await evaluate(`document.querySelector('[data-testid="global-search-input"]').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
+    await waitFor(`!document.querySelector('[data-testid="global-search-input"]')`, "Escape to close global search");
+
+    await evaluate(`document.querySelector('[data-testid="tools-trigger"]').click()`);
+    await waitFor(`Boolean(document.querySelector('[data-testid="json-parser-menu-item"]')) && Boolean(document.querySelector('[data-testid="code-image-menu-item"]'))`, "the Tools menu");
+    await evaluate(`document.querySelector('[data-testid="json-parser-menu-item"]').click()`);
+    await waitFor(`Boolean(document.querySelector('.json-parser-overlay'))`, "the JSON parser overlay");
+    await evaluate(`document.querySelector('.json-parser-overlay').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
+    await waitFor(`!document.querySelector('.json-parser-overlay')`, "Escape to close the JSON parser");
+
+    await evaluate(`document.querySelector('[data-testid="tools-trigger"]').click()`);
+    await waitFor(`Boolean(document.querySelector('[data-testid="code-image-menu-item"]'))`, "the Code Image menu item");
+    await evaluate(`document.querySelector('[data-testid="code-image-menu-item"]').click()`);
+    await waitFor(`Boolean(document.querySelector('.code-image-overlay'))`, "the Code Image overlay");
+    await evaluate(`document.querySelector('.code-image-overlay').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
+    await waitFor(`!document.querySelector('.code-image-overlay')`, "Escape to close Code Image");
+
+    await evaluate(`document.querySelector('[data-testid="settings-trigger"]').click()`);
+    await waitFor(`Boolean(document.querySelector('[data-testid="blur-files-menu-item"]'))`, "the Settings menu");
+    await evaluate(`document.querySelector('[data-testid="blur-files-menu-item"]').click()`);
+    await waitFor(`document.querySelector('.neo-app-shell')?.classList.contains('gist-files-blurred') === true`, "the Blur Files setting");
+    const blurPreference = await evaluate(`localStorage.getItem('gisthub:files-blurred')`);
+    if (blurPreference !== "true") verificationFailures.push("Blur Files was not persisted to localStorage.");
+
+    await evaluate(`document.querySelector('[data-testid="settings-trigger"]').click()`);
+    await waitFor(`Boolean(document.querySelector('[data-testid="sidebar-menu-item"]'))`, "the Sidebar setting");
+    await evaluate(`document.querySelector('[data-testid="sidebar-menu-item"]').click()`);
+    await waitFor(`!document.querySelector('.neo-sidebar')`, "the sidebar to hide");
+    const sidebarPreference = await evaluate(`localStorage.getItem('gisthub:sidebar-visible')`);
+    if (sidebarPreference !== "false") verificationFailures.push("Sidebar visibility was not persisted to localStorage.");
+
+    await send("Emulation.setDeviceMetricsOverride", {
+      width: 360,
+      height: 800,
+      deviceScaleFactor: 1,
+      mobile: true,
+    }, sessionId);
+    await evaluate(`document.querySelector('[data-testid="global-search-trigger"]').click()`);
+    await waitFor(`Boolean(document.querySelector('.global-search-panel'))`, "the mobile search dialog");
+    const mobileLayout = await evaluate(`(() => {
+      const searchButton = document.querySelector('[data-testid="global-search-trigger"]').getBoundingClientRect();
+      const settingsButton = document.querySelector('[data-testid="settings-trigger"]').getBoundingClientRect();
+      const panel = document.querySelector('.global-search-panel').getBoundingClientRect();
+      return {
+        overflow: document.documentElement.scrollWidth > window.innerWidth,
+        searchTarget: Math.min(searchButton.width, searchButton.height),
+        settingsTarget: Math.min(settingsButton.width, settingsButton.height),
+        panelWidth: Math.round(panel.width),
+        viewportWidth: window.innerWidth
+      };
+    })()`);
+    if (mobileLayout.overflow) verificationFailures.push("The 360px layout has horizontal overflow.");
+    if (mobileLayout.searchTarget < 44 || mobileLayout.settingsTarget < 44) {
+      verificationFailures.push(`Mobile toolbar targets are below 44px: ${JSON.stringify(mobileLayout)}`);
+    }
+    if (mobileLayout.panelWidth !== mobileLayout.viewportWidth) {
+      verificationFailures.push(`Mobile search is not full width: ${JSON.stringify(mobileLayout)}`);
+    }
+
+    await evaluate(`document.querySelector('[data-testid="global-search-input"]').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
+    await waitFor(`!document.querySelector('.global-search-panel')`, "the mobile search dialog to close");
+    await send("Emulation.clearDeviceMetricsOverride", {}, sessionId);
+
+    const initialDarkTheme = await evaluate(`document.documentElement.classList.contains('dark')`);
+    await evaluate(`document.querySelector('.neo-theme-toggle').click()`);
+    await waitFor(`document.documentElement.classList.contains('dark') === ${!initialDarkTheme}`, "the alternate color theme");
+    await send("Emulation.setDeviceMetricsOverride", {
+      width: 768,
+      height: 900,
+      deviceScaleFactor: 1,
+      mobile: true,
+    }, sessionId);
+    await evaluate(`document.querySelector('[data-testid="global-search-trigger"]').click()`);
+    await waitFor(`Boolean(document.querySelector('.global-search-panel'))`, "the tablet search dialog");
+    const tabletLayout = await evaluate(`(() => {
+      const panel = document.querySelector('.global-search-panel').getBoundingClientRect();
+      return {
+        overflow: document.documentElement.scrollWidth > window.innerWidth,
+        panelWidth: Math.round(panel.width),
+        viewportWidth: window.innerWidth,
+        panelBackground: getComputedStyle(document.querySelector('.global-search-panel')).backgroundColor
+      };
+    })()`);
+    if (tabletLayout.overflow || tabletLayout.panelWidth > tabletLayout.viewportWidth || tabletLayout.panelBackground === "rgba(0, 0, 0, 0)") {
+      verificationFailures.push(`Tablet search layout failed in the alternate theme: ${JSON.stringify(tabletLayout)}`);
+    }
+    await evaluate(`document.querySelector('[data-testid="global-search-input"]').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
+    await waitFor(`!document.querySelector('.global-search-panel')`, "the tablet search dialog to close");
+    await send("Emulation.clearDeviceMetricsOverride", {}, sessionId);
+
+    const favoritesUrl = new URL("/my-gists?favorites=true", url).href;
+    await send("Page.navigate", { url: favoritesUrl }, sessionId);
+    await waitFor(`document.querySelectorAll('.bookmark-draggable').length === 2 && document.body.innerText.includes('Bookmarks')`, "the bookmarked gist reorder view");
+    const bookmarkWorkflow = await evaluate(`({
+      dragHandles: document.querySelectorAll('.bookmark-draggable [draggable="true"][aria-label="Drag to reorder bookmark"]').length,
+      firstTitle: document.querySelector('.bookmark-draggable:first-child h3')?.textContent ?? ''
+    })`);
+    if (bookmarkWorkflow.dragHandles !== 2 || !bookmarkWorkflow.firstTitle.includes("Browser search sample")) {
+      verificationFailures.push(`Bookmark ordering or drag handles are unavailable: ${JSON.stringify(bookmarkWorkflow)}`);
+    }
+
+    const collectionUrl = new URL("/my-gists?collection=Regression", url).href;
+    await send("Page.navigate", { url: collectionUrl }, sessionId);
+    await waitFor(`document.querySelectorAll('.gist-collection-grid .neo-gist-card').length === 1 && document.body.innerText.includes('Collection: Regression')`, "collection-only filtering without the old body search");
+
+    const collectionsUrl = new URL("/collections", url).href;
+    await send("Page.navigate", { url: collectionsUrl }, sessionId);
+    await waitFor(`Boolean(document.querySelector('a[href="/my-gists?favorites=true"]'))`, "the Collections bookmark shortcut");
   }
 
   const failures = [...new Set([

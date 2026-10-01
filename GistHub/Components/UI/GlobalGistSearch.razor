@@ -1,0 +1,476 @@
+@implements IAsyncDisposable
+@inject IStorageService Storage
+@inject GistSearchService SearchService
+@inject IJSRuntime JS
+
+@if (IsOpen)
+{
+    <div class="global-search-layer" @onkeydown="HandleDialogKeyDown">
+        <button type="button"
+                class="global-search-backdrop"
+                aria-label="Close gist search"
+                @onclick="CloseAsync"></button>
+
+        <section class="global-search-panel"
+                 data-account="@AccountUsername"
+                 data-gist-count="@Gists.Count"
+                 role="dialog"
+                 aria-modal="true"
+                 aria-labelledby="global-search-title"
+                 aria-describedby="global-search-description"
+                 aria-busy="@IsLoading"
+                 @ref="DialogElement">
+            <header class="global-search-header">
+                <div class="global-search-heading">
+                    <div>
+                        <div class="neo-kicker">Local index</div>
+                        <h2 id="global-search-title">Search your gists</h2>
+                    </div>
+                    <button type="button"
+                            class="global-search-close"
+                            aria-label="Close gist search"
+                            title="Close search"
+                            @onclick="CloseAsync">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    </button>
+                </div>
+                <p id="global-search-description" class="sr-only">Search the current account's locally cached gist descriptions, tags, filenames, and file contents.</p>
+
+                <div class="global-search-input-row">
+                    <div class="global-search-input-wrap">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        <input data-testid="global-search-input"
+                               @ref="SearchInput"
+                               value="@Query"
+                               @oninput="HandleQueryInput"
+                               @onkeydown="HandleSearchInputKeyDown"
+                               type="search"
+                               autocomplete="off"
+                               spellcheck="false"
+                               role="combobox"
+                               aria-label="Search cached gists"
+                               aria-autocomplete="list"
+                               aria-expanded="@HasResults"
+                               aria-controls="global-search-results"
+                               aria-activedescendant="@ActiveDescendantId"
+                               placeholder="Description, tag, filename, or code..." />
+                        <kbd>Esc</kbd>
+                    </div>
+
+                    <button type="button"
+                            class="global-search-bookmarks @(BookmarksOnly ? "is-active" : "")"
+                            aria-label="Search bookmarked gists only"
+                            aria-pressed="@BookmarksOnly"
+                            disabled="@(IsLoading || !IsAuthenticated)"
+                            @onclick="ToggleBookmarksOnly">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="@(BookmarksOnly ? "currentColor" : "none")" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                        <span>Bookmarks</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="global-search-body custom-scrollbar" id="global-search-results" role="listbox" aria-label="Gist search results">
+                @if (!IsAuthenticated)
+                {
+                    <div class="global-search-state">
+                        <h3>Connect an account first</h3>
+                        <p>Sign in to search the gists cached for your GitHub account.</p>
+                        <a class="btn btn-primary btn-md" href="login">Connect GitHub</a>
+                    </div>
+                }
+                else if (IsLoading)
+                {
+                    <div class="global-search-state" role="status">
+                        <h3>Loading local index</h3>
+                        <p>Reading your cached gists from this browser.</p>
+                    </div>
+                }
+                else if (!string.IsNullOrWhiteSpace(LoadError))
+                {
+                    <div class="global-search-state" role="alert">
+                        <h3>Search index unavailable</h3>
+                        <p>@LoadError</p>
+                        <button type="button" class="btn btn-outline btn-md" @onclick="LoadGistsAsync">Retry</button>
+                    </div>
+                }
+                else if (string.IsNullOrWhiteSpace(Query))
+                {
+                    <div class="global-search-state global-search-state--instruction">
+                        <div class="global-search-state__icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        </div>
+                        <h3>Type to search your gists</h3>
+                        <p>Matches include descriptions, tags, filenames, and text inside every cached file.</p>
+                    </div>
+                }
+                else if (!Results.Any())
+                {
+                    <div class="global-search-state" role="status">
+                        <h3>No matching gists</h3>
+                        <p>Nothing in your @(BookmarksOnly ? "bookmarked " : string.Empty)local library matches “@Query”. Try fewer or different words.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="global-search-summary" aria-live="polite">
+                        <span>@TotalCount match@(TotalCount == 1 ? string.Empty : "es")</span>
+                        @if (TotalCount > Results.Count)
+                        {
+                            <span>Showing the first @Results.Count. Refine your search to narrow the list.</span>
+                        }
+                    </div>
+
+                    <div class="global-search-result-list">
+                        @for (var index = 0; index < Results.Count; index++)
+                        {
+                            var result = Results[index];
+                            var resultIndex = index;
+                            <button id="@ResultElementId(resultIndex)"
+                                    data-testid="global-search-result"
+                                    type="button"
+                                    role="option"
+                                    aria-selected="@(SelectedIndex == resultIndex)"
+                                    class="global-search-result @(SelectedIndex == resultIndex ? "is-selected" : "")"
+                                    @onfocus="() => SelectIndex(resultIndex)"
+                                    @onmouseenter="() => SelectIndex(resultIndex)"
+                                    @onclick="() => SelectResultAsync(result)">
+                                <span class="global-search-result__topline">
+                                    <span class="global-search-result__title">@foreach (var segment in Highlight(result.Title))
+                                        {
+                                            @if (segment.IsMatch)
+                                            {
+                                                <mark>@segment.Text</mark>
+                                            }
+                                            else
+                                            {
+                                                @segment.Text
+                                            }
+                                        }</span>
+                                    @if (result.IsBookmarked)
+                                    {
+                                        <span class="global-search-result__bookmark" title="Bookmarked">
+                                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                                            <span class="sr-only">Bookmarked</span>
+                                        </span>
+                                    }
+                                </span>
+
+                                <span class="global-search-result__meta">
+                                    <span>@MatchKindLabel(result.MatchKind)</span>
+                                    @if (!string.IsNullOrWhiteSpace(result.MatchedFilename))
+                                    {
+                                        <span aria-hidden="true">/</span>
+                                        <span>@foreach (var segment in Highlight(result.MatchedFilename))
+                                            {
+                                                @if (segment.IsMatch)
+                                                {
+                                                    <mark>@segment.Text</mark>
+                                                }
+                                                else
+                                                {
+                                                    @segment.Text
+                                                }
+                                            }</span>
+                                    }
+                                </span>
+
+                                <span class="global-search-result__snippet">@foreach (var segment in Highlight(result.Snippet))
+                                    {
+                                        @if (segment.IsMatch)
+                                        {
+                                            <mark>@segment.Text</mark>
+                                        }
+                                        else
+                                        {
+                                            @segment.Text
+                                        }
+                                    }</span>
+                            </button>
+                        }
+                    </div>
+                }
+            </div>
+
+            <footer class="global-search-footer" aria-hidden="true">
+                <span><kbd>↑</kbd><kbd>↓</kbd> Move</span>
+                <span><kbd>Enter</kbd> Open gist</span>
+                <span>IndexedDB, current account only</span>
+            </footer>
+        </section>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter]
+    public bool IsAuthenticated { get; set; }
+
+    [Parameter]
+    public string AccountUsername { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnSelectGist { get; set; }
+
+    private ElementReference DialogElement { get; set; }
+    private ElementReference SearchInput { get; set; }
+    private IJSObjectReference? AppShellModule { get; set; }
+    private List<LocalGist> Gists { get; set; } = [];
+    private IReadOnlyList<GistSearchResult> Results { get; set; } = [];
+    private string Query { get; set; } = string.Empty;
+    private string LoadError { get; set; } = string.Empty;
+    private bool BookmarksOnly { get; set; }
+    private bool IsLoading { get; set; }
+    private bool WasOpen { get; set; }
+    private bool LoadedAuthenticationState { get; set; }
+    private bool ShouldFocusSearch { get; set; }
+    private string LoadedAccountUsername { get; set; } = string.Empty;
+    private int SelectedIndex { get; set; } = -1;
+    private int TotalCount { get; set; }
+    private bool HasResults => Results.Count > 0;
+    private string? ActiveDescendantId => SelectedIndex >= 0 && SelectedIndex < Results.Count
+        ? ResultElementId(SelectedIndex)
+        : null;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var isOpening = IsOpen && !WasOpen;
+        var accountChangedWhileOpen = IsOpen &&
+            (!string.Equals(AccountUsername, LoadedAccountUsername, StringComparison.OrdinalIgnoreCase) ||
+             IsAuthenticated != LoadedAuthenticationState);
+
+        if (isOpening)
+        {
+            Query = string.Empty;
+            BookmarksOnly = false;
+            Results = [];
+            TotalCount = 0;
+            SelectedIndex = -1;
+            LoadError = string.Empty;
+            ShouldFocusSearch = true;
+        }
+
+        if (isOpening || accountChangedWhileOpen)
+        {
+            LoadedAccountUsername = AccountUsername;
+            LoadedAuthenticationState = IsAuthenticated;
+            await LoadGistsAsync();
+        }
+        else if (!IsOpen && WasOpen)
+        {
+            await DeactivateFocusTrapAsync();
+        }
+
+        WasOpen = IsOpen;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!ShouldFocusSearch || !IsOpen)
+        {
+            return;
+        }
+
+        ShouldFocusSearch = false;
+        AppShellModule ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/appShell.js");
+        await AppShellModule.InvokeVoidAsync("activateFocusTrap", DialogElement);
+        await SearchInput.FocusAsync();
+    }
+
+    private async Task LoadGistsAsync()
+    {
+        LoadError = string.Empty;
+        Results = [];
+        TotalCount = 0;
+
+        if (!IsAuthenticated)
+        {
+            Gists = [];
+            IsLoading = false;
+            return;
+        }
+
+        IsLoading = true;
+        try
+        {
+            Gists = await Storage.GetLocalGistsAsync(AccountUsername);
+            ApplySearch();
+        }
+        catch (Exception ex)
+        {
+            Gists = [];
+            LoadError = string.IsNullOrWhiteSpace(ex.Message)
+                ? "The browser could not read the local gist database."
+                : ex.Message;
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    private void HandleQueryInput(ChangeEventArgs args)
+    {
+        Query = args.Value?.ToString() ?? string.Empty;
+        ApplySearch();
+    }
+
+    private void ToggleBookmarksOnly()
+    {
+        BookmarksOnly = !BookmarksOnly;
+        ApplySearch();
+    }
+
+    private void ApplySearch()
+    {
+        var response = SearchService.Search(Gists, Query, BookmarksOnly);
+        Results = response.Results;
+        TotalCount = response.TotalCount;
+        SelectedIndex = Results.Count > 0 ? 0 : -1;
+    }
+
+    private async Task HandleSearchInputKeyDown(KeyboardEventArgs args)
+    {
+        if (args.Key == "ArrowDown")
+        {
+            await MoveSelectionAsync(1);
+        }
+        else if (args.Key == "ArrowUp")
+        {
+            await MoveSelectionAsync(-1);
+        }
+        else if (args.Key == "Enter" && SelectedIndex >= 0 && SelectedIndex < Results.Count)
+        {
+            await SelectResultAsync(Results[SelectedIndex]);
+        }
+    }
+
+    private async Task HandleDialogKeyDown(KeyboardEventArgs args)
+    {
+        if (args.Key == "Escape")
+        {
+            await CloseAsync();
+        }
+    }
+
+    private async Task MoveSelectionAsync(int direction)
+    {
+        if (Results.Count == 0)
+        {
+            return;
+        }
+
+        SelectedIndex = SelectedIndex < 0
+            ? 0
+            : (SelectedIndex + direction + Results.Count) % Results.Count;
+
+        AppShellModule ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/appShell.js");
+        await AppShellModule.InvokeVoidAsync("scrollElementIntoView", ResultElementId(SelectedIndex));
+    }
+
+    private void SelectIndex(int index)
+    {
+        SelectedIndex = index;
+    }
+
+    private async Task SelectResultAsync(GistSearchResult result)
+    {
+        await DeactivateFocusTrapAsync();
+        await OnSelectGist.InvokeAsync(result.GistId);
+    }
+
+    private async Task CloseAsync()
+    {
+        await DeactivateFocusTrapAsync();
+        await OnClose.InvokeAsync();
+    }
+
+    private async Task DeactivateFocusTrapAsync()
+    {
+        if (AppShellModule is not null)
+        {
+            await AppShellModule.InvokeVoidAsync("deactivateFocusTrap", DialogElement);
+        }
+    }
+
+    private IReadOnlyList<HighlightSegment> Highlight(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return [];
+        }
+
+        var terms = GistSearchService.Tokenize(Query);
+        if (terms.Count == 0)
+        {
+            return [new HighlightSegment(text, false)];
+        }
+
+        var segments = new List<HighlightSegment>();
+        var position = 0;
+
+        while (position < text.Length)
+        {
+            var nextIndex = int.MaxValue;
+            string? nextTerm = null;
+
+            foreach (var term in terms)
+            {
+                var index = text.IndexOf(term, position, StringComparison.OrdinalIgnoreCase);
+                if (index >= 0 && (index < nextIndex || (index == nextIndex && term.Length > (nextTerm?.Length ?? 0))))
+                {
+                    nextIndex = index;
+                    nextTerm = term;
+                }
+            }
+
+            if (nextTerm is null)
+            {
+                segments.Add(new HighlightSegment(text[position..], false));
+                break;
+            }
+
+            if (nextIndex > position)
+            {
+                segments.Add(new HighlightSegment(text[position..nextIndex], false));
+            }
+
+            segments.Add(new HighlightSegment(text.Substring(nextIndex, nextTerm.Length), true));
+            position = nextIndex + nextTerm.Length;
+        }
+
+        return segments;
+    }
+
+    private static string MatchKindLabel(GistSearchMatchKind kind)
+        => kind switch
+        {
+            GistSearchMatchKind.Description => "Description",
+            GistSearchMatchKind.Tag => "Tag",
+            GistSearchMatchKind.Filename => "Filename",
+            _ => "File content"
+        };
+
+    private static string ResultElementId(int index) => $"global-search-result-{index}";
+
+    public async ValueTask DisposeAsync()
+    {
+        if (AppShellModule is not null)
+        {
+            try
+            {
+                await AppShellModule.InvokeVoidAsync("deactivateFocusTrap", DialogElement);
+                await AppShellModule.DisposeAsync();
+            }
+            catch (JSDisconnectedException)
+            {
+            }
+        }
+    }
+
+    private sealed record HighlightSegment(string Text, bool IsMatch);
+}

@@ -65,6 +65,7 @@ const check = spawn(process.execPath, [scriptPath, `http://127.0.0.1:${port}/log
   env: {
     ...process.env,
     BROWSER_CHECK_PRESEED_IDB: process.env.BROWSER_CHECK_PRESEED_IDB ?? "1",
+    BROWSER_CHECK_UI: process.env.BROWSER_CHECK_UI ?? "1",
     BROWSER_CHECK_WAIT_MS: process.env.BROWSER_CHECK_WAIT_MS ?? "30000",
   },
   stdio: "inherit",
