@@ -447,7 +447,7 @@ try {
 
     const favoritesUrl = new URL("/my-gists?favorites=true", url).href;
     await send("Page.navigate", { url: favoritesUrl }, sessionId);
-    await waitFor(`document.querySelectorAll('.bookmark-draggable').length === 2 && document.body.innerText.includes('Bookmarks')`, "the bookmarked gist reorder view");
+    await waitFor(`document.querySelectorAll('.bookmark-draggable').length === 2 && document.querySelector('[data-testid="collection-bookmarks-toggle"]')?.getAttribute('aria-pressed') === 'true'`, "the bookmarked gist reorder view");
     const activeBookmarkButton = await evaluate(`({
       pressed: document.querySelector('[data-testid="bookmarks-filter-trigger"]')?.getAttribute('aria-pressed'),
       filled: document.querySelector('[data-testid="bookmarks-filter-trigger"] svg')?.getAttribute('fill')
@@ -455,6 +455,22 @@ try {
     if (activeBookmarkButton.pressed !== "true" || activeBookmarkButton.filled !== "currentColor") {
       verificationFailures.push(`The bookmark toolbar button does not show its active state: ${JSON.stringify(activeBookmarkButton)}`);
     }
+
+    const activeCollectionBookmarkButton = await evaluate(`({
+      pressed: document.querySelector('[data-testid="collection-bookmarks-toggle"]')?.getAttribute('aria-pressed'),
+      filled: document.querySelector('[data-testid="collection-bookmarks-toggle"] svg')?.getAttribute('fill'),
+      text: document.querySelector('[data-testid="collection-bookmarks-toggle"]')?.textContent ?? ''
+    })`);
+    if (activeCollectionBookmarkButton.pressed !== "true"
+      || activeCollectionBookmarkButton.filled !== "currentColor"
+      || !activeCollectionBookmarkButton.text.includes("Bookmarks")) {
+      verificationFailures.push(`The collection bookmark toggle does not show its active state: ${JSON.stringify(activeCollectionBookmarkButton)}`);
+    }
+
+    await evaluate(`document.querySelector('[data-testid="collection-bookmarks-toggle"]').click()`);
+    await waitFor(`!new URL(location.href).searchParams.has('favorites') && document.querySelector('[data-testid="collection-bookmarks-toggle"]').getAttribute('aria-pressed') === 'false' && document.querySelector('[data-testid="bookmarks-filter-trigger"]').getAttribute('aria-pressed') === 'false'`, "the all-gists view from the collection bookmark toggle");
+    await evaluate(`document.querySelector('[data-testid="collection-bookmarks-toggle"]').click()`);
+    await waitFor(`new URL(location.href).searchParams.get('favorites') === 'true' && document.querySelector('[data-testid="collection-bookmarks-toggle"]').getAttribute('aria-pressed') === 'true' && document.querySelectorAll('.bookmark-draggable').length === 2`, "the bookmarked gist view from the collection toggle");
 
     await evaluate(`document.querySelector('[data-testid="bookmarks-filter-trigger"]').click()`);
     await waitFor(`!new URL(location.href).searchParams.has('favorites') && document.querySelector('[data-testid="bookmarks-filter-trigger"]').getAttribute('aria-pressed') === 'false'`, "the all-gists view from the bookmark toolbar toggle");
@@ -471,6 +487,28 @@ try {
     const collectionUrl = new URL("/my-gists?collection=Regression", url).href;
     await send("Page.navigate", { url: collectionUrl }, sessionId);
     await waitFor(`document.querySelectorAll('.gist-collection-grid .neo-gist-card').length === 1 && document.body.innerText.includes('Collection: Regression')`, "collection-only filtering without the old body search");
+    await evaluate(`document.querySelector('[data-testid="collection-bookmarks-toggle"]').click()`);
+    await waitFor(`new URL(location.href).searchParams.get('favorites') === 'true' && new URL(location.href).searchParams.get('collection') === 'Regression' && document.querySelectorAll('.bookmark-draggable').length === 1`, "bookmark filtering inside a selected collection");
+    await evaluate(`document.querySelector('[data-testid="collection-bookmarks-toggle"]').click()`);
+    await waitFor(`!new URL(location.href).searchParams.has('favorites') && new URL(location.href).searchParams.get('collection') === 'Regression' && document.querySelectorAll('.gist-collection-grid .neo-gist-card').length === 1`, "removing bookmark filtering while preserving the selected collection");
+
+    await send("Emulation.setDeviceMetricsOverride", {
+      width: 360,
+      height: 800,
+      deviceScaleFactor: 1,
+      mobile: true,
+    }, sessionId);
+    const collectionMobileLayout = await evaluate(`(() => {
+      const button = document.querySelector('[data-testid="collection-bookmarks-toggle"]').getBoundingClientRect();
+      return {
+        overflow: document.documentElement.scrollWidth > window.innerWidth,
+        buttonTarget: Math.min(button.width, button.height)
+      };
+    })()`);
+    if (collectionMobileLayout.overflow || collectionMobileLayout.buttonTarget < 44) {
+      verificationFailures.push(`The mobile collection bookmark control is not usable: ${JSON.stringify(collectionMobileLayout)}`);
+    }
+    await send("Emulation.clearDeviceMetricsOverride", {}, sessionId);
 
     const collectionsUrl = new URL("/collections", url).href;
     await send("Page.navigate", { url: collectionsUrl }, sessionId);

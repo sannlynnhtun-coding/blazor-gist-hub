@@ -91,21 +91,31 @@
         </div>
     </div>
 
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b" aria-label="Collection view filters">
+        <div class="min-w-0">
+            <h2 class="text-lg font-black tracking-tight">My collection</h2>
+            <p class="text-sm font-medium text-muted-foreground">
+                Showing @FilteredGists.Count of @TotalGistsCount gist@(TotalGistsCount == 1 ? "" : "s")
+            </p>
+        </div>
+        <button data-testid="collection-bookmarks-toggle"
+                @onclick="ToggleBookmarksFilter"
+                class="btn btn-md min-h-11 whitespace-nowrap @(BookmarksOnly ? "btn-primary" : "btn-outline")"
+                type="button"
+                disabled="@(!AppState.IsAuthenticated)"
+                title="@CollectionBookmarksButtonTitle"
+                aria-label="@CollectionBookmarksButtonTitle"
+                aria-pressed="@(BookmarksOnly ? "true" : "false")">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="@(BookmarksOnly ? "currentColor" : "none")" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+            <span>Bookmarks</span>
+            <span class="min-w-6 rounded border border-current/30 bg-background/20 px-1.5 py-0.5 text-center font-mono text-[10px] font-black" aria-label="@($"{ScopedBookmarkedGistsCount} bookmarked gists")">@ScopedBookmarkedGistsCount</span>
+        </button>
+    </div>
+
     @if (!string.IsNullOrWhiteSpace(CollectionFilter))
     {
         <div class="flex items-center justify-between gap-3 max-w-2xl mx-auto w-full rounded-xl border bg-muted/20 px-4 py-3">
             <span class="text-sm font-semibold">Collection: @CollectionFilter</span>
-            <a href="/my-gists" class="text-xs font-bold text-primary hover:underline">Show all gists</a>
-        </div>
-    }
-
-    @if (BookmarksOnly)
-    {
-        <div class="flex items-center justify-between gap-3 max-w-2xl mx-auto w-full rounded-xl border bg-muted/20 px-4 py-3">
-            <span class="inline-flex items-center gap-2 text-sm font-semibold">
-                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
-                Bookmarks
-            </span>
             <a href="/my-gists" class="text-xs font-bold text-primary hover:underline">Show all gists</a>
         </div>
     }
@@ -283,10 +293,7 @@
     private List<string> GroupNames => Groups.Select(g => g.Name).ToList();
 
     private List<LocalGist> FilteredGists => LocalGists.Where(g =>
-        (!BookmarksOnly || g.IsBookmarked) &&
-        (string.IsNullOrWhiteSpace(CollectionFilter) ||
-         g.CollectionNames.Any(name => string.Equals(name, CollectionFilter, StringComparison.OrdinalIgnoreCase)))
-    )
+        (!BookmarksOnly || g.IsBookmarked) && IsInSelectedCollection(g))
     .OrderBy(g => BookmarksOnly && g.IsBookmarked && g.BookmarkOrder > 0 ? 0 : 1)
     .ThenBy(g => BookmarksOnly && g.IsBookmarked && g.BookmarkOrder > 0 ? g.BookmarkOrder : int.MaxValue)
     .ThenByDescending(g => g.UpdatedAt)
@@ -296,6 +303,37 @@
     private int PublicGistsCount => LocalGists.Count(g => g.Public);
     private int SecretGistsCount => LocalGists.Count(g => !g.Public);
     private int BookmarkedGistsCount => LocalGists.Count(g => g.IsBookmarked);
+    private int ScopedBookmarkedGistsCount => LocalGists.Count(g => g.IsBookmarked && IsInSelectedCollection(g));
+    private string CollectionBookmarksButtonTitle => !AppState.IsAuthenticated
+        ? "Connect GitHub to view bookmarked gists"
+        : BookmarksOnly
+            ? "Show all gists in this collection"
+            : "Show bookmarked gists only";
+
+    private bool IsInSelectedCollection(LocalGist gist)
+        => string.IsNullOrWhiteSpace(CollectionFilter) ||
+           gist.CollectionNames.Any(name => string.Equals(name, CollectionFilter, StringComparison.OrdinalIgnoreCase));
+
+    private void ToggleBookmarksFilter()
+    {
+        if (!AppState.IsAuthenticated)
+        {
+            return;
+        }
+
+        var query = new List<string>();
+        if (!BookmarksOnly)
+        {
+            query.Add("favorites=true");
+        }
+
+        if (!string.IsNullOrWhiteSpace(CollectionFilter))
+        {
+            query.Add($"collection={Uri.EscapeDataString(CollectionFilter)}");
+        }
+
+        Navigation.NavigateTo(query.Count == 0 ? "/my-gists" : $"/my-gists?{string.Join("&", query)}");
+    }
 
     private async Task ToggleProfileTools()
     {
