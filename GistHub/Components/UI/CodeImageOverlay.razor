@@ -7,13 +7,13 @@
                     <svg viewBox="0 0 24 24"><path d="m8 9-3 3 3 3"/><path d="m16 9 3 3-3 3"/><path d="m14 5-4 14"/></svg>
                 </div>
                 <div>
-                    <div class="neo-kicker">Share-ready snippets</div>
-                    <h1 id="code-image-title">Code to Image</h1>
+                    <div class="neo-kicker">Share-ready code and docs</div>
+                    <h1 id="code-image-title">Code + Markdown to Image</h1>
                 </div>
             </div>
 
             <div class="code-image-pipeline" aria-label="Export steps">
-                <span>Paste code</span>
+                <span>Paste content</span>
                 <svg viewBox="0 0 48 12" aria-hidden="true"><path d="M1 6h42m-6-5 6 5-6 5" /></svg>
                 <span>Style it</span>
                 <svg viewBox="0 0 48 12" aria-hidden="true"><path d="M1 6h42m-6-5 6 5-6 5" /></svg>
@@ -30,29 +30,57 @@
                 <div class="code-image-section-heading">
                     <span class="code-image-step">01 · Compose</span>
                     <h2>Shape the shot</h2>
-                    <p>Your code stays in this browser.</p>
+                    <p>Your content stays in this browser.</p>
                 </div>
 
-                <div class="code-image-field-grid">
-                    <label class="code-image-field">
-                        <span>Language</span>
-                        <select value="@SelectedLanguage" @onchange="HandleLanguageChanged">
-                            @foreach (var language in Languages)
-                            {
-                                <option value="@language.Value">@language.Label</option>
-                            }
-                        </select>
-                    </label>
+                <fieldset class="code-image-choice-group">
+                    <legend>Content</legend>
+                    <div class="code-image-mode-grid">
+                        <button type="button"
+                                aria-pressed="@(SelectedMode == "code" ? "true" : "false")"
+                                @onclick='() => SelectMode("code")'>
+                            <span aria-hidden="true">&lt;/&gt;</span>
+                            Code
+                        </button>
+                        <button type="button"
+                                aria-pressed="@(SelectedMode == "markdown" ? "true" : "false")"
+                                @onclick='() => SelectMode("markdown")'>
+                            <span aria-hidden="true">M↓</span>
+                            Markdown
+                        </button>
+                    </div>
+                </fieldset>
 
-                    <label class="code-image-switch">
-                        <span>
-                            <strong>Line numbers</strong>
-                            <small>Keep context visible</small>
-                        </span>
-                        <input type="checkbox" checked="@ShowLineNumbers" @onchange="HandleLineNumbersChanged" />
-                        <i aria-hidden="true"></i>
-                    </label>
-                </div>
+                @if (SelectedMode == "code")
+                {
+                    <div class="code-image-field-grid">
+                        <label class="code-image-field">
+                            <span>Language</span>
+                            <select value="@SelectedLanguage" @onchange="HandleLanguageChanged">
+                                @foreach (var language in Languages)
+                                {
+                                    <option value="@language.Value">@language.Label</option>
+                                }
+                            </select>
+                        </label>
+
+                        <label class="code-image-switch">
+                            <span>
+                                <strong>Line numbers</strong>
+                                <small>Keep context visible</small>
+                            </span>
+                            <input type="checkbox" checked="@ShowLineNumbers" @onchange="HandleLineNumbersChanged" />
+                            <i aria-hidden="true"></i>
+                        </label>
+                    </div>
+                }
+                else
+                {
+                    <div class="code-image-markdown-note">
+                        <strong>GitHub-flavored Markdown</strong>
+                        <span>Headings, tables, lists, quotes, links, and fenced code are supported.</span>
+                    </div>
+                }
 
                 <label class="code-image-field">
                     <span>Title</span>
@@ -123,26 +151,35 @@
                         <article class="code-image-card">
                             <div class="code-image-card-bar">
                                 <div class="code-image-dots" aria-hidden="true"><i></i><i></i><i></i></div>
-                                <span>@LanguageLabel</span>
+                                <span>@ContentLabel</span>
                             </div>
                             <div class="code-image-card-meta">
                                 <div>
                                     <h3>@DisplayTitle</h3>
                                     <p>@DisplayAuthor</p>
                                 </div>
-                                <span>@LineCount.ToString("00") lines</span>
+                                <span>@ContentMeasure</span>
                             </div>
-                            <div class="code-image-code-grid @(ShowLineNumbers ? "has-line-numbers" : null)" style="@($"--preview-font-size:{FontSize}px")">
-                                @if (ShowLineNumbers)
-                                {
-                                    <pre class="code-image-line-numbers" aria-hidden="true">@LineNumberText</pre>
-                                }
-                                <pre class="code-image-preview-code custom-scrollbar"><code @ref="PreviewCodeElement"></code></pre>
-                            </div>
+                            @if (SelectedMode == "markdown")
+                            {
+                                <div @ref="PreviewMarkdownElement"
+                                     class="code-image-markdown custom-scrollbar"
+                                     style="@($"--preview-font-size:{FontSize}px")"></div>
+                            }
+                            else
+                            {
+                                <div class="code-image-code-grid @(ShowLineNumbers ? "has-line-numbers" : null)" style="@($"--preview-font-size:{FontSize}px")">
+                                    @if (ShowLineNumbers)
+                                    {
+                                        <pre class="code-image-line-numbers" aria-hidden="true">@LineNumberText</pre>
+                                    }
+                                    <pre class="code-image-preview-code custom-scrollbar"><code @ref="PreviewCodeElement"></code></pre>
+                                </div>
+                            }
                         </article>
 
                         <div class="code-image-signature">
-                            <span>GISTHUB / CODE CAPTURE</span>
+                            <span>GISTHUB / @CaptureLabel CAPTURE</span>
                             <span>@SelectedFormat.ToUpperInvariant()</span>
                         </div>
                     </div>
@@ -151,7 +188,7 @@
                 <div class="code-image-export-bar">
                     <div>
                         <strong>Export locally</strong>
-                        <span class="@(ClipboardCopyFailed ? "is-error" : ImageCopied ? "is-success" : null)" role="status" aria-live="polite">@ExportStatus</span>
+                        <span class="@(ExportFailed || ClipboardCopyFailed ? "is-error" : ImageCopied ? "is-success" : null)" role="status" aria-live="polite">@ExportStatus</span>
                     </div>
                     <div class="code-image-export-actions">
                         <button type="button" class="btn btn-secondary btn-md" @onclick="CopySettingsAsync">
@@ -207,26 +244,38 @@
                 <div class="code-image-editor-heading">
                     <div>
                         <span class="code-image-step">Source</span>
-                        <h2 id="code-image-editor-title">Code</h2>
+                        <h2 id="code-image-editor-title">@EditorTitle</h2>
                     </div>
                     <div>
+                        @if (SelectedMode == "markdown")
+                        {
+                            <InputFile id="code-image-markdown-file"
+                                       class="code-image-file-input"
+                                       accept=".md,.markdown,text/markdown,text/plain"
+                                       OnChange="ImportMarkdownAsync" />
+                            <label class="json-parser-text-button code-image-import-button" for="code-image-markdown-file">Import .md</label>
+                        }
                         <button type="button" class="json-parser-text-button" @onclick="UseExample">Example</button>
-                        <button type="button" class="json-parser-text-button" @onclick="ClearCode" disabled="@string.IsNullOrEmpty(Code)">Clear</button>
+                        <button type="button" class="json-parser-text-button" @onclick="ClearSource" disabled="@string.IsNullOrEmpty(SourceText)">Clear</button>
                     </div>
                 </div>
                 <textarea @ref="CodeInputElement"
-                          class="code-image-editor custom-scrollbar"
-                          value="@Code"
-                          @oninput="HandleCodeInput"
-                          spellcheck="false"
+                          class="code-image-editor custom-scrollbar @(SelectedMode == "markdown" ? "is-markdown" : null)"
+                          value="@SourceText"
+                          @oninput="HandleSourceInput"
+                          spellcheck="@(SelectedMode == "markdown" ? "true" : "false")"
                           autocomplete="off"
                           autocapitalize="off"
-                          aria-label="Code to export"
-                          placeholder="Paste code here…"></textarea>
+                          aria-label="@EditorAriaLabel"
+                          placeholder="@EditorPlaceholder"></textarea>
                 <div class="code-image-editor-footer">
-                    <span>@LineCount lines · @Code.Length characters</span>
-                    <span>@LanguageLabel</span>
+                    <span>@EditorMeasure</span>
+                    <span>@ContentLabel</span>
                 </div>
+                @if (!string.IsNullOrEmpty(ImportError))
+                {
+                    <p class="code-image-import-error" role="alert">@ImportError</p>
+                }
             </section>
         </div>
     </section>
@@ -235,7 +284,9 @@
 @inject IJSRuntime JS
 
 @code {
+    private const long MaxMarkdownFileSize = 1024 * 1024;
     private const string ExampleCode = "public record Gist(string Id, string Description);\n\npublic static string BuildShareUrl(Gist gist)\n{\n    ArgumentNullException.ThrowIfNull(gist);\n    return $\"https://gist.github.com/{gist.Id}\";\n}";
+    private const string ExampleMarkdown = "# Shipping notes\n\nA compact release summary that is ready to share.\n\n| Change | Status |\n| :-- | :-- |\n| Markdown capture | Ready |\n| Syntax highlighting | Ready |\n| Local PNG export | Ready |\n\n> Everything is rendered in your browser.\n\n```csharp\nConsole.WriteLine(\"Hello from GistHub\");\n```";
 
     private static readonly (string Value, string Label)[] Languages =
     [
@@ -263,11 +314,15 @@
 
     private ElementReference CodeInputElement;
     private ElementReference PreviewCodeElement;
-    private string Code { get; set; } = ExampleCode;
+    private ElementReference PreviewMarkdownElement;
+    private string CodeContent { get; set; } = ExampleCode;
+    private string MarkdownContent { get; set; } = ExampleMarkdown;
+    private string SelectedMode { get; set; } = "code";
     private string SelectedLanguage { get; set; } = "csharp";
     private string SelectedTheme { get; set; } = "midnight";
     private string SelectedFormat { get; set; } = "auto";
-    private string Title { get; set; } = "A tiny share-link helper";
+    private string CodeTitle { get; set; } = "A tiny share-link helper";
+    private string MarkdownTitle { get; set; } = "Shipping notes";
     private string Author { get; set; } = "@gisthub";
     private bool ShowLineNumbers { get; set; } = true;
     private int FontSize { get; set; } = 18;
@@ -276,10 +331,12 @@
     private bool IsCopyingImage { get; set; }
     private bool ImageCopied { get; set; }
     private bool ClipboardCopyFailed { get; set; }
+    private bool ExportFailed { get; set; }
     private bool SettingsCopied { get; set; }
     private bool ShouldFocusInput { get; set; }
     private bool ShouldRefreshPreview { get; set; }
     private bool WasOpen { get; set; }
+    private string? ImportError { get; set; }
 
     [Parameter]
     public bool IsOpen { get; set; }
@@ -288,17 +345,37 @@
     public EventCallback OnClose { get; set; }
 
     private ThemePreset ActiveTheme => ThemePresets.First(theme => theme.Value == SelectedTheme);
-    private int LineCount => string.IsNullOrEmpty(Code) ? 1 : Code.Replace("\r\n", "\n").Split('\n').Length;
+    private string SourceText => SelectedMode == "markdown" ? MarkdownContent : CodeContent;
+    private string Title
+    {
+        get => SelectedMode == "markdown" ? MarkdownTitle : CodeTitle;
+        set
+        {
+            if (SelectedMode == "markdown") MarkdownTitle = value;
+            else CodeTitle = value;
+        }
+    }
+    private int LineCount => string.IsNullOrEmpty(SourceText) ? 1 : SourceText.Replace("\r\n", "\n").Split('\n').Length;
+    private int WordCount => System.Text.RegularExpressions.Regex.Matches(SourceText, @"\b[\p{L}\p{N}_'-]+\b").Count;
     private string LineNumberText => string.Join('\n', Enumerable.Range(1, LineCount));
-    private string DisplayTitle => string.IsNullOrWhiteSpace(Title) ? "Untitled snippet" : Title.Trim();
+    private string DisplayTitle => string.IsNullOrWhiteSpace(Title) ? $"Untitled {EditorTitle.ToLowerInvariant()}" : Title.Trim();
     private string DisplayAuthor => string.IsNullOrWhiteSpace(Author) ? "Anonymous maker" : Author.Trim();
     private string LanguageLabel => Languages.First(language => language.Value == SelectedLanguage).Label;
+    private string ContentLabel => SelectedMode == "markdown" ? "Markdown" : LanguageLabel;
+    private string CaptureLabel => SelectedMode == "markdown" ? "MARKDOWN" : "CODE";
+    private string ContentMeasure => SelectedMode == "markdown" ? $"{WordCount:00} words" : $"{LineCount:00} lines";
+    private string EditorTitle => SelectedMode == "markdown" ? "Markdown" : "Code";
+    private string EditorAriaLabel => $"{EditorTitle} to export";
+    private string EditorPlaceholder => SelectedMode == "markdown" ? "Paste Markdown here..." : "Paste code here...";
+    private string EditorMeasure => $"{LineCount} lines · {SourceText.Length} characters";
     private string PreviewStyle => $"--capture-bg:{ActiveTheme.Background};--capture-glow:{ActiveTheme.Glow};--capture-accent:{ActiveTheme.Accent};--capture-card:{ActiveTheme.Card};--capture-text:{ActiveTheme.Text};--capture-muted:{ActiveTheme.Muted};--capture-padding:{CanvasPadding}px";
-    private string ExportStatus => ClipboardCopyFailed
-        ? "Clipboard image access is unavailable — download still works"
+    private string ExportStatus => ExportFailed
+        ? "PNG export failed. Try a smaller document"
+        : ClipboardCopyFailed
+        ? "Clipboard image access is unavailable. Download still works"
         : ImageCopied
             ? "PNG copied to your clipboard"
-            : "High-resolution PNG · no upload";
+            : "High-resolution PNG, no upload";
 
     protected override void OnParametersSet()
     {
@@ -322,14 +399,33 @@
         if (ShouldRefreshPreview && IsOpen)
         {
             ShouldRefreshPreview = false;
-            await JS.InvokeVoidAsync("renderCodeImagePreview", PreviewCodeElement, Code, SelectedLanguage);
+            if (SelectedMode == "markdown")
+            {
+                await JS.InvokeVoidAsync("renderMarkdownImagePreview", PreviewMarkdownElement, MarkdownContent);
+            }
+            else
+            {
+                await JS.InvokeVoidAsync("renderCodeImagePreview", PreviewCodeElement, CodeContent, SelectedLanguage);
+            }
         }
     }
 
-    private void HandleCodeInput(ChangeEventArgs args)
+    private void HandleSourceInput(ChangeEventArgs args)
     {
-        Code = args.Value?.ToString() ?? string.Empty;
-        ResetCopyFeedback();
+        var value = args.Value?.ToString() ?? string.Empty;
+        if (SelectedMode == "markdown") MarkdownContent = value;
+        else CodeContent = value;
+        ImportError = null;
+        RefreshPreview();
+    }
+
+    private void SelectMode(string mode)
+    {
+        if (mode == SelectedMode || mode is not ("code" or "markdown")) return;
+
+        SelectedMode = mode;
+        ImportError = null;
+        ShouldFocusInput = true;
         RefreshPreview();
     }
 
@@ -384,16 +480,53 @@
 
     private void UseExample()
     {
-        Code = ExampleCode;
-        SelectedLanguage = "csharp";
+        if (SelectedMode == "markdown")
+        {
+            MarkdownContent = ExampleMarkdown;
+            MarkdownTitle = "Shipping notes";
+        }
+        else
+        {
+            CodeContent = ExampleCode;
+            CodeTitle = "A tiny share-link helper";
+            SelectedLanguage = "csharp";
+        }
+
+        ImportError = null;
         RefreshPreview();
     }
 
-    private void ClearCode()
+    private void ClearSource()
     {
-        Code = string.Empty;
+        if (SelectedMode == "markdown") MarkdownContent = string.Empty;
+        else CodeContent = string.Empty;
+        ImportError = null;
         RefreshPreview();
         _ = CodeInputElement.FocusAsync();
+    }
+
+    private async Task ImportMarkdownAsync(InputFileChangeEventArgs args)
+    {
+        var file = args.File;
+        if (file.Size > MaxMarkdownFileSize)
+        {
+            ImportError = "Markdown files must be 1 MB or smaller.";
+            return;
+        }
+
+        try
+        {
+            await using var stream = file.OpenReadStream(MaxMarkdownFileSize);
+            using var reader = new StreamReader(stream);
+            MarkdownContent = await reader.ReadToEndAsync();
+            MarkdownTitle = Path.GetFileNameWithoutExtension(file.Name);
+            ImportError = null;
+            RefreshPreview();
+        }
+        catch (Exception)
+        {
+            ImportError = "This Markdown file could not be read.";
+        }
     }
 
     private void RefreshPreview()
@@ -407,12 +540,14 @@
         SettingsCopied = false;
         ImageCopied = false;
         ClipboardCopyFailed = false;
+        ExportFailed = false;
     }
 
     private async Task CopySettingsAsync()
     {
         var settings = System.Text.Json.JsonSerializer.Serialize(new
         {
+            mode = SelectedMode,
             language = SelectedLanguage,
             theme = SelectedTheme,
             format = SelectedFormat,
@@ -434,6 +569,7 @@
         IsCopyingImage = true;
         ImageCopied = false;
         ClipboardCopyFailed = false;
+        ExportFailed = false;
 
         try
         {
@@ -455,9 +591,14 @@
         if (IsExporting) return;
 
         IsExporting = true;
+        ExportFailed = false;
         try
         {
             await JS.InvokeVoidAsync("downloadCodeImage", CreateExportOptions());
+        }
+        catch (JSException)
+        {
+            ExportFailed = true;
         }
         finally
         {
@@ -474,9 +615,10 @@
 
     private object CreateExportOptions() => new
     {
-        code = Code,
+        mode = SelectedMode,
+        code = SourceText,
         language = SelectedLanguage,
-        languageLabel = LanguageLabel,
+        languageLabel = ContentLabel,
         theme = SelectedTheme,
         format = SelectedFormat,
         title = DisplayTitle,
