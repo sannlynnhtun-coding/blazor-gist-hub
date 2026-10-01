@@ -399,6 +399,7 @@
 }
 
 .neo-toolbar-menu__trigger,
+.neo-topbar-bookmarks,
 .neo-topbar-search {
   display: inline-flex;
   min-width: 2.5rem;
@@ -421,6 +422,7 @@
 }
 
 .neo-toolbar-menu__trigger:hover,
+.neo-topbar-bookmarks:hover,
 .neo-topbar-search:hover {
   background: hsl(var(--muted));
   transform: translate(-1px, -1px);
@@ -428,12 +430,14 @@
 }
 
 .neo-toolbar-menu__trigger:active,
+.neo-topbar-bookmarks:active,
 .neo-topbar-search:active {
   transform: translate(2px, 2px);
   box-shadow: 1px 1px 0 var(--neo-shadow);
 }
 
 .neo-toolbar-menu__trigger:focus-visible,
+.neo-topbar-bookmarks:focus-visible,
 .neo-topbar-search:focus-visible,
 .neo-toolbar-menu-item:focus-visible,
 .global-search-close:focus-visible,
@@ -441,6 +445,15 @@
 .global-search-result:focus-visible {
   outline: 3px solid hsl(var(--ring));
   outline-offset: 3px;
+}
+
+.neo-topbar-bookmarks.is-active {
+  color: hsl(var(--primary-foreground));
+  background: hsl(var(--primary));
+}
+
+.neo-topbar-bookmarks.is-active:hover {
+  background: var(--neo-yellow);
 }
 
 .neo-toolbar-menu__chevron {
@@ -1935,6 +1948,7 @@ span[class~="rounded-md"][class~="border"] {
   .neo-theme-toggle,
   .neo-tools-trigger,
   .neo-settings-trigger,
+  .neo-topbar-bookmarks,
   .neo-topbar-search {
     width: 2.75rem !important;
     min-width: 2.75rem;

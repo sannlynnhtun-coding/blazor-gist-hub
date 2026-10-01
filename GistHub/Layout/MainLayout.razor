@@ -75,6 +75,15 @@
                 </NavLink>
                 <SoundToggle />
                 <ThemeToggle />
+                <button data-testid="bookmarks-filter-trigger"
+                        @onclick="ToggleBookmarksView"
+                        class="neo-topbar-bookmarks neo-icon-button @(IsBookmarksOnlyView ? "is-active" : "")"
+                        type="button"
+                        title="@(IsBookmarksOnlyView ? "Show all gists" : "Show bookmarked gists only")"
+                        aria-label="@(IsBookmarksOnlyView ? "Show all gists" : "Show bookmarked gists only")"
+                        aria-pressed="@(IsBookmarksOnlyView ? "true" : "false")">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="@(IsBookmarksOnlyView ? "currentColor" : "none")" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                </button>
                 <button data-testid="global-search-trigger"
                         data-global-search-trigger
                         data-shortcut-ready="@(IsSearchShortcutReady ? "true" : "false")"
@@ -188,9 +197,13 @@
     private IJSObjectReference? AppShellModule { get; set; }
     private bool IsUtilityOpen => IsJsonParserOpen || IsCodeImageOpen;
     private bool IsModalOpen => IsUtilityOpen || IsGlobalSearchOpen;
+    private bool IsBookmarksOnlyView { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        UpdateBookmarksViewState(Navigation.Uri);
+        Navigation.LocationChanged += OnLocationChanged;
+
         if (!AppState.IsAuthenticated)
         {
             var profiles = await Storage.GetProfilesAsync();
@@ -352,6 +365,30 @@
         Navigation.NavigateTo($"/view/{Uri.EscapeDataString(gistId)}");
     }
 
+    private void ToggleBookmarksView()
+    {
+        DismissToolbarMenus();
+        IsBookmarksOnlyView = !IsBookmarksOnlyView;
+        Navigation.NavigateTo(IsBookmarksOnlyView ? "/my-gists?favorites=true" : "/my-gists");
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs args)
+    {
+        UpdateBookmarksViewState(args.Location);
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    private void UpdateBookmarksViewState(string location)
+    {
+        var uri = Navigation.ToAbsoluteUri(location);
+        var path = Navigation.ToBaseRelativePath(uri.GetLeftPart(UriPartial.Path)).Trim('/');
+        IsBookmarksOnlyView = string.Equals(path, "my-gists", StringComparison.OrdinalIgnoreCase) &&
+            uri.Query
+                .TrimStart('?')
+                .Split('&', StringSplitOptions.RemoveEmptyEntries)
+                .Any(parameter => string.Equals(parameter, "favorites=true", StringComparison.OrdinalIgnoreCase));
+    }
+
     private void OpenJsonParser()
     {
         DismissToolbarMenus();
@@ -378,6 +415,8 @@
 
     public async ValueTask DisposeAsync()
     {
+        Navigation.LocationChanged -= OnLocationChanged;
+
         if (AppShellModule is not null)
         {
             try

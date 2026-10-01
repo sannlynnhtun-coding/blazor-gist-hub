@@ -394,18 +394,20 @@ try {
     await waitFor(`Boolean(document.querySelector('.global-search-panel'))`, "the mobile search dialog");
     const mobileLayout = await evaluate(`(() => {
       const searchButton = document.querySelector('[data-testid="global-search-trigger"]').getBoundingClientRect();
+      const bookmarksButton = document.querySelector('[data-testid="bookmarks-filter-trigger"]').getBoundingClientRect();
       const settingsButton = document.querySelector('[data-testid="settings-trigger"]').getBoundingClientRect();
       const panel = document.querySelector('.global-search-panel').getBoundingClientRect();
       return {
         overflow: document.documentElement.scrollWidth > window.innerWidth,
         searchTarget: Math.min(searchButton.width, searchButton.height),
+        bookmarksTarget: Math.min(bookmarksButton.width, bookmarksButton.height),
         settingsTarget: Math.min(settingsButton.width, settingsButton.height),
         panelWidth: Math.round(panel.width),
         viewportWidth: window.innerWidth
       };
     })()`);
     if (mobileLayout.overflow) verificationFailures.push("The 360px layout has horizontal overflow.");
-    if (mobileLayout.searchTarget < 44 || mobileLayout.settingsTarget < 44) {
+    if (mobileLayout.searchTarget < 44 || mobileLayout.bookmarksTarget < 44 || mobileLayout.settingsTarget < 44) {
       verificationFailures.push(`Mobile toolbar targets are below 44px: ${JSON.stringify(mobileLayout)}`);
     }
     if (mobileLayout.panelWidth !== mobileLayout.viewportWidth) {
@@ -446,6 +448,18 @@ try {
     const favoritesUrl = new URL("/my-gists?favorites=true", url).href;
     await send("Page.navigate", { url: favoritesUrl }, sessionId);
     await waitFor(`document.querySelectorAll('.bookmark-draggable').length === 2 && document.body.innerText.includes('Bookmarks')`, "the bookmarked gist reorder view");
+    const activeBookmarkButton = await evaluate(`({
+      pressed: document.querySelector('[data-testid="bookmarks-filter-trigger"]')?.getAttribute('aria-pressed'),
+      filled: document.querySelector('[data-testid="bookmarks-filter-trigger"] svg')?.getAttribute('fill')
+    })`);
+    if (activeBookmarkButton.pressed !== "true" || activeBookmarkButton.filled !== "currentColor") {
+      verificationFailures.push(`The bookmark toolbar button does not show its active state: ${JSON.stringify(activeBookmarkButton)}`);
+    }
+
+    await evaluate(`document.querySelector('[data-testid="bookmarks-filter-trigger"]').click()`);
+    await waitFor(`!new URL(location.href).searchParams.has('favorites') && document.querySelector('[data-testid="bookmarks-filter-trigger"]').getAttribute('aria-pressed') === 'false'`, "the all-gists view from the bookmark toolbar toggle");
+    await evaluate(`document.querySelector('[data-testid="bookmarks-filter-trigger"]').click()`);
+    await waitFor(`new URL(location.href).searchParams.get('favorites') === 'true' && document.querySelectorAll('.bookmark-draggable').length === 2`, "the bookmarked gist view from the toolbar button");
     const bookmarkWorkflow = await evaluate(`({
       dragHandles: document.querySelectorAll('.bookmark-draggable [draggable="true"][aria-label="Drag to reorder bookmark"]').length,
       firstTitle: document.querySelector('.bookmark-draggable:first-child h3')?.textContent ?? ''
