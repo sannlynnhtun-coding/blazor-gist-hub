@@ -9,10 +9,10 @@
 @inject IGithubService Github
 @inject IJSRuntime JS
 
-<div class="neo-page relative space-y-12 pb-20">
+<div class="neo-page relative flex flex-col gap-6 pb-20">
     <button
         @onclick="ToggleProfileTools"
-        class="absolute top-0 right-0 z-10 btn btn-outline h-11 w-11 !m-0"
+        class="fixed bottom-24 right-4 z-10 btn btn-outline h-11 w-11 !m-0"
         aria-label="@(IsProfileToolsVisible ? "Hide profile and collection actions" : "Show profile and collection actions")"
         aria-expanded="@(IsProfileToolsVisible ? "true" : "false")"
         aria-controls="profile-tools"
@@ -91,7 +91,7 @@
         </div>
     </div>
 
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b" aria-label="Collection view filters">
+    <div hidden="@(!IsProfileToolsVisible)" class="@(IsProfileToolsVisible ? "flex" : "hidden") flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b" aria-label="Collection view filters">
         <div class="min-w-0">
             <h2 class="text-lg font-black tracking-tight">My collection</h2>
             <p class="text-sm font-medium text-muted-foreground">
@@ -132,7 +132,7 @@
         </div>
     }
 
-    @if (!string.IsNullOrWhiteSpace(BookmarkBackupMessage))
+    @if (!string.IsNullOrWhiteSpace(BookmarkBackupMessage) && (IsProfileToolsVisible || !BookmarkBackupWasSuccessful))
     {
         <div role="status" class="p-3 rounded-xl border text-sm font-semibold @(BookmarkBackupWasSuccessful ? "border-border bg-[#EDF3EC] text-[#346538]" : "border-border bg-[#FDEBEC] text-[#9F2F2D]")">
             @BookmarkBackupMessage
@@ -274,7 +274,7 @@
     private List<LocalGist> LocalGists = new();
     private List<GistGroup> Groups = new();
     private bool IsSyncing = false;
-    private bool IsProfileToolsVisible = true;
+    private bool IsProfileToolsVisible = false;
     private bool BookmarksOnly = false;
     private string GroupMessage = "";
     private bool IsImportDialogOpen = false;
@@ -477,7 +477,7 @@
         }
 
         var profileToolsStoredValue = await JS.InvokeAsync<string?>("localStorage.getItem", ProfileToolsVisibleStorageKey);
-        IsProfileToolsVisible = !string.Equals(profileToolsStoredValue, "false", StringComparison.OrdinalIgnoreCase);
+        IsProfileToolsVisible = string.Equals(profileToolsStoredValue, "true", StringComparison.OrdinalIgnoreCase);
         StateHasChanged();
     }
 
