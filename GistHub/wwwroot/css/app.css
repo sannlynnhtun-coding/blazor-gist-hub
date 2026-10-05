@@ -285,7 +285,33 @@
     outline-offset: 3px;
   }
 
+  .gist-collection-grid.bookmark-row-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .gist-collection-grid.bookmark-row-grid > * {
+    min-width: 0;
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 640px) {
+    .gist-collection-grid.bookmark-row-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .gist-collection-grid.bookmark-row-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
   .bookmark-draggable {
+    position: relative;
     transition: transform 160ms ease, opacity 160ms ease;
   }
 
@@ -317,8 +343,23 @@
     transform: scale(0.98);
   }
 
-  .bookmark-draggable.is-drop-target {
-    transform: translateY(-3px);
+  .bookmark-draggable.is-drop-target::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    border-radius: 2px;
+    background: var(--neo-purple);
+    pointer-events: none;
+  }
+
+  .bookmark-draggable.drop-before::after {
+    left: -10px;
+  }
+
+  .bookmark-draggable.drop-after::after {
+    right: -10px;
   }
 
   .bookmark-draggable.is-drop-target .neo-gist-card {

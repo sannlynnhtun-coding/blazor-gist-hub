@@ -167,11 +167,11 @@
         }
         else
         {
-            <div class="gist-collection-grid" aria-label="@(BookmarksOnly ? "Reorderable bookmarked gists" : "Gists")">
+            <div class="gist-collection-grid @(BookmarksOnly ? "bookmark-row-grid" : "")" aria-label="@(BookmarksOnly ? "Reorderable bookmarked gists" : "Gists")">
                 @foreach (var gist in FilteredGists)
                 {
                     <div @key="gist.Id"
-                         class="@(BookmarksOnly ? $"bookmark-draggable {(DraggedBookmarkId == gist.Id ? "is-dragging" : "")} {(DropTargetBookmarkId == gist.Id ? "is-drop-target" : "")}" : "")"
+                         class="@(BookmarksOnly ? $"bookmark-draggable {(DraggedBookmarkId == gist.Id ? "is-dragging" : "")} {(DropTargetBookmarkId == gist.Id && DraggedBookmarkId != gist.Id ? $"is-drop-target {(IsBookmarkDropAfter(gist.Id) ? "drop-after" : "drop-before")}" : "")}" : "")"
                          @ondragstart="() => BeginBookmarkDrag(gist.Id)"
                          @ondragend="EndBookmarkDrag"
                          @ondragenter="() => SetBookmarkDropTarget(gist.Id)"
@@ -631,6 +631,13 @@
         }
     }
 
+    private bool IsBookmarkDropAfter(string targetId)
+    {
+        var visibleBookmarks = FilteredGists;
+        return visibleBookmarks.FindIndex(gist => gist.Id == DraggedBookmarkId)
+            < visibleBookmarks.FindIndex(gist => gist.Id == targetId);
+    }
+
     private void EndBookmarkDrag()
     {
         DraggedBookmarkId = null;
@@ -656,9 +663,10 @@
 
         if (dragged is not null && targetIndex >= 0)
         {
+            var dropAfter = IsBookmarkDropAfter(targetId);
             orderedBookmarks.Remove(dragged);
             targetIndex = orderedBookmarks.FindIndex(gist => gist.Id == targetId);
-            orderedBookmarks.Insert(targetIndex, dragged);
+            orderedBookmarks.Insert(targetIndex + (dropAfter ? 1 : 0), dragged);
 
             for (var index = 0; index < orderedBookmarks.Count; index++)
             {
