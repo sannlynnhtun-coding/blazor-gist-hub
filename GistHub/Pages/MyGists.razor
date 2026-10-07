@@ -9,6 +9,11 @@
 @inject IGithubService Github
 @inject IJSRuntime JS
 
+@if (CopyFailed)
+{
+    <p class="text-sm text-destructive" role="status">Could not copy. Focus this page and try again, and allow clipboard access if prompted.</p>
+}
+
 <div class="neo-page relative flex flex-col gap-6 pb-20">
     <button
         @onclick="ToggleProfileTools"
@@ -254,6 +259,7 @@
 }
 
 @code {
+    private bool CopyFailed;
     private const string ProfileToolsVisibleStorageKey = "gisthub:profile-tools-visible";
     private const string BookmarkRestoreInputId = "bookmark-restore-input";
     private const long MaxBookmarkBackupBytes = 1024 * 1024;
@@ -685,7 +691,12 @@
         var content = gist.Files.Values.FirstOrDefault()?.Content;
         if (string.IsNullOrEmpty(content)) return;
 
-        await JS.InvokeVoidAsync("copyToClipboard", content);
+        CopyFailed = !await JS.InvokeAsync<bool>("copyToClipboard", content);
+        if (CopyFailed)
+        {
+            CopiedGistId = null;
+            return;
+        }
         CopiedGistId = gist.Id;
         StateHasChanged();
 

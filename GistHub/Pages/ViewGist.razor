@@ -7,6 +7,11 @@
 @inject NavigationManager Navigation
 @inject AppState AppState
 
+@if (CopyFailed)
+{
+    <p class="text-sm text-destructive" role="status">Could not copy. Focus this page and try again, and allow clipboard access if prompted.</p>
+}
+
 <div class="neo-page max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20">
     @if (ViewingGist == null)
     {
@@ -107,6 +112,7 @@
 </div>
 
 @code {
+    private bool CopyFailed;
     [Parameter] public string GistId { get; set; } = "";
     private LocalGist? ViewingGist { get; set; }
     private ElementReference codeElement;
@@ -181,7 +187,12 @@
         var content = ViewingGist?.Files.Values.FirstOrDefault()?.Content;
         if (string.IsNullOrEmpty(content)) return;
 
-        await JS.InvokeVoidAsync("copyToClipboard", content);
+        CopyFailed = !await JS.InvokeAsync<bool>("copyToClipboard", content);
+        if (CopyFailed)
+        {
+            IsCopied = false;
+            return;
+        }
         IsCopied = true;
         StateHasChanged();
 

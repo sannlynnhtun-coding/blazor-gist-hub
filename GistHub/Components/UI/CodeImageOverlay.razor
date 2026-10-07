@@ -2,7 +2,12 @@
 {
     <section class="code-image-overlay" role="dialog" aria-modal="true" aria-labelledby="code-image-title" @onkeydown="HandleKeyDown">
         <header class="code-image-header">
-            <div class="code-image-title-group">
+            @if (CopyFailed)
+{
+    <p class="text-sm text-destructive" role="status">Could not copy. Focus this page and try again, and allow clipboard access if prompted.</p>
+}
+
+<div class="code-image-title-group">
                 <div class="code-image-mark" aria-hidden="true">
                     <svg viewBox="0 0 24 24"><path d="m8 9-3 3 3 3"/><path d="m16 9 3 3-3 3"/><path d="m14 5-4 14"/></svg>
                 </div>
@@ -284,6 +289,7 @@
 @inject IJSRuntime JS
 
 @code {
+    private bool CopyFailed;
     private const long MaxMarkdownFileSize = 1024 * 1024;
     private const string ExampleCode = "public record Gist(string Id, string Description);\n\npublic static string BuildShareUrl(Gist gist)\n{\n    ArgumentNullException.ThrowIfNull(gist);\n    return $\"https://gist.github.com/{gist.Id}\";\n}";
     private const string ExampleMarkdown = "# Shipping notes\n\nA compact release summary that is ready to share.\n\n| Change | Status |\n| :-- | :-- |\n| Markdown capture | Ready |\n| Syntax highlighting | Ready |\n| Local PNG export | Ready |\n\n> Everything is rendered in your browser.\n\n```csharp\nConsole.WriteLine(\"Hello from GistHub\");\n```";
@@ -558,7 +564,12 @@
             padding = CanvasPadding
         }, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
 
-        await JS.InvokeVoidAsync("copyToClipboard", settings);
+        CopyFailed = !await JS.InvokeAsync<bool>("copyToClipboard", settings);
+        if (CopyFailed)
+        {
+            SettingsCopied = false;
+            return;
+        }
         SettingsCopied = true;
     }
 

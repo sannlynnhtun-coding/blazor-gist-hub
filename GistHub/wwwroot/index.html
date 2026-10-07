@@ -263,8 +263,16 @@
         };
 
         window.copyToClipboard = async (text) => {
-            if (navigator.clipboard) {
+            // Clipboard access can be denied when focus changes during interop.
+            // Return a result so callers never report success for a rejected write.
+            if (!document.hasFocus() || !navigator.clipboard?.writeText) {
+                return false;
+            }
+            try {
                 await navigator.clipboard.writeText(text);
+                return true;
+            } catch {
+                return false;
             }
         };
 
