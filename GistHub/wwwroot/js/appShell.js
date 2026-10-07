@@ -1,6 +1,17 @@
 let searchShortcutHandler = null;
 const focusTrapHandlers = new WeakMap();
 
+export function downloadBytes(filename, bytes) {
+    const url = URL.createObjectURL(new Blob([bytes], { type: "application/octet-stream" }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
 export function registerGlobalSearchShortcut() {
     unregisterGlobalSearchShortcut();
     searchShortcutHandler = (event) => {

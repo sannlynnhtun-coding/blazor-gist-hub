@@ -64,6 +64,10 @@
                                 </span>
                                 <span><strong>JSON Parser</strong><small>Normalize escaped JSON text</small></span>
                             </button>
+                            <button data-testid="base64-menu-item" @onclick="OpenBase64" class="neo-toolbar-menu-item" type="button" role="menuitem">
+                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">64</span>
+                                <span><strong>Base64 Encode / Decode</strong><small>Convert text and files locally</small></span>
+                            </button>
                             <button data-testid="code-image-menu-item"
                                     @onclick="OpenCodeImage"
                                     class="neo-toolbar-menu-item"
@@ -162,6 +166,7 @@
                   OnClose="CloseGlobalSearch"
                   OnSelectGist="OpenGistFromSearch" />
 <JsonParserOverlay IsOpen="@IsJsonParserOpen" OnClose="CloseJsonParser" />
+<Base64Overlay IsOpen="@IsBase64Open" OnClose="CloseBase64" />
 <CodeImageOverlay IsOpen="@IsCodeImageOpen" OnClose="CloseCodeImage" />
 
 @inject AppState AppState
@@ -180,6 +185,7 @@
     private bool IsGlobalSearchOpen { get; set; }
     private bool IsSearchShortcutReady { get; set; }
     private bool IsJsonParserOpen { get; set; }
+    private bool IsBase64Open { get; set; }
     private bool IsCodeImageOpen { get; set; }
     private bool ShouldFocusToolsMenu { get; set; }
     private bool ShouldFocusSettingsMenu { get; set; }
@@ -192,7 +198,7 @@
     private ElementReference ToolsFirstMenuItem { get; set; }
     private ElementReference SettingsFirstMenuItem { get; set; }
     private IJSObjectReference? AppShellModule { get; set; }
-    private bool IsUtilityOpen => IsJsonParserOpen || IsCodeImageOpen;
+    private bool IsUtilityOpen => IsJsonParserOpen || IsCodeImageOpen || IsBase64Open;
     private bool IsModalOpen => IsUtilityOpen || IsGlobalSearchOpen;
     private bool IsBookmarksOnlyView { get; set; }
 
@@ -393,6 +399,18 @@
     private void CloseJsonParser()
     {
         IsJsonParserOpen = false;
+        ShouldRestoreToolsFocus = true;
+    }
+
+    private void OpenBase64()
+    {
+        DismissToolbarMenus();
+        IsBase64Open = true;
+    }
+
+    private void CloseBase64()
+    {
+        IsBase64Open = false;
         ShouldRestoreToolsFocus = true;
     }
 

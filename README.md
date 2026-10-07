@@ -40,6 +40,7 @@ Blazor pages and components
 - Curated `@sannlynnhtun-coding` public-gist collection
 - Markdown, Mermaid, and syntax-highlighted code previews
 - JSON formatting/parsing and code-image utilities
+- Base64 text and file encoding/decoding from Tools, with UTF-8/Latin-1, live mode, separate-line processing, URL-safe output, and local file downloads
 - Responsive UI, themes, sound controls, file blur, and PWA support
 
 ## Tech stack

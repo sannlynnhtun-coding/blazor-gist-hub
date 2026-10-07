@@ -1,0 +1,172 @@
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+@if (IsOpen)
+{
+    <section @ref="Dialog" class="json-parser-overlay base64-overlay" role="dialog" aria-modal="true" aria-labelledby="base64-title" @onkeydown="HandleKeyDown">
+        <header class="json-parser-header">
+            <div class="json-parser-title-group">
+                <div class="json-parser-mark" aria-hidden="true">64</div>
+                <div><div class="neo-kicker">Workbench</div><h1 id="base64-title">Base64 Encode / Decode</h1></div>
+            </div>
+            <div class="json-parser-mode-toggle" aria-label="Conversion mode">
+                <button type="button" aria-pressed="@(Decode ? "true" : "false")" @onclick="() => SetMode(true)">Decode</button>
+                <button type="button" aria-pressed="@(Decode ? "false" : "true")" @onclick="() => SetMode(false)">Encode</button>
+            </div>
+            <button type="button" class="json-parser-close" @onclick="CloseAsync" aria-label="Close Base64 tool" title="Close (Esc)">✕</button>
+        </header>
+        <div class="base64-options">
+            <label>Character set <select @bind="Latin1" @bind:after="OptionsChanged"><option value="false">UTF-8</option><option value="true">Latin-1 (ISO-8859-1)</option></select></label>
+            <label><input type="checkbox" @bind="EachLine" @bind:after="OptionsChanged" /> Each line separately</label>
+            <label><input type="checkbox" @bind="UrlSafe" @bind:after="OptionsChanged" /> URL-safe Base64</label>
+            <label><input type="checkbox" @bind="Live" @bind:after="OptionsChanged" /> Live mode</label>
+            <span class="text-sm text-muted-foreground">Processed locally. Nothing is uploaded.</span>
+        </div>
+        <div class="json-parser-workspace">
+            <section class="json-parser-pane json-parser-pane--input" aria-labelledby="base64-input-heading">
+                <div class="json-parser-pane-header">
+                    <div><span class="json-parser-step">01 · Input</span><h2 id="base64-input-heading">@(Decode ? "Paste Base64" : "Enter text")</h2></div>
+                    <div class="json-parser-actions">
+                        <button type="button" class="json-parser-text-button" @onclick="UseExample">Use example</button>
+                        <button type="button" class="json-parser-text-button" @onclick="Clear">Clear</button>
+                    </div>
+                </div>
+                <div class="json-parser-editor-wrap">
+                    <textarea @ref="InputElement" class="json-parser-input custom-scrollbar" aria-label="@(Decode ? "Base64 input" : "Text input")" value="@Input" @oninput="HandleInput" spellcheck="false" placeholder="@(Decode ? "SGVsbG8sIEdpc3RIdWIh" : "Hello, GistHub!")"></textarea>
+                </div>
+                <div class="json-parser-pane-footer">
+                    <span>@Input.Length characters</span>
+                    <button type="button" class="btn btn-primary btn-md" @onclick="ConvertInput">@(Decode ? "Decode" : "Encode")</button>
+                </div>
+                <div class="base64-file-panel">
+                    <strong>@(Decode ? "Decode a Base64 file" : "Encode any file")</strong>
+                    <p class="text-sm text-muted-foreground">Select a file, then download the result. Maximum 10 MB. Text options do not change file bytes; URL-safe mode applies.</p>
+                    <InputFile OnChange="ConvertFileAsync" disabled="@FileBusy" aria-label="Select file for Base64 conversion" />
+                    @if (FileBusy) { <p role="status">Converting file…</p> }
+                    @if (!string.IsNullOrEmpty(FileError)) { <p class="text-destructive" role="alert">@FileError</p> }
+                    @if (FileBytes is not null)
+                    {
+                        <button type="button" class="btn btn-secondary btn-md" @onclick="DownloadFileAsync">Download @FileName</button>
+                    }
+                </div>
+            </section>
+            <section class="json-parser-pane json-parser-pane--output" aria-labelledby="base64-output-heading">
+                <div class="json-parser-pane-header"><div><span class="json-parser-step">02 · Result</span><h2 id="base64-output-heading">@(Decode ? "Decoded text" : "Encoded Base64")</h2></div></div>
+                <div class="json-parser-result-wrap">
+                    <textarea class="json-parser-input custom-scrollbar" aria-label="Conversion result" value="@Output" readonly spellcheck="false" placeholder="Your converted result appears here"></textarea>
+                </div>
+                @if (!string.IsNullOrEmpty(Error)) { <p class="base64-feedback text-destructive" role="alert">@Error</p> }
+                @if (!string.IsNullOrEmpty(Feedback)) { <p class="base64-feedback" role="status">@Feedback</p> }
+                <div class="json-parser-pane-footer">
+                    <span>@Output.Length characters</span>
+                    <div class="json-parser-actions">
+                        <button type="button" class="btn btn-secondary btn-md" @onclick="UseResult" disabled="@(!HasResult)">Use as input</button>
+                        <button type="button" class="btn btn-secondary btn-md" @onclick="CopyAsync" disabled="@(!HasResult)">Copy result</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+}
+
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+    private ElementReference Dialog, InputElement;
+    private IJSObjectReference? Module;
+    private bool WasOpen, FocusPending, Decode = true, EachLine, UrlSafe, Latin1, Live = true, HasResult, FileBusy;
+    private string Input = "", Output = "", Error = "", Feedback = "", FileError = "", FileName = "";
+    private byte[]? FileBytes;
+    private int FileVersion;
+
+    protected override void OnParametersSet()
+    {
+        if (IsOpen && !WasOpen) FocusPending = true;
+        WasOpen = IsOpen;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!FocusPending) return;
+        FocusPending = false;
+        Module ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/appShell.js");
+        await Module.InvokeVoidAsync("activateFocusTrap", Dialog);
+        await InputElement.FocusAsync();
+    }
+
+    private void HandleInput(ChangeEventArgs args) { Input = args.Value?.ToString() ?? ""; Refresh(); }
+    private void OptionsChanged() { ResetFile(); Refresh(); }
+    private void SetMode(bool decode) { if (Decode == decode) return; Decode = decode; OptionsChanged(); }
+    private void Refresh()
+    {
+        Output = Error = Feedback = "";
+        HasResult = false;
+        if (Live && Input.Length > 0) ConvertInput();
+    }
+    private void ConvertInput()
+    {
+        Output = Error = Feedback = "";
+        HasResult = false;
+        try { Output = Base64Converter.ConvertText(Input, Decode, EachLine, UrlSafe, Latin1); HasResult = true; }
+        catch (FormatException) { Error = "Invalid Base64. Check the alphabet and padding, or enable URL-safe mode for - and _."; }
+        catch (System.Text.DecoderFallbackException) { Error = "The decoded bytes are not valid UTF-8 text. Try Latin-1 or decode a file to preserve binary data."; }
+        catch (System.Text.EncoderFallbackException) { Error = "This text contains characters outside Latin-1. Select UTF-8."; }
+    }
+    private void UseExample() { Input = Decode ? "SGVsbG8sIEdpc3RIdWIh" : "Hello, GistHub!"; ConvertInput(); }
+    private async Task Clear() { Input = ""; Refresh(); ResetFile(); await InputElement.FocusAsync(); }
+    private void UseResult() { Input = Output; Decode = !Decode; OptionsChanged(); }
+    private async Task CopyAsync()
+    {
+        try { Feedback = await JS.InvokeAsync<bool>("copyToClipboard", Output) ? "Copied to clipboard." : "Could not copy. Select the result and copy it manually."; }
+        catch (JSException) { Feedback = "Could not copy. Select the result and copy it manually."; }
+    }
+    private void ResetFile() { FileVersion++; FileBytes = null; FileName = FileError = ""; }
+    private async Task ConvertFileAsync(InputFileChangeEventArgs args)
+    {
+        ResetFile();
+        var version = FileVersion;
+        FileBusy = true;
+        try
+        {
+            var file = args.File;
+            await using var stream = file.OpenReadStream(10 * 1024 * 1024);
+            using var buffer = new MemoryStream();
+            await stream.CopyToAsync(buffer);
+            var bytes = buffer.ToArray();
+            var result = Decode
+                ? Base64Converter.DecodeBytes(new System.Text.UTF8Encoding(false, true).GetString(bytes).TrimStart('\uFEFF'), UrlSafe)
+                : System.Text.Encoding.ASCII.GetBytes(Base64Converter.EncodeBytes(bytes, UrlSafe));
+            if (version != FileVersion) return;
+            FileBytes = result;
+            FileName = Decode ? (file.Name.EndsWith(".base64", StringComparison.OrdinalIgnoreCase) ? file.Name[..^7] : file.Name + ".decoded") : file.Name + ".base64";
+            if (string.IsNullOrWhiteSpace(FileName)) FileName = "decoded.bin";
+        }
+        catch (Exception ex) when (ex is IOException or FormatException or System.Text.DecoderFallbackException)
+        {
+            if (version == FileVersion) FileError = "Could not convert this file. Use a file under 10 MB and valid Base64 text when decoding.";
+        }
+        finally { FileBusy = false; }
+    }
+    private async Task DownloadFileAsync()
+    {
+        if (FileBytes is null) return;
+        try
+        {
+            Module ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/appShell.js");
+            await Module.InvokeVoidAsync("downloadBytes", FileName, FileBytes);
+        }
+        catch (JSException) { FileError = "Could not download the result. Try again."; }
+    }
+    private async Task HandleKeyDown(KeyboardEventArgs args) { if (args.Key == "Escape") await CloseAsync(); }
+    private async Task CloseAsync()
+    {
+        if (Module is not null) await Module.InvokeVoidAsync("deactivateFocusTrap", Dialog);
+        await OnClose.InvokeAsync();
+    }
+    public async ValueTask DisposeAsync()
+    {
+        if (Module is null) return;
+        try { await Module.InvokeVoidAsync("deactivateFocusTrap", Dialog); await Module.DisposeAsync(); }
+        catch (JSDisconnectedException) { }
+    }
+}

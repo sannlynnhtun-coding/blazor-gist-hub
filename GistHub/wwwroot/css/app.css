@@ -952,6 +952,24 @@
 
 /* Full-page parser workbench. The conversion pipeline in the masthead makes
    the escaped-string-to-object transformation visible at a glance. */
+.base64-overlay { overflow-y: auto; }
+.base64-overlay .json-parser-header { grid-template-columns: minmax(0, 1fr) auto auto; }
+.base64-overlay .json-parser-workspace { min-height: 32rem; }
+.base64-options { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; padding: 1rem 1.25rem; border-bottom: 2px solid hsl(var(--border)); }
+.base64-options label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; }
+.base64-options select { color: hsl(var(--foreground)); background: hsl(var(--background)); border: 2px solid hsl(var(--border)); border-radius: 0.4rem; padding: 0.4rem 2rem 0.4rem 0.6rem; }
+.base64-file-panel { display: flex; flex-direction: column; align-items: flex-start; gap: 0.65rem; padding: 1rem 1.25rem; border-top: 2px solid hsl(var(--border)); }
+.base64-file-panel input { max-width: 100%; }
+.base64-feedback { padding: 0.75rem 1.25rem; }
+@media (max-width: 640px) {
+  .base64-overlay .json-parser-header { gap: 0.6rem; grid-template-columns: minmax(0, 1fr) auto; }
+  .base64-overlay .json-parser-header .json-parser-mode-toggle { grid-row: 2; grid-column: 1 / -1; justify-self: start; }
+  .base64-overlay .json-parser-close { grid-row: 1; grid-column: 2; }
+  .base64-overlay .json-parser-title-group h1 { font-size: 1.1rem; }
+  .base64-overlay .json-parser-workspace { flex: none; }
+  .base64-overlay .json-parser-editor-wrap, .base64-overlay .json-parser-result-wrap { min-height: 14rem; }
+}
+
 .json-parser-overlay {
   position: fixed;
   inset: 0;

@@ -133,6 +133,28 @@ Assert(limitedResults.TotalCount == 3 && limitedResults.Results.Count == 2, "Sea
 
 Console.WriteLine("PASS: local gist search ranks fields, groups by gist, filters bookmarks, and returns safe context snippets.");
 
+var unicode = "Hello မြန်မာ 👋\nSecond line";
+Assert(Base64Converter.ConvertText(Base64Converter.ConvertText(unicode, false), true) == unicode, "UTF-8 Base64 must round-trip Unicode and newlines.");
+Assert(Base64Converter.ConvertText(" SGVs\nbG8= \r\n", true) == "Hello", "Decode should ignore whitespace.");
+Assert(Base64Converter.ConvertText("SGVsbG8=\r\n\r\nV29ybGQ=", true, eachLine: true) == "Hello\n\nWorld", "Separate-line mode must preserve blank lines.");
+Assert(Base64Converter.ConvertText("é", false, latin1: true) == "6Q==", "Latin-1 must use one byte for accented characters.");
+Assert(Base64Converter.ConvertText("6Q==", true, latin1: true) == "é", "Latin-1 bytes should decode correctly.");
+var binary = new byte[] { 0, 255, 254, 128, 1 };
+Assert(Base64Converter.DecodeBytes(Base64Converter.EncodeBytes(binary, true), true).SequenceEqual(binary), "URL-safe unpadded Base64 must preserve binary files.");
+Assert(Base64Converter.DecodeBytes("Zg", true).SequenceEqual(new byte[] { 102 }), "URL-safe input should accept omitted padding.");
+foreach (var invalid in new[] { "!bad", "A", "AA=A", "Zg===", "SGVsbG8" })
+{
+    var rejected = false;
+    try { Base64Converter.DecodeBytes(invalid); }
+    catch (FormatException) { rejected = true; }
+    Assert(rejected, $"Invalid standard Base64 must be rejected: {invalid}");
+}
+var invalidUtf8Rejected = false;
+try { Base64Converter.ConvertText("/w==", true); }
+catch (System.Text.DecoderFallbackException) { invalidUtf8Rejected = true; }
+Assert(invalidUtf8Rejected, "Binary content must not silently decode into replacement characters.");
+Console.WriteLine("PASS: Base64 Unicode, charsets, whitespace, lines, URL-safe binary, and invalid input.");
+
 static void SetProperty(object target, string name, object value)
 {
     var property = target.GetType().GetProperty(name, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
