@@ -377,9 +377,8 @@ try {
     const blurPreference = await evaluate(`localStorage.getItem('gisthub:files-blurred')`);
     if (blurPreference !== "true") verificationFailures.push("Blur Files was not persisted to localStorage.");
 
-    await evaluate(`document.querySelector('[data-testid="settings-trigger"]').click()`);
-    await waitFor(`Boolean(document.querySelector('[data-testid="sidebar-menu-item"]'))`, "the Sidebar setting");
-    await evaluate(`document.querySelector('[data-testid="sidebar-menu-item"]').click()`);
+    await waitFor(`Boolean(document.querySelector('header [data-testid="sidebar-toggle-trigger"]'))`, "the top navigation sidebar toggle");
+    await evaluate(`document.querySelector('[data-testid="sidebar-toggle-trigger"]').click()`);
     await waitFor(`!document.querySelector('.neo-sidebar')`, "the sidebar to hide");
     const sidebarPreference = await evaluate(`localStorage.getItem('gisthub:sidebar-visible')`);
     if (sidebarPreference !== "false") verificationFailures.push("Sidebar visibility was not persisted to localStorage.");
