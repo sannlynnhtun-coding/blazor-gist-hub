@@ -167,7 +167,7 @@
         }
         else
         {
-            <div class="gist-collection-grid @(BookmarksOnly ? "bookmark-row-grid" : "")" aria-label="@(BookmarksOnly ? "Reorderable bookmarked gists" : "Gists")">
+            <div class="gist-collection-grid" aria-label="@(BookmarksOnly ? "Reorderable bookmarked gists" : "Gists")">
                 @foreach (var gist in FilteredGists)
                 {
                     <div @key="gist.Id"
