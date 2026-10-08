@@ -13,7 +13,7 @@ Additional features include a curated SLH collection, Markdown and Mermaid rende
 
 ## Application workflow
 
-1. **Discover** - `/` loads GitHub's public gist feed. A saved token is used when available for authenticated API limits.
+1. **Start** - `/` opens My Collection, showing bookmarked gists when bookmarks exist. Discovery is available at `/discovery`.
 2. **Connect GitHub** - `/login` validates a Personal Access Token against GitHub's `/user` endpoint, then saves the named profile in browser IndexedDB.
 3. **Build the local cache** - a new profile initially fetches full content for up to 30 gists. Later syncs from **My Gists** refresh the account's cached gists, re-parse tags from descriptions, and preserve local bookmarks, bookmark order, and collection assignments.
 4. **Manage gists** - create, edit, delete, clone, or import JSON. These operations call the GitHub API and then update the local cache.
@@ -42,6 +42,35 @@ Blazor pages and components
 - JSON formatting/parsing and code-image utilities
 - Base64 text and file encoding/decoding from Tools, with UTF-8/Latin-1, live mode, separate-line processing, URL-safe output, and local file downloads
 - Responsive UI, themes, sound controls, file blur, and PWA support
+
+## Local YouTube downloader (Windows)
+
+Double-click **Start-LocalDownloader.cmd** in the repository root. The launcher installs portable yt-dlp and FFmpeg tools into the ignored `.local-tools` folder, verifies their published SHA-256 checksums, publishes GistHub and its local ASP.NET Core service, and opens **http://localhost:5188/tools/youtube-downloader**. The first launch downloads the tools and takes longer. It requires the .NET 10 SDK, Node.js 22 or later, npm, and an internet connection.
+
+You can also open **Tools → YouTube Downloader** in that local GistHub window. Paste a YouTube watch, Shorts, or youtu.be link, choose **Find downloads**, switch between Video and Audio, then download a listed format. Video-only streams are merged with compatible audio. Audio supports native M4A/WebM and MP3 conversion. The UI shows actual available formats; `≈` marks estimated sizes and unknown sizes remain unknown. Downloads can be cancelled. A completed file downloads automatically, with a **Save file again** fallback.
+
+Keep the launcher running while using the tool. Closing it stops the service. The service listens only on IPv4 loopback port 5188 and accepts browser API writes only from its own origin. It does not connect the hosted website to your local machine. The local URL has its own browser storage: connect GitHub there to use your gist library, and transfer bookmarks with JSON backup/restore if needed.
+
+Temporary files are stored under `%LOCALAPPDATA%\GistHub\Downloader`. Completed files and previews expire after one hour and are cleaned up on subsequent inspect/download requests. Live/upcoming videos and playlists are not supported. Jobs time out after 30 minutes, and individual source downloads are limited to 2 GB. YouTube restrictions, unavailable media, or extractor changes can cause errors; they appear in the tool. Update the portable dependencies when needed:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-downloader-tools.ps1 -Update
+```
+
+For subsequent launches without rebuilding:
+
+```powershell
+.\Start-LocalDownloader.cmd -NoBuild
+```
+
+Downloader tests use deterministic child processes and do not require YouTube access:
+
+```powershell
+dotnet run --project GistHub.LocalDownloader.Tests
+dotnet run --project GistHub.RegressionTests
+```
+
+Dependency references: [yt-dlp usage and dependencies](https://github.com/yt-dlp/yt-dlp#usage-and-options), [FFmpeg Windows builds](https://www.gyan.dev/ffmpeg/builds/). Portable third-party binaries are downloaded locally rather than committed or redistributed.
 
 ## Tech stack
 

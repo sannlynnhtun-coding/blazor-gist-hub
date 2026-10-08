@@ -42,6 +42,8 @@ async function onActivate(event) {
 }
 
 async function onFetch(event) {
+    // API responses and download files must always reach the local service.
+    if (new URL(event.request.url).pathname.startsWith('/api/')) return fetch(event.request);
     let cachedResponse = null;
     if (event.request.method === 'GET') {
         const shouldServeIndexHtml = event.request.mode === 'navigate'

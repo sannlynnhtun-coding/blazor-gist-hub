@@ -9,7 +9,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 // Register Services
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-var githubApiBaseUrl = builder.HostEnvironment.IsDevelopment()
+var githubApiBaseUrl = builder.HostEnvironment.IsDevelopment() || new Uri(builder.HostEnvironment.BaseAddress).IsLoopback
     ? "https://api.github.com"
     : new Uri(new Uri(builder.HostEnvironment.BaseAddress), "api/github").ToString();
 builder.Services.AddScoped<IGithubService>(sp =>
