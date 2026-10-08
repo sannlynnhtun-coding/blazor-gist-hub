@@ -33,6 +33,23 @@ var bookmarkGists = new List<LocalGist>
     new() { Id = "first", IsBookmarked = true, BookmarkOrder = 1, UpdatedAt = new DateTime(2026, 1, 1) },
     new() { Id = "ignored", IsBookmarked = false, UpdatedAt = new DateTime(2026, 1, 3) }
 };
+var mergedOrder = BookmarkBackupSerializer.CreateMergedOrder(bookmarkGistsForMerge(), new[]
+{
+    new BookmarkBackupItem { GistId = "EXISTING", Order = 1 },
+    new BookmarkBackupItem { GistId = "added", Order = 2 },
+    new BookmarkBackupItem { GistId = "added", Order = 3 },
+    new BookmarkBackupItem { GistId = "missing", Order = 4 }
+});
+Assert(mergedOrder.Count == 2 && mergedOrder["existing"] == 1 && mergedOrder["added"] == 2,
+    "Restore must preserve existing bookmarks, append new ones, deduplicate IDs, and skip missing gists.");
+Assert(BookmarkBackupSerializer.CreateMergedOrder(bookmarkGistsForMerge(), Array.Empty<BookmarkBackupItem>()).ContainsKey("existing"),
+    "An empty backup must preserve current bookmarks.");
+static LocalGist[] bookmarkGistsForMerge() => new[]
+{
+    new LocalGist { Id = "existing", IsBookmarked = true, BookmarkOrder = 1 },
+    new LocalGist { Id = "added" }
+};
+
 var bookmarkJson = BookmarkBackupSerializer.CreateJson(
     bookmarkGists,
     "ExampleUser",
@@ -41,6 +58,10 @@ var bookmarkJson = BookmarkBackupSerializer.CreateJson(
 Assert(
     BookmarkBackupSerializer.TryParse(bookmarkJson, "exampleuser", out var bookmarkBackup, out var bookmarkError),
     $"Generated bookmark JSON should parse: {bookmarkError}");
+var duplicateJson = bookmarkJson.Replace("\"gistId\": \"newer\"", "\"gistId\": \"FIRST\"");
+Assert(BookmarkBackupSerializer.TryParse(duplicateJson, "exampleuser", out var deduplicatedBackup, out _)
+    && deduplicatedBackup!.Bookmarks!.Count == 1,
+    "Duplicate bookmark IDs in a backup should merge case-insensitively.");
 Assert(bookmarkBackup!.Bookmarks!.Count == 2, "Only bookmarked gists should be exported.");
 Assert(bookmarkBackup.Bookmarks[0].GistId == "first", "Bookmark order should be preserved in the backup.");
 Assert(

@@ -46,6 +46,24 @@ public static class BookmarkBackupSerializer
         return JsonSerializer.Serialize(backup, JsonOptions);
     }
 
+    public static Dictionary<string, int> CreateMergedOrder(
+        IEnumerable<LocalGist> gists,
+        IEnumerable<BookmarkBackupItem> bookmarks)
+    {
+        var localGists = gists.ToList();
+        var localIds = localGists.Select(gist => gist.Id).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        return localGists
+            .Where(gist => gist.IsBookmarked)
+            .OrderBy(gist => gist.BookmarkOrder > 0 ? 0 : 1)
+            .ThenBy(gist => gist.BookmarkOrder > 0 ? gist.BookmarkOrder : int.MaxValue)
+            .ThenByDescending(gist => gist.UpdatedAt)
+            .Select(gist => gist.Id)
+            .Concat(bookmarks.OrderBy(item => item.Order).Select(item => item.GistId.Trim()).Where(localIds.Contains))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .Select((id, index) => new { Id = id, Order = index + 1 })
+            .ToDictionary(item => item.Id, item => item.Order, StringComparer.OrdinalIgnoreCase);
+    }
+
     public static bool TryParse(
         string json,
         string githubUsername,
@@ -102,13 +120,10 @@ public static class BookmarkBackupSerializer
             return false;
         }
 
-        if (parsed.Bookmarks
-            .GroupBy(item => item.GistId.Trim(), StringComparer.OrdinalIgnoreCase)
-            .Any(group => group.Count() > 1))
-        {
-            validationError = "The bookmark backup contains duplicate gist IDs.";
-            return false;
-        }
+        parsed.Bookmarks = parsed.Bookmarks
+            .OrderBy(item => item.Order)
+            .DistinctBy(item => item.GistId.Trim(), StringComparer.OrdinalIgnoreCase)
+            .ToList();
 
         backup = parsed;
         return true;

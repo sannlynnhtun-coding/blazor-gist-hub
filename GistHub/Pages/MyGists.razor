@@ -423,16 +423,17 @@
             var missingText = missingCount > 0 ? $" {missingCount} backup item{(missingCount == 1 ? " is" : "s are")} not in this local library and will be skipped." : "";
             var confirmed = await JS.InvokeAsync<bool>(
                 "confirm",
-                $"Restore {matchingCount} bookmark{(matchingCount == 1 ? "" : "s")}? This replaces your current {BookmarkedGistsCount} bookmark{(BookmarkedGistsCount == 1 ? "" : "s")}.{missingText}");
+                $"Restore {matchingCount} bookmark{(matchingCount == 1 ? "" : "s")}? This combines them with your current bookmarks, keeping one copy of each.{missingText}");
             if (!confirmed)
             {
                 return;
             }
 
+            var mergedOrderById = BookmarkBackupSerializer.CreateMergedOrder(LocalGists, backup.Bookmarks!);
             var changedGists = new List<LocalGist>();
             foreach (var gist in LocalGists)
             {
-                var shouldBeBookmarked = restoredOrderById.TryGetValue(gist.Id, out var restoredOrder);
+                var shouldBeBookmarked = mergedOrderById.TryGetValue(gist.Id, out var restoredOrder);
                 var nextOrder = shouldBeBookmarked ? restoredOrder : 0;
                 if (gist.IsBookmarked == shouldBeBookmarked && gist.BookmarkOrder == nextOrder)
                 {
