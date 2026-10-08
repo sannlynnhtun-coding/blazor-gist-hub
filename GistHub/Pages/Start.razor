@@ -1,0 +1,16 @@
+@page "/"
+@inject IStorageService Storage
+@inject NavigationManager Navigation
+
+<p class="text-sm text-muted-foreground" role="status">Opening My Collection...</p>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var gists = await Storage.GetLocalGistsAsync();
+        var destination = gists.Any(gist => gist.IsBookmarked)
+            ? "/my-gists?favorites=true"
+            : "/my-gists";
+        Navigation.NavigateTo(destination, replace: true);
+    }
+}
