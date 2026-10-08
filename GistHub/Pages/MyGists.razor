@@ -359,12 +359,17 @@
             return;
         }
 
-        var json = BookmarkBackupSerializer.CreateJson(LocalGists, username);
-        var filename = $"gisthub-bookmarks-{DateTime.UtcNow:yyyyMMdd-HHmmss}.json";
-        await JS.InvokeVoidAsync("downloadTextFile", filename, json, "application/json");
+        await DownloadBookmarkBackupFileAsync(username);
 
         BookmarkBackupWasSuccessful = true;
         BookmarkBackupMessage = $"Downloaded {BookmarkedGistsCount} bookmark{(BookmarkedGistsCount == 1 ? "" : "s")}.";
+    }
+
+    private async Task DownloadBookmarkBackupFileAsync(string username)
+    {
+        var json = BookmarkBackupSerializer.CreateJson(LocalGists, username);
+        var filename = $"gisthub-bookmarks-{DateTime.UtcNow:yyyyMMdd-HHmmss}.json";
+        await JS.InvokeVoidAsync("downloadTextFile", filename, json, "application/json");
     }
 
     private async Task OpenBookmarkRestorePickerAsync()
@@ -448,6 +453,19 @@
             await Task.WhenAll(changedGists.Select(Storage.SaveGistAsync));
             BookmarkBackupWasSuccessful = true;
             BookmarkBackupMessage = $"Restored {matchingCount} bookmark{(matchingCount == 1 ? "" : "s")}.{missingText}";
+
+            if (changedGists.Count > 0)
+            {
+                try
+                {
+                    await DownloadBookmarkBackupFileAsync(username);
+                    BookmarkBackupMessage += " Downloaded an updated bookmark backup.";
+                }
+                catch (Exception)
+                {
+                    BookmarkBackupMessage += " The updated backup could not be downloaded. Use Download bookmarks to try again.";
+                }
+            }
         }
         catch (Exception ex)
         {
