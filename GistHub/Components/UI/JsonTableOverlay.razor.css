@@ -1,0 +1,10 @@
+.json-table-preview { flex: 1; min-height: 0; overflow: auto; padding: 1rem; }
+.json-table-overlay .base64-options input:not([type=checkbox]), .json-table-overlay select { max-width: 100%; padding: .5rem; background: hsl(var(--background)); color: inherit; border: 1px solid currentColor; border-radius: .25rem; }
+.json-table-overlay .json-parser-pane-footer { flex-wrap: wrap; gap: .75rem; }
+.json-table-overlay .json-parser-actions { flex-wrap: wrap; }
+.json-table-overlay ::deep .json-table-grid { border-collapse: collapse; min-width: 100%; font-size: .875rem; }
+.json-table-overlay ::deep .json-table-grid th, .json-table-overlay ::deep .json-table-grid td { border: 1px solid color-mix(in srgb, currentColor 25%, transparent); padding: .65rem; text-align: left; vertical-align: top; white-space: pre-wrap; overflow-wrap: anywhere; }
+.json-table-overlay ::deep .json-table-grid th { font-weight: 700; background: color-mix(in srgb, currentColor 8%, transparent); }
+.json-table-overlay ::deep summary { cursor: pointer; white-space: nowrap; }
+.json-table-overlay ::deep details[open] > summary { margin-bottom: .5rem; }
+@media (max-width: 767px) { .json-table-preview { min-height: 18rem; max-height: 65vh; } }

@@ -3,6 +3,24 @@ using GistHub.Models;
 using GistHub.Services;
 using Microsoft.AspNetCore.Components;
 
+using (var tableDocument = System.Text.Json.JsonDocument.Parse("[{\"name\":\"<script>alert(1)</script>\",\"nested\":{\"x\":1}},{\"extra\":null,\"name\":\"=1+1\"}]"))
+{
+    var table = JsonTableConverter.Create(tableDocument.RootElement);
+    Assert(table.Columns.SequenceEqual(new[] { "name", "nested", "extra" }), "Table columns must include keys from every object in source order.");
+    Assert(table.Rows[0][2].ValueKind == System.Text.Json.JsonValueKind.Undefined && JsonTableConverter.Text(table.Rows[1][2]) == "null", "Missing cells must remain distinct from explicit nulls.");
+    var html = JsonTableConverter.Html(tableDocument.RootElement);
+    Assert(!html.Contains("<script>") && html.Contains("&lt;script&gt;") && html.Split("<table>").Length == 3, "HTML exports must escape user text and preserve nested tables.");
+    var csv = JsonTableConverter.Csv(table);
+    Assert(csv.Contains("\"'=1+1\"") && csv.Contains("\"{\"\"x\"\":1}\""), "CSV must neutralize formulas and quote nested JSON correctly.");
+}
+foreach (var jsonValue in new[] { "[]", "{}", "null", "[1,\"two\",true]" })
+{
+    using var document = System.Text.Json.JsonDocument.Parse(jsonValue);
+    var table = JsonTableConverter.Create(document.RootElement);
+    Assert(table.Rows.All(row => row.Count == table.Columns.Count), "Primitive, empty, and mixed JSON must produce consistent table shapes.");
+}
+Console.WriteLine("PASS: JSON tables preserve heterogeneous and nested data and export safely.");
+
 var login = new GistHub.Pages.Login();
 SetProperty(login, "Storage", new FakeStorageService());
 SetProperty(login, "AppState", new AppState());

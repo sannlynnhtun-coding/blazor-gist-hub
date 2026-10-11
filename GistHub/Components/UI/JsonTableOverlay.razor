@@ -1,0 +1,110 @@
+@using System.Text.Json
+@using System.Text
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+@if (IsOpen)
+{
+    <section @ref="Dialog" class="json-parser-overlay json-table-overlay" role="dialog" aria-modal="true" aria-labelledby="json-table-title" @onkeydown="HandleKeyDown">
+        <header class="json-parser-header">
+            <div class="json-parser-title-group"><div class="json-parser-mark" aria-hidden="true">▦</div><div><div class="neo-kicker">Workbench</div><h1 id="json-table-title">JSON to Table</h1></div></div>
+            <button type="button" class="json-parser-close" @onclick="CloseAsync" aria-label="Close JSON to Table" title="Close (Esc)">✕</button>
+        </header>
+        <div class="base64-options"><span>Paste or upload JSON → explore the table → export. Processed locally.</span></div>
+        <div class="json-parser-workspace">
+            <section class="json-parser-pane json-parser-pane--input" aria-labelledby="json-table-input-title">
+                <div class="json-parser-pane-header"><div><span class="json-parser-step">01 · Input</span><h2 id="json-table-input-title">JSON data</h2></div><div class="json-parser-actions"><button type="button" class="json-parser-text-button" @onclick="Sample">Sample</button><button type="button" class="json-parser-text-button" @onclick="Clear">Clear</button></div></div>
+                <div class="json-parser-editor-wrap"><textarea @ref="InputElement" class="json-parser-input custom-scrollbar" aria-label="JSON input" value="@Input" @oninput="InputChanged" spellcheck="false" placeholder="Paste a JSON object or array"></textarea></div>
+                <div class="base64-file-panel"><label>Upload JSON or text (up to 2 MB)<InputFile OnChange="UploadAsync" accept=".json,.txt,application/json,text/plain" /></label></div>
+                @if (Error.Length > 0) { <p class="base64-feedback text-destructive" role="alert">@Error</p> }
+                <div class="json-parser-pane-footer"><span>@Input.Length characters</span><button type="button" class="btn btn-secondary btn-md" @onclick="Format" disabled="@(Data is null)">Format JSON</button></div>
+            </section>
+            <section class="json-parser-pane json-parser-pane--output" aria-labelledby="json-table-output-title">
+                <div class="json-parser-pane-header"><div><span class="json-parser-step">02 · Explore</span><h2 id="json-table-output-title">Table preview</h2></div></div>
+                <div class="base64-options">
+                    <input aria-label="Search table rows" placeholder="Search rows, including nested values" @bind="Search" @bind:event="oninput" />
+                    <label>Sort <select @bind="SortColumn"><option value="-1">Original order</option>@if (Data is not null) { @for (var i = 0; i < Data.Columns.Count; i++) { <option value="@i">@Data.Columns[i]</option> } }</select></label>
+                    <label><input type="checkbox" @bind="Descending" /> Descending</label>
+                </div>
+                <div class="json-table-preview custom-scrollbar">
+                    @if (Data is null) { <p>Enter JSON to see its table. Expand nested objects and arrays to explore their values.</p> }
+                    else { <JsonTableView Data="@VisibleData" /> @if (VisibleData.Rows.Count == 0) { <p>No matching rows.</p> } }
+                </div>
+                @if (Feedback.Length > 0) { <p class="base64-feedback" role="status">@Feedback</p> }
+                <div class="json-parser-pane-footer"><span>@(Data is null ? "0 rows" : $"{VisibleData.Rows.Count} of {Data.Rows.Count} rows")</span><div class="json-parser-actions"><button type="button" class="btn btn-secondary btn-md" @onclick="CopyAsync" disabled="@(Data is null)">Copy JSON</button><button type="button" class="btn btn-secondary btn-md" @onclick="() => ExportAsync(false)" disabled="@(Data is null)">Export CSV</button><button type="button" class="btn btn-primary btn-md" @onclick="() => ExportAsync(true)" disabled="@(Data is null)">Export HTML</button></div></div>
+            </section>
+        </div>
+    </section>
+}
+
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+    private ElementReference Dialog, InputElement;
+    private IJSObjectReference? Module;
+    private bool WasOpen, FocusPending, Descending;
+    private string Input = "", Error = "", Feedback = "", Search = "";
+    private int SortColumn = -1;
+    private JsonElement Root;
+    private JsonTableData? Data;
+    private JsonTableData VisibleData
+    {
+        get
+        {
+            if (Data is null) return new([], []);
+            IEnumerable<IReadOnlyList<JsonElement>> rows = Data.Rows.Where(row => Search.Length == 0 || row.Any(cell => JsonTableConverter.Text(cell).Contains(Search, StringComparison.OrdinalIgnoreCase)));
+            if (SortColumn >= 0 && SortColumn < Data.Columns.Count)
+                rows = Descending ? rows.OrderByDescending(row => JsonTableConverter.Text(row[SortColumn]), StringComparer.OrdinalIgnoreCase) : rows.OrderBy(row => JsonTableConverter.Text(row[SortColumn]), StringComparer.OrdinalIgnoreCase);
+            return new(Data.Columns, rows.ToArray());
+        }
+    }
+    protected override void OnParametersSet() { if (IsOpen && !WasOpen) FocusPending = true; WasOpen = IsOpen; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!FocusPending) return;
+        FocusPending = false;
+        Module ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/appShell.js");
+        await Module.InvokeVoidAsync("activateFocusTrap", Dialog);
+        await InputElement.FocusAsync();
+    }
+    private void InputChanged(ChangeEventArgs args) { Input = args.Value?.ToString() ?? ""; Parse(); }
+    private void Parse()
+    {
+        Data = null; Root = default; Error = Feedback = ""; SortColumn = -1;
+        if (string.IsNullOrWhiteSpace(Input)) return;
+        if (Input.Length > 2 * 1024 * 1024) { Error = "Use JSON under 2 MB."; return; }
+        try
+        {
+            using var document = JsonDocument.Parse(Input, new JsonDocumentOptions { MaxDepth = 64 });
+            Root = document.RootElement.Clone(); Data = JsonTableConverter.Create(Root);
+        }
+        catch (JsonException ex) { Error = $"Invalid JSON at line {ex.LineNumber + 1}, byte {ex.BytePositionInLine + 1}. {ex.Message}"; }
+    }
+    private void Sample() { Input = "[{\"name\":\"Avery\",\"active\":true,\"contact\":{\"city\":\"Yangon\"},\"tags\":[\"developer\",\"design\"]},{\"name\":\"Morgan\",\"active\":false,\"contact\":{\"city\":\"Mandalay\"},\"score\":42}]"; Search = ""; Parse(); }
+    private async Task Clear() { Input = Search = ""; Parse(); await InputElement.FocusAsync(); }
+    private void Format() { if (Data is not null) { Input = JsonSerializer.Serialize(Root, new JsonSerializerOptions { WriteIndented = true }); Parse(); } }
+    private async Task UploadAsync(InputFileChangeEventArgs args)
+    {
+        try { await using var stream = args.File.OpenReadStream(2 * 1024 * 1024); using var reader = new StreamReader(stream); Input = await reader.ReadToEndAsync(); Search = ""; Parse(); }
+        catch (IOException) { Data = null; Error = "Could not read the file. Choose a JSON or text file under 2 MB."; }
+    }
+    private async Task CopyAsync()
+    {
+        try { Feedback = await JS.InvokeAsync<bool>("copyToClipboard", Input) ? "JSON copied." : "Copy failed. Select the input and copy it manually."; }
+        catch (JSException) { Feedback = "Copy failed. Select the input and copy it manually."; }
+    }
+    private async Task ExportAsync(bool html)
+    {
+        if (Data is null) return;
+        var content = html ? "<!doctype html><html><head><meta charset=\"utf-8\"><title>JSON Table</title><style>table{border-collapse:collapse}th,td{border:1px solid #aaa;padding:8px;text-align:left;vertical-align:top}</style></head><body>" + JsonTableConverter.Html(Root) + "</body></html>" : "\uFEFF" + JsonTableConverter.Csv(VisibleData);
+        try { Module ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/appShell.js"); await Module.InvokeVoidAsync("downloadBytes", html ? "json-table.html" : "json-table.csv", Encoding.UTF8.GetBytes(content)); Feedback = html ? "Exported all data with nested tables." : "Exported visible rows. Nested values are preserved as JSON."; }
+        catch (JSException) { Feedback = "Export failed. Try again."; }
+    }
+    private async Task HandleKeyDown(KeyboardEventArgs args) { if (args.Key == "Escape") await CloseAsync(); }
+    private async Task CloseAsync() { if (Module is not null) await Module.InvokeVoidAsync("deactivateFocusTrap", Dialog); await OnClose.InvokeAsync(); }
+    public async ValueTask DisposeAsync()
+    {
+        if (Module is null) return;
+        try { await Module.InvokeVoidAsync("deactivateFocusTrap", Dialog); await Module.DisposeAsync(); } catch (JSDisconnectedException) { }
+    }
+}

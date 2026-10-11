@@ -1,0 +1,24 @@
+@using System.Text.Json
+
+<table class="json-table-grid">
+    <thead><tr>@foreach (var column in Data.Columns) { <th scope="col">@column</th> }</tr></thead>
+    <tbody>
+        @foreach (var row in Data.Rows)
+        {
+            <tr>@foreach (var cell in row)
+                {
+                    <td>
+                        @if (cell.ValueKind is JsonValueKind.Object or JsonValueKind.Array)
+                        {
+                            <details><summary>@(cell.ValueKind == JsonValueKind.Array ? $"Array ({cell.GetArrayLength()})" : $"Object ({cell.EnumerateObject().Count()})")</summary><JsonTableView Data="@JsonTableConverter.Create(cell)" /></details>
+                        }
+                        else { @JsonTableConverter.Text(cell) }
+                    </td>
+                }</tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter, EditorRequired] public JsonTableData Data { get; set; } = new([], []);
+}
