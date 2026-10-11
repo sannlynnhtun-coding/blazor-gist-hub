@@ -1,9 +1,17 @@
 .json-table-preview { flex: 1; min-height: 0; overflow: auto; padding: 1rem; }
+.json-table-overlay .json-parser-header { grid-template-columns: minmax(0, 1fr) auto; }
+.json-table-overlay .json-parser-close { grid-column: 2; justify-self: end; }
+.json-table-workspace--wide { grid-template-columns: minmax(0, 1fr); }
+.json-table-overlay [hidden] { display: none !important; }
+.json-table-fields { margin: 0 1rem .75rem; }
+.json-table-fields p { margin: .5rem 0; font-size: .875rem; }
+.json-table-field-list { display: flex; flex-direction: column; gap: .5rem; max-height: 12rem; overflow: auto; }
+.json-table-field-list label { display: flex; align-items: center; gap: .5rem; overflow-wrap: anywhere; }
 .json-table-overlay .base64-options input:not([type=checkbox]), .json-table-overlay select { max-width: 100%; padding: .5rem; background: hsl(var(--background)); color: inherit; border: 1px solid currentColor; border-radius: .25rem; }
 .json-table-overlay .json-parser-pane-footer { flex-wrap: wrap; gap: .75rem; }
 .json-table-overlay .json-parser-actions { flex-wrap: wrap; }
 .json-table-overlay ::deep .json-table-grid { border-collapse: collapse; min-width: 100%; font-size: .875rem; }
-.json-table-overlay ::deep .json-table-grid th, .json-table-overlay ::deep .json-table-grid td { border: 1px solid color-mix(in srgb, currentColor 25%, transparent); padding: .65rem; text-align: left; vertical-align: top; white-space: pre-wrap; overflow-wrap: anywhere; }
+.json-table-overlay ::deep .json-table-grid th, .json-table-overlay ::deep .json-table-grid td { min-width: 9rem; border: 1px solid color-mix(in srgb, currentColor 25%, transparent); padding: .65rem; text-align: left; vertical-align: top; white-space: pre-wrap; overflow-wrap: break-word; }
 .json-table-overlay ::deep .json-table-grid th { font-weight: 700; background: color-mix(in srgb, currentColor 8%, transparent); }
 .json-table-overlay ::deep summary { cursor: pointer; white-space: nowrap; }
 .json-table-overlay ::deep details[open] > summary { margin-bottom: .5rem; }

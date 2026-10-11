@@ -40,7 +40,7 @@ Blazor pages and components
 - Curated `@sannlynnhtun-coding` public-gist collection
 - Markdown, Mermaid, and syntax-highlighted code previews
 - JSON formatting/parsing and code-image utilities
-- JSON to Table with live preview, JSON/text upload, expandable nested data, row search and sorting, and local CSV/HTML export
+- JSON to Table with live preview, JSON/text upload, a hide/show input panel, expandable nested data, object/array field checkboxes shared by preview and CSV/HTML exports, and row search and sorting
 - Base64 text and file encoding/decoding from Tools, with UTF-8/Latin-1, live mode, separate-line processing, URL-safe output, and local file downloads
 - Responsive UI, themes, sound controls, file blur, and PWA support
 

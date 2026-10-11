@@ -21,6 +21,24 @@ foreach (var jsonValue in new[] { "[]", "{}", "null", "[1,\"two\",true]" })
 }
 Console.WriteLine("PASS: JSON tables preserve heterogeneous and nested data and export safely.");
 
+using (var filterDocument = System.Text.Json.JsonDocument.Parse("{\"metadata\":{\"sources\":[\"hidden-source\"]},\"records\":[{\"title\":\"Keep\",\"sources\":[\"hidden-record-source\"],\"contact\":{\"city\":\"Yangon\"}},{\"title\":\"Also keep\",\"sources\":[\"other-source\"]}],\"metadata/sources\":[],\"literal\":7}"))
+{
+    var original = filterDocument.RootElement;
+    var fields = JsonTableFieldFilter.Discover(original);
+    Assert(fields.Count(field => field.Label == "$[\"records\"][][\"sources\"]") == 1, "Repeated array fields must have one checkbox.");
+    Assert(fields.All(field => !field.Label.EndsWith("[\"title\"]") && !field.Label.EndsWith("[\"literal\"]")), "Only object and array fields can be filtered.");
+    var hidden = new HashSet<string> { fields.Single(field => field.Label == "$[\"metadata\"]").Path, fields.Single(field => field.Label == "$[\"records\"][][\"sources\"]").Path };
+    var filtered = JsonTableFieldFilter.Apply(original, hidden);
+    Assert(!filtered.TryGetProperty("metadata", out _) && filtered.GetProperty("records").EnumerateArray().All(record => !record.TryGetProperty("sources", out _)), "Parent and array-item filters must remove selected nested fields throughout the data.");
+    Assert(filtered.GetProperty("metadata/sources").GetArrayLength() == 0 && filtered.GetProperty("literal").GetInt32() == 7, "Escaped property paths and scalar fields must remain intact.");
+    Assert(original.TryGetProperty("metadata", out _) && original.GetProperty("records")[0].TryGetProperty("sources", out _), "Filtering must not mutate the source JSON.");
+    var html = JsonTableConverter.Html(filtered);
+    var csv = JsonTableConverter.Csv(JsonTableConverter.Create(filtered));
+    Assert(!html.Contains("hidden-source") && !html.Contains("hidden-record-source") && !csv.Contains("hidden-record-source"), "Both export formats must exclude hidden nested data.");
+    Assert(JsonTableFieldFilter.Apply(original, new HashSet<string>()).GetRawText() == original.GetRawText(), "Showing all fields must restore the complete original data.");
+}
+Console.WriteLine("PASS: nested field filters apply to preview and exports without changing source JSON.");
+
 var login = new GistHub.Pages.Login();
 SetProperty(login, "Storage", new FakeStorageService());
 SetProperty(login, "AppState", new AppState());
