@@ -1,4 +1,4 @@
-@page "/my-gists"
+﻿@page "/my-gists"
 @using GistHub.Components
 @using GistHub.Models
 @using GistHub.Services
@@ -8,6 +8,30 @@
 @inject NavigationManager Navigation
 @inject IGithubService Github
 @inject IJSRuntime JS
+
+<SectionContent SectionName="collection-actions">
+        <button data-testid="collection-bookmarks-toggle"
+                @onclick="ToggleBookmarksFilter"
+                class="neo-topbar-bookmarks neo-icon-button @(BookmarksOnly ? "is-active" : "")"
+                type="button"
+                disabled="@(!AppState.IsAuthenticated)"
+                title="@CollectionBookmarksButtonTitle"
+                aria-label="@CollectionBookmarksButtonTitle"
+                aria-pressed="@(BookmarksOnly ? "true" : "false")">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="@(BookmarksOnly ? "currentColor" : "none")" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+        </button>
+            <button @onclick="OpenBookmarkRestorePickerAsync" disabled="@(!AppState.IsAuthenticated || IsRestoringBookmarks)" class="neo-icon-button" type="button" aria-label="Restore bookmarks from JSON" title="Restore bookmarks from JSON" data-testid="collection-bookmarks-restore">
+                @if (IsRestoringBookmarks)
+                {
+                    <div class="w-4 h-4 border-2 border-current/30 border-t-current rounded-full animate-spin"></div>
+                }
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+            </button>
+            <InputFile id="bookmark-restore-input"
+                       class="sr-only"
+                       accept=".json,application/json"
+                       OnChange="RestoreBookmarksAsync" />
+</SectionContent>
 
 @if (CopyFailed)
 {
@@ -77,18 +101,6 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                 Download bookmarks
             </button>
-            <button @onclick="OpenBookmarkRestorePickerAsync" disabled="@(!AppState.IsAuthenticated || IsRestoringBookmarks)" class="btn btn-outline btn-md" title="Restore bookmarks from JSON">
-                @if (IsRestoringBookmarks)
-                {
-                    <div class="w-4 h-4 border-2 border-current/30 border-t-current rounded-full animate-spin"></div>
-                }
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-                Restore bookmarks
-            </button>
-            <InputFile id="bookmark-restore-input"
-                       class="sr-only"
-                       accept=".json,application/json"
-                       OnChange="RestoreBookmarksAsync" />
             <button @onclick='() => Navigation.NavigateTo("/editor")' class="btn btn-primary btn-md">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
                 New Snippet
@@ -103,18 +115,7 @@
                 Showing @FilteredGists.Count of @TotalGistsCount gist@(TotalGistsCount == 1 ? "" : "s")
             </p>
         </div>
-        <button data-testid="collection-bookmarks-toggle"
-                @onclick="ToggleBookmarksFilter"
-                class="btn btn-md min-h-11 whitespace-nowrap @(BookmarksOnly ? "btn-primary" : "btn-outline")"
-                type="button"
-                disabled="@(!AppState.IsAuthenticated)"
-                title="@CollectionBookmarksButtonTitle"
-                aria-label="@CollectionBookmarksButtonTitle"
-                aria-pressed="@(BookmarksOnly ? "true" : "false")">
-            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="@(BookmarksOnly ? "currentColor" : "none")" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
-            <span>Bookmarks</span>
-            <span class="min-w-6 rounded border border-current/30 bg-background/20 px-1.5 py-0.5 text-center font-mono text-[10px] font-black" aria-label="@($"{ScopedBookmarkedGistsCount} bookmarked gists")">@ScopedBookmarkedGistsCount</span>
-        </button>
+
     </div>
 
     @if (!string.IsNullOrWhiteSpace(CollectionFilter))
@@ -137,7 +138,7 @@
         </div>
     }
 
-    @if (!string.IsNullOrWhiteSpace(BookmarkBackupMessage) && (IsProfileToolsVisible || !BookmarkBackupWasSuccessful))
+    @if (!string.IsNullOrWhiteSpace(BookmarkBackupMessage))
     {
         <div role="status" class="p-3 rounded-xl border text-sm font-semibold @(BookmarkBackupWasSuccessful ? "border-border bg-[#EDF3EC] text-[#346538]" : "border-border bg-[#FDEBEC] text-[#9F2F2D]")">
             @BookmarkBackupMessage
