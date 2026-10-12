@@ -22,6 +22,10 @@
             <section class="json-parser-pane json-parser-pane--output" aria-labelledby="json-table-output-title">
                 <div class="json-parser-pane-header"><div><span class="json-parser-step">02 · Explore</span><h2 id="json-table-output-title">Table preview</h2></div></div>
                 <div class="base64-options">
+                    @if (ArrayProperties.Count > 0)
+                    {
+                        <label>Table rows <select value="@TableSource" @onchange="ChangeTableSource"><option value="">Entire JSON</option>@foreach (var name in ArrayProperties) { <option value="@("property:" + name)">@name</option> }</select></label>
+                    }
                     <input aria-label="Search table rows" placeholder="Search rows, including nested values" @bind="Search" @bind:event="oninput" />
                     <label>Sort <select @bind="SortColumn"><option value="-1">Original order</option>@if (Data is not null) { @for (var i = 0; i < Data.Columns.Count; i++) { <option value="@i">@Data.Columns[i]</option> } }</select></label>
                     <label><input type="checkbox" @bind="Descending" /> Descending</label>
@@ -60,6 +64,8 @@
     private int SortColumn = -1;
     private JsonElement Root;
     private JsonElement FilteredRoot;
+    private string TableSource = "";
+    private IReadOnlyList<string> ArrayProperties = [];
     private IReadOnlyList<JsonTableField> Fields = [];
     private readonly HashSet<string> HiddenFields = new(StringComparer.Ordinal);
     private JsonTableData? Data;
@@ -86,13 +92,20 @@
     private void InputChanged(ChangeEventArgs args) { Input = args.Value?.ToString() ?? ""; Parse(); }
     private void Parse()
     {
-        Data = null; Root = default; Fields = []; Error = Feedback = ""; SortColumn = -1;
+        var keepEntireJson = Data is not null && TableSource.Length == 0;
+        Data = null; Root = default; Fields = []; ArrayProperties = []; Error = Feedback = ""; SortColumn = -1;
         if (string.IsNullOrWhiteSpace(Input)) return;
         if (Input.Length > 2 * 1024 * 1024) { Error = "Use JSON under 2 MB."; return; }
         try
         {
             using var document = JsonDocument.Parse(Input, new JsonDocumentOptions { MaxDepth = 64 });
-            Root = document.RootElement.Clone(); Fields = JsonTableFieldFilter.Discover(Root);
+            Root = document.RootElement.Clone();
+            ArrayProperties = Root.ValueKind == JsonValueKind.Object
+                ? Root.EnumerateObject().Where(property => property.Value.ValueKind == JsonValueKind.Array).Select(property => property.Name).ToArray()
+                : [];
+            if (!ArrayProperties.Any(name => TableSource == "property:" + name))
+                TableSource = !keepEntireJson && ArrayProperties.Count == 1 ? "property:" + ArrayProperties[0] : "";
+            Fields = JsonTableFieldFilter.Discover(TableRoot);
             HiddenFields.IntersectWith(Fields.Select(field => field.Path));
             RefreshFields();
         }
@@ -105,7 +118,16 @@
         if (args.Value is true) HiddenFields.Remove(path); else HiddenFields.Add(path);
         SortColumn = -1; Feedback = ""; RefreshFields();
     }
-    private void RefreshFields() { FilteredRoot = JsonTableFieldFilter.Apply(Root, HiddenFields); Data = JsonTableConverter.Create(FilteredRoot); }
+    private JsonElement TableRoot => TableSource.StartsWith("property:", StringComparison.Ordinal)
+        ? Root.GetProperty(TableSource[9..]) : Root;
+    private void ChangeTableSource(ChangeEventArgs args)
+    {
+        TableSource = args.Value?.ToString() ?? "";
+        Search = Feedback = ""; SortColumn = -1;
+        HiddenFields.Clear(); Fields = JsonTableFieldFilter.Discover(TableRoot);
+        RefreshFields();
+    }
+    private void RefreshFields() { FilteredRoot = JsonTableFieldFilter.Apply(TableRoot, HiddenFields); Data = JsonTableConverter.Create(FilteredRoot); }
     private void Sample() { Input = "[{\"name\":\"Avery\",\"active\":true,\"contact\":{\"city\":\"Yangon\"},\"tags\":[\"developer\",\"design\"]},{\"name\":\"Morgan\",\"active\":false,\"contact\":{\"city\":\"Mandalay\"},\"score\":42}]"; Search = ""; Parse(); }
     private async Task Clear() { Input = Search = ""; Parse(); await InputElement.FocusAsync(); }
     private void Format() { if (Data is not null) { Input = JsonSerializer.Serialize(Root, new JsonSerializerOptions { WriteIndented = true }); Parse(); } }
