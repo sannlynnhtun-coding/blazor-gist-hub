@@ -3330,6 +3330,9 @@ span[class~="rounded-md"][class~="border"] {
 
 .code-image-markdown li + li { margin-top: 0.24em; }
 
+.code-image-markdown ul { list-style-type: disc; }
+.code-image-markdown ol { list-style-type: decimal; }
+
 .code-image-markdown blockquote {
   margin: 0.9em 0;
   padding: 0.62em 0.85em;
