@@ -3089,7 +3089,8 @@ span[class~="rounded-md"][class~="border"] {
   min-height: 18rem;
   flex: 1;
   overflow: auto;
-  place-items: center;
+  align-items: start;
+  justify-items: safe center;
   padding: 1rem;
   background: #111;
   border: 3px solid hsl(var(--border));
