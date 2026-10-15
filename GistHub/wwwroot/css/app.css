@@ -1937,15 +1937,17 @@ span[class~="rounded-md"][class~="border"] {
   .neo-topbar {
     min-height: calc(4.25rem + env(safe-area-inset-top));
     flex: 0 0 auto;
+    flex-wrap: wrap;
     gap: 0.5rem;
-    padding-top: env(safe-area-inset-top) !important;
+    padding-top: calc(0.6rem + env(safe-area-inset-top)) !important;
+    padding-bottom: 0.75rem !important;
     padding-right: max(0.75rem, env(safe-area-inset-right)) !important;
     padding-left: max(0.75rem, env(safe-area-inset-left)) !important;
   }
 
   .neo-topbar-brand {
     min-width: 0;
-    flex: 0 1 auto;
+    flex: 1 0 100%;
     gap: 0.5rem !important;
   }
 
@@ -1974,10 +1976,13 @@ span[class~="rounded-md"][class~="border"] {
   }
 
   .neo-topbar-actions {
-    flex: 0 0 auto;
+    flex: 1 1 100%;
+    min-width: 0;
+    flex-wrap: wrap;
     gap: 0.45rem !important;
   }
 
+  .neo-topbar-actions > .neo-icon-button,
   .neo-new-snippet,
   .neo-theme-toggle,
   .neo-tools-trigger,
@@ -1989,14 +1994,23 @@ span[class~="rounded-md"][class~="border"] {
     height: 2.75rem !important;
     min-height: 2.75rem;
     padding: 0 !important;
+    flex-shrink: 0;
+    box-shadow: 2px 2px 0 var(--neo-shadow);
+  }
+
+  .neo-topbar-actions .neo-toolbar-menu {
+    position: static;
   }
 
   .neo-toolbar-dropdown {
-    position: fixed;
-    top: calc(4.75rem + env(safe-area-inset-top));
-    right: max(0.75rem, env(safe-area-inset-right));
-    left: max(0.75rem, env(safe-area-inset-left));
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    left: 0;
     width: auto;
+    max-height: 55dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .global-search-layer {
@@ -2135,6 +2149,7 @@ span[class~="rounded-md"][class~="border"] {
   }
 
   .neo-gist-card {
+    min-width: 0;
     max-width: 100%;
     box-shadow: 4px 4px 0 var(--neo-shadow) !important;
   }
@@ -2157,6 +2172,10 @@ span[class~="rounded-md"][class~="border"] {
     min-width: 0;
   }
 
+  .neo-gist-card h3 {
+    overflow-wrap: anywhere;
+  }
+
   .neo-gist-card__header > :first-child {
     overflow: hidden;
   }
@@ -2171,6 +2190,8 @@ span[class~="rounded-md"][class~="border"] {
 
   .neo-gist-card__actions {
     flex: 0 0 auto;
+    max-width: 100%;
+    flex-wrap: wrap;
     opacity: 1 !important;
     transform: none !important;
   }
@@ -2187,7 +2208,7 @@ span[class~="rounded-md"][class~="border"] {
     padding: 0 !important;
   }
 
-  .neo-gist-card--compact .neo-gist-card__header {
+  .neo-gist-card__header {
     flex-wrap: wrap;
   }
 
