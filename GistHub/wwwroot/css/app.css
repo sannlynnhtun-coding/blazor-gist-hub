@@ -3717,3 +3717,18 @@ span[class~="rounded-md"][class~="border"] {
 .loading-progress-text:after {
     content: var(--blazor-load-percentage-text, "Loading");
 }
+
+/* Understated capture themes for documentation and professional sharing. */
+.code-image-preview-theme--simple,
+.code-image-preview-theme--professional { background-image: none; }
+:is(.code-image-preview-theme--simple, .code-image-preview-theme--professional) .code-image-orbit { display: none; }
+:is(.code-image-preview-theme--simple, .code-image-preview-theme--professional) .code-image-card {
+  border: 1px solid var(--capture-muted);
+  box-shadow: 0 3px 12px rgb(15 23 42 / 0.08);
+}
+:is(.code-image-preview-theme--simple, .code-image-preview-theme--professional) :is(.code-image-card-meta h3, .code-image-markdown h1, .code-image-markdown h2, .code-image-markdown h3, .code-image-markdown h4, .code-image-markdown h5, .code-image-markdown h6) { font-weight: 600; }
+.code-image-preview-theme--simple .code-image-markdown pre { background: #f8fafc; }
+.code-image-preview-theme--simple :is(.hljs-string, .hljs-regexp, .hljs-symbol) { color: #8f4a00; }
+.code-image-preview-theme--simple :is(.hljs-number, .hljs-literal, .hljs-type) { color: #7044b6; }
+.code-image-preview-theme--simple :is(.hljs-title, .hljs-name) { color: #166534; }
+.code-image-preview-theme--simple :is(.hljs-built_in, .hljs-attribute, .hljs-attr) { color: #0e7490; }

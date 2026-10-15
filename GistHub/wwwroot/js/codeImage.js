@@ -3,19 +3,21 @@
         midnight: { background: '#0d1022', glow: '#6845ff', accent: '#78dce8', card: '#121426', text: '#f7f3e8', muted: '#aaa7bf' },
         signal: { background: '#101410', glow: '#2f773c', accent: '#71d84b', card: '#111811', text: '#efffe9', muted: '#91a68f' },
         paper: { background: '#fff0cf', glow: '#ff9f5a', accent: '#ff4f87', card: '#fffaf0', text: '#17130f', muted: '#6d6257' },
-        grape: { background: '#241231', glow: '#b13d8c', accent: '#ff7cb8', card: '#1c1027', text: '#fff4fa', muted: '#c3a8bd' }
+        grape: { background: '#241231', glow: '#b13d8c', accent: '#ff7cb8', card: '#1c1027', text: '#fff4fa', muted: '#c3a8bd' },
+        simple: { background: '#f3f4f6', glow: '#f3f4f6', accent: '#1d4ed8', card: '#ffffff', text: '#111827', muted: '#4b5563', clean: true, light: true },
+        professional: { background: '#e2e8f0', glow: '#e2e8f0', accent: '#93c5fd', card: '#172033', text: '#f1f5f9', muted: '#a8b5c9', clean: true }
     };
 
     const syntaxColors = (theme) => ({
         keyword: theme.accent,
         selector: theme.accent,
-        literal: '#ff7aa8',
-        string: theme === themes.paper ? '#8f4a00' : '#ffd866',
-        title: theme === themes.signal ? '#a8ee92' : '#a9dc76',
-        type: theme === themes.paper ? '#6e3fc0' : '#ab9df2',
-        attribute: '#78dce8',
-        number: theme === themes.paper ? '#7044b6' : '#ab9df2',
-        built_in: '#78dce8',
+        literal: theme.light ? '#9f1239' : '#ff7aa8',
+        string: (theme.light || theme === themes.paper) ? '#8f4a00' : '#ffd866',
+        title: theme.light ? '#166534' : theme === themes.signal ? '#a8ee92' : '#a9dc76',
+        type: (theme.light || theme === themes.paper) ? '#6e3fc0' : '#ab9df2',
+        attribute: theme.light ? '#0e7490' : '#78dce8',
+        number: (theme.light || theme === themes.paper) ? '#7044b6' : '#ab9df2',
+        built_in: theme.light ? '#0e7490' : '#78dce8',
         variable: theme.text,
         comment: theme.muted,
         meta: theme.muted,
@@ -266,36 +268,39 @@
         context.fillStyle = gradient;
         context.fillRect(0, 0, width, height);
 
-        context.globalAlpha = 0.12;
-        context.fillStyle = theme.text;
-        for (let x = 18; x < width; x += 24) {
-            for (let y = 18; y < height; y += 24) {
-                context.beginPath();
-                context.arc(x, y, 1.3, 0, Math.PI * 2);
-                context.fill();
+        if (!theme.clean) {
+            context.globalAlpha = 0.12;
+            context.fillStyle = theme.text;
+            for (let x = 18; x < width; x += 24) {
+                for (let y = 18; y < height; y += 24) {
+                    context.beginPath();
+                    context.arc(x, y, 1.3, 0, Math.PI * 2);
+                    context.fill();
+                }
             }
-        }
-        context.globalAlpha = 1;
+            context.globalAlpha = 1;
 
-        context.fillStyle = theme.accent;
-        context.beginPath();
-        context.arc(width - padding * 0.55, padding * 0.7, Math.min(150, width * 0.11), 0, Math.PI * 2);
-        context.fill();
+            context.fillStyle = theme.accent;
+            context.beginPath();
+            context.arc(width - padding * 0.55, padding * 0.7, Math.min(150, width * 0.11), 0, Math.PI * 2);
+            context.fill();
+
+        }
 
         const cardX = padding;
         const cardY = padding;
         const cardWidth = width - padding * 2;
         const cardHeight = height - padding * 2;
 
-        context.fillStyle = 'rgba(0,0,0,0.38)';
-        roundRect(context, cardX + 16, cardY + 16, cardWidth, cardHeight, 18);
+        context.fillStyle = theme.clean ? 'rgba(15,23,42,0.08)' : 'rgba(0,0,0,0.38)';
+        roundRect(context, cardX + (theme.clean ? 3 : 16), cardY + (theme.clean ? 3 : 16), cardWidth, cardHeight, 18);
         context.fill();
         context.fillStyle = theme.card;
         roundRect(context, cardX, cardY, cardWidth, cardHeight, 18);
         context.fill();
         context.strokeStyle = theme.text;
         context.globalAlpha = 0.68;
-        context.lineWidth = 3;
+        context.lineWidth = theme.clean ? 1 : 3;
         context.stroke();
         context.globalAlpha = 1;
 
@@ -303,7 +308,7 @@
         const innerWidth = cardWidth - 84;
         const barY = cardY + 32;
         ['#ff5f57', '#febc2e', '#28c840'].forEach((color, index) => {
-            context.fillStyle = color;
+            context.fillStyle = theme.clean ? theme.muted : color;
             context.beginPath();
             context.arc(innerX + index * 24, barY, 7, 0, Math.PI * 2);
             context.fill();
@@ -317,7 +322,7 @@
 
         context.textAlign = 'left';
         context.fillStyle = theme.text;
-        context.font = '900 30px "Arial Black", "Aptos Display", sans-serif';
+        context.font = theme.clean ? '600 30px "Aptos", sans-serif' : '900 30px "Arial Black", "Aptos Display", sans-serif';
         context.fillText(options.title || 'Untitled snippet', innerX, cardY + 92);
         context.fillStyle = theme.muted;
         context.font = '700 16px "Aptos", sans-serif';
@@ -377,14 +382,14 @@
             width: 100%; height: 100%; display: flex; flex-direction: column; overflow: hidden;
             padding: var(--capture-padding); color: ${theme.text};
             background-color: ${theme.background};
-            background-image: radial-gradient(circle at 80% 10%, ${theme.accent} 0 7%, transparent 7.2%), radial-gradient(${theme.text} 1px, transparent 1px), linear-gradient(135deg, ${theme.background}, ${theme.glow});
+            background-image: ${theme.clean ? 'none' : `radial-gradient(circle at 80% 10%, ${theme.accent} 0 7%, transparent 7.2%), radial-gradient(${theme.text} 1px, transparent 1px), linear-gradient(135deg, ${theme.background}, ${theme.glow})`};
             background-size: auto, 24px 24px, auto;
             font-family: Aptos, Arial, sans-serif;
         }
         .markdown-export-card {
             min-height: 0; flex: 1; display: flex; flex-direction: column; overflow: hidden;
-            color: ${theme.text}; background: ${theme.card}; border: 3px solid ${theme.muted};
-            border-radius: 18px; box-shadow: 16px 16px 0 rgba(0, 0, 0, .35);
+            color: ${theme.text}; background: ${theme.card}; border: ${theme.clean ? 1 : 3}px solid ${theme.muted};
+            border-radius: 18px; box-shadow: ${theme.clean ? '0 3px 12px rgba(15, 23, 42, .08)' : '16px 16px 0 rgba(0, 0, 0, .35)'};
         }
         .markdown-export-bar {
             min-height: 64px; display: flex; flex: 0 0 auto; align-items: center; justify-content: space-between;
@@ -397,13 +402,13 @@
         .markdown-export-dots i:nth-child(3) { opacity: .3; }
         .markdown-export-meta { display: flex; flex: 0 0 auto; align-items: flex-start; justify-content: space-between; gap: 24px; padding: 28px 42px 10px; }
         .markdown-export-meta > div { min-width: 0; flex: 1; }
-        .markdown-export-meta h1 { width: 100%; margin: 0; overflow: hidden; color: ${theme.text}; font-size: 34px; font-weight: 900; line-height: 1.15; text-overflow: ellipsis; white-space: nowrap; }
+        .markdown-export-meta h1 { width: 100%; margin: 0; overflow: hidden; color: ${theme.text}; font-size: 34px; font-weight: ${theme.clean ? 600 : 900}; line-height: 1.15; text-overflow: ellipsis; white-space: nowrap; }
         .markdown-export-meta p, .markdown-export-meta span { margin: 6px 0 0; color: ${theme.muted}; font-size: 16px; font-weight: 700; }
         .markdown-export-meta span { white-space: nowrap; }
         .markdown-export-body { min-height: 0; flex: 1; overflow: hidden; padding: 14px 42px 38px; font-size: var(--capture-font-size); line-height: 1.55; overflow-wrap: anywhere; }
         .markdown-export-body > :first-child { margin-top: 0; }
         .markdown-export-body > :last-child { margin-bottom: 0; }
-        .markdown-export-body h1, .markdown-export-body h2, .markdown-export-body h3, .markdown-export-body h4, .markdown-export-body h5, .markdown-export-body h6 { margin: 1.2em 0 .45em; color: ${theme.text}; font-weight: 900; line-height: 1.15; }
+        .markdown-export-body h1, .markdown-export-body h2, .markdown-export-body h3, .markdown-export-body h4, .markdown-export-body h5, .markdown-export-body h6 { margin: 1.2em 0 .45em; color: ${theme.text}; font-weight: ${theme.clean ? 600 : 900}; line-height: 1.15; }
         .markdown-export-body h1 { padding-bottom: .28em; border-bottom: 2px solid ${theme.muted}; font-size: 2em; }
         .markdown-export-body h2 { padding-bottom: .22em; border-bottom: 1px solid ${theme.muted}; font-size: 1.55em; }
         .markdown-export-body h3 { font-size: 1.25em; }
@@ -414,11 +419,11 @@
         .markdown-export-body blockquote p { margin: 0; }
         .markdown-export-body a { color: ${theme.accent}; text-decoration: underline; text-underline-offset: .16em; }
         .markdown-export-body code { padding: .12em .32em; color: ${theme.text}; background: rgba(127, 127, 127, .16); border-radius: 4px; font-family: "Cascadia Code", Consolas, monospace; font-size: .88em; }
-        .markdown-export-body pre { margin: 1em 0; overflow: hidden; padding: 1em 1.1em; background: rgba(0, 0, 0, .32); border: 1px solid ${theme.muted}; border-radius: 8px; }
+        .markdown-export-body pre { margin: 1em 0; overflow: hidden; padding: 1em 1.1em; background: ${theme.light ? '#f8fafc' : 'rgba(0, 0, 0, .32)'}; border: 1px solid ${theme.muted}; border-radius: 8px; }
         .markdown-export-body pre code { display: block; padding: 0; background: transparent; white-space: pre-wrap; }
         .markdown-export-body table { width: 100%; margin: 1em 0; border-collapse: collapse; font-size: .92em; }
         .markdown-export-body th, .markdown-export-body td { padding: .58em .72em; text-align: left; border: 1px solid ${theme.muted}; }
-        .markdown-export-body th { color: ${theme.text}; background: rgba(127, 127, 127, .16); font-weight: 900; }
+        .markdown-export-body th { color: ${theme.text}; background: rgba(127, 127, 127, .16); font-weight: ${theme.clean ? 600 : 900}; }
         .markdown-export-body tr:nth-child(even) { background: rgba(127, 127, 127, .08); }
         .markdown-export-body hr { height: 2px; margin: 1.35em 0; background: ${theme.muted}; border: 0; opacity: .55; }
         .markdown-task-marker { display: inline-block; margin-right: .35em; color: ${theme.accent}; }
@@ -426,10 +431,10 @@
         .markdown-empty { color: ${theme.muted}; font-style: italic; }
         .hljs-comment, .hljs-quote, .hljs-meta { color: ${theme.muted}; }
         .hljs-keyword, .hljs-selector-tag, .hljs-section { color: ${theme.accent}; }
-        .hljs-string, .hljs-regexp, .hljs-symbol { color: ${theme === themes.paper ? '#8f4a00' : '#ffd866'}; }
-        .hljs-number, .hljs-literal, .hljs-type { color: ${theme === themes.paper ? '#7044b6' : '#ab9df2'}; }
-        .hljs-title, .hljs-name { color: ${theme === themes.signal ? '#a8ee92' : '#a9dc76'}; }
-        .hljs-built_in, .hljs-attribute, .hljs-attr { color: #78dce8; }
+        .hljs-string, .hljs-regexp, .hljs-symbol { color: ${(theme.light || theme === themes.paper) ? '#8f4a00' : '#ffd866'}; }
+        .hljs-number, .hljs-literal, .hljs-type { color: ${(theme.light || theme === themes.paper) ? '#7044b6' : '#ab9df2'}; }
+        .hljs-title, .hljs-name { color: ${theme.light ? '#166534' : theme === themes.signal ? '#a8ee92' : '#a9dc76'}; }
+        .hljs-built_in, .hljs-attribute, .hljs-attr { color: ${syntaxColors(theme).built_in}; }
         .markdown-export-signature { display: flex; flex: 0 0 auto; justify-content: space-between; gap: 20px; padding-top: 20px; color: ${theme.text}; font-size: 14px; font-weight: 800; letter-spacing: .12em; opacity: .72; }
     `;
 
