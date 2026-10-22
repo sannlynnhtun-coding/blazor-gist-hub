@@ -78,6 +78,9 @@ public class GistOwner
 
 public class GistFile
 {
+    [JsonPropertyName("truncated")]
+    public bool Truncated { get; set; }
+
     [JsonPropertyName("filename")]
     public string Filename { get; set; } = string.Empty;
 

@@ -2,6 +2,8 @@
 @implements IAsyncDisposable
 @inject IJSRuntime JS
 @inject AppState AppState
+@inject DiagramGistService DiagramGists
+@inject IStorageService Storage
 
 <PageTitle>Diagram Editor · GistHub</PageTitle>
 <NavigationLock ConfirmExternalNavigation="@Dirty" OnBeforeInternalNavigation="BeforeNavigation" />
@@ -26,6 +28,13 @@
                     <label class="diagram-upload">Import .drawio<input type="file" accept=".drawio,.xml" @ref="FileInput" @onchange="Import" disabled="@(Editor is null || Busy)" /></label>
                 </div>
                 <label for="diagram-search">Find a draft</label>
+                @if (AppState.IsAuthenticated && CurrentOwner != "guest")
+                { <button disabled="@Busy" @onclick="ShowGuestDrafts">Browse guest drafts</button> }
+                @if (CurrentOwner != Owner)
+                {
+                    <p>Viewing guest or previous-account drafts. Copy a selected draft to your active account before saving to GitHub.</p>
+                    <button disabled="@Busy" @onclick="ShowAccountDrafts">Active account drafts</button>
+                }
                 <input id="diagram-search" @bind="Search" @bind:event="oninput" placeholder="Search names" />
                 <ul>
                     @foreach (var doc in Documents.Where(d => d.Title.Contains(Search, StringComparison.OrdinalIgnoreCase)))
@@ -52,6 +61,43 @@
                 <button disabled="@(Selected is null || Busy)" @onclick="Retry">Retry editor</button>
             </div>
             <p role="status" aria-live="polite">@Status</p>
+            <details class="diagram-gist">
+                <summary>GitHub Gist</summary>
+                <label for="diagram-gist-id">Open Gist ID or URL</label>
+                <div class="diagram-actions">
+                    <input id="diagram-gist-id" @bind="GistInput" placeholder="https://gist.github.com/…" />
+                    <button disabled="@(Editor is null || Busy)" @onclick="FindGist">Find diagram files</button>
+                </div>
+                @if (RemoteGist is not null)
+                {
+                    <label for="diagram-gist-file">Diagram file</label>
+                    <select id="diagram-gist-file" @bind="RemoteFilename">
+                        @foreach (var file in RemoteGist.Files.Keys.Where(f => f.EndsWith(".drawio", StringComparison.OrdinalIgnoreCase) || f.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)))
+                        { <option value="@file">@file</option> }
+                    </select>
+                    <button disabled="@(Busy || string.IsNullOrEmpty(RemoteFilename))" @onclick="OpenRemote">Open as local draft</button>
+                    <p>@(RemoteGist.Public ? "Public Gist" : "Secret Gist") · @RemoteGist.Owner?.Login</p>
+                }
+                @if (!AppState.IsAuthenticated)
+                { <p><a href="login">Connect GitHub</a> to save diagrams to a Gist. Guest drafts remain in the guest library.</p> }
+                else if (CurrentOwner != Owner)
+                { <button disabled="@Busy" @onclick="CopyToAccount">Copy current draft to active account</button> }
+                else
+                {
+                    <label for="diagram-gist-name">Filename for a new Gist</label>
+                    <input id="diagram-gist-name" @bind="GistFilename" maxlength="127" />
+                    <label class="diagram-checkbox"><input type="checkbox" @bind="PublicGist" /> Make new Gist public</label>
+                    <p>Secret Gists are accessible to anyone with their link.</p>
+                    <div class="diagram-actions">
+                        @if (Selected?.GistId is not null)
+                        { <button disabled="@(Busy || Selected is null)" @onclick="UpdateRemote">Update linked Gist</button> }
+                        <button disabled="@(Busy || Selected is null)" @onclick="CreateRemote">Save as new Gist</button>
+                    </div>
+                }
+                @if (Selected?.GistId is not null)
+                { <a href="@($"https://gist.github.com/{Selected.GistId}")" target="_blank" rel="noopener noreferrer">View linked Gist</a> }
+                @if (RemoteStatus is not null) { <p role="status">@RemoteStatus</p> }
+            </details>
             <div class="diagram-frame" @ref="FrameHost"></div>
         </div>
     </div>
@@ -65,6 +111,10 @@
     private DiagramDocument? Selected;
     private string Title = "Untitled diagram", Search = "", Status = "Choose or create a diagram.";
     private string? Error;
+    private string GistInput = "", GistFilename = "diagram.drawio", RemoteFilename = "";
+    private bool PublicGist;
+    private LocalGist? RemoteGist;
+    private string? RemoteStatus;
     private bool Ready, Dirty, Busy, LibraryVisible = true, Disposed;
     private string Owner => AppState.CurrentProfile?.GithubUsername.Trim().ToLowerInvariant() is { Length: > 0 } username ? "github:" + username : "guest";
     private string CurrentOwner = "";
@@ -87,7 +137,7 @@
         if (Busy || Disposed) return;
         Busy = true; Error = null;
         try { await action(); }
-        catch (Exception ex) when (ex is JSException or InvalidOperationException) { Error = ex.Message; }
+        catch (Exception ex) when (ex is JSException or InvalidOperationException or HttpRequestException or TaskCanceledException) { Error = ex.Message; }
         finally { Busy = false; if (!Disposed) StateHasChanged(); }
     }
     private async Task Refresh() => Documents = await Editor!.InvokeAsync<List<DiagramDocument>>("list");
@@ -103,6 +153,53 @@
     private Task Download(string format) => Run(async () => await Editor!.InvokeVoidAsync("download", format));
     private Task Retry() => Run(async () => await Editor!.InvokeVoidAsync("retry"));
     private Task Fullscreen() => Run(async () => await Editor!.InvokeVoidAsync("fullscreen", Workspace));
+    private Task FindGist() => Run(async () => {
+        RemoteGist = null; RemoteFilename = "";
+        RemoteGist = await DiagramGists.LoadAsync(GistInput, AppState.CurrentProfile?.AccessToken);
+        RemoteFilename = RemoteGist.Files.Keys.FirstOrDefault(f => f.EndsWith(".drawio", StringComparison.OrdinalIgnoreCase) || f.EndsWith(".xml", StringComparison.OrdinalIgnoreCase)) ?? "";
+        if (RemoteFilename.Length == 0) throw new InvalidOperationException("This Gist contains no .drawio or XML files.");
+    });
+    private Task OpenRemote() => Run(async () => {
+        if (RemoteGist is null) return;
+        var xml = DiagramGistService.ReadSource(RemoteGist, RemoteFilename);
+        Select(await Editor!.InvokeAsync<DiagramDocument>("newDocument", RemoteFilename, xml));
+        if (CurrentOwner == Owner && AppState.CurrentProfile is { } profile && string.Equals(RemoteGist.Owner?.Login, profile.GithubUsername, StringComparison.OrdinalIgnoreCase))
+            Select(await Editor!.InvokeAsync<DiagramDocument>("linkGist", RemoteGist.Id, RemoteFilename, xml));
+        RemoteStatus = RemoteGist.Public ? "Opened from a public Gist." : "Opened from a secret Gist.";
+        await Refresh();
+    });
+    private Task CopyToAccount() => Run(async () => {
+        if (Selected is null || !AppState.IsAuthenticated) return;
+        Select(await Editor!.InvokeAsync<DiagramDocument>("copyToOwner", Owner)); CurrentOwner = Owner; await Refresh();
+    });
+    private Task ShowGuestDrafts() => Run(async () => {
+        await Editor!.InvokeVoidAsync("setOwner", "guest"); CurrentOwner = "guest"; Selected = null; await Refresh();
+    });
+    private Task ShowAccountDrafts() => Run(async () => {
+        await Editor!.InvokeVoidAsync("setOwner", Owner); CurrentOwner = Owner; Selected = null; await Refresh();
+    });
+    private Task CreateRemote() => SaveRemote(true);
+    private Task UpdateRemote() => SaveRemote(false);
+    private Task SaveRemote(bool createNew) => Run(async () => {
+        var profile = AppState.CurrentProfile ?? throw new InvalidOperationException("Connect GitHub first.");
+        if (CurrentOwner != Owner) throw new InvalidOperationException("Open or copy a diagram in the active account first.");
+        var doc = await Editor!.InvokeAsync<DiagramDocument>("current");
+        RemoteStatus = "Saving to GitHub…";
+        LocalGist saved;
+        try { saved = await DiagramGists.SaveAsync(doc, profile, GistFilename, PublicGist, createNew); }
+        catch { RemoteStatus = "GitHub did not confirm a save. Check My Gists before creating another Gist; the local draft is retained."; throw; }
+        if (AppState.CurrentProfile?.Id != profile.Id) throw new InvalidOperationException("Saved to the original account. Reopen its diagram library to see the result.");
+        var filename = createNew ? GistFilename.Trim() : doc.GistFilename!;
+        RemoteStatus = $"Saved to GitHub ({(saved.Public ? "public" : "secret")}).";
+        doc.GistId = saved.Id; doc.GistFilename = filename; doc.RemoteXml = doc.Xml; Select(doc);
+        Select(await Editor!.InvokeAsync<DiagramDocument>("linkGist", saved.Id, filename, doc.Xml));
+        var existing = (await Storage.GetLocalGistsAsync(profile.GithubUsername)).FirstOrDefault(g => g.Id == saved.Id);
+        if (existing is not null) {
+            saved.IsBookmarked = existing.IsBookmarked; saved.BookmarkOrder = existing.BookmarkOrder;
+            saved.CollectionNames = existing.CollectionNames; saved.CollectionName = existing.CollectionName;
+        }
+        await Storage.SaveGistAsync(saved); await Refresh();
+    });
     private Task Delete() => Run(async () => {
         if (Selected is not null && await JS.InvokeAsync<bool>("confirm", $"Delete local diagram '{Selected.Title}'? This does not delete a GitHub Gist.")) {
             await Editor!.InvokeVoidAsync("remove", Selected.Id); Selected = null; await Refresh();

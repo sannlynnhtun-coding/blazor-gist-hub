@@ -79,7 +79,7 @@ class Editor {
             const saved = await transaction('diagrams', 'readwrite', (store, done, fail) => {
                 store.get(snapshot.id).onsuccess = event => {
                     const existing = event.target.result;
-                    if (existing && existing.revision !== snapshot.revision) {
+                    if ((!existing && snapshot.revision > 0) || (existing && existing.revision !== snapshot.revision)) {
                         fail(new Error('This diagram changed in another tab. Use Duplicate to keep your work as a new draft.'));
                         return;
                     }
@@ -119,11 +119,13 @@ class Editor {
     async newDocument(title, xml = blank) {
         validateXml(xml);
         await this.checkpoint();
+        const previous = this.doc;
         this.doc = { schemaVersion: 1, id: crypto.randomUUID(), owner: this.owner,
             title: (title || 'Untitled diagram').trim().slice(0, 120), xml, revision: 0,
             updatedAt: new Date().toISOString() };
         this.dirty = true;
-        await this.persist();
+        try { await this.persist(); }
+        catch (error) { this.doc = previous; this.dirty = false; throw error; }
         this.mount();
         return this.doc;
     }
@@ -139,11 +141,13 @@ class Editor {
         // A conflicting original must not prevent preserving the current XML.
         const xml = this.ready ? await this.snapshot() : this.doc.xml;
         const title = this.doc.title + ' (copy)';
+        const previous = this.doc;
         clearTimeout(this.saveTimer);
         await this.queue.catch(() => {});
         this.dirty = false;
         this.doc = null;
-        return this.newDocument(title, xml);
+        try { return await this.newDocument(title, xml); }
+        catch (error) { this.doc = previous; this.dirty = true; throw error; }
     }
     async remove(id) {
         await this.checkpoint();
@@ -237,6 +241,22 @@ class Editor {
         if (this.ready) { this.doc.xml = await this.snapshot(); this.dirty = true; }
         await this.flush();
         return this.doc;
+    }
+    async linkGist(gistId, filename, xml) {
+        if (!this.doc) throw new Error('Open a diagram first.');
+        this.doc.gistId = gistId;
+        this.doc.gistFilename = filename;
+        this.doc.remoteXml = xml;
+        this.dirty = true;
+        await this.flush();
+        return this.doc;
+    }
+    async copyToOwner(owner) {
+        if (typeof owner !== 'string' || !owner.startsWith('github:')) throw new Error('Choose a GitHub account.');
+        const doc = await this.current();
+        const xml = doc.xml, title = doc.title;
+        await this.setOwner(owner);
+        return this.newDocument(title, xml);
     }
     async download(format, options = {}) {
         if (!this.doc) throw new Error('Open a diagram first.');

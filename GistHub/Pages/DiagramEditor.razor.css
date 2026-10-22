@@ -20,4 +20,11 @@ label { font-size: .85rem; font-weight: 700; }
 .diagram-frame { height: 68vh; min-height: 440px; border: 1px solid #888; border-radius: 6px; overflow: hidden; background: #eee; }
 .diagram-frame ::deep iframe { width: 100%; height: 100%; border: 0; }
 .diagram-error { border: 1px solid #e26161; padding: 12px; margin: 10px 0; overflow-wrap: anywhere; }
+.diagram-gist { border: 1px solid #888; border-radius: 6px; padding: 10px; margin: 12px 0; }
+.diagram-gist summary { cursor: pointer; font-weight: 700; }
+.diagram-gist label { display: block; margin-top: 8px; }
+.diagram-gist p { font-size: .8rem; margin: 8px 0; }
+.diagram-gist select { background: transparent; max-width: 100%; border: 1px solid #888; padding: 6px; }
+.diagram-checkbox { display: flex !important; align-items: center; gap: 8px; }
+.diagram-checkbox input { width: auto; }
 @media (max-width: 760px) { .diagram-body { flex-direction: column; } .diagram-library { width: 100%; } .diagram-library ul { max-height: 140px; } .diagram-heading { align-items: flex-start; } }
