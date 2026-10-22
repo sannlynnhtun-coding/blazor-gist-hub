@@ -44,6 +44,18 @@ Blazor pages and components
 - Base64 text and file encoding/decoding from Tools, with UTF-8/Latin-1, live mode, separate-line processing, URL-safe output, and local file downloads
 - Responsive UI, themes, sound controls, file blur, and PWA support
 
+## Diagram Editor
+
+Open **Tools → Diagram Editor** to create workflows, ER diagrams, and architecture diagrams. Create or import `.drawio`/diagram XML files, rename or duplicate drafts, and download editable source, PNG, or SVG. Empty drafts are retained. Local drafts are separated by GitHub account, with a separate guest library; they do not sync automatically.
+
+The editor loads from `embed.diagrams.net` and requires internet access. The selected diagram is sent to that third-party frame; GitHub credentials are never sent to it. Autosave stores source in browser IndexedDB. Export `.drawio` backups before clearing browser data. A cross-tab conflict blocks an overwrite and offers Duplicate to retain the current work.
+
+Run storage and bridge regressions against a running local app:
+
+```powershell
+node scripts/run-diagram-tests.mjs http://localhost:5180
+```
+
 ## Local YouTube downloader (Windows)
 
 Double-click **Start-LocalDownloader.cmd** in the repository root. The launcher installs portable yt-dlp and FFmpeg tools into the ignored `.local-tools` folder, verifies their published SHA-256 checksums, publishes GistHub and its local ASP.NET Core service, and opens **http://localhost:5188/tools/youtube-downloader**. The first launch downloads the tools and takes longer. It requires the .NET 10 SDK, Node.js 22 or later, npm, and an internet connection.

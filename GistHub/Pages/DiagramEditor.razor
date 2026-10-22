@@ -1,0 +1,135 @@
+@page "/tools/diagram-editor"
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+@inject AppState AppState
+
+<PageTitle>Diagram Editor · GistHub</PageTitle>
+<NavigationLock ConfirmExternalNavigation="@Dirty" OnBeforeInternalNavigation="BeforeNavigation" />
+<section class="diagram-workspace" @ref="Workspace">
+    <header class="diagram-heading">
+        <div><div class="neo-kicker">Workbench</div><h2>Diagram Editor</h2></div>
+        <div class="diagram-actions">
+            <button @onclick="() => LibraryVisible = !LibraryVisible" aria-expanded="@LibraryVisible">Library</button>
+            <button @onclick="Fullscreen">Fullscreen</button>
+        </div>
+    </header>
+    <p class="diagram-note">Editing uses the online diagrams.net service. Drafts stay in this browser; download a .drawio file for backup. Desktop or tablet works best.</p>
+    @if (Error is not null) { <p class="diagram-error" role="alert">@Error</p> }
+    <div class="diagram-body">
+        @if (LibraryVisible)
+        {
+            <aside class="diagram-library" aria-label="Local diagrams">
+                <label for="diagram-title">Diagram name</label>
+                <input id="diagram-title" @bind="Title" maxlength="120" />
+                <div class="diagram-actions">
+                    <button disabled="@(Editor is null || Busy)" @onclick="New">New</button>
+                    <label class="diagram-upload">Import .drawio<input type="file" accept=".drawio,.xml" @ref="FileInput" @onchange="Import" disabled="@(Editor is null || Busy)" /></label>
+                </div>
+                <label for="diagram-search">Find a draft</label>
+                <input id="diagram-search" @bind="Search" @bind:event="oninput" placeholder="Search names" />
+                <ul>
+                    @foreach (var doc in Documents.Where(d => d.Title.Contains(Search, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        <li><button class="@(Selected?.Id == doc.Id ? "selected" : "")" disabled="@Busy" @onclick="() => Open(doc.Id)">@doc.Title</button></li>
+                    }
+                </ul>
+                @if (Documents.Count == 0) { <p>No drafts yet. Create a diagram or import an editable file.</p> }
+                @if (Selected is not null)
+                {
+                    <div class="diagram-actions">
+                        <button disabled="@Busy" @onclick="Rename">Rename</button>
+                        <button disabled="@Busy" @onclick="Duplicate">Duplicate</button>
+                        <button disabled="@Busy" @onclick="Delete">Delete</button>
+                    </div>
+                }
+            </aside>
+        }
+        <div class="diagram-main">
+            <div class="diagram-actions diagram-export">
+                <button disabled="@(Selected is null || Busy)" @onclick="DownloadSource">Download .drawio</button>
+                <button disabled="@(!Ready || Busy)" @onclick="DownloadPng">Export PNG</button>
+                <button disabled="@(!Ready || Busy)" @onclick="DownloadSvg">Export SVG</button>
+                <button disabled="@(Selected is null || Busy)" @onclick="Retry">Retry editor</button>
+            </div>
+            <p role="status" aria-live="polite">@Status</p>
+            <div class="diagram-frame" @ref="FrameHost"></div>
+        </div>
+    </div>
+</section>
+
+@code {
+    private ElementReference Workspace, FrameHost, FileInput;
+    private IJSObjectReference? Module, Editor;
+    private DotNetObjectReference<DiagramEditor>? Callback;
+    private List<DiagramDocument> Documents = [];
+    private DiagramDocument? Selected;
+    private string Title = "Untitled diagram", Search = "", Status = "Choose or create a diagram.";
+    private string? Error;
+    private bool Ready, Dirty, Busy, LibraryVisible = true, Disposed;
+    private string Owner => AppState.CurrentProfile?.GithubUsername.Trim().ToLowerInvariant() is { Length: > 0 } username ? "github:" + username : "guest";
+    private string CurrentOwner = "";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        AppState.OnChange += ProfileChanged;
+        await Run(async () => {
+            Module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/diagramEditor.js");
+            Callback = DotNetObjectReference.Create(this);
+            CurrentOwner = Owner;
+            Editor = await Module.InvokeAsync<IJSObjectReference>("create", FrameHost, Callback, CurrentOwner);
+            await Refresh();
+        });
+    }
+
+    private async Task Run(Func<Task> action)
+    {
+        if (Busy || Disposed) return;
+        Busy = true; Error = null;
+        try { await action(); }
+        catch (Exception ex) when (ex is JSException or InvalidOperationException) { Error = ex.Message; }
+        finally { Busy = false; if (!Disposed) StateHasChanged(); }
+    }
+    private async Task Refresh() => Documents = await Editor!.InvokeAsync<List<DiagramDocument>>("list");
+    private void Select(DiagramDocument? doc) { Selected = doc; if (doc is not null) Title = doc.Title; }
+    private Task New() => Run(async () => { Select(await Editor!.InvokeAsync<DiagramDocument>("newDocument", Title)); await Refresh(); });
+    private Task Open(string id) => Run(async () => { Select(await Editor!.InvokeAsync<DiagramDocument>("open", id)); await Refresh(); });
+    private Task Rename() => Run(async () => { Select(await Editor!.InvokeAsync<DiagramDocument>("rename", Title)); await Refresh(); });
+    private Task Duplicate() => Run(async () => { Select(await Editor!.InvokeAsync<DiagramDocument>("duplicate")); await Refresh(); });
+    private Task Import() => Run(async () => { var doc = await Editor!.InvokeAsync<DiagramDocument?>("importFile", FileInput); if (doc is not null) Select(doc); await Refresh(); });
+    private Task DownloadSource() => Download("xml");
+    private Task DownloadPng() => Download("png");
+    private Task DownloadSvg() => Download("svg");
+    private Task Download(string format) => Run(async () => await Editor!.InvokeVoidAsync("download", format));
+    private Task Retry() => Run(async () => await Editor!.InvokeVoidAsync("retry"));
+    private Task Fullscreen() => Run(async () => await Editor!.InvokeVoidAsync("fullscreen", Workspace));
+    private Task Delete() => Run(async () => {
+        if (Selected is not null && await JS.InvokeAsync<bool>("confirm", $"Delete local diagram '{Selected.Title}'? This does not delete a GitHub Gist.")) {
+            await Editor!.InvokeVoidAsync("remove", Selected.Id); Selected = null; await Refresh();
+        }
+    });
+    [JSInvokable] public Task DiagramStatus(string status, bool ready, bool dirty) => InvokeAsync(() => {
+        Status = status; Ready = ready; Dirty = dirty; StateHasChanged();
+    });
+    private async Task BeforeNavigation(LocationChangingContext context)
+    {
+        if (Editor is null) return;
+        try { await Editor.InvokeVoidAsync("checkpoint"); }
+        catch (JSException) {
+            if (!await JS.InvokeAsync<bool>("confirm", "Some diagram changes could not be saved. Leave this page anyway?")) context.PreventNavigation();
+        }
+    }
+    private void ProfileChanged() => _ = InvokeAsync(async () => {
+        if (Editor is null || CurrentOwner == Owner || Disposed) return;
+        await Run(async () => { await Editor.InvokeVoidAsync("setOwner", Owner); CurrentOwner = Owner; Selected = null; await Refresh(); });
+    });
+    public async ValueTask DisposeAsync()
+    {
+        Disposed = true; AppState.OnChange -= ProfileChanged;
+        if (Editor is not null) {
+            try { await Editor.InvokeVoidAsync("dispose"); await Editor.DisposeAsync(); } catch (JSDisconnectedException) { }
+        }
+        Callback?.Dispose();
+        if (Module is not null) await Module.DisposeAsync();
+    }
+}
