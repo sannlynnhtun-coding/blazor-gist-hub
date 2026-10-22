@@ -27,4 +27,6 @@ label { font-size: .85rem; font-weight: 700; }
 .diagram-gist select { background: transparent; max-width: 100%; border: 1px solid #888; padding: 6px; }
 .diagram-checkbox { display: flex !important; align-items: center; gap: 8px; }
 .diagram-checkbox input { width: auto; }
+.diagram-preset-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 8px 0; }
+.diagram-preset-grid select { display: block; width: 100%; }
 @media (max-width: 760px) { .diagram-body { flex-direction: column; } .diagram-library { width: 100%; } .diagram-library ul { max-height: 140px; } .diagram-heading { align-items: flex-start; } }

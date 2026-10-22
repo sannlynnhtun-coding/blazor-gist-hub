@@ -16,7 +16,11 @@
         </div>
     </header>
     <p class="diagram-note">Editing uses the online diagrams.net service. Drafts stay in this browser; download a .drawio file for backup. Desktop or tablet works best.</p>
-    @if (Error is not null) { <p class="diagram-error" role="alert">@Error</p> }
+    @if (Error is not null) {
+        <div class="diagram-error" role="alert">@Error
+            @if (Selected is not null) { <button disabled="@Busy" @onclick="DownloadRecovery">Download recovery source</button> }
+        </div>
+    }
     <div class="diagram-body">
         @if (LibraryVisible)
         {
@@ -56,11 +60,27 @@
         <div class="diagram-main">
             <div class="diagram-actions diagram-export">
                 <button disabled="@(Selected is null || Busy)" @onclick="DownloadSource">Download .drawio</button>
-                <button disabled="@(!Ready || Busy)" @onclick="DownloadPng">Export PNG</button>
-                <button disabled="@(!Ready || Busy)" @onclick="DownloadSvg">Export SVG</button>
+                <button disabled="@(!Ready || Busy)" @onclick="DownloadImage">Export @Export.Format.ToUpperInvariant()</button>
                 <button disabled="@(Selected is null || Busy)" @onclick="Retry">Retry editor</button>
             </div>
             <p role="status" aria-live="polite">@Status</p>
+            <details class="diagram-gist">
+                <summary>Image export settings and presets</summary>
+                <div class="diagram-preset-grid">
+                    <label>Saved preset<select value="@Export.Id" @onchange="ChoosePreset"><option value="">Custom settings</option>@foreach (var preset in Presets) { <option value="@preset.Id">@preset.Name</option> }</select></label>
+                    <label>Format<select @bind="Export.Format"><option value="png">PNG</option><option value="svg">SVG</option></select></label>
+                    <label>PNG scale<input type="number" min="1" max="4" step="0.5" @bind="Export.Scale" disabled="@(Export.Format != "png")" /></label>
+                    <label>Border (pixels)<input type="number" min="0" max="100" @bind="Export.Border" /></label>
+                    <label class="diagram-checkbox"><input type="checkbox" @bind="Export.Transparent" disabled="@(Export.Format != "png")" /> Transparent PNG</label>
+                    <label class="diagram-checkbox"><input type="checkbox" @bind="Export.CurrentPage" /> Current page only</label>
+                    <label>Preset name<input @bind="Export.Name" maxlength="80" /></label>
+                </div>
+                <div class="diagram-actions">
+                    <button disabled="@(Editor is null || Busy)" @onclick="SavePreset">Save preset</button>
+                    <button disabled="@Busy" @onclick="() => Export = new()">New preset</button>
+                    <button disabled="@(Busy || Export.Id.Length == 0)" @onclick="DeletePreset">Delete preset</button>
+                </div>
+            </details>
             <details class="diagram-gist">
                 <summary>GitHub Gist</summary>
                 <label for="diagram-gist-id">Open Gist ID or URL</label>
@@ -115,6 +135,8 @@
     private bool PublicGist;
     private LocalGist? RemoteGist;
     private string? RemoteStatus;
+    private DiagramExportPreset Export = new();
+    private List<DiagramExportPreset> Presets = [];
     private bool Ready, Dirty, Busy, LibraryVisible = true, Disposed;
     private string Owner => AppState.CurrentProfile?.GithubUsername.Trim().ToLowerInvariant() is { Length: > 0 } username ? "github:" + username : "guest";
     private string CurrentOwner = "";
@@ -140,7 +162,11 @@
         catch (Exception ex) when (ex is JSException or InvalidOperationException or HttpRequestException or TaskCanceledException) { Error = ex.Message; }
         finally { Busy = false; if (!Disposed) StateHasChanged(); }
     }
-    private async Task Refresh() => Documents = await Editor!.InvokeAsync<List<DiagramDocument>>("list");
+    private async Task Refresh() {
+        Documents = await Editor!.InvokeAsync<List<DiagramDocument>>("list");
+        Presets = await Editor!.InvokeAsync<List<DiagramExportPreset>>("presets");
+        if (Export.Id.Length > 0 && !Presets.Any(p => p.Id == Export.Id)) Export = new();
+    }
     private void Select(DiagramDocument? doc) { Selected = doc; if (doc is not null) Title = doc.Title; }
     private Task New() => Run(async () => { Select(await Editor!.InvokeAsync<DiagramDocument>("newDocument", Title)); await Refresh(); });
     private Task Open(string id) => Run(async () => { Select(await Editor!.InvokeAsync<DiagramDocument>("open", id)); await Refresh(); });
@@ -148,10 +174,18 @@
     private Task Duplicate() => Run(async () => { Select(await Editor!.InvokeAsync<DiagramDocument>("duplicate")); await Refresh(); });
     private Task Import() => Run(async () => { var doc = await Editor!.InvokeAsync<DiagramDocument?>("importFile", FileInput); if (doc is not null) Select(doc); await Refresh(); });
     private Task DownloadSource() => Download("xml");
-    private Task DownloadPng() => Download("png");
-    private Task DownloadSvg() => Download("svg");
+    private Task DownloadRecovery() => Run(async () => await Editor!.InvokeVoidAsync("recoverySource"));
+    private Task DownloadImage() => Run(async () => await Editor!.InvokeVoidAsync("download", Export.Format, Export));
     private Task Download(string format) => Run(async () => await Editor!.InvokeVoidAsync("download", format));
     private Task Retry() => Run(async () => await Editor!.InvokeVoidAsync("retry"));
+    private void ChoosePreset(ChangeEventArgs args) {
+        var preset = Presets.FirstOrDefault(p => p.Id == args.Value?.ToString());
+        Export = preset is null ? new() : new() { Id = preset.Id, Name = preset.Name, Format = preset.Format, Scale = preset.Scale, Border = preset.Border, Transparent = preset.Transparent, CurrentPage = preset.CurrentPage };
+    }
+    private Task SavePreset() => Run(async () => { Export = await Editor!.InvokeAsync<DiagramExportPreset>("savePreset", Export); await Refresh(); });
+    private Task DeletePreset() => Run(async () => {
+        if (await JS.InvokeAsync<bool>("confirm", $"Delete export preset '{Export.Name}'?")) { await Editor!.InvokeVoidAsync("removePreset", Export.Id); Export = new(); await Refresh(); }
+    });
     private Task Fullscreen() => Run(async () => await Editor!.InvokeVoidAsync("fullscreen", Workspace));
     private Task FindGist() => Run(async () => {
         RemoteGist = null; RemoteFilename = "";
@@ -206,7 +240,7 @@
         }
     });
     [JSInvokable] public Task DiagramStatus(string status, bool ready, bool dirty) => InvokeAsync(() => {
-        Status = status; Ready = ready; Dirty = dirty; StateHasChanged();
+        if (!Disposed) { Status = status; Ready = ready; Dirty = dirty; StateHasChanged(); }
     });
     private async Task BeforeNavigation(LocationChangingContext context)
     {

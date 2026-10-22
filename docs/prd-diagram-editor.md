@@ -2,7 +2,7 @@
 
 Date: 2026-10-22 (Asia/Rangoon)
 
-Status: Proposed for discussion; implementation has not started
+Status: P0 and P1 implemented; optional P2 remains proposed
 
 Target: Existing Blazor WebAssembly app
 
@@ -155,3 +155,11 @@ Success gates: all applicable acceptance criteria pass; no known data-loss case;
 5. Decide Flutter parity separately after the Blazor workflow is validated.
 
 Recommended first release: P0 local diagram editing, recovery, and file export. Recommended follow-up: Gist integration and export presets. Keep native tab groups, internal sidebar changes, specialized libraries, and upstream importer fixes outside our implementation scope.
+
+## 11. Implementation status (2026-10-23)
+
+P0 and P1 are implemented in the Blazor app: local drafts, imports/exports, explicit Gist integration, named export presets, library collapse, and fullscreen. Diagram storage uses a separate versioned database to isolate existing gist data rather than migrating the gist cache. P2 generation, groups, and templates remain optional future work.
+
+Validation completed: Release solution build; existing .NET regressions plus diagram Gist service regressions; 16 browser storage/bridge/preset checks; hosted-editor XML/PNG/SVG exports; a two-page round trip preserving four nodes, two connectors, and Burmese labels; and a 390-pixel viewport check without horizontal overflow. GitHub write behavior was tested with a deterministic HTTP handler, without creating or modifying live user Gists. Fullscreen behavior still depends on browser support and permission. Quantitative performance targets have not been benchmarked.
+
+Known limits: hosted editing requires internet access; remote-change checking has a race between reading and writing; truncated Gist source requires manual import; browser data clearing removes drafts. Recovery downloads contain the latest source received by the app, which may precede changes in an unresponsive editor. Distribution/hosting findings are recorded in [integration validation](diagram-integration-validation.md).

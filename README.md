@@ -52,6 +52,8 @@ The editor loads from `embed.diagrams.net` and requires internet access. The sel
 
 Expand **GitHub Gist** to open a Gist URL/ID and choose a diagram file. Signed-in users can save new public/secret Gists or explicitly update a linked file they own. Remote changes block an update; reopen the remote version or save a new Gist. Other files and the existing description are preserved. This check does not provide atomic protection against simultaneous remote writes. Truncated API source is rejected; download and import its original file instead. Guest drafts can be browsed and explicitly copied to the active account.
 
+**Image export settings and presets** stores named, account-scoped PNG/SVG settings. Choose PNG scale (1–4), border (0–100 pixels), transparency, and current-page selection. SVG exports use border and page selection. Select a saved preset, edit its name/settings, and Save preset to update it, or choose New preset for a separate entry. The Library toggle and Fullscreen controls give the canvas more room.
+
 Run storage and bridge regressions against a running local app:
 
 ```powershell

@@ -12,6 +12,16 @@ export function validateXml(xml) {
     return xml;
 }
 
+export function exportOptions(input) {
+    if (!input || !['png', 'svg'].includes(input.format)) throw new Error('Choose PNG or SVG.');
+    const scale = Number(input.scale), border = Number(input.border);
+    if (!Number.isFinite(scale) || scale < 1 || scale > 4 || !Number.isInteger(border) || border < 0 || border > 100)
+        throw new Error('Export scale must be 1–4 and border must be 0–100 pixels.');
+    const options = { border, currentPage: input.currentPage === true };
+    if (input.format === 'png') { options.scale = scale; options.transparent = input.transparent === true; }
+    return options;
+}
+
 function database() {
     return new Promise((resolve, reject) => {
         // Separate versioned database avoids disrupting the existing gist cache.
@@ -71,6 +81,35 @@ class Editor {
             store.getAll().onsuccess = event => done(event.target.result);
         });
         return all.filter(d => d.owner === this.owner).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+    }
+    async presets() {
+        const all = await transaction('presets', 'readonly', (store, done) => {
+            store.getAll().onsuccess = event => done(event.target.result);
+        });
+        return all.filter(p => p.owner === this.owner).sort((a, b) => a.name.localeCompare(b.name));
+    }
+    async savePreset(input) {
+        exportOptions(input);
+        const name = String(input.name || '').trim().slice(0, 80);
+        if (!name) throw new Error('Name the export preset.');
+        const preset = { schemaVersion: 1, id: input.id || crypto.randomUUID(), owner: this.owner,
+            name, format: input.format, scale: Number(input.scale), border: Number(input.border),
+            transparent: input.transparent === true, currentPage: input.currentPage === true };
+        await transaction('presets', 'readwrite', (store, done, fail) => {
+            store.get(preset.id).onsuccess = event => {
+                if (event.target.result && event.target.result.owner !== this.owner) return fail(new Error('Preset belongs to another account.'));
+                store.put(preset); done(true);
+            };
+        });
+        return preset;
+    }
+    async removePreset(id) {
+        await transaction('presets', 'readwrite', (store, done, fail) => {
+            store.get(id).onsuccess = event => {
+                if (event.target.result?.owner !== this.owner) return fail(new Error('Preset was not found in this account.'));
+                store.delete(id); done(true);
+            };
+        });
     }
     async persist() {
         if (!this.doc) return;
@@ -189,7 +228,13 @@ class Editor {
             if (!this.ready) this.notify('Editor unavailable. Check your connection and select Retry editor. Local drafts are retained.');
         }, 20000);
     }
-    async retry() { await this.checkpoint(); this.mount(); }
+    async retry() {
+        try { await this.checkpoint(); }
+        catch (error) {
+            if (!window.confirm('The editor could not confirm its latest state. Reload from the latest received source? Download recovery source first if you need a backup.')) throw error;
+        }
+        this.mount();
+    }
     send(message) { this.frame?.contentWindow?.postMessage(JSON.stringify(message), origin); }
     async receive(event) {
         if (this.disposed || event.origin !== origin || event.source !== this.frame?.contentWindow || typeof event.data !== 'string' || event.data.length > maxBytes * 12) return;
@@ -267,12 +312,16 @@ class Editor {
             return;
         }
         if (!['png', 'svg'].includes(format)) throw new Error('Unsupported image format.');
-        const result = await this.request(format, options);
+        const result = await this.request(format, exportOptions({ format, scale: 1, border: 10, ...options }));
         const prefix = format === 'png' ? 'data:image/png;' : 'data:image/svg+xml';
         if (typeof result.data !== 'string' || !result.data.startsWith(prefix) || result.data.length < 30)
             throw new Error('Editor returned an invalid image.');
         const response = await fetch(result.data);
         this.saveBlob(await response.blob(), '.' + format);
+    }
+    recoverySource() {
+        if (!this.doc) throw new Error('Open a diagram first.');
+        this.saveBlob(new Blob([this.doc.xml], { type: 'application/xml' }), '.drawio');
     }
     saveBlob(blob, extension) {
         const url = URL.createObjectURL(blob);

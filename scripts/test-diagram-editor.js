@@ -39,6 +39,24 @@ export async function runDiagramTests(module) {
         try { await a.flush(); } catch { rejected = true; }
         assert(rejected && a.dirty && a.doc.xml === xml, 'Storage failures retain unsaved source');
         a.persist = persist; await a.flush();
+        const preset = await a.savePreset({ name: 'Transparent docs', format: 'png', scale: 2, border: 0, transparent: true, currentPage: true });
+        assert((await b.presets()).some(p => p.id === preset.id && p.transparent), 'Export presets persist across editor instances');
+        await b.setOwner('test:other');
+        assert((await b.presets()).length === 0, 'Export presets are account scoped');
+        rejected = false;
+        try { await b.savePreset({ ...preset, name: 'Overwrite' }); } catch { rejected = true; }
+        assert(rejected, 'Another account cannot replace a preset');
+        rejected = false;
+        try { module.exportOptions({ format: 'png', scale: 1000, border: 0 }); } catch { rejected = true; }
+        assert(rejected, 'Unsupported image dimensions are rejected');
+        const options = module.exportOptions({ format: 'svg', scale: 2, border: 10, transparent: true, currentPage: true, token: 'never-forward' });
+        assert(!('token' in options) && !('transparent' in options), 'Export messages allow only format-specific options');
+        await a.removePreset(preset.id);
+        a.ready = true;
+        const pendingSnapshot = a.snapshot().then(() => false, () => true);
+        a.unmount();
+        assert(await pendingSnapshot && a.pending.size === 0, 'Closing the editor rejects and clears pending requests');
+        await b.setOwner(owner);
         await a.remove(doc.id); await a.remove(copy.id);
         assert((await a.list()).length === 0, 'Deletion removes only the selected drafts');
         return checks;
