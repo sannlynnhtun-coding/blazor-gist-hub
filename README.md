@@ -54,6 +54,8 @@ Expand **GitHub Gist** to open a Gist URL/ID and choose a diagram file. Signed-i
 
 **Image export settings and presets** stores named, account-scoped PNG/SVG settings. Choose PNG scale (1–4), border (0–100 pixels), transparency, and current-page selection. SVG exports use border and page selection. Select a saved preset, edit its name/settings, and Save preset to update it, or choose New preset for a separate entry. The Library toggle and Fullscreen controls give the canvas more room.
 
+The embedded editor and its host controls follow GistHub's light/dark theme, paper surfaces, accent colours, and borders. Changing the app theme captures and saves the current diagram before briefly reloading the embedded editor. The diagram source is retained; the editor's undo history restarts after that reload. If capture or storage fails, the theme update is deferred to protect the diagram.
+
 Run storage and bridge regressions against a running local app:
 
 ```powershell

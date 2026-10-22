@@ -2,6 +2,38 @@ const origin = 'https://embed.diagrams.net';
 const maxBytes = 5 * 1024 * 1024;
 const blank = '<mxfile><diagram name="Page-1"><mxGraphModel><root><mxCell id="0"/><mxCell id="1" parent="0"/></root></mxGraphModel></diagram></mxfile>';
 
+export function editorTheme() {
+    const styles = getComputedStyle(document.documentElement);
+    const color = (name, fallback) => {
+        const value = styles.getPropertyValue('--' + name).trim();
+        return /^[\d.\s%]+$/.test(value) ? `hsl(${value})` : fallback;
+    };
+    const palette = {
+        background: color('background', '#fff8eb'), card: color('card', '#fffdf7'),
+        text: color('foreground', '#0d0d0d'), border: color('border', '#0d0d0d'),
+        primary: color('primary', '#ffd524'), onPrimary: color('primary-foreground', '#0d0d0d'),
+        secondary: color('secondary', '#78dce8'), onSecondary: color('secondary-foreground', '#0d0d0d'),
+        ring: color('ring', '#7d5cff')
+    };
+    return { dark: document.documentElement.classList.contains('dark'), css: `
+        .geMenubarContainer, .geMenubar, .geToolbarContainer, .geToolbar,
+        .geSidebarContainer, .geSidebar, .geFormatContainer, .geDialog, .mxPopupMenu {
+            background-color: ${palette.card} !important; color: ${palette.text} !important;
+            border-color: ${palette.border} !important;
+            font-family: Aptos, 'Segoe UI', sans-serif;
+        }
+        .geDiagramContainer { background-color: ${palette.background} !important; }
+        .geMenubar, .geToolbarContainer { border-bottom: 2px solid ${palette.border} !important; }
+        .geSidebarContainer { border-right: 2px solid ${palette.border} !important; }
+        .geFormatContainer { border-left: 2px solid ${palette.border} !important; }
+        .geSidebarTitle, .geTabItem { background-color: ${palette.background} !important; color: ${palette.text} !important; font-weight: 700; }
+        .geBtn { border: 2px solid ${palette.border} !important; border-radius: 6px !important; font-weight: 700; }
+        .gePrimaryBtn { background: ${palette.primary} !important; color: ${palette.onPrimary} !important; box-shadow: 2px 2px 0 ${palette.border}; }
+        .geMenubar a:hover, .geBtn:hover, .geTabItem:hover { background-color: ${palette.secondary} !important; color: ${palette.onSecondary} !important; }
+        .geBtn:focus-visible, .geMenubar a:focus-visible { outline: 3px solid ${palette.ring} !important; outline-offset: 2px; }
+    ` };
+}
+
 export function validateXml(xml) {
     if (typeof xml !== 'string' || new TextEncoder().encode(xml).length > maxBytes)
         throw new Error('Diagram source must be no larger than 5 MiB.');
@@ -72,6 +104,11 @@ class Editor {
         this.beforeUnload = event => { if (this.dirty) { event.preventDefault(); event.returnValue = ''; } };
         window.addEventListener('message', this.listener);
         window.addEventListener('beforeunload', this.beforeUnload);
+        this.themeObserver = new MutationObserver(() => {
+            clearTimeout(this.themeTimer);
+            this.themeTimer = setTimeout(() => this.syncTheme(), 100);
+        });
+        this.themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     }
     notify(status, ready = this.ready) {
         if (!this.disposed) this.callback.invokeMethodAsync('DiagramStatus', status, ready, this.dirty).catch(() => {});
@@ -220,13 +257,25 @@ class Editor {
         frame.title = 'Diagram canvas';
         frame.referrerPolicy = 'no-referrer';
         frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-downloads allow-forms allow-popups');
-        frame.src = origin + '/?embed=1&proto=json&spin=1&libraries=1&noExitBtn=1&saveAndExit=0&configure=1';
+        this.activeTheme = editorTheme();
+        frame.src = origin + '/?embed=1&proto=json&spin=1&libraries=1&noExitBtn=1&saveAndExit=0&configure=1&ui=' + (this.activeTheme.dark ? 'dark' : 'kennedy') + '&dark=' + (this.activeTheme.dark ? '1' : '0');
         this.frame = frame;
         this.host.replaceChildren(frame);
         this.notify('Loading online editor…');
         this.loadTimer = setTimeout(() => {
             if (!this.ready) this.notify('Editor unavailable. Check your connection and select Retry editor. Local drafts are retained.');
         }, 20000);
+    }
+    async syncTheme() {
+        if (this.disposed || !this.frame || this.activeTheme?.dark === editorTheme().dark || this.themeSync) return;
+        const frame = this.frame, id = this.doc?.id;
+        this.themeSync = true;
+        try {
+            await this.checkpoint();
+            if (!this.disposed && this.frame === frame && this.doc?.id === id) this.mount();
+        } catch (error) {
+            this.notify('Theme update deferred to protect your diagram: ' + error.message);
+        } finally { this.themeSync = false; }
     }
     async retry() {
         try { await this.checkpoint(); }
@@ -243,9 +292,9 @@ class Editor {
         if (!message || typeof message.event !== 'string') return;
         try {
             if (message.event === 'configure') {
-                this.send({ action: 'configure', config: { suppressNewWindows: true } });
+                this.send({ action: 'configure', config: { suppressNewWindows: true, css: this.activeTheme.css } });
             } else if (message.event === 'init') {
-                this.send({ action: 'load', xml: this.doc.xml, autosave: 1, title: this.doc.title, noExitBtn: 1 });
+                this.send({ action: 'load', xml: this.doc.xml, autosave: 1, title: this.doc.title, noExitBtn: 1, dark: this.activeTheme.dark });
             } else if (message.event === 'load') {
                 clearTimeout(this.loadTimer); this.ready = true; this.notify('Editor ready · drafts saved on this device');
             } else if (['autosave', 'save'].includes(message.event) && this.doc && this.ready) {
@@ -342,6 +391,8 @@ class Editor {
         else await element.requestFullscreen();
     }
     async dispose() {
+        this.themeObserver.disconnect();
+        clearTimeout(this.themeTimer);
         clearTimeout(this.saveTimer);
         await this.checkpoint().catch(() => {});
         this.disposed = true;

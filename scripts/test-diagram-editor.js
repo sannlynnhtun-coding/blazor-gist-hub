@@ -52,6 +52,22 @@ export async function runDiagramTests(module) {
         const options = module.exportOptions({ format: 'svg', scale: 2, border: 10, transparent: true, currentPage: true, token: 'never-forward' });
         assert(!('token' in options) && !('transparent' in options), 'Export messages allow only format-specific options');
         await a.removePreset(preset.id);
+        const wasDark = document.documentElement.classList.contains('dark');
+        const mount = a.mount, snapshot = a.snapshot;
+        try {
+            a.activeTheme = module.editorTheme();
+            a.frame = document.createElement('iframe'); a.ready = true;
+            let captured = false, mounted = false;
+            a.snapshot = async () => { captured = true; return a.doc.xml; };
+            a.mount = () => { mounted = true; a.activeTheme = module.editorTheme(); a.unmount(); };
+            document.documentElement.classList.toggle('dark', !wasDark);
+            await a.syncTheme();
+            assert(captured && mounted && a.activeTheme.dark === !wasDark, 'Theme changes capture the source before reloading the editor');
+            assert(module.editorTheme().css.includes('hsl(') && !module.editorTheme().css.includes('mxCell'), 'Editor UI uses app theme tokens without changing diagram shapes');
+        } finally {
+            a.mount = mount; a.snapshot = snapshot;
+            document.documentElement.classList.toggle('dark', wasDark);
+        }
         a.ready = true;
         const pendingSnapshot = a.snapshot().then(() => false, () => true);
         a.unmount();
