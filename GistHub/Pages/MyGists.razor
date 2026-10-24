@@ -20,6 +20,9 @@
                 aria-pressed="@(BookmarksOnly ? "true" : "false")">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="@(BookmarksOnly ? "currentColor" : "none")" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
         </button>
+            <button @onclick="DownloadBookmarksAsync" disabled="@(!AppState.IsAuthenticated || IsRestoringBookmarks)" class="neo-toolbar-menu__trigger neo-icon-button" type="button" aria-label="Download bookmarks as JSON" title="Download bookmarks as JSON" data-testid="collection-bookmarks-download">
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></svg>
+            </button>
             <button @onclick="OpenBookmarkRestorePickerAsync" disabled="@(!AppState.IsAuthenticated || IsRestoringBookmarks)" class="neo-toolbar-menu__trigger neo-icon-button" type="button" aria-label="Restore bookmarks from JSON" title="Restore bookmarks from JSON" data-testid="collection-bookmarks-restore">
                 @if (IsRestoringBookmarks)
                 {
