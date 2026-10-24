@@ -403,6 +403,13 @@
   z-index: 2;
 }
 
+.neo-topbar-actions > .neo-icon-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  flex-shrink: 0;
+}
+
 .neo-toolbar-menu {
   position: relative;
 }
