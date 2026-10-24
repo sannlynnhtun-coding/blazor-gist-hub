@@ -90,7 +90,7 @@ window.initializeGistHubThemePicker = (root) => {
             (selected ?? options()[0])?.focus();
             return;
         }
-        if (!panel.contains(event.target)) return;
+        if (!panel.contains(event.target) || event.target.closest('.neo-style-control')) return;
         const visible = options();
         if (event.target === search && event.key === 'Enter') {
             event.preventDefault();

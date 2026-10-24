@@ -12,6 +12,17 @@
             <div><span class="neo-theme-panel__eyebrow">Make it yours</span><h2>Pick your palette</h2></div>
             <span class="neo-theme-panel__badge">LIVE</span>
         </header>
+        <div class="neo-style-control">
+            <label for="@StyleId">Interface style</label>
+            <select id="@StyleId" value="@Style" @onchange="ChangeStyle" aria-describedby="@StyleHintId">
+                @foreach (var style in Styles)
+                {
+                    <option value="@style.Id">@style.Name</option>
+                }
+            </select>
+            <p id="@StyleHintId">@StyleDescription &middot; Changes apply instantly and are saved.</p>
+            <button type="button" class="neo-style-reset" @onclick="RestoreStyle">Restore default style</button>
+        </div>
         <div class="neo-theme-panel__search">
             <input type="search" aria-label="Search themes" placeholder="Find a theme…" autocomplete="off" autofocus aria-describedby="@HintId" />
         </div>
@@ -36,6 +47,22 @@
 
 @code {
     private ElementReference Picker;
+    private string StyleId => $"{PanelId}-style";
+    private string StyleHintId => $"{PanelId}-style-hint";
+    private string Style = "default";
+    private List<StyleOption> Styles = [];
+    private sealed record StyleOption(string Id, string Name, string Description);
+    private string StyleDescription => Styles.FirstOrDefault(s => s.Id == Style)?.Description ?? "";
+
+    private async Task ChangeStyle(ChangeEventArgs e)
+    {
+        Style = await JS.InvokeAsync<string>("applyGistHubStyle", e.Value?.ToString());
+    }
+
+    private async Task RestoreStyle()
+    {
+        Style = await JS.InvokeAsync<string>("applyGistHubStyle", "default");
+    }
     private readonly string PanelId = $"theme-picker-{Guid.NewGuid():N}";
     private string HintId => $"{PanelId}-hint";
     private bool IsInitialized;
@@ -48,6 +75,8 @@
     {
         if (firstRender)
         {
+            Styles.AddRange(await JS.InvokeAsync<StyleOption[]>("getGistHubStyles"));
+            Style = await JS.InvokeAsync<string>("getGistHubStyle");
             Palettes.AddRange(await JS.InvokeAsync<ThemeOption[]>("getGistHubThemes"));
             Theme = await JS.InvokeAsync<string>("getGistHubTheme");
             StateHasChanged();

@@ -1,0 +1,68 @@
+.neo-style-control { padding: .8rem; border-bottom: 2px solid hsl(var(--border)); }
+.neo-style-control label { display: block; margin-bottom: .4rem; font-size: .8rem; font-weight: 800; }
+.neo-style-control select { width: 100%; padding: .6rem; border: 2px solid hsl(var(--border)); border-radius: .3rem; background: hsl(var(--background)); color: hsl(var(--foreground)); font: inherit; font-size: .8rem; }
+.neo-style-control p { margin: .5rem 0; font-size: .7rem; }
+.neo-style-reset { padding: .35rem .5rem; border: 1px solid hsl(var(--border)); border-radius: .25rem; font-size: .7rem; background: hsl(var(--card)); color: hsl(var(--foreground)); }
+.neo-style-control :is(select, button):focus-visible { outline: 3px solid hsl(var(--ring)); outline-offset: 2px; }
+
+/* No default overrides: the original appearance and palette remain intact. */
+:root {
+  --style-radius: .65rem;
+  --style-border: 1px;
+  --style-shadow: 0 5px 18px hsl(var(--foreground) / .12);
+}
+:root[data-interface-style]:not([data-interface-style="default"]) body { background-image: none; }
+:root[data-interface-style]:not([data-interface-style="default"]) :is(.neo-sidebar, .neo-topbar, .neo-gist-card, .neo-profile-card, .neo-code-window, .neo-theme-panel, .neo-toolbar-menu__panel, [role="dialog"], .bg-card.border, .glass) {
+  border-width: var(--style-border);
+  border-radius: var(--style-radius) !important;
+  box-shadow: var(--style-shadow) !important;
+}
+:root[data-interface-style]:not([data-interface-style="default"]) :is(button, .btn, input, select, textarea, .neo-nav-link, pre) {
+  border-radius: var(--style-radius) !important;
+}
+:root[data-interface-style]:not([data-interface-style="default"]) :is(button, .btn, input, select, textarea) { box-shadow: none; }
+:root[data-interface-style]:not([data-interface-style="default"]) .neo-gist-card::before { display: none; }
+:root[data-interface-style]:not([data-interface-style="default"]) :is(.neo-kicker, .neo-theme-panel__badge) { transform: none; }
+:root[data-interface-style]:not([data-interface-style="default"]) .neo-gist-card:hover { transform: none; }
+
+:root[data-interface-style="neobrutalism"] { --style-radius: .15rem; --style-border: 3px; --style-shadow: 8px 8px 0 var(--neo-shadow); }
+:root[data-interface-style="neobrutalism"] :is(.btn, .neo-theme-trigger, .neo-toolbar-menu__trigger) { border-width: 3px; box-shadow: 4px 4px 0 var(--neo-shadow); font-weight: 900; }
+:root[data-interface-style="neobrutalism"] .neo-page-heading { border-bottom: 4px solid hsl(var(--foreground)); }
+
+:root[data-interface-style="bauhaus"] { --style-radius: 0; --style-border: 2px; --style-shadow: none; }
+:root[data-interface-style="bauhaus"] .neo-page-heading { border-left: 8px solid hsl(var(--primary)); padding-left: 1rem; }
+:root[data-interface-style="bauhaus"] .neo-gist-card { border-top: 6px solid hsl(var(--primary)); }
+:root[data-interface-style="bauhaus"] .neo-gist-card:nth-child(even) { border-top-color: var(--neo-cyan); }
+:root[data-interface-style="bauhaus"] .neo-kicker { border-radius: 50% !important; padding: .65rem 1rem; }
+
+:root[data-interface-style="neumorphism"] { --style-radius: 1rem; --style-shadow: 7px 7px 16px hsl(var(--foreground) / .15), -5px -5px 14px hsl(var(--background) / .8); }
+:root[data-interface-style="neumorphism"] :is(.neo-gist-card, .neo-profile-card, .neo-sidebar, .neo-topbar) { background: hsl(var(--card)); }
+:root[data-interface-style="neumorphism"] :is(input, textarea, select) { box-shadow: inset 3px 3px 7px hsl(var(--foreground) / .12), inset -3px -3px 7px hsl(var(--background) / .7) !important; }
+:root[data-interface-style="neumorphism"] .btn { box-shadow: 3px 3px 8px hsl(var(--foreground) / .18) !important; }
+
+:root[data-interface-style="retro-futurism"] { --style-radius: .2rem; --style-border: 2px; --style-shadow: 4px 4px 0 hsl(var(--primary) / .65); }
+:root[data-interface-style="retro-futurism"] :is(.neo-page-heading h1, .neo-kicker, .neo-code-window-bar, .neo-theme-panel__header) { font-family: ui-monospace, monospace; letter-spacing: .06em; }
+:root[data-interface-style="retro-futurism"] .neo-gist-card { border-style: double; border-width: 4px; }
+:root[data-interface-style="retro-futurism"] .neo-topbar { border-bottom-style: dashed; }
+:root[data-interface-style="retro-futurism"] body { background-image: repeating-linear-gradient(0deg, transparent 0 5px, hsl(var(--foreground) / .025) 5px 6px) !important; }
+
+:root[data-interface-style="cyberpunk"] { --style-radius: 0 .9rem 0 .9rem; --style-border: 1px; --style-shadow: 0 0 0 1px hsl(var(--primary) / .45), 0 0 18px hsl(var(--primary) / .18); }
+:root[data-interface-style="cyberpunk"] :is(.neo-gist-card, .neo-sidebar, .neo-code-window, .neo-theme-panel) { border-color: hsl(var(--primary)); }
+:root[data-interface-style="cyberpunk"] :is(.neo-page-heading h1, .neo-kicker) { font-family: ui-monospace, monospace; letter-spacing: .04em; }
+:root[data-interface-style="cyberpunk"] .neo-page-heading { border-bottom: 2px solid hsl(var(--primary)); }
+
+:root[data-interface-style="glassmorphism"] { --style-radius: 1rem; --style-shadow: 0 8px 28px hsl(var(--foreground) / .12); }
+:root[data-interface-style="glassmorphism"] body { background-image: radial-gradient(ellipse at 10% 15%, hsl(var(--primary) / .18), transparent 55%), radial-gradient(ellipse at 90% 80%, hsl(var(--secondary) / .2), transparent 55%) !important; background-attachment: fixed; }
+:root[data-interface-style="glassmorphism"] :is(.neo-sidebar, .neo-topbar, .neo-gist-card, .neo-profile-card, .neo-theme-panel, .neo-code-window, [role="dialog"], .bg-card.border, .glass) {
+  background: hsl(var(--card) / .94);
+  border-color: hsl(var(--foreground) / .25);
+}
+@supports (backdrop-filter: blur(16px)) {
+  :root[data-interface-style="glassmorphism"] :is(.neo-sidebar, .neo-topbar, .neo-gist-card, .neo-profile-card, .neo-theme-panel, [role="dialog"], .bg-card.border, .glass) { background: hsl(var(--card) / .88); backdrop-filter: blur(16px); }
+}
+/* Code content keeps its original opaque syntax palette. */
+
+:root[data-interface-style="flat"] { --style-radius: .5rem; --style-border: 1px; --style-shadow: none; }
+:root[data-interface-style="flat"] :is(.shadow, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl, .btn, .neo-theme-trigger, .neo-kicker, .neo-toolbar-menu__trigger) { box-shadow: none !important; }
+:root[data-interface-style="flat"] .neo-page-heading { border-bottom: 1px solid hsl(var(--border)); }
+:root[data-interface-style="flat"] :is(.neo-sidebar, .neo-topbar) { border-radius: 0 !important; }
