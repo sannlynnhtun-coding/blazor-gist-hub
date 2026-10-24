@@ -27,7 +27,10 @@
             }
         </div>
         <p class="neo-theme-panel__empty" hidden>No themes found. Try another name.</p>
-        <footer id="@HintId" class="neo-theme-panel__footer">Hover or use ↑ ↓ to preview. Click or Enter to save.<span>Esc to cancel · <a href="https://vscodethemes.com/" target="_blank" rel="noopener noreferrer">VS Code Themes</a></span></footer>
+        <footer class="neo-theme-panel__footer">
+            <button type="button" class="neo-theme-restore" @onclick="RestoreDefault">Restore default</button>
+            <div id="@HintId">Hover or use ↑ ↓ to preview. Click or Enter to save.<span>Esc to cancel · <a href="https://vscodethemes.com/" target="_blank" rel="noopener noreferrer">VS Code Themes</a></span></div>
+        </footer>
     </div>
 </div>
 
@@ -60,6 +63,11 @@
     {
         Theme = theme;
         await JS.InvokeVoidAsync("commitGistHubThemePicker", Picker, theme);
+    }
+
+    private async Task RestoreDefault()
+    {
+        await SelectTheme(await JS.InvokeAsync<string>("getGistHubDefaultTheme"));
     }
 
     public async ValueTask DisposeAsync()

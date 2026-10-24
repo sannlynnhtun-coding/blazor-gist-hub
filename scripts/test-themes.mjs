@@ -20,6 +20,12 @@ assert.equal(new Set(catalog.map(theme => theme.id)).size, 102);
 assert.equal(catalog.filter(theme => theme.id.startsWith('vscode-')).length, 100);
 assert.equal(boot(null, false).window.getGistHubTheme(), 'light');
 assert.equal(boot(null, true).window.getGistHubTheme(), 'dark');
+for (const systemDark of [false, true]) {
+    const app = boot(catalog.find(theme => theme.id.startsWith('vscode-')).id, systemDark);
+    app.window.applyGistHubTheme(app.window.getGistHubDefaultTheme());
+    assert.equal(app.saved(), systemDark ? 'dark' : 'light');
+    assert.equal(boot(app.saved(), systemDark).window.getGistHubTheme(), app.saved());
+}
 for (const sort of ['trendingWeekly', 'installs']) {
     const themes = snapshot.themes.filter(theme => theme.sort === sort);
     assert.deepEqual(themes.map(theme => theme.rank), Array.from({ length: 50 }, (_, i) => i + 1));

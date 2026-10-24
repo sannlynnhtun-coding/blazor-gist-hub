@@ -8,6 +8,7 @@
     const themes = Object.fromEntries(catalog.map(entry => [entry.id, entry]));
     const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const defaultTheme = systemDark ? 'dark' : 'light';
+    window.getGistHubDefaultTheme = () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     window.getGistHubThemes = () => catalog;
     window.getGistHubTheme = () => document.documentElement.dataset.theme;
     window.isDarkThemeActive = () => document.documentElement.classList.contains('dark');

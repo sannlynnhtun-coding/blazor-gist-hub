@@ -42,6 +42,13 @@
 .neo-theme-panel__empty { padding: 1rem; font-size: 0.85rem; }
 .neo-theme-panel__footer { padding: 0.7rem 0.8rem; border-top: 2px solid hsl(var(--border)); background: hsl(var(--muted)); color: hsl(var(--foreground)); font-size: 0.65rem; font-weight: 700; }
 .neo-theme-panel__footer span { display: block; margin-top: 0.2rem; font-family: ui-monospace, monospace; }
+.neo-theme-restore {
+  display: block; width: 100%; margin-bottom: 0.65rem; padding: 0.55rem 0.7rem;
+  border: 2px solid hsl(var(--border)); border-radius: 0.2rem;
+  background: hsl(var(--card)); color: hsl(var(--foreground));
+  box-shadow: 2px 2px 0 var(--neo-shadow); font-size: 0.75rem; font-weight: 800; cursor: pointer;
+}
+.neo-theme-restore:hover { background: hsl(var(--muted)); transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--neo-shadow); }
 .neo-theme-trigger:focus-visible, .neo-theme-panel input:focus-visible { outline: 3px solid hsl(var(--ring)); outline-offset: 3px; }
 @media (max-width: 767px) {
   .neo-theme-trigger { max-width: 7.5rem; font-size: 0.7rem; }
