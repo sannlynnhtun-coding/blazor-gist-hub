@@ -98,6 +98,41 @@ export async function saveItem(storeName, item) {
     return true;
 }
 
+export function mergeSyncedGist(incoming, existing) {
+    // Never replace complete cached notes with a partial/failed GitHub response.
+    const files = Object.values(incoming.files ?? {});
+    if (!files.length || files.some(file => !file || file.truncated || typeof file.content !== "string")) {
+        return existing;
+    }
+    if (existing?.isSynced === false ||
+        (existing && Date.parse(existing.updated_at) > Date.parse(incoming.updated_at))) {
+        return existing;
+    }
+    return existing ? {
+        ...incoming,
+        isBookmarked: existing.isBookmarked ?? false,
+        bookmarkOrder: existing.bookmarkOrder ?? 0,
+        collectionNames: existing.collectionNames ?? [],
+        collectionName: existing.collectionName ?? null
+    } : incoming;
+}
+
+export async function saveSyncedGist(incoming) {
+    if (!incoming.id || !incoming.cacheOwnerUsername ||
+        incoming.storageKey !== `${incoming.cacheOwnerUsername}:${incoming.id}`) {
+        throw new Error("Invalid account-scoped gist key.");
+    }
+    await runTransaction("gists", "readwrite", store => {
+        const request = store.get(incoming.storageKey);
+        request.onsuccess = () => {
+            // Read and merge in one transaction so another tab's bookmark wins over stale UI state.
+            const merged = mergeSyncedGist(incoming, request.result);
+            if (merged && merged !== request.result) store.put(merged);
+        };
+        return request;
+    });
+}
+
 export function getAllItems(storeName) {
     return runTransaction(storeName, "readonly", (store) => store.getAll());
 }

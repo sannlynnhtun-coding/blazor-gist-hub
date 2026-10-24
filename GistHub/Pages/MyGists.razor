@@ -138,6 +138,11 @@
         </div>
     }
 
+    @if (!string.IsNullOrWhiteSpace(SyncError))
+    {
+        <p role="alert" class="text-sm text-destructive">@SyncError</p>
+    }
+
     @if (!string.IsNullOrWhiteSpace(BookmarkBackupMessage))
     {
         <div role="status" class="p-3 rounded-xl border text-sm font-semibold @(BookmarkBackupWasSuccessful ? "border-border bg-[#EDF3EC] text-[#346538]" : "border-border bg-[#FDEBEC] text-[#9F2F2D]")">
@@ -296,6 +301,7 @@
     private bool IsRestoringBookmarks = false;
     private bool BookmarkBackupWasSuccessful = false;
     private string BookmarkBackupMessage = "";
+    private string SyncError = "";
 
     private List<string> GroupNames => Groups.Select(g => g.Name).ToList();
 
@@ -521,25 +527,24 @@
 
     private async Task SyncGists()
     {
-        if (!AppState.IsAuthenticated) return;
+        if (!AppState.IsAuthenticated || IsSyncing) return;
+
+        var profile = AppState.CurrentProfile!;
+        var username = profile.GithubUsername;
+        var token = profile.AccessToken;
+        SyncError = "";
 
         IsSyncing = true;
         StateHasChanged();
 
         try
         {
-            var existingById = LocalGists
-                .Where(g => !string.IsNullOrWhiteSpace(g.Id))
-                .GroupBy(g => g.Id)
-                .Select(group => group.First())
-                .ToDictionary(g => g.Id, g => g);
-
-            var userGistsList = await Github.GetUserGistsAsync(AppState.CurrentProfile!.AccessToken);
+            var userGistsList = await Github.GetUserGistsAsync(token);
             if (userGistsList != null)
             {
                 var tasks = userGistsList.Select(async gist =>
                 {
-                    var fullGist = await Github.GetGistByIdAsync(gist.Id, AppState.CurrentProfile!.AccessToken);
+                    var fullGist = await Github.GetGistByIdAsync(gist.Id, token);
                     if (fullGist == null)
                     {
                         return;
@@ -548,23 +553,17 @@
                     fullGist.IsSynced = true;
                     fullGist.Tags = ParseTags(fullGist.Description);
 
-                    if (existingById.TryGetValue(fullGist.Id, out var existing))
-                    {
-                        fullGist.IsBookmarked = existing.IsBookmarked;
-                        fullGist.BookmarkOrder = existing.BookmarkOrder;
-                        fullGist.CollectionNames = existing.CollectionNames
-                            .Distinct(StringComparer.OrdinalIgnoreCase)
-                            .ToList();
-                        fullGist.CollectionName = fullGist.CollectionNames.FirstOrDefault();
-                    }
-
-                    await Storage.SaveGistAsync(fullGist);
+                    await Storage.SaveSyncedGistAsync(fullGist, username);
                 });
 
                 await Task.WhenAll(tasks);
                 await LoadLocalGists();
                 await LoadGroups();
             }
+        }
+        catch (Exception)
+        {
+            SyncError = "Sync could not finish. Your existing cached notes and bookmarks have been kept. Please try again.";
         }
         finally
         {

@@ -11,6 +11,7 @@ public interface IStorageService
     Task DeleteProfileAsync(string id);
     
     Task SaveGistAsync(LocalGist gist);
+    Task SaveSyncedGistAsync(LocalGist gist, string username);
     Task<List<LocalGist>> GetLocalGistsAsync();
     Task<List<LocalGist>> GetLocalGistsAsync(string username);
     Task DeleteGistAsync(string id);
@@ -63,6 +64,17 @@ public class IndexedDbService : IStorageService
         await _module!.InvokeVoidAsync("saveItem", "gists", gist);
     }
 
+    public async Task SaveSyncedGistAsync(LocalGist gist, string username)
+    {
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(gist.Id))
+            throw new ArgumentException("A GitHub account and gist ID are required for sync.");
+
+        await EnsureModule();
+        gist.CacheOwnerUsername = username.Trim().ToLowerInvariant();
+        gist.StorageKey = CreateGistStorageKey(gist.CacheOwnerUsername, gist.Id);
+        await _module!.InvokeVoidAsync("saveSyncedGist", gist);
+    }
+
     public async Task<List<LocalGist>> GetLocalGistsAsync()
         => await GetLocalGistsAsync(GetCurrentUsername());
 
@@ -77,10 +89,8 @@ public class IndexedDbService : IStorageService
 
         foreach (var gist in accountGists)
         {
-            if (NormalizeGistCollections(gist))
-            {
-                await _module!.InvokeVoidAsync("saveItem", "gists", gist);
-            }
+            // Normalize in memory; a read must not overwrite a concurrent bookmark or sync.
+            NormalizeGistCollections(gist);
         }
         return accountGists;
     }

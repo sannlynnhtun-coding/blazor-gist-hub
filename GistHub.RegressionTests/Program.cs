@@ -275,6 +275,7 @@ class FakeStorageService : IStorageService
     public virtual Task<List<GistProfile>> GetProfilesAsync() => Task.FromResult(new List<GistProfile>());
     public Task DeleteProfileAsync(string id) => Task.CompletedTask;
     public Task SaveGistAsync(LocalGist gist) => Task.CompletedTask;
+    public Task SaveSyncedGistAsync(LocalGist gist, string username) => Task.CompletedTask;
     public Task<List<LocalGist>> GetLocalGistsAsync() => Task.FromResult(new List<LocalGist>());
     public Task<List<LocalGist>> GetLocalGistsAsync(string username) => Task.FromResult(new List<LocalGist>());
     public Task DeleteGistAsync(string id) => Task.CompletedTask;

@@ -194,10 +194,8 @@
             {
                 freshGist.IsSynced = true;
                 freshGist.Tags = ParseTags(freshGist.Description);
-                freshGist.IsBookmarked = gist?.IsBookmarked ?? false;
-                freshGist.BookmarkOrder = gist?.BookmarkOrder ?? 0;
-                await Storage.SaveGistAsync(freshGist);
-                gist = freshGist;
+                await Storage.SaveSyncedGistAsync(freshGist, AppState.CurrentProfile!.GithubUsername);
+                gist = (await Storage.GetLocalGistsAsync()).FirstOrDefault(item => item.Id == GistId);
             }
         }
 
