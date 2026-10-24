@@ -55,7 +55,8 @@
         {"id": "wild-west", "name": "South West / Wild West", "description": "Stitched frames and strong slab-like heading rules"},
         {"id": "nautical", "name": "Nautical", "description": "Striped canvas and rope-like paired panel trim"},
         {"id": "rebus", "name": "Rebus", "description": "Geometric symbol accents with clearly labeled controls"},
-        {"id": "modular-typography", "name": "Modular Typography", "description": "Grid-aligned heading blocks and segmented rules"}
+        {"id": "modular-typography", "name": "Modular Typography", "description": "Grid-aligned heading blocks and segmented rules"},
+        { id: 'cruip', name: 'Cruip', description: 'Artifact-inspired dashboard with quiet borders and rounded surfaces' }
     ].map((style, index) => ({ ...style, group: index < 8 ? 'Original styles' : 'More design styles' }));
     const presets = [
         { id: 'bold-light', name: 'Neobrutalism + Light', style: 'neobrutalism', theme: 'light' },

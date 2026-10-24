@@ -14,7 +14,7 @@ function boot(saved, blocked = false) {
 assert.equal(boot().getGistHubStyle(), 'default');
 assert.equal(boot('obsolete').getGistHubStyle(), 'default');
 const app = boot();
-assert.equal(app.getGistHubStyles().length, 55);
+assert.equal(app.getGistHubStyles().length, 56);
 for (const { id } of app.getGistHubStyles()) {
     app.applyGistHubStyle(id);
     assert.equal(app.getGistHubStyle(), id);
@@ -28,7 +28,7 @@ assert.equal(app.store['gisthub:interface-style'], 'flat');
 app.applyGistHubStyle('invalid');
 assert.equal(app.getGistHubStyle(), 'default');
 assert.equal(boot('glassmorphism', true).applyGistHubStyle('flat'), 'flat');
-console.log('PASS: 54 styles plus original default, live changes, persistence, palette independence, invalid values and blocked storage.');
+console.log('PASS: 55 styles plus original default, live changes, persistence, palette independence, invalid values and blocked storage.');
 
 const catalogContext = { window: {} };
 runInNewContext(readFileSync('GistHub/wwwroot/js/vscode-theme-catalog.js', 'utf8'), catalogContext);
@@ -60,10 +60,10 @@ assert.equal(pair.store.theme, lastTheme);
 console.log('PASS: seven valid style/theme presets save both choices and update the picker rollback target.');
 
 const styleCss = readFileSync('GistHub/wwwroot/css/interface-styles.css', 'utf8') + readFileSync('GistHub/wwwroot/css/design-styles.css', 'utf8');
-assert.equal(new Set(app.getGistHubStyles().map(s => s.id)).size, 55);
-assert.equal(app.getGistHubStyles().filter(s => s.group === 'More design styles').length, 47);
+assert.equal(new Set(app.getGistHubStyles().map(s => s.id)).size, 56);
+assert.equal(app.getGistHubStyles().filter(s => s.group === 'More design styles').length, 48);
 for (const style of app.getGistHubStyles().filter(s => s.id !== 'default')) {
     assert.ok(styleCss.includes(`[data-interface-style="${style.id}"]`), `Missing visual rules for ${style.id}`);
     assert.ok(style.description.length > 10);
 }
-console.log('PASS: all catalog entries have visual rules; 47 additions have unique IDs and retain the existing styles.');
+console.log('PASS: all catalog entries have visual rules; 48 additions have unique IDs and retain the existing styles.');

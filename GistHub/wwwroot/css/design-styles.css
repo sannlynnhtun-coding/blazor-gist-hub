@@ -79,3 +79,49 @@
 :root[data-interface-style="rebus"] .neo-kicker::before { content: "○ + □"; margin-right: .5rem; font-family: ui-monospace, monospace; }
 :root[data-interface-style="modular-typography"] .neo-page-heading { border-bottom: 4px solid hsl(var(--primary)); }
 
+/* Cruip: Artifact-inspired dashboard surfaces, independent of color theme. */
+:root[data-interface-style="cruip"][data-theme] {
+  --style-radius: 1rem;
+  --style-border: 1px;
+  --style-shadow: 0 1px 3px hsl(var(--foreground) / .04);
+  --style-heading-font: inherit;
+  --style-heading-spacing: -.015em;
+}
+:root[data-interface-style="cruip"][data-theme] :is(.neo-gist-card, .neo-code-window, .neo-theme-panel, .neo-profile-card, .bg-card.border, [role="dialog"]) {
+  border-width: 1px !important;
+  border-color: hsl(var(--foreground) / .18) !important;
+}
+:root[data-interface-style="cruip"][data-theme] .neo-app-shell :is(.neo-sidebar, .neo-topbar) {
+  border-radius: 0 !important;
+  border-color: hsl(var(--foreground) / .15);
+  background: hsl(var(--card));
+}
+:root[data-interface-style="cruip"][data-theme] .neo-gist-card__active-indicator { inset: -1px; border-width: 2px; }
+:root[data-interface-style="cruip"][data-theme] :is(button, .btn, .nav-item, .neo-theme-trigger, .neo-toolbar-menu__trigger, .neo-topbar-bookmarks, .neo-topbar-search) {
+  border-radius: .6rem !important;
+  box-shadow: none !important;
+  text-transform: none;
+  font-weight: 600 !important;
+}
+:root[data-interface-style="cruip"][data-theme] :is(input, textarea, select, .neo-code-preview) {
+  border-width: 1px !important;
+  border-color: hsl(var(--foreground) / .22) !important;
+  border-radius: .6rem !important;
+  box-shadow: none;
+}
+:root[data-interface-style="cruip"][data-theme] :is(.neo-page-heading h1, .neo-gist-card h3, .neo-theme-panel__header h2) { font-weight: 650 !important; }
+:root[data-interface-style="cruip"][data-theme] :is(.nav-item.active, .nav-item:hover) {
+  background: hsl(var(--primary) / .12) !important;
+  color: hsl(var(--foreground)) !important;
+  border-color: transparent !important;
+  transform: none;
+}
+:root[data-interface-style="cruip"][data-theme] :is(.nav-item.active, .nav-item:hover) svg { color: hsl(var(--primary)) !important; }
+:root[data-interface-style="cruip"][data-theme] :is(.neo-kicker, .neo-profile-card) {
+  background: hsl(var(--muted)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-color: hsl(var(--foreground) / .15) !important;
+  box-shadow: none;
+}
+:root[data-interface-style="cruip"][data-theme] .neo-profile-card :is(span, svg) { color: hsl(var(--foreground)) !important; }
+:root[data-interface-style="cruip"][data-theme] :is(.btn, button, .neo-theme-trigger):hover { transform: none; }
