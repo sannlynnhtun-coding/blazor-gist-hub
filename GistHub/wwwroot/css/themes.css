@@ -116,3 +116,15 @@
 .neo-theme-panel__footer { flex-shrink: 0; border-top-width: 1px; font-size: .6rem; }
 .neo-appearance-reset { display: flex; gap: .5rem; }
 .neo-appearance-reset .neo-theme-restore { margin-bottom: .5rem; box-shadow: none; min-height: 2.5rem; font-size: .7rem; }
+
+/* Card padding and scrolling belong to the preview container, not Highlight.js. */
+.neo-code-preview__content > .neo-code-preview__syntax {
+  display: block;
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  white-space: inherit;
+  overflow-wrap: inherit;
+}

@@ -1,4 +1,5 @@
 @using Microsoft.AspNetCore.Components.Web
+@inject IJSRuntime JS
 
 <div class="neo-gist-card @(Compact ? "neo-gist-card--compact" : "") group relative bg-card border border-border rounded-xl overflow-visible transition-all duration-200 @(IsSelected ? "ring-1 ring-primary border-primary" : "")">
     
@@ -113,7 +114,7 @@
                  aria-label="Code preview"
                  tabindex="0"
                  @onclick:stopPropagation="true">
-                <pre class="neo-code-preview__content font-mono @(Compact ? "text-xs leading-snug" : "text-[13px] leading-relaxed") text-[#2F3437] dark:text-foreground antialiased whitespace-pre-wrap break-words">@SnippetPreview</pre>
+                <pre class="neo-code-preview__content font-mono @(Compact ? "text-xs leading-snug" : "text-[13px] leading-relaxed") text-[#2F3437] dark:text-foreground antialiased whitespace-pre-wrap break-words"><code @key="PreviewSource" @ref="PreviewElement" class="neo-code-preview__syntax">@SnippetPreview</code></pre>
             </div>
         </div>
 
@@ -248,6 +249,11 @@
     [Parameter] public string Description { get; set; } = "No description provided.";
     [Parameter] public List<string> Tags { get; set; } = new();
     [Parameter] public string SnippetPreview { get; set; } = "";
+    [Parameter] public string SnippetLanguage { get; set; } = "";
+    [Parameter] public string SnippetFilename { get; set; } = "";
+    private ElementReference PreviewElement;
+    private (string, string, string) PreviewSource => (SnippetPreview, SnippetLanguage, SnippetFilename);
+    private (string, string, string)? HighlightedSource;
     [Parameter] public int Stars { get; set; } = 0;
     [Parameter] public int Forks { get; set; } = 0;
     [Parameter] public bool IsSelected { get; set; }
@@ -281,6 +287,13 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (HighlightedSource != PreviewSource)
+        {
+            var source = PreviewSource;
+            await JS.InvokeVoidAsync("highlightGistPreview", PreviewElement, source.Item1, source.Item2, source.Item3);
+            HighlightedSource = source;
+        }
+
         if (FocusPopoverPending)
         {
             FocusPopoverPending = false;

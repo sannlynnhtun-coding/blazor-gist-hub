@@ -195,6 +195,8 @@
                             Description="@gist.Description"
                             Tags="@gist.Tags"
                             SnippetPreview="@(gist.Files.Values.FirstOrDefault()?.Content ?? "")"
+                            SnippetLanguage="@(gist.Files.Values.FirstOrDefault()?.Language ?? "")"
+                            SnippetFilename="@(gist.Files.Values.FirstOrDefault()?.Filename ?? "")"
                             Stars="0"
                             Forks="0"
                             IsPublic="@gist.Public"

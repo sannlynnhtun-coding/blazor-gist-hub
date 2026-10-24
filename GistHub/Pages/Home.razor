@@ -94,6 +94,8 @@
                 Description="@(string.IsNullOrEmpty(gist.Description) ? "Multiple files..." : gist.Description)"
                 Tags="@ParseTags(gist.Description)"
                 SnippetPreview="@(gist.Files.Values.FirstOrDefault()?.Content ?? "Click to view code contents...")"
+                SnippetLanguage="@(gist.Files.Values.FirstOrDefault()?.Language ?? "")"
+                SnippetFilename="@(gist.Files.Values.FirstOrDefault()?.Filename ?? "")"
                 Stars="0"
                 Forks="0"
                 ShowCheckbox="true"

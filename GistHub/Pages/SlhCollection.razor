@@ -94,6 +94,8 @@
                     Description="@(string.IsNullOrWhiteSpace(gist.Description) ? "Untitled snippet" : gist.Description)"
                     Tags="@gist.Tags"
                     SnippetPreview="@(gist.Files.Values.FirstOrDefault()?.Content ?? "Open details to view full file content.")"
+                    SnippetLanguage="@(gist.Files.Values.FirstOrDefault()?.Language ?? "")"
+                    SnippetFilename="@(gist.Files.Values.FirstOrDefault()?.Filename ?? "")"
                     Stars="0"
                     Forks="0"
                     OnView="@((id) => Navigation.NavigateTo($"/slh-collection/{gist.Id}"))"
