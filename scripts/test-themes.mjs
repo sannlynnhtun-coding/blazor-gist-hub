@@ -1,61 +1,49 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
-
-const source = readFileSync(new URL('../GistHub/wwwroot/js/theme.js', import.meta.url), 'utf8');
-function boot(stored, systemDark = false, blocked = false) {
-    const root = { dataset: {}, style: {}, classList: {
-        add() {},
-        remove() {},
-        toggle(_, active) { this.dark = active; },
-        contains() { return this.dark; }
-    } };
-    let saved = stored;
-    let stylesheet;
-    const window = { matchMedia: () => ({ matches: systemDark }) };
-    const catalog = {};
-    runInNewContext(readFileSync(new URL('../GistHub/wwwroot/js/highlight-theme-catalog.js', import.meta.url), 'utf8'), { window: catalog });
-    window.gistHubHighlightThemes = catalog.gistHubHighlightThemes;
-    runInNewContext(source, { window, document: {
-        getElementById: () => stylesheet,
-        createElement: () => ({ remove() { stylesheet = undefined; } }),
-        head: { appendChild(link) { stylesheet = link; } },
-        documentElement: root,
-        querySelector: () => ({ setAttribute(_, value) { root.chrome = value; } })
-    }, localStorage: {
-        getItem() { if (blocked) throw Error('disabled'); return saved; },
-        setItem(_, value) { if (blocked) throw Error('disabled'); saved = value; }
-    } });
+const script = readFileSync(new URL('../GistHub/wwwroot/js/theme.js', import.meta.url), 'utf8');
+const catalogScript = readFileSync(new URL('../GistHub/wwwroot/js/vscode-theme-catalog.js', import.meta.url), 'utf8');
+const css = readFileSync(new URL('../GistHub/wwwroot/css/vscode-themes.css', import.meta.url), 'utf8');
+const snapshot = JSON.parse(readFileSync(new URL('../GistHub/ThemeSources/vscode-themes.json', import.meta.url), 'utf8'));
+function boot(saved, dark = true, blocked = false) {
+    const root = { dataset: {}, style: {}, classList: { add() {}, remove() {}, toggle(_, value) { this.dark = value; }, contains() { return this.dark; } } };
+    const window = { matchMedia: () => ({ matches: dark }) };
+    const context = { window, document: { documentElement: root, querySelector: () => ({ setAttribute(_, value) { root.chrome = value; } }) },
+        localStorage: { getItem() { if (blocked) throw Error('disabled'); return saved; }, setItem(_, value) { if (blocked) throw Error('disabled'); saved = value; } } };
+    runInNewContext(catalogScript, context);
+    runInNewContext(script, context);
     return { window, root, saved: () => saved };
 }
-for (const theme of ['light', 'dark', 'ocean', 'forest', 'rose']) {
-    const app = boot(theme);
-    assert.equal(app.window.getGistHubTheme(), theme);
-    assert.equal(app.window.isDarkThemeActive(), ['dark', 'ocean'].includes(theme));
-    app.window.applyGistHubTheme('rose');
-    assert.equal(app.saved(), 'rose');
-    assert.equal(boot(app.saved()).root.dataset.theme, 'rose');
-    assert.equal(app.root.chrome, '#fff0f3');
+const catalog = boot(null).window.getGistHubThemes();
+assert.equal(catalog.length, 60);
+assert.equal(new Set(catalog.map(theme => theme.id)).size, 60);
+for (const sort of ['trendingWeekly', 'installs']) {
+    const themes = snapshot.themes.filter(theme => theme.sort === sort);
+    assert.deepEqual(themes.map(theme => theme.rank), Array.from({ length: 30 }, (_, i) => i + 1));
+    assert.ok(themes.every(theme => theme.rankingUrl === `https://vscodethemes.com/?sort=${sort}`));
 }
-assert.equal(boot(null, true).root.dataset.theme, 'dark');
-assert.equal(boot('invalid').root.dataset.theme, 'light');
-const blocked = boot(null, true, true);
-blocked.window.applyGistHubTheme('forest');
-assert.equal(blocked.root.dataset.theme, 'forest');
-console.log('Theme checks passed: palettes, persistence, system preference, invalid values, blocked storage.');
-for (const theme of boot('light').window.getGistHubThemes()) {
+for (const theme of catalog) {
+    assert.ok(theme.id.startsWith('vscode-'));
+    assert.ok(css.includes(`:root[data-theme="${theme.id}"]`));
     const app = boot(theme.id);
     assert.equal(app.window.getGistHubTheme(), theme.id);
     assert.equal(app.window.isDarkThemeActive(), theme.dark);
-    assert.ok(readFileSync(new URL(`../GistHub/wwwroot/css/highlight-themes/${theme.id}.css`, import.meta.url), 'utf8').includes('--background:'));
-    app.window.applyGistHubTheme('light');
-    assert.equal(app.window.getGistHubTheme(), 'light');
+    assert.equal(app.root.chrome, theme.chrome);
+    const next = catalog.find(other => other.id !== theme.id);
+    app.window.applyGistHubTheme(next.id, false);
+    assert.equal(app.saved(), theme.id, 'Preview must not change storage');
+    app.window.applyGistHubTheme(next.id);
+    assert.equal(boot(app.saved()).window.getGistHubTheme(), next.id);
 }
-console.log('All Highlight.js catalog themes passed.');
-const githubCss = readFileSync(new URL('../GistHub/wwwroot/css/highlight-themes/hljs-github.css', import.meta.url), 'utf8');
-assert.ok(githubCss.includes('.neo-code-window,'), 'Code viewer outer surface must use the palette');
-assert.ok(githubCss.includes('.json-token-string { color: #032f62; }'), 'Light dialog strings must use theme syntax colors');
-assert.ok(githubCss.includes('--neo-on-accent: #0c0c0c;'), 'Pastel sidebar profile needs dark text');
-const draculaCss = readFileSync(new URL('../GistHub/wwwroot/css/highlight-themes/hljs-base16-dracula.css', import.meta.url), 'utf8');
-assert.ok(draculaCss.includes('.json-token-boolean { color: #b45bcf; }'), 'Nested syntax overrides must not replace the keyword palette');
-console.log('Whole-page theme regression checks passed.');
+for (const obsolete of ['light', 'dark', 'ocean', 'forest', 'rose', 'hljs-github', 'invalid']) {
+    const app = boot(obsolete);
+    assert.ok(catalog.some(theme => theme.id === app.saved()), 'Removed choices must migrate to a valid theme');
+}
+assert.equal(boot(null, false).window.isDarkThemeActive(), false);
+const blocked = boot(null, true, true);
+blocked.window.applyGistHubTheme(catalog[1].id);
+assert.equal(blocked.window.getGistHubTheme(), catalog[1].id);
+assert.ok(css.includes('.neo-code-window'));
+assert.ok(css.includes('.json-token-string'));
+assert.ok(!css.includes('hljs-github'));
+console.log('PASS: 30 weekly + 30 installed source results, all 60 palettes, preview rollback, saved selections, removed-theme migration, and blocked storage.');

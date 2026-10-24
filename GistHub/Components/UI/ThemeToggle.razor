@@ -21,13 +21,13 @@
                 <button @key="palette.Id" type="button" role="option" tabindex="-1" aria-selected="@(Theme == palette.Id ? "true" : "false")"
                         class="neo-theme-option" data-theme-option="@palette.Id" data-theme-name="@palette.Name" @onclick="() => SelectTheme(palette.Id)">
                     <span class="neo-theme-option__colors" aria-hidden="true"><i style="background:@palette.Chrome"></i><i style="background:@palette.Primary"></i><i style="background:@palette.Secondary"></i></span>
-                    <span class="neo-theme-option__name">@palette.Name<span class="neo-theme-option__source">@(palette.Source ?? "Highlight.js")</span></span>
+                    <span class="neo-theme-option__name">@palette.Name<span class="neo-theme-option__source">@palette.Source</span></span>
                     <svg class="neo-theme-option__check" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 4 4L19 6" /></svg>
                 </button>
             }
         </div>
         <p class="neo-theme-panel__empty" hidden>No themes found. Try another name.</p>
-        <footer id="@HintId" class="neo-theme-panel__footer">Hover or use ↑ ↓ to preview. Click or Enter to save.<span>Esc to cancel</span></footer>
+        <footer id="@HintId" class="neo-theme-panel__footer">Hover or use ↑ ↓ to preview. Click or Enter to save.<span>Esc to cancel · <a href="https://vscodethemes.com/" target="_blank" rel="noopener noreferrer">VS Code Themes</a></span></footer>
     </div>
 </div>
 
@@ -36,14 +36,8 @@
     private readonly string PanelId = $"theme-picker-{Guid.NewGuid():N}";
     private string HintId => $"{PanelId}-hint";
     private bool IsInitialized;
-    private string Theme = "light";
-    private List<ThemeOption> Palettes = [
-        new("light", "Light", "#fffaf0", "#ffd524", "#78dce8", "GistHub"),
-        new("dark", "Dark", "#24242f", "#c6a344", "#609ba3", "GistHub"),
-        new("ocean", "Ocean", "#102b40", "#69ddcf", "#c3a1ed", "GistHub"),
-        new("forest", "Forest", "#eaf0e5", "#a7cb81", "#abd4c6", "GistHub"),
-        new("rose", "Rose", "#fff0f3", "#f4a4bc", "#cbb3ef", "GistHub")
-    ];
+    private string Theme = "";
+    private List<ThemeOption> Palettes = [];
     private string SelectedName => Palettes.FirstOrDefault(p => p.Id == Theme)?.Name ?? "Themes";
     private sealed record ThemeOption(string Id, string Name, string Chrome, string Primary, string Secondary, string Source);
 

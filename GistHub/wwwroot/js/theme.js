@@ -1,18 +1,14 @@
 // Apply before Blazor starts so reloads keep the selected page palette.
 (() => {
-    const themes = {
-        light: { dark: false, chrome: '#FFD524' },
-        dark: { dark: true, chrome: '#24242F' },
-        ocean: { dark: true, chrome: '#102b40' },
-        forest: { dark: false, chrome: '#eaf0e5' },
-        rose: { dark: false, chrome: '#fff0f3' }
-    };
-    for (const entry of window.gistHubHighlightThemes ?? []) themes[entry.id] = entry;
-    window.getGistHubThemes = () => window.gistHubHighlightThemes ?? [];
+    const catalog = window.gistHubThemes ?? [];
+    const themes = Object.fromEntries(catalog.map(entry => [entry.id, entry]));
+    const defaultTheme = catalog.find(entry => entry.name === 'GitHub Dark')?.id ?? catalog[0]?.id;
+    window.getGistHubThemes = () => catalog;
     window.getGistHubTheme = () => document.documentElement.dataset.theme;
     window.isDarkThemeActive = () => document.documentElement.classList.contains('dark');
     window.applyGistHubTheme = (theme, persist = true) => {
-        if (!Object.hasOwn(themes, theme)) theme = 'light';
+        if (!Object.hasOwn(themes, theme)) theme = defaultTheme;
+        if (!theme) return;
         const palette = themes[theme];
         document.documentElement.classList.add('theme-switching');
         document.documentElement.dataset.theme = theme;
@@ -28,7 +24,10 @@
     };
     let stored;
     try { stored = localStorage.getItem('theme'); } catch { /* Use the system preference. */ }
-    window.applyGistHubTheme(stored ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'), false);
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = stored && Object.hasOwn(themes, stored) ? stored :
+        (catalog.find(entry => entry.dark === systemDark)?.id ?? defaultTheme);
+    window.applyGistHubTheme(initial);
 })();
 
 
