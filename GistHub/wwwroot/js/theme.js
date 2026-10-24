@@ -25,13 +25,23 @@
         void document.documentElement.offsetHeight;
         document.documentElement.classList.remove('theme-switching');
         if (persist) {
-            try { localStorage.setItem('theme', theme); } catch { /* Storage can be disabled. */ }
+            try {
+                localStorage.setItem('theme', theme);
+                localStorage.setItem('gisthub:theme-choice', theme);
+            } catch { /* Storage can be disabled. */ }
         }
     };
     let stored;
-    try { stored = localStorage.getItem('theme'); } catch { /* Use the system preference. */ }
-    const initial = stored && Object.hasOwn(themes, stored) ? stored : defaultTheme;
-    window.applyGistHubTheme(initial);
+    let explicitChoice;
+    try {
+        stored = localStorage.getItem('theme');
+        explicitChoice = localStorage.getItem('gisthub:theme-choice');
+    } catch { /* Use the system preference. */ }
+    // The earlier catalog saved its first entry automatically, without a user selection.
+    const legacyAutoDefault = stored === 'vscode-kobber-spooky-halloween-theme-halloween' && explicitChoice !== stored;
+    const initial = stored && Object.hasOwn(themes, stored) && !legacyAutoDefault ? stored : defaultTheme;
+    window.applyGistHubTheme(initial, false);
+    try { localStorage.setItem('theme', initial); } catch { /* Storage can be disabled. */ }
 })();
 
 

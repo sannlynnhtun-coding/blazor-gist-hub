@@ -5,14 +5,15 @@ const script = readFileSync(new URL('../GistHub/wwwroot/js/theme.js', import.met
 const catalogScript = readFileSync(new URL('../GistHub/wwwroot/js/vscode-theme-catalog.js', import.meta.url), 'utf8');
 const css = readFileSync(new URL('../GistHub/wwwroot/css/vscode-themes.css', import.meta.url), 'utf8');
 const snapshot = JSON.parse(readFileSync(new URL('../GistHub/ThemeSources/vscode-themes.json', import.meta.url), 'utf8'));
-function boot(saved, dark = true, blocked = false) {
+function boot(saved, dark = true, blocked = false, explicitChoice = null) {
+    const storage = { theme: saved, 'gisthub:theme-choice': explicitChoice };
     const root = { dataset: {}, style: {}, classList: { add() {}, remove() {}, toggle(_, value) { this.dark = value; }, contains() { return this.dark; } } };
     const window = { matchMedia: () => ({ matches: dark }) };
     const context = { window, document: { documentElement: root, querySelector: () => ({ setAttribute(_, value) { root.chrome = value; } }) },
-        localStorage: { getItem() { if (blocked) throw Error('disabled'); return saved; }, setItem(_, value) { if (blocked) throw Error('disabled'); saved = value; } } };
+        localStorage: { getItem(key) { if (blocked) throw Error('disabled'); return storage[key] ?? null; }, setItem(key, value) { if (blocked) throw Error('disabled'); storage[key] = value; } } };
     runInNewContext(catalogScript, context);
     runInNewContext(script, context);
-    return { window, root, saved: () => saved };
+    return { window, root, saved: () => storage.theme, explicit: () => storage['gisthub:theme-choice'] };
 }
 const catalog = boot(null).window.getGistHubThemes();
 assert.equal(catalog.length, 102);
@@ -20,6 +21,14 @@ assert.equal(new Set(catalog.map(theme => theme.id)).size, 102);
 assert.equal(catalog.filter(theme => theme.id.startsWith('vscode-')).length, 100);
 assert.equal(boot(null, false).window.getGistHubTheme(), 'light');
 assert.equal(boot(null, true).window.getGistHubTheme(), 'dark');
+const halloween = catalog.find(theme => theme.id === 'vscode-kobber-spooky-halloween-theme-halloween').id;
+for (const systemDark of [false, true]) {
+    const migrated = boot(halloween, systemDark);
+    assert.equal(migrated.saved(), systemDark ? 'dark' : 'light', 'Old automatic Halloween defaults must be reset');
+    assert.equal(migrated.explicit(), null, 'Startup must not pretend the user selected a theme');
+    migrated.window.applyGistHubTheme(halloween);
+    assert.equal(boot(migrated.saved(), systemDark, false, migrated.explicit()).window.getGistHubTheme(), halloween, 'An explicit Halloween selection must persist');
+}
 for (const systemDark of [false, true]) {
     const app = boot(catalog.find(theme => theme.id.startsWith('vscode-')).id, systemDark);
     app.window.applyGistHubTheme(app.window.getGistHubDefaultTheme());
@@ -33,7 +42,7 @@ for (const sort of ['trendingWeekly', 'installs']) {
 }
 for (const theme of catalog) {
     if (theme.id.startsWith('vscode-')) assert.ok(css.includes(`:root[data-theme="${theme.id}"]`));
-    const app = boot(theme.id);
+    const app = boot(theme.id, true, false, theme.id);
     assert.equal(app.window.getGistHubTheme(), theme.id);
     assert.equal(app.window.isDarkThemeActive(), theme.dark);
     assert.equal(app.root.chrome, theme.chrome);
@@ -41,7 +50,7 @@ for (const theme of catalog) {
     app.window.applyGistHubTheme(next.id, false);
     assert.equal(app.saved(), theme.id, 'Preview must not change storage');
     app.window.applyGistHubTheme(next.id);
-    assert.equal(boot(app.saved()).window.getGistHubTheme(), next.id);
+    assert.equal(boot(app.saved(), true, false, app.explicit()).window.getGistHubTheme(), next.id);
 }
 for (const obsolete of ['ocean', 'forest', 'rose', 'hljs-github', 'invalid']) {
     const app = boot(obsolete);
