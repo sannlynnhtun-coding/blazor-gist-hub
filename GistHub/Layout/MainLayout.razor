@@ -78,10 +78,13 @@
                                 <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">◇</span>
                                 <span><strong>draw.io Diagram Editor</strong><small>Create workflows and architecture diagrams</small></span>
                             </a>
-                            <a href="tools/youtube-downloader" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" role="menuitem" data-testid="youtube-downloader-menu-item">
-                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--pink" aria-hidden="true">▶</span>
-                                <span><strong>YouTube Downloader</strong><small>Save video and audio on this computer</small></span>
-                            </a>
+                            @if (!IsVercelApp)
+                            {
+                                <a href="tools/youtube-downloader" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" role="menuitem" data-testid="youtube-downloader-menu-item">
+                                    <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--pink" aria-hidden="true">▶</span>
+                                    <span><strong>YouTube Downloader</strong><small>Save video and audio on this computer</small></span>
+                                </a>
+                            }
                             <button data-testid="code-image-menu-item"
                                     @onclick="OpenCodeImage"
                                     class="neo-toolbar-menu-item"
@@ -204,6 +207,8 @@
     private bool ProfileLoadFailed;
     private bool AreFilesBlurred { get; set; }
     private bool IsToolsMenuOpen { get; set; }
+    private bool IsVercelApp => new Uri(Navigation.BaseUri).Host is var host &&
+        (host.Equals("vercel.app", StringComparison.OrdinalIgnoreCase) || host.EndsWith(".vercel.app", StringComparison.OrdinalIgnoreCase));
     private bool IsSettingsMenuOpen { get; set; }
     private bool IsGlobalSearchOpen { get; set; }
     private bool IsSearchShortcutReady { get; set; }
