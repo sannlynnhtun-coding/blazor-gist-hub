@@ -15,16 +15,18 @@ function boot(saved, dark = true, blocked = false) {
     return { window, root, saved: () => saved };
 }
 const catalog = boot(null).window.getGistHubThemes();
-assert.equal(catalog.length, 100);
-assert.equal(new Set(catalog.map(theme => theme.id)).size, 100);
+assert.equal(catalog.length, 102);
+assert.equal(new Set(catalog.map(theme => theme.id)).size, 102);
+assert.equal(catalog.filter(theme => theme.id.startsWith('vscode-')).length, 100);
+assert.equal(boot(null, false).window.getGistHubTheme(), 'light');
+assert.equal(boot(null, true).window.getGistHubTheme(), 'dark');
 for (const sort of ['trendingWeekly', 'installs']) {
     const themes = snapshot.themes.filter(theme => theme.sort === sort);
     assert.deepEqual(themes.map(theme => theme.rank), Array.from({ length: 50 }, (_, i) => i + 1));
     assert.ok(themes.every(theme => theme.rankingUrl === `https://vscodethemes.com/?sort=${sort}`));
 }
 for (const theme of catalog) {
-    assert.ok(theme.id.startsWith('vscode-'));
-    assert.ok(css.includes(`:root[data-theme="${theme.id}"]`));
+    if (theme.id.startsWith('vscode-')) assert.ok(css.includes(`:root[data-theme="${theme.id}"]`));
     const app = boot(theme.id);
     assert.equal(app.window.getGistHubTheme(), theme.id);
     assert.equal(app.window.isDarkThemeActive(), theme.dark);
@@ -35,7 +37,7 @@ for (const theme of catalog) {
     app.window.applyGistHubTheme(next.id);
     assert.equal(boot(app.saved()).window.getGistHubTheme(), next.id);
 }
-for (const obsolete of ['light', 'dark', 'ocean', 'forest', 'rose', 'hljs-github', 'invalid']) {
+for (const obsolete of ['ocean', 'forest', 'rose', 'hljs-github', 'invalid']) {
     const app = boot(obsolete);
     assert.ok(catalog.some(theme => theme.id === app.saved()), 'Removed choices must migrate to a valid theme');
 }
@@ -46,4 +48,4 @@ assert.equal(blocked.window.getGistHubTheme(), catalog[1].id);
 assert.ok(css.includes('.neo-code-window'));
 assert.ok(css.includes('.json-token-string'));
 assert.ok(!css.includes('hljs-github'));
-console.log('PASS: 50 weekly + 50 installed source results, all 100 palettes, preview rollback, saved selections, removed-theme migration, and blocked storage.');
+console.log('PASS: original Light/Dark defaults, 100 optional VS Code palettes, preview rollback, saved selections, removed-theme migration, and blocked storage.');

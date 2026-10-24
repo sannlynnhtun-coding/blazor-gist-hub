@@ -1,8 +1,13 @@
 // Apply before Blazor starts so reloads keep the selected page palette.
 (() => {
-    const catalog = window.gistHubThemes ?? [];
+    const catalog = [
+        { id: 'light', name: 'Light', dark: false, chrome: '#FFD524', primary: '#ffd524', secondary: '#78dce8', source: 'GistHub · Default' },
+        { id: 'dark', name: 'Dark', dark: true, chrome: '#24242F', primary: '#c6a344', secondary: '#609ba3', source: 'GistHub · Default' },
+        ...(window.gistHubThemes ?? [])
+    ];
     const themes = Object.fromEntries(catalog.map(entry => [entry.id, entry]));
-    const defaultTheme = catalog.find(entry => entry.name === 'GitHub Dark')?.id ?? catalog[0]?.id;
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const defaultTheme = systemDark ? 'dark' : 'light';
     window.getGistHubThemes = () => catalog;
     window.getGistHubTheme = () => document.documentElement.dataset.theme;
     window.isDarkThemeActive = () => document.documentElement.classList.contains('dark');
@@ -24,9 +29,7 @@
     };
     let stored;
     try { stored = localStorage.getItem('theme'); } catch { /* Use the system preference. */ }
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initial = stored && Object.hasOwn(themes, stored) ? stored :
-        (catalog.find(entry => entry.dark === systemDark)?.id ?? defaultTheme);
+    const initial = stored && Object.hasOwn(themes, stored) ? stored : defaultTheme;
     window.applyGistHubTheme(initial);
 })();
 
