@@ -1749,6 +1749,22 @@ span[class~="rounded-md"][class~="border"] {
   box-shadow: 9px 9px 0 var(--neo-shadow) !important;
 }
 
+.neo-gist-card__active-indicator {
+  position: absolute;
+  inset: -2px;
+  border: 3px solid transparent;
+  border-left-color: hsl(var(--primary));
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms;
+}
+
+.neo-gist-card:hover > .neo-gist-card__active-indicator,
+.neo-gist-card:focus-within > .neo-gist-card__active-indicator {
+  opacity: 1;
+}
+
 .neo-gist-card::before {
   content: "";
   position: absolute;

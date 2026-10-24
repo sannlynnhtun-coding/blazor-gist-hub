@@ -3,7 +3,7 @@
 <div class="neo-gist-card @(Compact ? "neo-gist-card--compact" : "") group relative bg-card border border-border rounded-xl overflow-visible transition-all duration-200 @(IsSelected ? "ring-1 ring-primary border-primary" : "")">
     
     <!-- Active Indicator -->
-    <div class="absolute top-0 left-0 w-[3px] h-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+    <div class="neo-gist-card__active-indicator" aria-hidden="true"></div>
     
     <div class="@(Compact ? "p-3" : "p-5")">
         <!-- Header -->
