@@ -1,4 +1,5 @@
 // Refresh: node scripts/import-vscode-themes.mjs --refresh
+// Append ranks 31–50 while retaining the existing choices: --extend
 // Rebuild from the checked-in source snapshot: node scripts/import-vscode-themes.mjs
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -9,19 +10,26 @@ const getText = async url => {
   if (!response.ok) throw new Error(`${response.status}: ${url}`);
   return response.text();
 };
-if (process.argv.includes('--refresh')) {
+if (process.argv.includes('--refresh') || process.argv.includes('--extend')) {
+  const retained = process.argv.includes('--extend') ? JSON.parse(readFileSync(snapshotPath, 'utf8')).themes : [];
   const entries = [];
   for (const [sort, label] of [['trendingWeekly', 'Weekly trending'], ['installs', 'Most installed']]) {
     const url = `https://vscodethemes.com/?sort=${sort}`;
-    const extensions = parsePage(await getText(url))['routes/_index'].results.extensions.slice(0, 30);
-    if (extensions.length !== 30) throw new Error(`Expected 30 results for ${sort}`);
+    const extensions = [];
+    for (let page = 1; extensions.length < 50; page++) {
+      const rows = parsePage(await getText(`${url}&page=${page}`))['routes/_index'].results.extensions;
+      if (!rows.length) throw new Error(`Expected 50 results for ${sort}`);
+      extensions.push(...rows);
+    }
+    extensions.length = 50;
     for (const [index, extension] of extensions.entries()) {
+      if (retained.some(theme => theme.sort === sort && theme.rank === index + 1)) continue;
       const first = extension.themes[0];
       if (!first) throw new Error(`No palette for ${extension.displayName}`);
       entries.push({ extension, first, sort, label, rank: index + 1, rankingUrl: url });
     }
   }
-  const results = new Array(entries.length);
+  const results = [...retained, ...new Array(entries.length)];
   let next = 0;
   await Promise.all(Array.from({ length: 6 }, async () => {
     while (next < entries.length) {
@@ -34,7 +42,7 @@ if (process.argv.includes('--refresh')) {
       const preview = await getText(detail.url);
       const spans = [...preview.matchAll(/<tspan[^>]*fill="(#[\da-fA-F]{3,8})"[^>]*>([^<]*)/g)].map(m => ({ color: m[1], text: m[2] }));
       const colorFor = (pattern, fallback) => spans.find(span => pattern.test(span.text))?.color ?? fallback;
-      results[index] = {
+      results[retained.length + index] = {
         id: `vscode-${slug}-${first.name}`.toLowerCase().replace(/[^a-z0-9-]/g, '-'),
         name: first.displayName, pack: extension.displayName, publisher: extension.publisherDisplayName,
         sort, rank, rankingUrl, url, previewUrl: detail.url, colors: detail,
@@ -52,7 +60,7 @@ if (process.argv.includes('--refresh')) {
   }));
   mkdirSync(resolve('GistHub/ThemeSources'), { recursive: true });
   results.sort((a, b) => a.sort === b.sort ? a.rank - b.rank : a.sort === 'trendingWeekly' ? -1 : 1);
-  writeFileSync(snapshotPath, JSON.stringify({ capturedOn: new Date().toISOString().slice(0, 10), variantPolicy: 'First displayed variant of each of the first 30 results per ranking.', themes: results }, null, 2) + '\n');
+  writeFileSync(snapshotPath, JSON.stringify({ capturedOn: new Date().toISOString().slice(0, 10), variantPolicy: 'First displayed variant of each of the first 50 results per ranking.', themes: results }, null, 2) + '\n');
 }
 const snapshot = JSON.parse(readFileSync(snapshotPath, 'utf8'));
 const rgb = value => {

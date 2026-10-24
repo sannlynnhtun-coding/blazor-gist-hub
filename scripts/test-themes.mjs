@@ -15,11 +15,11 @@ function boot(saved, dark = true, blocked = false) {
     return { window, root, saved: () => saved };
 }
 const catalog = boot(null).window.getGistHubThemes();
-assert.equal(catalog.length, 60);
-assert.equal(new Set(catalog.map(theme => theme.id)).size, 60);
+assert.equal(catalog.length, 100);
+assert.equal(new Set(catalog.map(theme => theme.id)).size, 100);
 for (const sort of ['trendingWeekly', 'installs']) {
     const themes = snapshot.themes.filter(theme => theme.sort === sort);
-    assert.deepEqual(themes.map(theme => theme.rank), Array.from({ length: 30 }, (_, i) => i + 1));
+    assert.deepEqual(themes.map(theme => theme.rank), Array.from({ length: 50 }, (_, i) => i + 1));
     assert.ok(themes.every(theme => theme.rankingUrl === `https://vscodethemes.com/?sort=${sort}`));
 }
 for (const theme of catalog) {
@@ -46,4 +46,4 @@ assert.equal(blocked.window.getGistHubTheme(), catalog[1].id);
 assert.ok(css.includes('.neo-code-window'));
 assert.ok(css.includes('.json-token-string'));
 assert.ok(!css.includes('hljs-github'));
-console.log('PASS: 30 weekly + 30 installed source results, all 60 palettes, preview rollback, saved selections, removed-theme migration, and blocked storage.');
+console.log('PASS: 50 weekly + 50 installed source results, all 100 palettes, preview rollback, saved selections, removed-theme migration, and blocked storage.');
