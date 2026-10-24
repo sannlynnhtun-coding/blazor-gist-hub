@@ -1,0 +1,111 @@
+/* Highlight.js 11.11.1: paraiso-dark.css. Original theme attribution follows. */
+:root[data-theme="hljs-paraiso-dark"] {
+--background: 304 22% 15%;
+--foreground: 23 4% 62%;
+--card: 305 19% 17%;
+--card-foreground: 23 4% 62%;
+--popover: 305 19% 17%;
+--popover-foreground: 23 4% 62%;
+--primary: 271 29% 50%;
+--primary-foreground: 0 0% 100%;
+--secondary: 153 43% 50%;
+--secondary-foreground: 0 0% 5%;
+--accent: 35 95% 53%;
+--accent-foreground: 0 0% 5%;
+--muted: 306 16% 20%;
+--muted-foreground: 343 3% 50%;
+--destructive: 271 29% 50%;
+--destructive-foreground: 0 0% 100%;
+--border: 319 7% 34%;
+--input: 319 7% 34%;
+--ring: 271 29% 50%;
+--neo-yellow: #815ba4;
+--neo-pink: #f99b15;
+--neo-purple: #fec418;
+--neo-green: #48b685;
+--neo-cyan: #48b685;
+--neo-red: #f99b15;
+--neo-paper: #342433;
+--neo-code-text: #a39e9b;
+--neo-shadow: #493a46;
+--neo-interactive: #815ba4;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-paraiso-dark"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-paraiso-dark"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+    Paraíso (dark)
+    Created by Jan T. Sott (http://github.com/idleberg)
+    Inspired by the art of Rubens LP (http://www.rubenslp.com.br)
+*/
+:root[data-theme="hljs-paraiso-dark"] .hljs {
+  background: #2f1e2e !important;
+  color: #a39e9b !important
+}
+/* Paraíso Comment */
+:root[data-theme="hljs-paraiso-dark"] .hljs-comment,
+:root[data-theme="hljs-paraiso-dark"] .hljs-quote {
+  color: #8d8687 !important
+}
+/* Paraíso Red */
+:root[data-theme="hljs-paraiso-dark"] .hljs-variable,
+:root[data-theme="hljs-paraiso-dark"] .hljs-template-variable,
+:root[data-theme="hljs-paraiso-dark"] .hljs-tag,
+:root[data-theme="hljs-paraiso-dark"] .hljs-name,
+:root[data-theme="hljs-paraiso-dark"] .hljs-selector-id,
+:root[data-theme="hljs-paraiso-dark"] .hljs-selector-class,
+:root[data-theme="hljs-paraiso-dark"] .hljs-regexp,
+:root[data-theme="hljs-paraiso-dark"] .hljs-link,
+:root[data-theme="hljs-paraiso-dark"] .hljs-meta {
+  color: #ef6155 !important
+}
+/* Paraíso Orange */
+:root[data-theme="hljs-paraiso-dark"] .hljs-number,
+:root[data-theme="hljs-paraiso-dark"] .hljs-built_in,
+:root[data-theme="hljs-paraiso-dark"] .hljs-literal,
+:root[data-theme="hljs-paraiso-dark"] .hljs-type,
+:root[data-theme="hljs-paraiso-dark"] .hljs-params,
+:root[data-theme="hljs-paraiso-dark"] .hljs-deletion {
+  color: #f99b15 !important
+}
+/* Paraíso Yellow */
+:root[data-theme="hljs-paraiso-dark"] .hljs-title,
+:root[data-theme="hljs-paraiso-dark"] .hljs-section,
+:root[data-theme="hljs-paraiso-dark"] .hljs-attribute {
+  color: #fec418 !important
+}
+/* Paraíso Green */
+:root[data-theme="hljs-paraiso-dark"] .hljs-string,
+:root[data-theme="hljs-paraiso-dark"] .hljs-symbol,
+:root[data-theme="hljs-paraiso-dark"] .hljs-bullet,
+:root[data-theme="hljs-paraiso-dark"] .hljs-addition {
+  color: #48b685 !important
+}
+/* Paraíso Purple */
+:root[data-theme="hljs-paraiso-dark"] .hljs-keyword,
+:root[data-theme="hljs-paraiso-dark"] .hljs-selector-tag {
+  color: #815ba4 !important
+}
+:root[data-theme="hljs-paraiso-dark"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-paraiso-dark"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-paraiso-dark"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #2f1e2e !important; color: #a39e9b !important; }
+
+:root[data-theme="hljs-paraiso-dark"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-paraiso-dark"] .json-token-field { color: #fec418; }
+:root[data-theme="hljs-paraiso-dark"] .json-token-string { color: #48b685; }
+:root[data-theme="hljs-paraiso-dark"] .json-token-number { color: #f99b15; }
+:root[data-theme="hljs-paraiso-dark"] .json-token-boolean { color: #815ba4; }
+:root[data-theme="hljs-paraiso-dark"] .json-token-null { color: #815ba4; }
+:root[data-theme="hljs-paraiso-dark"] .json-token-punctuation { color: #a39e9b; }
+:root[data-theme="hljs-paraiso-dark"] .json-parser-type-legend i { background: currentColor; }

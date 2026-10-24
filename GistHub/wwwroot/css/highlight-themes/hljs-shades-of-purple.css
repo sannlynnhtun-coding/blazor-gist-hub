@@ -1,0 +1,128 @@
+/* Highlight.js 11.11.1: shades-of-purple.css. Original theme attribution follows. */
+:root[data-theme="hljs-shades-of-purple"] {
+--background: 243 34% 25%;
+--foreground: 248 100% 94%;
+--card: 243 30% 29%;
+--card-foreground: 248 100% 94%;
+--popover: 243 30% 29%;
+--popover-foreground: 248 100% 94%;
+--primary: 38 100% 49%;
+--primary-foreground: 0 0% 5%;
+--secondary: 102 83% 45%;
+--secondary-foreground: 0 0% 5%;
+--accent: 344 94% 69%;
+--accent-foreground: 0 0% 5%;
+--muted: 243 26% 32%;
+--muted-foreground: 246 27% 75%;
+--destructive: 38 100% 49%;
+--destructive-foreground: 0 0% 5%;
+--border: 244 16% 53%;
+--input: 244 16% 53%;
+--ring: 38 100% 49%;
+--neo-yellow: #fb9e00;
+--neo-pink: #fa658d;
+--neo-purple: #fad000;
+--neo-green: #4cd213;
+--neo-cyan: #f8d000;
+--neo-red: #fa658d;
+--neo-paper: #35335f;
+--neo-code-text: #e3dfff;
+--neo-shadow: #55537c;
+--neo-interactive: #fb9e00;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-shades-of-purple"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-shades-of-purple"] code.hljs {
+  padding: 3px 5px !important
+}
+/**
+ * Shades of Purple Theme — for Highlightjs.
+ *
+ * @author (c) Ahmad Awais <https://twitter.com/mrahmadawais/>
+ * @link GitHub Repo → https://github.com/ahmadawais/Shades-of-Purple-HighlightJS
+ * @version 1.5.0
+ */
+:root[data-theme="hljs-shades-of-purple"] .hljs {
+  background: #2d2b57 !important;
+  color: #e3dfff !important;
+  font-weight: normal !important
+}
+:root[data-theme="hljs-shades-of-purple"] .hljs-subst {
+  color: #e3dfff !important
+}
+:root[data-theme="hljs-shades-of-purple"] .hljs-title {
+  color: #fad000 !important;
+  font-weight: normal !important
+}
+:root[data-theme="hljs-shades-of-purple"] .hljs-name {
+  color: #a1feff !important
+}
+:root[data-theme="hljs-shades-of-purple"] .hljs-tag {
+  color: #ffffff !important
+}
+:root[data-theme="hljs-shades-of-purple"] .hljs-attr {
+  color: #f8d000 !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-shades-of-purple"] .hljs-built_in,
+:root[data-theme="hljs-shades-of-purple"] .hljs-selector-tag,
+:root[data-theme="hljs-shades-of-purple"] .hljs-section {
+  color: #fb9e00 !important
+}
+:root[data-theme="hljs-shades-of-purple"] .hljs-keyword {
+  color: #fb9e00 !important
+}
+:root[data-theme="hljs-shades-of-purple"] .hljs-string,
+:root[data-theme="hljs-shades-of-purple"] .hljs-attribute,
+:root[data-theme="hljs-shades-of-purple"] .hljs-symbol,
+:root[data-theme="hljs-shades-of-purple"] .hljs-bullet,
+:root[data-theme="hljs-shades-of-purple"] .hljs-addition,
+:root[data-theme="hljs-shades-of-purple"] .hljs-code,
+:root[data-theme="hljs-shades-of-purple"] .hljs-regexp,
+:root[data-theme="hljs-shades-of-purple"] .hljs-selector-class,
+:root[data-theme="hljs-shades-of-purple"] .hljs-selector-attr,
+:root[data-theme="hljs-shades-of-purple"] .hljs-selector-pseudo,
+:root[data-theme="hljs-shades-of-purple"] .hljs-template-tag,
+:root[data-theme="hljs-shades-of-purple"] .hljs-quote,
+:root[data-theme="hljs-shades-of-purple"] .hljs-deletion {
+  color: #4cd213 !important
+}
+:root[data-theme="hljs-shades-of-purple"] .hljs-meta,
+:root[data-theme="hljs-shades-of-purple"] .hljs-meta .hljs-string {
+  color: #fb9e00 !important
+}
+:root[data-theme="hljs-shades-of-purple"] .hljs-comment {
+  color: #ac65ff !important
+}
+:root[data-theme="hljs-shades-of-purple"] .hljs-keyword,
+:root[data-theme="hljs-shades-of-purple"] .hljs-selector-tag,
+:root[data-theme="hljs-shades-of-purple"] .hljs-literal,
+:root[data-theme="hljs-shades-of-purple"] .hljs-name,
+:root[data-theme="hljs-shades-of-purple"] .hljs-strong {
+  font-weight: normal !important
+}
+:root[data-theme="hljs-shades-of-purple"] .hljs-literal,
+:root[data-theme="hljs-shades-of-purple"] .hljs-number {
+  color: #fa658d !important
+}
+:root[data-theme="hljs-shades-of-purple"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-shades-of-purple"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-shades-of-purple"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #2d2b57 !important; color: #e3dfff !important; }
+
+:root[data-theme="hljs-shades-of-purple"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-shades-of-purple"] .json-token-field { color: #f8d000; }
+:root[data-theme="hljs-shades-of-purple"] .json-token-string { color: #4cd213; }
+:root[data-theme="hljs-shades-of-purple"] .json-token-number { color: #fa658d; }
+:root[data-theme="hljs-shades-of-purple"] .json-token-boolean { color: #fb9e00; }
+:root[data-theme="hljs-shades-of-purple"] .json-token-null { color: #fb9e00; }
+:root[data-theme="hljs-shades-of-purple"] .json-token-punctuation { color: #e3dfff; }
+:root[data-theme="hljs-shades-of-purple"] .json-parser-type-legend i { background: currentColor; }

@@ -1,0 +1,125 @@
+/* Highlight.js 11.11.1: lightfair.css. Original theme attribution follows. */
+:root[data-theme="hljs-lightfair"] {
+--background: 0 0% 100%;
+--foreground: 0 0% 27%;
+--card: 0 0% 97%;
+--card-foreground: 0 0% 27%;
+--popover: 0 0% 97%;
+--popover-foreground: 0 0% 27%;
+--primary: 217 89% 61%;
+--primary-foreground: 0 0% 5%;
+--secondary: 217 89% 61%;
+--secondary-foreground: 0 0% 5%;
+--accent: 217 89% 61%;
+--accent-foreground: 0 0% 5%;
+--muted: 0 0% 93%;
+--muted-foreground: 0 0% 47%;
+--destructive: 217 89% 61%;
+--destructive-foreground: 0 0% 5%;
+--border: 0 0% 71%;
+--input: 0 0% 71%;
+--ring: 217 89% 61%;
+--neo-yellow: #bdd5fb;
+--neo-pink: #bdd5fb;
+--neo-purple: #bdd5fb;
+--neo-green: #bdd5fb;
+--neo-cyan: #bdd5fb;
+--neo-red: #bdd5fb;
+--neo-paper: #f7f7f7;
+--neo-code-text: #444444;
+--neo-shadow: #d6d6d6;
+--neo-interactive: #4286f4;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-lightfair"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-lightfair"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+
+Lightfair style (c) Tristian Kelly <tristian.kelly560@gmail.com>
+
+*/
+:root[data-theme="hljs-lightfair"] .hljs {
+  color: #444 !important;
+  background: #fff !important
+}
+:root[data-theme="hljs-lightfair"] .hljs-name {
+  color: #01a3a3 !important
+}
+:root[data-theme="hljs-lightfair"] .hljs-tag,
+:root[data-theme="hljs-lightfair"] .hljs-meta {
+  color: #778899 !important
+}
+:root[data-theme="hljs-lightfair"] .hljs-subst {
+  /* default */
+  
+}
+:root[data-theme="hljs-lightfair"] .hljs-comment {
+  color: #888888 !important
+}
+:root[data-theme="hljs-lightfair"] .hljs-keyword,
+:root[data-theme="hljs-lightfair"] .hljs-attribute,
+:root[data-theme="hljs-lightfair"] .hljs-selector-tag,
+:root[data-theme="hljs-lightfair"] .hljs-meta .hljs-keyword,
+:root[data-theme="hljs-lightfair"] .hljs-doctag,
+:root[data-theme="hljs-lightfair"] .hljs-name {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-lightfair"] .hljs-type,
+:root[data-theme="hljs-lightfair"] .hljs-string,
+:root[data-theme="hljs-lightfair"] .hljs-number,
+:root[data-theme="hljs-lightfair"] .hljs-selector-id,
+:root[data-theme="hljs-lightfair"] .hljs-selector-class,
+:root[data-theme="hljs-lightfair"] .hljs-quote,
+:root[data-theme="hljs-lightfair"] .hljs-template-tag,
+:root[data-theme="hljs-lightfair"] .hljs-deletion {
+  color: #4286f4 !important
+}
+:root[data-theme="hljs-lightfair"] .hljs-title,
+:root[data-theme="hljs-lightfair"] .hljs-section {
+  color: #4286f4 !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-lightfair"] .hljs-regexp,
+:root[data-theme="hljs-lightfair"] .hljs-symbol,
+:root[data-theme="hljs-lightfair"] .hljs-variable,
+:root[data-theme="hljs-lightfair"] .hljs-template-variable,
+:root[data-theme="hljs-lightfair"] .hljs-link,
+:root[data-theme="hljs-lightfair"] .hljs-selector-attr,
+:root[data-theme="hljs-lightfair"] .hljs-selector-pseudo {
+  color: #BC6060 !important
+}
+:root[data-theme="hljs-lightfair"] .hljs-literal {
+  color: #62bcbc !important
+}
+:root[data-theme="hljs-lightfair"] .hljs-built_in,
+:root[data-theme="hljs-lightfair"] .hljs-bullet,
+:root[data-theme="hljs-lightfair"] .hljs-code,
+:root[data-theme="hljs-lightfair"] .hljs-addition {
+  color: #25c6c6 !important
+}
+:root[data-theme="hljs-lightfair"] .hljs-meta .hljs-string {
+  color: #4d99bf !important
+}
+:root[data-theme="hljs-lightfair"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-lightfair"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-lightfair"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #ffffff !important; color: #444444 !important; }
+
+:root[data-theme="hljs-lightfair"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-lightfair"] .json-token-field { color: #4286f4; }
+:root[data-theme="hljs-lightfair"] .json-token-string { color: #4286f4; }
+:root[data-theme="hljs-lightfair"] .json-token-number { color: #4286f4; }
+:root[data-theme="hljs-lightfair"] .json-token-boolean { color: #444444; }
+:root[data-theme="hljs-lightfair"] .json-token-null { color: #444444; }
+:root[data-theme="hljs-lightfair"] .json-token-punctuation { color: #444444; }
+:root[data-theme="hljs-lightfair"] .json-parser-type-legend i { background: currentColor; }

@@ -1,0 +1,134 @@
+/* Highlight.js 11.11.1: xcode.css. Original theme attribution follows. */
+:root[data-theme="hljs-xcode"] {
+--background: 0 0% 100%;
+--foreground: 0 0% 0%;
+--card: 0 0% 96%;
+--card-foreground: 0 0% 0%;
+--popover: 0 0% 96%;
+--popover-foreground: 0 0% 0%;
+--primary: 310 86% 36%;
+--primary-foreground: 0 0% 100%;
+--secondary: 1 80% 43%;
+--secondary-foreground: 0 0% 100%;
+--accent: 248 100% 41%;
+--accent-foreground: 0 0% 100%;
+--muted: 0 0% 90%;
+--muted-foreground: 0 0% 28%;
+--destructive: 310 86% 36%;
+--destructive-foreground: 0 0% 100%;
+--border: 0 0% 60%;
+--input: 0 0% 60%;
+--ring: 310 86% 36%;
+--neo-yellow: #e1aad9;
+--neo-pink: #b0a6ee;
+--neo-purple: #b0a6ee;
+--neo-green: #eaafad;
+--neo-cyan: #d4ccb4;
+--neo-red: #b0a6ee;
+--neo-paper: #f4f4f4;
+--neo-code-text: #000000;
+--neo-shadow: #c7c7c7;
+--neo-interactive: #aa0d91;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-xcode"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-xcode"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+
+XCode style (c) Angel Garcia <angelgarcia.mail@gmail.com>
+
+*/
+:root[data-theme="hljs-xcode"] .hljs {
+  background: #fff !important;
+  color: black !important
+}
+/* Gray DOCTYPE selectors like WebKit */
+:root[data-theme="hljs-xcode"] .xml .hljs-meta {
+  color: #c0c0c0 !important
+}
+:root[data-theme="hljs-xcode"] .hljs-comment,
+:root[data-theme="hljs-xcode"] .hljs-quote {
+  color: #007400 !important
+}
+:root[data-theme="hljs-xcode"] .hljs-tag,
+:root[data-theme="hljs-xcode"] .hljs-attribute,
+:root[data-theme="hljs-xcode"] .hljs-keyword,
+:root[data-theme="hljs-xcode"] .hljs-selector-tag,
+:root[data-theme="hljs-xcode"] .hljs-literal,
+:root[data-theme="hljs-xcode"] .hljs-name {
+  color: #aa0d91 !important
+}
+:root[data-theme="hljs-xcode"] .hljs-variable,
+:root[data-theme="hljs-xcode"] .hljs-template-variable {
+  color: #3F6E74 !important
+}
+:root[data-theme="hljs-xcode"] .hljs-code,
+:root[data-theme="hljs-xcode"] .hljs-string,
+:root[data-theme="hljs-xcode"] .hljs-meta .hljs-string {
+  color: #c41a16 !important
+}
+:root[data-theme="hljs-xcode"] .hljs-regexp,
+:root[data-theme="hljs-xcode"] .hljs-link {
+  color: #0E0EFF !important
+}
+:root[data-theme="hljs-xcode"] .hljs-title,
+:root[data-theme="hljs-xcode"] .hljs-symbol,
+:root[data-theme="hljs-xcode"] .hljs-bullet,
+:root[data-theme="hljs-xcode"] .hljs-number {
+  color: #1c00cf !important
+}
+:root[data-theme="hljs-xcode"] .hljs-section,
+:root[data-theme="hljs-xcode"] .hljs-meta {
+  color: #643820 !important
+}
+:root[data-theme="hljs-xcode"] .hljs-title.class_,
+:root[data-theme="hljs-xcode"] .hljs-class .hljs-title,
+:root[data-theme="hljs-xcode"] .hljs-type,
+:root[data-theme="hljs-xcode"] .hljs-built_in,
+:root[data-theme="hljs-xcode"] .hljs-params {
+  color: #5c2699 !important
+}
+:root[data-theme="hljs-xcode"] .hljs-attr {
+  color: #836C28 !important
+}
+:root[data-theme="hljs-xcode"] .hljs-subst {
+  color: #000 !important
+}
+:root[data-theme="hljs-xcode"] .hljs-formula {
+  background-color: #eee !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-xcode"] .hljs-addition {
+  background-color: #baeeba !important
+}
+:root[data-theme="hljs-xcode"] .hljs-deletion {
+  background-color: #ffc8bd !important
+}
+:root[data-theme="hljs-xcode"] .hljs-selector-id,
+:root[data-theme="hljs-xcode"] .hljs-selector-class {
+  color: #9b703f !important
+}
+:root[data-theme="hljs-xcode"] .hljs-doctag,
+:root[data-theme="hljs-xcode"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-xcode"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-xcode"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #ffffff !important; color: #000000 !important; }
+
+:root[data-theme="hljs-xcode"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-xcode"] .json-token-field { color: #836c28; }
+:root[data-theme="hljs-xcode"] .json-token-string { color: #c41a16; }
+:root[data-theme="hljs-xcode"] .json-token-number { color: #1c00cf; }
+:root[data-theme="hljs-xcode"] .json-token-boolean { color: #aa0d91; }
+:root[data-theme="hljs-xcode"] .json-token-null { color: #aa0d91; }
+:root[data-theme="hljs-xcode"] .json-token-punctuation { color: #000000; }
+:root[data-theme="hljs-xcode"] .json-parser-type-legend i { background: currentColor; }

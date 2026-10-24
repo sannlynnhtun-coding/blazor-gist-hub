@@ -1,0 +1,133 @@
+/* Highlight.js 11.11.1: grayscale.css. Original theme attribution follows. */
+:root[data-theme="hljs-grayscale"] {
+--background: 0 0% 100%;
+--foreground: 0 0% 20%;
+--card: 0 0% 96%;
+--card-foreground: 0 0% 20%;
+--popover: 0 0% 96%;
+--popover-foreground: 0 0% 20%;
+--primary: 0 0% 20%;
+--primary-foreground: 0 0% 100%;
+--secondary: 0 0% 20%;
+--secondary-foreground: 0 0% 100%;
+--accent: 0 0% 47%;
+--accent-foreground: 0 0% 5%;
+--muted: 0 0% 92%;
+--muted-foreground: 0 0% 42%;
+--destructive: 0 0% 20%;
+--destructive-foreground: 0 0% 100%;
+--border: 0 0% 68%;
+--input: 0 0% 68%;
+--ring: 0 0% 20%;
+--neo-yellow: #b8b8b8;
+--neo-pink: #cfcfcf;
+--neo-purple: #a6a6a6;
+--neo-green: #b8b8b8;
+--neo-cyan: #b8b8b8;
+--neo-red: #cfcfcf;
+--neo-paper: #f6f6f6;
+--neo-code-text: #333333;
+--neo-shadow: #d2d2d2;
+--neo-interactive: #333333;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-grayscale"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-grayscale"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+
+grayscale style (c) MY Sun <simonmysun@gmail.com>
+
+*/
+:root[data-theme="hljs-grayscale"] .hljs {
+  color: #333 !important;
+  background: #fff !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-comment,
+:root[data-theme="hljs-grayscale"] .hljs-quote {
+  color: #777 !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-keyword,
+:root[data-theme="hljs-grayscale"] .hljs-selector-tag,
+:root[data-theme="hljs-grayscale"] .hljs-subst {
+  color: #333 !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-number,
+:root[data-theme="hljs-grayscale"] .hljs-literal {
+  color: #777 !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-string,
+:root[data-theme="hljs-grayscale"] .hljs-doctag,
+:root[data-theme="hljs-grayscale"] .hljs-formula {
+  color: #333 !important;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2O8e/fufwYGBgZBQUEQxcCIIfDu3Tuwivfv30NUoAsAALHpFMMLqZlPAAAAAElFTkSuQmCC) repeat !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-title,
+:root[data-theme="hljs-grayscale"] .hljs-section,
+:root[data-theme="hljs-grayscale"] .hljs-selector-id {
+  color: #000 !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-subst {
+  font-weight: normal !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-title.class_,
+:root[data-theme="hljs-grayscale"] .hljs-class .hljs-title,
+:root[data-theme="hljs-grayscale"] .hljs-type,
+:root[data-theme="hljs-grayscale"] .hljs-name {
+  color: #333 !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-tag {
+  color: #333 !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-regexp {
+  color: #333 !important;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAICAYAAADA+m62AAAAPUlEQVQYV2NkQAN37979r6yszIgujiIAU4RNMVwhuiQ6H6wQl3XI4oy4FMHcCJPHcDS6J2A2EqUQpJhohQDexSef15DBCwAAAABJRU5ErkJggg==) repeat !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-symbol,
+:root[data-theme="hljs-grayscale"] .hljs-bullet,
+:root[data-theme="hljs-grayscale"] .hljs-link {
+  color: #000 !important;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKElEQVQIW2NkQAO7d+/+z4gsBhJwdXVlhAvCBECKwIIwAbhKZBUwBQA6hBpm5efZsgAAAABJRU5ErkJggg==) repeat !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-built_in {
+  color: #000 !important;
+  text-decoration: underline !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-meta {
+  color: #999 !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-deletion {
+  color: #fff !important;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAADCAYAAABS3WWCAAAAE0lEQVQIW2MMDQ39zzhz5kwIAQAyxweWgUHd1AAAAABJRU5ErkJggg==) repeat !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-addition {
+  color: #000 !important;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAALUlEQVQYV2N89+7dfwYk8P79ewZBQUFkIQZGOiu6e/cuiptQHAPl0NtNxAQBAM97Oejj3Dg7AAAAAElFTkSuQmCC) repeat !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-grayscale"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-grayscale"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #ffffff !important; color: #333333 !important; }
+
+:root[data-theme="hljs-grayscale"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-grayscale"] .json-token-field { color: #000000; }
+:root[data-theme="hljs-grayscale"] .json-token-string { color: #333333; }
+:root[data-theme="hljs-grayscale"] .json-token-number { color: #777777; }
+:root[data-theme="hljs-grayscale"] .json-token-boolean { color: #333333; }
+:root[data-theme="hljs-grayscale"] .json-token-null { color: #333333; }
+:root[data-theme="hljs-grayscale"] .json-token-punctuation { color: #333333; }
+:root[data-theme="hljs-grayscale"] .json-parser-type-legend i { background: currentColor; }

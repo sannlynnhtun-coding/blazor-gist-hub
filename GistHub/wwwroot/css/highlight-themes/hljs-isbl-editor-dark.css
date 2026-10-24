@@ -1,0 +1,138 @@
+/* Highlight.js 11.11.1: isbl-editor-dark.css. Original theme attribution follows. */
+:root[data-theme="hljs-isbl-editor-dark"] {
+--background: 0 0% 25%;
+--foreground: 0 0% 94%;
+--card: 0 0% 28%;
+--card-foreground: 0 0% 94%;
+--popover: 0 0% 28%;
+--popover-foreground: 0 0% 94%;
+--primary: 0 0% 94%;
+--primary-foreground: 0 0% 5%;
+--secondary: 73 87% 40%;
+--secondary-foreground: 0 0% 5%;
+--accent: 0 0% 94%;
+--accent-foreground: 0 0% 5%;
+--muted: 0 0% 32%;
+--muted-foreground: 0 0% 75%;
+--destructive: 0 0% 94%;
+--destructive-foreground: 0 0% 5%;
+--border: 0 0% 53%;
+--input: 0 0% 53%;
+--ring: 0 0% 94%;
+--neo-yellow: #f0f0f0;
+--neo-pink: #f0f0f0;
+--neo-purple: #df471e;
+--neo-green: #97bf0d;
+--neo-cyan: #97bf0d;
+--neo-red: #f0f0f0;
+--neo-paper: #484848;
+--neo-code-text: #f0f0f0;
+--neo-shadow: #676767;
+--neo-interactive: #f0f0f0;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-isbl-editor-dark"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-isbl-editor-dark"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+
+ISBL Editor style dark color scheme (c) Dmitriy Tarasov <dimatar@gmail.com>
+
+*/
+:root[data-theme="hljs-isbl-editor-dark"] .hljs {
+  background: #404040 !important;
+  color: #f0f0f0 !important
+}
+/* Base color: saturation 0; */
+:root[data-theme="hljs-isbl-editor-dark"] .hljs,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-subst {
+  color: #f0f0f0 !important
+}
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-comment {
+  color: #b5b5b5 !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-keyword,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-attribute,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-selector-tag,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-meta .hljs-keyword,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-doctag,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-name {
+  color: #f0f0f0 !important;
+  font-weight: bold !important
+}
+/* User color: hue: 0 */
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-string {
+  color: #97bf0d !important
+}
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-type,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-number,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-selector-id,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-selector-class,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-quote,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-template-tag,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-deletion {
+  color: #f0f0f0 !important
+}
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-regexp,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-symbol,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-variable,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-template-variable,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-link,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-selector-attr,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-selector-pseudo {
+  color: #e2c696 !important
+}
+/* Language color: hue: 90; */
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-built_in,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-literal {
+  color: #97bf0d !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-bullet,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-code,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-addition {
+  color: #397300 !important
+}
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-class {
+  color: #ce9d4d !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-title,
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-section {
+  color: #df471e !important
+}
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-title>.hljs-built_in {
+  color: #81bce9 !important;
+  font-weight: normal !important
+}
+/* Meta color: hue: 200 */
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-meta {
+  color: #1f7199 !important
+}
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-meta .hljs-string {
+  color: #4d99bf !important
+}
+/* Misc effects */
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-isbl-editor-dark"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-isbl-editor-dark"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #404040 !important; color: #f0f0f0 !important; }
+
+:root[data-theme="hljs-isbl-editor-dark"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-isbl-editor-dark"] .json-token-field { color: #df471e; }
+:root[data-theme="hljs-isbl-editor-dark"] .json-token-string { color: #97bf0d; }
+:root[data-theme="hljs-isbl-editor-dark"] .json-token-number { color: #f0f0f0; }
+:root[data-theme="hljs-isbl-editor-dark"] .json-token-boolean { color: #f0f0f0; }
+:root[data-theme="hljs-isbl-editor-dark"] .json-token-null { color: #f0f0f0; }
+:root[data-theme="hljs-isbl-editor-dark"] .json-token-punctuation { color: #f0f0f0; }
+:root[data-theme="hljs-isbl-editor-dark"] .json-parser-type-legend i { background: currentColor; }

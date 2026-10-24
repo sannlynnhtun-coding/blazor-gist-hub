@@ -1,0 +1,130 @@
+/* Highlight.js 11.11.1: idea.css. Original theme attribution follows. */
+:root[data-theme="hljs-idea"] {
+--background: 0 0% 100%;
+--foreground: 0 0% 0%;
+--card: 0 0% 96%;
+--card-foreground: 0 0% 0%;
+--popover: 0 0% 96%;
+--popover-foreground: 0 0% 0%;
+--primary: 240 100% 25%;
+--primary-foreground: 0 0% 100%;
+--secondary: 120 100% 25%;
+--secondary-foreground: 0 0% 100%;
+--accent: 240 100% 50%;
+--accent-foreground: 0 0% 100%;
+--muted: 0 0% 90%;
+--muted-foreground: 0 0% 28%;
+--destructive: 240 100% 25%;
+--destructive-foreground: 0 0% 100%;
+--border: 0 0% 60%;
+--input: 0 0% 60%;
+--ring: 240 100% 25%;
+--neo-yellow: #a6a6d3;
+--neo-pink: #a6a6ff;
+--neo-purple: #a6a6a6;
+--neo-green: #a6d3a6;
+--neo-cyan: #a6d3a6;
+--neo-red: #a6a6ff;
+--neo-paper: #f4f4f4;
+--neo-code-text: #000000;
+--neo-shadow: #c7c7c7;
+--neo-interactive: #000080;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-idea"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-idea"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+
+Intellij Idea-like styling (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+:root[data-theme="hljs-idea"] .hljs {
+  color: #000 !important;
+  background: #fff !important
+}
+:root[data-theme="hljs-idea"] .hljs-subst,
+:root[data-theme="hljs-idea"] .hljs-title {
+  font-weight: normal !important;
+  color: #000 !important
+}
+:root[data-theme="hljs-idea"] .hljs-comment,
+:root[data-theme="hljs-idea"] .hljs-quote {
+  color: #808080 !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-idea"] .hljs-meta {
+  color: #808000 !important
+}
+:root[data-theme="hljs-idea"] .hljs-tag {
+  background: #efefef !important
+}
+:root[data-theme="hljs-idea"] .hljs-section,
+:root[data-theme="hljs-idea"] .hljs-name,
+:root[data-theme="hljs-idea"] .hljs-literal,
+:root[data-theme="hljs-idea"] .hljs-keyword,
+:root[data-theme="hljs-idea"] .hljs-selector-tag,
+:root[data-theme="hljs-idea"] .hljs-type,
+:root[data-theme="hljs-idea"] .hljs-selector-id,
+:root[data-theme="hljs-idea"] .hljs-selector-class {
+  font-weight: bold !important;
+  color: #000080 !important
+}
+:root[data-theme="hljs-idea"] .hljs-attribute,
+:root[data-theme="hljs-idea"] .hljs-number,
+:root[data-theme="hljs-idea"] .hljs-regexp,
+:root[data-theme="hljs-idea"] .hljs-link {
+  font-weight: bold !important;
+  color: #0000ff !important
+}
+:root[data-theme="hljs-idea"] .hljs-number,
+:root[data-theme="hljs-idea"] .hljs-regexp,
+:root[data-theme="hljs-idea"] .hljs-link {
+  font-weight: normal !important
+}
+:root[data-theme="hljs-idea"] .hljs-string {
+  color: #008000 !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-idea"] .hljs-symbol,
+:root[data-theme="hljs-idea"] .hljs-bullet,
+:root[data-theme="hljs-idea"] .hljs-formula {
+  color: #000 !important;
+  background: #d0eded !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-idea"] .hljs-doctag {
+  text-decoration: underline !important
+}
+:root[data-theme="hljs-idea"] .hljs-variable,
+:root[data-theme="hljs-idea"] .hljs-template-variable {
+  color: #660e7a !important
+}
+:root[data-theme="hljs-idea"] .hljs-addition {
+  background: #baeeba !important
+}
+:root[data-theme="hljs-idea"] .hljs-deletion {
+  background: #ffc8bd !important
+}
+:root[data-theme="hljs-idea"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-idea"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-idea"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #ffffff !important; color: #000000 !important; }
+
+:root[data-theme="hljs-idea"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-idea"] .json-token-field { color: #000000; }
+:root[data-theme="hljs-idea"] .json-token-string { color: #008000; }
+:root[data-theme="hljs-idea"] .json-token-number { color: #0000ff; }
+:root[data-theme="hljs-idea"] .json-token-boolean { color: #000080; }
+:root[data-theme="hljs-idea"] .json-token-null { color: #000080; }
+:root[data-theme="hljs-idea"] .json-token-punctuation { color: #000000; }
+:root[data-theme="hljs-idea"] .json-parser-type-legend i { background: currentColor; }

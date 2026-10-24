@@ -9,26 +9,15 @@
     <meta name="theme-color" content="#FFD524" />
     <link rel="stylesheet" href="css/output.css" />
     <link rel="stylesheet" href="GistHub.styles.css" />
+    <link rel="stylesheet" href="css/themes.css" />
     <link rel="icon" type="image/svg+xml" href="logo.svg" />
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
     <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
     <link rel="stylesheet" href="css/atom-one-dark.min.css">
+    <script src="js/highlight-theme-catalog.js"></script>
+    <script src="js/theme.js"></script>
     <script>
-        // Keep the page and installed-app chrome aligned with the selected theme.
-        window.applyGistHubTheme = (theme) => {
-            const isDark = theme === 'dark';
-            document.documentElement.classList.toggle('dark', isDark);
-            document.querySelector('meta[name="theme-color"]')
-                ?.setAttribute('content', isDark ? '#24242F' : '#FFD524');
-        };
-
-        const storedTheme = localStorage.getItem('theme');
-        const initialTheme = storedTheme ??
-            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        window.applyGistHubTheme(initialTheme);
-        window.isDarkThemeActive = () => document.documentElement.classList.contains('dark');
-
         // Synthesized cues make the outcome of each kind of action recognizable without audio assets.
         window.gistHubSound = (() => {
             const storageKey = 'button-sounds-enabled';

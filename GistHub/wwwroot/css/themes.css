@@ -1,0 +1,58 @@
+/* Full-page palettes reuse the same semantic and illustration tokens. */
+:root[data-theme="ocean"] {
+  --background: 204 60% 12%; --foreground: 196 40% 91%;
+  --card: 204 48% 17%; --card-foreground: 196 40% 91%;
+  --popover: 204 48% 17%; --popover-foreground: 196 40% 91%;
+  --primary: 174 63% 64%; --primary-foreground: 204 60% 10%;
+  --secondary: 202 65% 65%; --secondary-foreground: 204 60% 10%;
+  --muted: 204 35% 24%; --muted-foreground: 196 25% 72%;
+  --accent: 270 67% 78%; --accent-foreground: 204 60% 10%;
+  --destructive: 350 75% 75%; --destructive-foreground: 204 60% 10%;
+  --border: 199 30% 58%; --input: 199 30% 58%; --ring: 174 63% 64%;
+  --neo-yellow: #69ddcf; --neo-pink: #c3a1ed; --neo-purple: #86bbed;
+  --neo-green: #a3dca4; --neo-cyan: #7cc9ed; --neo-red: #ef91a1;
+  --neo-paper: #193b50; --neo-code-text: #dfeff4; --neo-shadow: #071c2b;
+  --neo-interactive: #69ddcf; --neo-on-accent: #0c0c0c;
+  --neo-grid-opacity: 0.07; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="forest"] {
+  --background: 94 27% 92%; --foreground: 148 30% 14%;
+  --card: 80 33% 98%; --card-foreground: 148 30% 14%;
+  --popover: 80 33% 98%; --popover-foreground: 148 30% 14%;
+  --primary: 94 41% 65%; --primary-foreground: 148 30% 14%;
+  --secondary: 160 32% 75%; --secondary-foreground: 148 30% 14%;
+  --muted: 100 20% 85%; --muted-foreground: 148 16% 33%;
+  --accent: 32 68% 74%; --accent-foreground: 148 30% 14%;
+  --destructive: 0 60% 78%; --destructive-foreground: 148 30% 14%;
+  --border: 148 22% 30%; --input: 148 22% 30%; --ring: 148 30% 34%;
+  --neo-yellow: #a7cb81; --neo-pink: #eac094; --neo-purple: #b9afd0;
+  --neo-green: #a2cfa8; --neo-cyan: #abd4c6; --neo-red: #e9a5a5;
+  --neo-paper: #f8faf4; --neo-code-text: #e9f1df; --neo-shadow: #294537;
+  --neo-interactive: #28583e; --neo-on-accent: #0c0c0c;
+  --neo-grid-opacity: 0.1; --neo-canvas-grid-opacity: 0.15;
+}
+:root[data-theme="rose"] {
+  --background: 348 100% 97%; --foreground: 332 35% 18%;
+  --card: 340 100% 99%; --card-foreground: 332 35% 18%;
+  --popover: 340 100% 99%; --popover-foreground: 332 35% 18%;
+  --primary: 342 79% 80%; --primary-foreground: 332 35% 18%;
+  --secondary: 267 64% 86%; --secondary-foreground: 332 35% 18%;
+  --muted: 340 39% 91%; --muted-foreground: 332 20% 38%;
+  --accent: 26 91% 81%; --accent-foreground: 332 35% 18%;
+  --destructive: 350 70% 76%; --destructive-foreground: 332 35% 18%;
+  --border: 332 28% 37%; --input: 332 28% 37%; --ring: 332 47% 43%;
+  --neo-yellow: #f4a4bc; --neo-pink: #fac49f; --neo-purple: #cbb3ef;
+  --neo-green: #b9d4b3; --neo-cyan: #badbe3; --neo-red: #ed97a5;
+  --neo-paper: #fff6f8; --neo-code-text: #f8e9ef; --neo-shadow: #63334c;
+  --neo-interactive: #873959; --neo-on-accent: #0c0c0c;
+  --neo-grid-opacity: 0.09; --neo-canvas-grid-opacity: 0.14;
+}
+.neo-theme-select {
+  max-width: 8rem;
+  min-height: 2.5rem;
+  padding: 0.4rem 1.8rem 0.4rem 0.65rem;
+  box-shadow: 2px 2px 0 var(--neo-shadow);
+  cursor: pointer;
+}
+.neo-theme-select:focus-visible { outline: 3px solid hsl(var(--ring)); outline-offset: 3px; }
+@media (max-width: 480px) { .neo-theme-select { max-width: 6.4rem; font-size: 0.75rem; } }

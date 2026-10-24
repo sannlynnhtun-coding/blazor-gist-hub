@@ -1,0 +1,110 @@
+/* Highlight.js 11.11.1: color-brewer.css. Original theme attribution follows. */
+:root[data-theme="hljs-color-brewer"] {
+--background: 0 0% 100%;
+--foreground: 0 0% 0%;
+--card: 0 0% 96%;
+--card-foreground: 0 0% 0%;
+--popover: 0 0% 96%;
+--popover-foreground: 0 0% 0%;
+--primary: 205 59% 47%;
+--primary-foreground: 0 0% 5%;
+--secondary: 249 31% 56%;
+--secondary-foreground: 0 0% 100%;
+--accent: 138 54% 42%;
+--accent-foreground: 0 0% 5%;
+--muted: 0 0% 90%;
+--muted-foreground: 0 0% 28%;
+--destructive: 205 59% 47%;
+--destructive-foreground: 0 0% 5%;
+--border: 0 0% 60%;
+--input: 0 0% 60%;
+--ring: 205 59% 47%;
+--neo-yellow: #b7d3e8;
+--neo-pink: #b7dfc3;
+--neo-purple: #b7d3e8;
+--neo-green: #cfcbe4;
+--neo-cyan: #cfcbe4;
+--neo-red: #b7dfc3;
+--neo-paper: #f4f4f4;
+--neo-code-text: #000000;
+--neo-shadow: #c7c7c7;
+--neo-interactive: #3182bd;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-color-brewer"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-color-brewer"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+
+Colorbrewer theme
+Original: https://github.com/mbostock/colorbrewer-theme (c) Mike Bostock <mike@ocks.org>
+Ported by Fabrício Tavares de Oliveira
+
+*/
+:root[data-theme="hljs-color-brewer"] .hljs {
+  color: #000 !important;
+  background: #fff !important
+}
+:root[data-theme="hljs-color-brewer"] .hljs-subst {
+  /* default */
+  
+}
+:root[data-theme="hljs-color-brewer"] .hljs-string,
+:root[data-theme="hljs-color-brewer"] .hljs-meta,
+:root[data-theme="hljs-color-brewer"] .hljs-symbol,
+:root[data-theme="hljs-color-brewer"] .hljs-template-tag,
+:root[data-theme="hljs-color-brewer"] .hljs-template-variable,
+:root[data-theme="hljs-color-brewer"] .hljs-addition {
+  color: #756bb1 !important
+}
+:root[data-theme="hljs-color-brewer"] .hljs-comment,
+:root[data-theme="hljs-color-brewer"] .hljs-quote {
+  color: #636363 !important
+}
+:root[data-theme="hljs-color-brewer"] .hljs-number,
+:root[data-theme="hljs-color-brewer"] .hljs-regexp,
+:root[data-theme="hljs-color-brewer"] .hljs-literal,
+:root[data-theme="hljs-color-brewer"] .hljs-bullet,
+:root[data-theme="hljs-color-brewer"] .hljs-link {
+  color: #31a354 !important
+}
+:root[data-theme="hljs-color-brewer"] .hljs-deletion,
+:root[data-theme="hljs-color-brewer"] .hljs-variable {
+  color: #88f !important
+}
+:root[data-theme="hljs-color-brewer"] .hljs-keyword,
+:root[data-theme="hljs-color-brewer"] .hljs-selector-tag,
+:root[data-theme="hljs-color-brewer"] .hljs-title,
+:root[data-theme="hljs-color-brewer"] .hljs-section,
+:root[data-theme="hljs-color-brewer"] .hljs-built_in,
+:root[data-theme="hljs-color-brewer"] .hljs-doctag,
+:root[data-theme="hljs-color-brewer"] .hljs-type,
+:root[data-theme="hljs-color-brewer"] .hljs-tag,
+:root[data-theme="hljs-color-brewer"] .hljs-name,
+:root[data-theme="hljs-color-brewer"] .hljs-selector-id,
+:root[data-theme="hljs-color-brewer"] .hljs-selector-class,
+:root[data-theme="hljs-color-brewer"] .hljs-strong {
+  color: #3182bd !important
+}
+:root[data-theme="hljs-color-brewer"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-color-brewer"] .hljs-attribute {
+  color: #e6550d !important
+}
+:root[data-theme="hljs-color-brewer"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #ffffff !important; color: #000000 !important; }
+
+:root[data-theme="hljs-color-brewer"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-color-brewer"] .json-token-field { color: #3182bd; }
+:root[data-theme="hljs-color-brewer"] .json-token-string { color: #756bb1; }
+:root[data-theme="hljs-color-brewer"] .json-token-number { color: #31a354; }
+:root[data-theme="hljs-color-brewer"] .json-token-boolean { color: #3182bd; }
+:root[data-theme="hljs-color-brewer"] .json-token-null { color: #3182bd; }
+:root[data-theme="hljs-color-brewer"] .json-token-punctuation { color: #000000; }
+:root[data-theme="hljs-color-brewer"] .json-parser-type-legend i { background: currentColor; }

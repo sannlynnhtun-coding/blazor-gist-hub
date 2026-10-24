@@ -1,0 +1,110 @@
+/* Highlight.js 11.11.1: arta.css. Original theme attribution follows. */
+:root[data-theme="hljs-arta"] {
+--background: 0 0% 13%;
+--foreground: 0 0% 67%;
+--card: 0 0% 16%;
+--card-foreground: 0 0% 67%;
+--popover: 0 0% 16%;
+--popover-foreground: 0 0% 67%;
+--primary: 260 43% 47%;
+--primary-foreground: 0 0% 100%;
+--secondary: 45 100% 60%;
+--secondary-foreground: 0 0% 5%;
+--accent: 150 100% 40%;
+--accent-foreground: 0 0% 5%;
+--muted: 0 0% 19%;
+--muted-foreground: 0 0% 52%;
+--destructive: 260 43% 47%;
+--destructive-foreground: 0 0% 100%;
+--border: 0 0% 35%;
+--input: 0 0% 35%;
+--ring: 260 43% 47%;
+--neo-yellow: #6644aa;
+--neo-pink: #00cc66;
+--neo-purple: #bb1166;
+--neo-green: #ffcc33;
+--neo-cyan: #ffcc33;
+--neo-red: #00cc66;
+--neo-paper: #282828;
+--neo-code-text: #aaaaaa;
+--neo-shadow: #404040;
+--neo-interactive: #6644aa;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-arta"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-arta"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+Date: 17.V.2011
+Author: pumbur <pumbur@pumbur.net>
+*/
+:root[data-theme="hljs-arta"] .hljs {
+  background: #222 !important;
+  color: #aaa !important
+}
+:root[data-theme="hljs-arta"] .hljs-subst {
+  color: #aaa !important
+}
+:root[data-theme="hljs-arta"] .hljs-section {
+  color: #fff !important
+}
+:root[data-theme="hljs-arta"] .hljs-comment,
+:root[data-theme="hljs-arta"] .hljs-quote,
+:root[data-theme="hljs-arta"] .hljs-meta {
+  color: #444 !important
+}
+:root[data-theme="hljs-arta"] .hljs-string,
+:root[data-theme="hljs-arta"] .hljs-symbol,
+:root[data-theme="hljs-arta"] .hljs-bullet,
+:root[data-theme="hljs-arta"] .hljs-regexp {
+  color: #ffcc33 !important
+}
+:root[data-theme="hljs-arta"] .hljs-number,
+:root[data-theme="hljs-arta"] .hljs-addition {
+  color: #00cc66 !important
+}
+:root[data-theme="hljs-arta"] .hljs-built_in,
+:root[data-theme="hljs-arta"] .hljs-literal,
+:root[data-theme="hljs-arta"] .hljs-type,
+:root[data-theme="hljs-arta"] .hljs-template-variable,
+:root[data-theme="hljs-arta"] .hljs-attribute,
+:root[data-theme="hljs-arta"] .hljs-link {
+  color: #32aaee !important
+}
+:root[data-theme="hljs-arta"] .hljs-keyword,
+:root[data-theme="hljs-arta"] .hljs-selector-tag,
+:root[data-theme="hljs-arta"] .hljs-name,
+:root[data-theme="hljs-arta"] .hljs-selector-id,
+:root[data-theme="hljs-arta"] .hljs-selector-class {
+  color: #6644aa !important
+}
+:root[data-theme="hljs-arta"] .hljs-title,
+:root[data-theme="hljs-arta"] .hljs-variable,
+:root[data-theme="hljs-arta"] .hljs-deletion,
+:root[data-theme="hljs-arta"] .hljs-template-tag {
+  color: #bb1166 !important
+}
+:root[data-theme="hljs-arta"] .hljs-section,
+:root[data-theme="hljs-arta"] .hljs-doctag,
+:root[data-theme="hljs-arta"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-arta"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-arta"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #222222 !important; color: #aaaaaa !important; }
+
+:root[data-theme="hljs-arta"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-arta"] .json-token-field { color: #bb1166; }
+:root[data-theme="hljs-arta"] .json-token-string { color: #ffcc33; }
+:root[data-theme="hljs-arta"] .json-token-number { color: #00cc66; }
+:root[data-theme="hljs-arta"] .json-token-boolean { color: #6644aa; }
+:root[data-theme="hljs-arta"] .json-token-null { color: #6644aa; }
+:root[data-theme="hljs-arta"] .json-token-punctuation { color: #aaaaaa; }
+:root[data-theme="hljs-arta"] .json-parser-type-legend i { background: currentColor; }

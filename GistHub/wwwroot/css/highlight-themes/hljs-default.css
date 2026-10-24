@@ -1,0 +1,161 @@
+/* Highlight.js 11.11.1: default.css. Original theme attribution follows. */
+:root[data-theme="hljs-default"] {
+--background: 0 0% 95%;
+--foreground: 0 0% 27%;
+--card: 0 0% 92%;
+--card-foreground: 0 0% 27%;
+--popover: 0 0% 92%;
+--popover-foreground: 0 0% 27%;
+--primary: 0 100% 27%;
+--primary-foreground: 0 0% 100%;
+--secondary: 0 100% 27%;
+--secondary-foreground: 0 0% 100%;
+--accent: 0 100% 27%;
+--accent-foreground: 0 0% 100%;
+--muted: 0 0% 88%;
+--muted-foreground: 0 0% 46%;
+--destructive: 0 100% 27%;
+--destructive-foreground: 0 0% 100%;
+--border: 0 0% 68%;
+--input: 0 0% 68%;
+--ring: 0 100% 27%;
+--neo-yellow: #d5a6a6;
+--neo-pink: #d5a6a6;
+--neo-purple: #d5a6a6;
+--neo-green: #d5a6a6;
+--neo-cyan: #d5a6a6;
+--neo-red: #d5a6a6;
+--neo-paper: #ebebeb;
+--neo-code-text: #444444;
+--neo-shadow: #cdcdcd;
+--neo-interactive: #880000;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-default"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-default"] code.hljs {
+  padding: 3px 5px !important
+}
+/*!
+  Theme: Default
+  Description: Original highlight.js style
+  Author: (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+  Maintainer: @highlightjs/core-team
+  Website: https://highlightjs.org/
+  License: see project LICENSE
+  Touched: 2021
+*/
+/*
+This is left on purpose making default.css the single file that can be lifted
+as-is from the repository directly without the need for a build step
+
+Typically this "required" baseline CSS is added by `makestuff.js` during build.
+*/
+:root[data-theme="hljs-default"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-default"] code.hljs {
+  padding: 3px 5px !important
+}
+/* end baseline CSS */
+:root[data-theme="hljs-default"] .hljs {
+  background: #F3F3F3 !important;
+  color: #444 !important
+}
+/* Base color: saturation 0; */
+:root[data-theme="hljs-default"] .hljs-subst {
+  /* default */
+  
+}
+/* purposely ignored */
+:root[data-theme="hljs-default"] .hljs-formula,
+:root[data-theme="hljs-default"] .hljs-attr,
+:root[data-theme="hljs-default"] .hljs-property,
+:root[data-theme="hljs-default"] .hljs-params {
+  
+}
+:root[data-theme="hljs-default"] .hljs-comment {
+  color: #697070 !important
+}
+:root[data-theme="hljs-default"] .hljs-tag,
+:root[data-theme="hljs-default"] .hljs-punctuation {
+  color: #444a !important
+}
+:root[data-theme="hljs-default"] .hljs-tag .hljs-name,
+:root[data-theme="hljs-default"] .hljs-tag .hljs-attr {
+  color: #444 !important
+}
+:root[data-theme="hljs-default"] .hljs-keyword,
+:root[data-theme="hljs-default"] .hljs-attribute,
+:root[data-theme="hljs-default"] .hljs-selector-tag,
+:root[data-theme="hljs-default"] .hljs-meta .hljs-keyword,
+:root[data-theme="hljs-default"] .hljs-doctag,
+:root[data-theme="hljs-default"] .hljs-name {
+  font-weight: bold !important
+}
+/* User color: hue: 0 */
+:root[data-theme="hljs-default"] .hljs-type,
+:root[data-theme="hljs-default"] .hljs-string,
+:root[data-theme="hljs-default"] .hljs-number,
+:root[data-theme="hljs-default"] .hljs-selector-id,
+:root[data-theme="hljs-default"] .hljs-selector-class,
+:root[data-theme="hljs-default"] .hljs-quote,
+:root[data-theme="hljs-default"] .hljs-template-tag,
+:root[data-theme="hljs-default"] .hljs-deletion {
+  color: #880000 !important
+}
+:root[data-theme="hljs-default"] .hljs-title,
+:root[data-theme="hljs-default"] .hljs-section {
+  color: #880000 !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-default"] .hljs-regexp,
+:root[data-theme="hljs-default"] .hljs-symbol,
+:root[data-theme="hljs-default"] .hljs-variable,
+:root[data-theme="hljs-default"] .hljs-template-variable,
+:root[data-theme="hljs-default"] .hljs-link,
+:root[data-theme="hljs-default"] .hljs-selector-attr,
+:root[data-theme="hljs-default"] .hljs-operator,
+:root[data-theme="hljs-default"] .hljs-selector-pseudo {
+  color: #ab5656 !important
+}
+/* Language color: hue: 90; */
+:root[data-theme="hljs-default"] .hljs-literal {
+  color: #695 !important
+}
+:root[data-theme="hljs-default"] .hljs-built_in,
+:root[data-theme="hljs-default"] .hljs-bullet,
+:root[data-theme="hljs-default"] .hljs-code,
+:root[data-theme="hljs-default"] .hljs-addition {
+  color: #397300 !important
+}
+/* Meta color: hue: 200 */
+:root[data-theme="hljs-default"] .hljs-meta {
+  color: #1f7199 !important
+}
+:root[data-theme="hljs-default"] .hljs-meta .hljs-string {
+  color: #38a !important
+}
+/* Misc effects */
+:root[data-theme="hljs-default"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-default"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-default"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #f3f3f3 !important; color: #444444 !important; }
+
+:root[data-theme="hljs-default"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-default"] .json-token-field { color: #880000; }
+:root[data-theme="hljs-default"] .json-token-string { color: #880000; }
+:root[data-theme="hljs-default"] .json-token-number { color: #880000; }
+:root[data-theme="hljs-default"] .json-token-boolean { color: #444444; }
+:root[data-theme="hljs-default"] .json-token-null { color: #444444; }
+:root[data-theme="hljs-default"] .json-token-punctuation { color: #444444; }
+:root[data-theme="hljs-default"] .json-parser-type-legend i { background: currentColor; }

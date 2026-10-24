@@ -1,0 +1,134 @@
+/* Highlight.js 11.11.1: atom-one-light.css. Original theme attribution follows. */
+:root[data-theme="hljs-atom-one-light"] {
+--background: 0 0% 98%;
+--foreground: 228 8% 24%;
+--card: 228 2% 95%;
+--card-foreground: 228 8% 24%;
+--popover: 228 2% 95%;
+--popover-foreground: 228 8% 24%;
+--primary: 301 63% 40%;
+--primary-foreground: 0 0% 100%;
+--secondary: 119 34% 47%;
+--secondary-foreground: 0 0% 5%;
+--accent: 41 99% 30%;
+--accent-foreground: 0 0% 100%;
+--muted: 228 2% 91%;
+--muted-foreground: 228 3% 45%;
+--destructive: 301 63% 40%;
+--destructive-foreground: 0 0% 100%;
+--border: 228 2% 68%;
+--input: 228 2% 68%;
+--ring: 301 63% 40%;
+--neo-yellow: #e0b3df;
+--neo-pink: #dbcaa6;
+--neo-purple: #bcd0fa;
+--neo-green: #c2dec1;
+--neo-cyan: #dbcaa6;
+--neo-red: #dbcaa6;
+--neo-paper: #f1f1f2;
+--neo-code-text: #383a42;
+--neo-shadow: #cfd0d2;
+--neo-interactive: #a626a4;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-atom-one-light"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-atom-one-light"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+
+Atom One Light by Daniel Gamage
+Original One Light Syntax theme from https://github.com/atom/one-light-syntax
+
+base:    #fafafa
+mono-1:  #383a42
+mono-2:  #686b77
+mono-3:  #a0a1a7
+hue-1:   #0184bb
+hue-2:   #4078f2
+hue-3:   #a626a4
+hue-4:   #50a14f
+hue-5:   #e45649
+hue-5-2: #c91243
+hue-6:   #986801
+hue-6-2: #c18401
+
+*/
+:root[data-theme="hljs-atom-one-light"] .hljs {
+  color: #383a42 !important;
+  background: #fafafa !important
+}
+:root[data-theme="hljs-atom-one-light"] .hljs-comment,
+:root[data-theme="hljs-atom-one-light"] .hljs-quote {
+  color: #a0a1a7 !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-atom-one-light"] .hljs-doctag,
+:root[data-theme="hljs-atom-one-light"] .hljs-keyword,
+:root[data-theme="hljs-atom-one-light"] .hljs-formula {
+  color: #a626a4 !important
+}
+:root[data-theme="hljs-atom-one-light"] .hljs-section,
+:root[data-theme="hljs-atom-one-light"] .hljs-name,
+:root[data-theme="hljs-atom-one-light"] .hljs-selector-tag,
+:root[data-theme="hljs-atom-one-light"] .hljs-deletion,
+:root[data-theme="hljs-atom-one-light"] .hljs-subst {
+  color: #e45649 !important
+}
+:root[data-theme="hljs-atom-one-light"] .hljs-literal {
+  color: #0184bb !important
+}
+:root[data-theme="hljs-atom-one-light"] .hljs-string,
+:root[data-theme="hljs-atom-one-light"] .hljs-regexp,
+:root[data-theme="hljs-atom-one-light"] .hljs-addition,
+:root[data-theme="hljs-atom-one-light"] .hljs-attribute,
+:root[data-theme="hljs-atom-one-light"] .hljs-meta .hljs-string {
+  color: #50a14f !important
+}
+:root[data-theme="hljs-atom-one-light"] .hljs-attr,
+:root[data-theme="hljs-atom-one-light"] .hljs-variable,
+:root[data-theme="hljs-atom-one-light"] .hljs-template-variable,
+:root[data-theme="hljs-atom-one-light"] .hljs-type,
+:root[data-theme="hljs-atom-one-light"] .hljs-selector-class,
+:root[data-theme="hljs-atom-one-light"] .hljs-selector-attr,
+:root[data-theme="hljs-atom-one-light"] .hljs-selector-pseudo,
+:root[data-theme="hljs-atom-one-light"] .hljs-number {
+  color: #986801 !important
+}
+:root[data-theme="hljs-atom-one-light"] .hljs-symbol,
+:root[data-theme="hljs-atom-one-light"] .hljs-bullet,
+:root[data-theme="hljs-atom-one-light"] .hljs-link,
+:root[data-theme="hljs-atom-one-light"] .hljs-meta,
+:root[data-theme="hljs-atom-one-light"] .hljs-selector-id,
+:root[data-theme="hljs-atom-one-light"] .hljs-title {
+  color: #4078f2 !important
+}
+:root[data-theme="hljs-atom-one-light"] .hljs-built_in,
+:root[data-theme="hljs-atom-one-light"] .hljs-title.class_,
+:root[data-theme="hljs-atom-one-light"] .hljs-class .hljs-title {
+  color: #c18401 !important
+}
+:root[data-theme="hljs-atom-one-light"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-atom-one-light"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-atom-one-light"] .hljs-link {
+  text-decoration: underline !important
+}
+:root[data-theme="hljs-atom-one-light"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #fafafa !important; color: #383a42 !important; }
+
+:root[data-theme="hljs-atom-one-light"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-atom-one-light"] .json-token-field { color: #986801; }
+:root[data-theme="hljs-atom-one-light"] .json-token-string { color: #50a14f; }
+:root[data-theme="hljs-atom-one-light"] .json-token-number { color: #986801; }
+:root[data-theme="hljs-atom-one-light"] .json-token-boolean { color: #a626a4; }
+:root[data-theme="hljs-atom-one-light"] .json-token-null { color: #a626a4; }
+:root[data-theme="hljs-atom-one-light"] .json-token-punctuation { color: #383a42; }
+:root[data-theme="hljs-atom-one-light"] .json-parser-type-legend i { background: currentColor; }

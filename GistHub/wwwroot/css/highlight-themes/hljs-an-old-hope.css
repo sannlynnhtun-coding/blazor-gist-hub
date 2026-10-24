@@ -1,0 +1,119 @@
+/* Highlight.js 11.11.1: an-old-hope.css. Original theme attribution follows. */
+:root[data-theme="hljs-an-old-hope"] {
+--background: 228 8% 12%;
+--foreground: 219 13% 78%;
+--card: 227 7% 15%;
+--card-foreground: 219 13% 78%;
+--popover: 227 7% 15%;
+--popover-foreground: 219 13% 78%;
+--primary: 311 36% 54%;
+--primary-foreground: 0 0% 5%;
+--secondary: 195 63% 58%;
+--secondary-foreground: 0 0% 5%;
+--accent: 50 75% 62%;
+--accent-foreground: 0 0% 5%;
+--muted: 226 6% 19%;
+--muted-foreground: 220 6% 60%;
+--destructive: 311 36% 54%;
+--destructive-foreground: 0 0% 5%;
+--border: 222 4% 38%;
+--input: 222 4% 38%;
+--ring: 311 36% 54%;
+--neo-yellow: #b45ea4;
+--neo-pink: #e7ce56;
+--neo-purple: #78bb65;
+--neo-green: #4fb4d7;
+--neo-cyan: #4fb4d7;
+--neo-red: #e7ce56;
+--neo-paper: #232529;
+--neo-code-text: #c0c5ce;
+--neo-shadow: #404247;
+--neo-interactive: #b45ea4;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-an-old-hope"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-an-old-hope"] code.hljs {
+  padding: 3px 5px !important
+}
+/*!
+  Theme: An Old Hope – Star Wars Syntax
+  Author: (c) Gustavo Costa <gusbemacbe@gmail.com>
+  Maintainer: @gusbemacbe
+
+  Original theme - Ocean Dark Theme – by https://github.com/gavsiu
+  Based on Jesse Leite's Atom syntax theme 'An Old Hope'
+    https://github.com/JesseLeite/an-old-hope-syntax-atom
+*/
+/* Millenium Falcon */
+:root[data-theme="hljs-an-old-hope"] .hljs {
+  background: #1C1D21 !important;
+  color: #c0c5ce !important
+}
+/* Death Star Comment */
+:root[data-theme="hljs-an-old-hope"] .hljs-comment,
+:root[data-theme="hljs-an-old-hope"] .hljs-quote {
+  color: #B6B18B !important
+}
+/* Darth Vader */
+:root[data-theme="hljs-an-old-hope"] .hljs-variable,
+:root[data-theme="hljs-an-old-hope"] .hljs-template-variable,
+:root[data-theme="hljs-an-old-hope"] .hljs-tag,
+:root[data-theme="hljs-an-old-hope"] .hljs-name,
+:root[data-theme="hljs-an-old-hope"] .hljs-selector-id,
+:root[data-theme="hljs-an-old-hope"] .hljs-selector-class,
+:root[data-theme="hljs-an-old-hope"] .hljs-regexp,
+:root[data-theme="hljs-an-old-hope"] .hljs-deletion {
+  color: #EB3C54 !important
+}
+/* Threepio */
+:root[data-theme="hljs-an-old-hope"] .hljs-number,
+:root[data-theme="hljs-an-old-hope"] .hljs-built_in,
+:root[data-theme="hljs-an-old-hope"] .hljs-literal,
+:root[data-theme="hljs-an-old-hope"] .hljs-type,
+:root[data-theme="hljs-an-old-hope"] .hljs-params,
+:root[data-theme="hljs-an-old-hope"] .hljs-meta,
+:root[data-theme="hljs-an-old-hope"] .hljs-link {
+  color: #E7CE56 !important
+}
+/* Luke Skywalker */
+:root[data-theme="hljs-an-old-hope"] .hljs-attribute {
+  color: #EE7C2B !important
+}
+/* Obi Wan Kenobi */
+:root[data-theme="hljs-an-old-hope"] .hljs-string,
+:root[data-theme="hljs-an-old-hope"] .hljs-symbol,
+:root[data-theme="hljs-an-old-hope"] .hljs-bullet,
+:root[data-theme="hljs-an-old-hope"] .hljs-addition {
+  color: #4FB4D7 !important
+}
+/* Yoda */
+:root[data-theme="hljs-an-old-hope"] .hljs-title,
+:root[data-theme="hljs-an-old-hope"] .hljs-section {
+  color: #78BB65 !important
+}
+/* Mace Windu */
+:root[data-theme="hljs-an-old-hope"] .hljs-keyword,
+:root[data-theme="hljs-an-old-hope"] .hljs-selector-tag {
+  color: #B45EA4 !important
+}
+:root[data-theme="hljs-an-old-hope"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-an-old-hope"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-an-old-hope"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #1c1d21 !important; color: #c0c5ce !important; }
+
+:root[data-theme="hljs-an-old-hope"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-an-old-hope"] .json-token-field { color: #78bb65; }
+:root[data-theme="hljs-an-old-hope"] .json-token-string { color: #4fb4d7; }
+:root[data-theme="hljs-an-old-hope"] .json-token-number { color: #e7ce56; }
+:root[data-theme="hljs-an-old-hope"] .json-token-boolean { color: #b45ea4; }
+:root[data-theme="hljs-an-old-hope"] .json-token-null { color: #b45ea4; }
+:root[data-theme="hljs-an-old-hope"] .json-token-punctuation { color: #c0c5ce; }
+:root[data-theme="hljs-an-old-hope"] .json-parser-type-legend i { background: currentColor; }

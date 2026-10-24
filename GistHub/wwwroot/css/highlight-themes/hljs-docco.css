@@ -1,0 +1,127 @@
+/* Highlight.js 11.11.1: docco.css. Original theme attribution follows. */
+:root[data-theme="hljs-docco"] {
+--background: 240 100% 99%;
+--foreground: 0 0% 0%;
+--card: 240 23% 94%;
+--card-foreground: 0 0% 0%;
+--popover: 240 23% 94%;
+--popover-foreground: 0 0% 0%;
+--primary: 17 64% 36%;
+--primary-foreground: 0 0% 100%;
+--secondary: 154 63% 35%;
+--secondary-foreground: 0 0% 5%;
+--accent: 150 43% 44%;
+--accent-foreground: 0 0% 5%;
+--muted: 240 11% 89%;
+--muted-foreground: 240 1% 28%;
+--destructive: 17 64% 36%;
+--destructive-foreground: 0 0% 100%;
+--border: 240 2% 59%;
+--input: 240 2% 59%;
+--ring: 17 64% 36%;
+--neo-yellow: #dabdb1;
+--neo-pink: #bcdecd;
+--neo-purple: #bec4d5;
+--neo-green: #b1d9c8;
+--neo-cyan: #b1d9c8;
+--neo-red: #bcdecd;
+--neo-paper: #ededf4;
+--neo-code-text: #000000;
+--neo-shadow: #c1c1c7;
+--neo-interactive: #954121;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-docco"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-docco"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+Docco style used in http://jashkenas.github.com/docco/ converted by Simon Madine (@thingsinjars)
+*/
+:root[data-theme="hljs-docco"] .hljs {
+  color: #000 !important;
+  background: #f8f8ff !important
+}
+:root[data-theme="hljs-docco"] .hljs-comment,
+:root[data-theme="hljs-docco"] .hljs-quote {
+  color: #408080 !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-docco"] .hljs-keyword,
+:root[data-theme="hljs-docco"] .hljs-selector-tag,
+:root[data-theme="hljs-docco"] .hljs-literal,
+:root[data-theme="hljs-docco"] .hljs-subst {
+  color: #954121 !important
+}
+:root[data-theme="hljs-docco"] .hljs-number {
+  color: #40a070 !important
+}
+:root[data-theme="hljs-docco"] .hljs-string,
+:root[data-theme="hljs-docco"] .hljs-doctag {
+  color: #219161 !important
+}
+:root[data-theme="hljs-docco"] .hljs-selector-id,
+:root[data-theme="hljs-docco"] .hljs-selector-class,
+:root[data-theme="hljs-docco"] .hljs-section,
+:root[data-theme="hljs-docco"] .hljs-type {
+  color: #19469d !important
+}
+:root[data-theme="hljs-docco"] .hljs-params {
+  color: #00f !important
+}
+:root[data-theme="hljs-docco"] .hljs-title {
+  color: #458 !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-docco"] .hljs-tag,
+:root[data-theme="hljs-docco"] .hljs-name,
+:root[data-theme="hljs-docco"] .hljs-attribute {
+  color: #000080 !important;
+  font-weight: normal !important
+}
+:root[data-theme="hljs-docco"] .hljs-variable,
+:root[data-theme="hljs-docco"] .hljs-template-variable {
+  color: #008080 !important
+}
+:root[data-theme="hljs-docco"] .hljs-regexp,
+:root[data-theme="hljs-docco"] .hljs-link {
+  color: #b68 !important
+}
+:root[data-theme="hljs-docco"] .hljs-symbol,
+:root[data-theme="hljs-docco"] .hljs-bullet {
+  color: #990073 !important
+}
+:root[data-theme="hljs-docco"] .hljs-built_in {
+  color: #0086b3 !important
+}
+:root[data-theme="hljs-docco"] .hljs-meta {
+  color: #999 !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-docco"] .hljs-deletion {
+  background: #fdd !important
+}
+:root[data-theme="hljs-docco"] .hljs-addition {
+  background: #dfd !important
+}
+:root[data-theme="hljs-docco"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-docco"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-docco"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #f8f8ff !important; color: #000000 !important; }
+
+:root[data-theme="hljs-docco"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-docco"] .json-token-field { color: #445588; }
+:root[data-theme="hljs-docco"] .json-token-string { color: #219161; }
+:root[data-theme="hljs-docco"] .json-token-number { color: #40a070; }
+:root[data-theme="hljs-docco"] .json-token-boolean { color: #954121; }
+:root[data-theme="hljs-docco"] .json-token-null { color: #954121; }
+:root[data-theme="hljs-docco"] .json-token-punctuation { color: #000000; }
+:root[data-theme="hljs-docco"] .json-parser-type-legend i { background: currentColor; }

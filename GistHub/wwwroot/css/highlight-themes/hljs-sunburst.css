@@ -1,0 +1,133 @@
+/* Highlight.js 11.11.1: sunburst.css. Original theme attribution follows. */
+:root[data-theme="hljs-sunburst"] {
+--background: 0 0% 0%;
+--foreground: 0 0% 97%;
+--card: 0 0% 4%;
+--card-foreground: 0 0% 97%;
+--popover: 0 0% 4%;
+--popover-foreground: 0 0% 97%;
+--primary: 18 68% 64%;
+--primary-foreground: 0 0% 5%;
+--secondary: 101 45% 47%;
+--secondary-foreground: 0 0% 5%;
+--accent: 207 60% 50%;
+--accent-foreground: 0 0% 5%;
+--muted: 0 0% 10%;
+--muted-foreground: 0 0% 70%;
+--destructive: 18 68% 64%;
+--destructive-foreground: 0 0% 5%;
+--border: 0 0% 39%;
+--input: 0 0% 39%;
+--ring: 18 68% 64%;
+--neo-yellow: #e28964;
+--neo-pink: #3387cc;
+--neo-purple: #89bdff;
+--neo-green: #65b042;
+--neo-cyan: #65b042;
+--neo-red: #3387cc;
+--neo-paper: #0b0b0b;
+--neo-code-text: #f8f8f8;
+--neo-shadow: #373737;
+--neo-interactive: #e28964;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-sunburst"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-sunburst"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+
+Sunburst-like style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+:root[data-theme="hljs-sunburst"] .hljs {
+  background: #000 !important;
+  color: #f8f8f8 !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-comment,
+:root[data-theme="hljs-sunburst"] .hljs-quote {
+  color: #aeaeae !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-keyword,
+:root[data-theme="hljs-sunburst"] .hljs-selector-tag,
+:root[data-theme="hljs-sunburst"] .hljs-type {
+  color: #e28964 !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-string {
+  color: #65b042 !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-subst {
+  color: #daefa3 !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-regexp,
+:root[data-theme="hljs-sunburst"] .hljs-link {
+  color: #e9c062 !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-title,
+:root[data-theme="hljs-sunburst"] .hljs-section,
+:root[data-theme="hljs-sunburst"] .hljs-tag,
+:root[data-theme="hljs-sunburst"] .hljs-name {
+  color: #89bdff !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-title.class_,
+:root[data-theme="hljs-sunburst"] .hljs-class .hljs-title,
+:root[data-theme="hljs-sunburst"] .hljs-doctag {
+  text-decoration: underline !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-symbol,
+:root[data-theme="hljs-sunburst"] .hljs-bullet,
+:root[data-theme="hljs-sunburst"] .hljs-number {
+  color: #3387cc !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-params,
+:root[data-theme="hljs-sunburst"] .hljs-variable,
+:root[data-theme="hljs-sunburst"] .hljs-template-variable {
+  color: #3e87e3 !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-attribute {
+  color: #cda869 !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-meta {
+  color: #8996a8 !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-formula {
+  background-color: #0e2231 !important;
+  color: #f8f8f8 !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-addition {
+  background-color: #253b22 !important;
+  color: #f8f8f8 !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-deletion {
+  background-color: #420e09 !important;
+  color: #f8f8f8 !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-selector-class {
+  color: #9b703f !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-selector-id {
+  color: #8b98ab !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-sunburst"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-sunburst"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #000000 !important; color: #f8f8f8 !important; }
+
+:root[data-theme="hljs-sunburst"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-sunburst"] .json-token-field { color: #89bdff; }
+:root[data-theme="hljs-sunburst"] .json-token-string { color: #65b042; }
+:root[data-theme="hljs-sunburst"] .json-token-number { color: #3387cc; }
+:root[data-theme="hljs-sunburst"] .json-token-boolean { color: #e28964; }
+:root[data-theme="hljs-sunburst"] .json-token-null { color: #e28964; }
+:root[data-theme="hljs-sunburst"] .json-token-punctuation { color: #f8f8f8; }
+:root[data-theme="hljs-sunburst"] .json-parser-type-legend i { background: currentColor; }

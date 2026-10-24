@@ -1,0 +1,116 @@
+/* Highlight.js 11.11.1: gml.css. Original theme attribution follows. */
+:root[data-theme="hljs-gml"] {
+--background: 0 0% 13%;
+--foreground: 0 0% 75%;
+--card: 0 0% 16%;
+--card-foreground: 0 0% 75%;
+--popover: 0 0% 16%;
+--popover-foreground: 0 0% 75%;
+--primary: 30 100% 72%;
+--primary-foreground: 0 0% 5%;
+--secondary: 60 100% 50%;
+--secondary-foreground: 0 0% 5%;
+--accent: 0 100% 75%;
+--accent-foreground: 0 0% 5%;
+--muted: 0 0% 20%;
+--muted-foreground: 0 0% 58%;
+--destructive: 30 100% 72%;
+--destructive-foreground: 0 0% 5%;
+--border: 0 0% 38%;
+--input: 0 0% 38%;
+--ring: 30 100% 72%;
+--neo-yellow: #ffb871;
+--neo-pink: #ff8080;
+--neo-purple: #c0c0c0;
+--neo-green: #ffff00;
+--neo-cyan: #ffff00;
+--neo-red: #ff8080;
+--neo-paper: #292929;
+--neo-code-text: #c0c0c0;
+--neo-shadow: #454545;
+--neo-interactive: #ffb871;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-gml"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-gml"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+
+GML Theme - Meseta <meseta@gmail.com>
+
+*/
+:root[data-theme="hljs-gml"] .hljs {
+  background: #222222 !important;
+  color: #C0C0C0 !important
+}
+:root[data-theme="hljs-gml"] .hljs-keyword {
+  color: #FFB871 !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-gml"] .hljs-built_in {
+  color: #FFB871 !important
+}
+:root[data-theme="hljs-gml"] .hljs-literal {
+  color: #FF8080 !important
+}
+:root[data-theme="hljs-gml"] .hljs-symbol {
+  color: #58E55A !important
+}
+:root[data-theme="hljs-gml"] .hljs-comment {
+  color: #5B995B !important
+}
+:root[data-theme="hljs-gml"] .hljs-string {
+  color: #FFFF00 !important
+}
+:root[data-theme="hljs-gml"] .hljs-number {
+  color: #FF8080 !important
+}
+:root[data-theme="hljs-gml"] .hljs-attribute,
+:root[data-theme="hljs-gml"] .hljs-selector-tag,
+:root[data-theme="hljs-gml"] .hljs-doctag,
+:root[data-theme="hljs-gml"] .hljs-name,
+:root[data-theme="hljs-gml"] .hljs-bullet,
+:root[data-theme="hljs-gml"] .hljs-code,
+:root[data-theme="hljs-gml"] .hljs-addition,
+:root[data-theme="hljs-gml"] .hljs-regexp,
+:root[data-theme="hljs-gml"] .hljs-variable,
+:root[data-theme="hljs-gml"] .hljs-template-variable,
+:root[data-theme="hljs-gml"] .hljs-link,
+:root[data-theme="hljs-gml"] .hljs-selector-attr,
+:root[data-theme="hljs-gml"] .hljs-selector-pseudo,
+:root[data-theme="hljs-gml"] .hljs-type,
+:root[data-theme="hljs-gml"] .hljs-selector-id,
+:root[data-theme="hljs-gml"] .hljs-selector-class,
+:root[data-theme="hljs-gml"] .hljs-quote,
+:root[data-theme="hljs-gml"] .hljs-template-tag,
+:root[data-theme="hljs-gml"] .hljs-deletion,
+:root[data-theme="hljs-gml"] .hljs-title,
+:root[data-theme="hljs-gml"] .hljs-section,
+:root[data-theme="hljs-gml"] .hljs-function,
+:root[data-theme="hljs-gml"] .hljs-meta .hljs-keyword,
+:root[data-theme="hljs-gml"] .hljs-meta,
+:root[data-theme="hljs-gml"] .hljs-subst {
+  color: #C0C0C0 !important
+}
+:root[data-theme="hljs-gml"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-gml"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-gml"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #222222 !important; color: #c0c0c0 !important; }
+
+:root[data-theme="hljs-gml"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-gml"] .json-token-field { color: #c0c0c0; }
+:root[data-theme="hljs-gml"] .json-token-string { color: #ffff00; }
+:root[data-theme="hljs-gml"] .json-token-number { color: #ff8080; }
+:root[data-theme="hljs-gml"] .json-token-boolean { color: #ffb871; }
+:root[data-theme="hljs-gml"] .json-token-null { color: #ffb871; }
+:root[data-theme="hljs-gml"] .json-token-punctuation { color: #c0c0c0; }
+:root[data-theme="hljs-gml"] .json-parser-type-legend i { background: currentColor; }

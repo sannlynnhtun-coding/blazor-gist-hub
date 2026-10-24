@@ -1,0 +1,134 @@
+/* Highlight.js 11.11.1: atom-one-dark.css. Original theme attribution follows. */
+:root[data-theme="hljs-atom-one-dark"] {
+--background: 220 13% 18%;
+--foreground: 219 14% 71%;
+--card: 220 12% 20%;
+--card-foreground: 219 14% 71%;
+--popover: 220 12% 20%;
+--popover-foreground: 219 14% 71%;
+--primary: 286 60% 67%;
+--primary-foreground: 0 0% 5%;
+--secondary: 95 38% 62%;
+--secondary-foreground: 0 0% 5%;
+--accent: 29 54% 61%;
+--accent-foreground: 0 0% 5%;
+--muted: 220 11% 23%;
+--muted-foreground: 219 8% 56%;
+--destructive: 286 60% 67%;
+--destructive-foreground: 0 0% 5%;
+--border: 219 8% 39%;
+--input: 219 8% 39%;
+--ring: 286 60% 67%;
+--neo-yellow: #c678dd;
+--neo-pink: #d19a66;
+--neo-purple: #61aeee;
+--neo-green: #98c379;
+--neo-cyan: #d19a66;
+--neo-red: #d19a66;
+--neo-paper: #2e323a;
+--neo-code-text: #abb2bf;
+--neo-shadow: #454953;
+--neo-interactive: #c678dd;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-atom-one-dark"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-atom-one-dark"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+
+Atom One Dark by Daniel Gamage
+Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
+
+base:    #282c34
+mono-1:  #abb2bf
+mono-2:  #818896
+mono-3:  #5c6370
+hue-1:   #56b6c2
+hue-2:   #61aeee
+hue-3:   #c678dd
+hue-4:   #98c379
+hue-5:   #e06c75
+hue-5-2: #be5046
+hue-6:   #d19a66
+hue-6-2: #e6c07b
+
+*/
+:root[data-theme="hljs-atom-one-dark"] .hljs {
+  color: #abb2bf !important;
+  background: #282c34 !important
+}
+:root[data-theme="hljs-atom-one-dark"] .hljs-comment,
+:root[data-theme="hljs-atom-one-dark"] .hljs-quote {
+  color: #5c6370 !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-atom-one-dark"] .hljs-doctag,
+:root[data-theme="hljs-atom-one-dark"] .hljs-keyword,
+:root[data-theme="hljs-atom-one-dark"] .hljs-formula {
+  color: #c678dd !important
+}
+:root[data-theme="hljs-atom-one-dark"] .hljs-section,
+:root[data-theme="hljs-atom-one-dark"] .hljs-name,
+:root[data-theme="hljs-atom-one-dark"] .hljs-selector-tag,
+:root[data-theme="hljs-atom-one-dark"] .hljs-deletion,
+:root[data-theme="hljs-atom-one-dark"] .hljs-subst {
+  color: #e06c75 !important
+}
+:root[data-theme="hljs-atom-one-dark"] .hljs-literal {
+  color: #56b6c2 !important
+}
+:root[data-theme="hljs-atom-one-dark"] .hljs-string,
+:root[data-theme="hljs-atom-one-dark"] .hljs-regexp,
+:root[data-theme="hljs-atom-one-dark"] .hljs-addition,
+:root[data-theme="hljs-atom-one-dark"] .hljs-attribute,
+:root[data-theme="hljs-atom-one-dark"] .hljs-meta .hljs-string {
+  color: #98c379 !important
+}
+:root[data-theme="hljs-atom-one-dark"] .hljs-attr,
+:root[data-theme="hljs-atom-one-dark"] .hljs-variable,
+:root[data-theme="hljs-atom-one-dark"] .hljs-template-variable,
+:root[data-theme="hljs-atom-one-dark"] .hljs-type,
+:root[data-theme="hljs-atom-one-dark"] .hljs-selector-class,
+:root[data-theme="hljs-atom-one-dark"] .hljs-selector-attr,
+:root[data-theme="hljs-atom-one-dark"] .hljs-selector-pseudo,
+:root[data-theme="hljs-atom-one-dark"] .hljs-number {
+  color: #d19a66 !important
+}
+:root[data-theme="hljs-atom-one-dark"] .hljs-symbol,
+:root[data-theme="hljs-atom-one-dark"] .hljs-bullet,
+:root[data-theme="hljs-atom-one-dark"] .hljs-link,
+:root[data-theme="hljs-atom-one-dark"] .hljs-meta,
+:root[data-theme="hljs-atom-one-dark"] .hljs-selector-id,
+:root[data-theme="hljs-atom-one-dark"] .hljs-title {
+  color: #61aeee !important
+}
+:root[data-theme="hljs-atom-one-dark"] .hljs-built_in,
+:root[data-theme="hljs-atom-one-dark"] .hljs-title.class_,
+:root[data-theme="hljs-atom-one-dark"] .hljs-class .hljs-title {
+  color: #e6c07b !important
+}
+:root[data-theme="hljs-atom-one-dark"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-atom-one-dark"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-atom-one-dark"] .hljs-link {
+  text-decoration: underline !important
+}
+:root[data-theme="hljs-atom-one-dark"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #282c34 !important; color: #abb2bf !important; }
+
+:root[data-theme="hljs-atom-one-dark"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-atom-one-dark"] .json-token-field { color: #d19a66; }
+:root[data-theme="hljs-atom-one-dark"] .json-token-string { color: #98c379; }
+:root[data-theme="hljs-atom-one-dark"] .json-token-number { color: #d19a66; }
+:root[data-theme="hljs-atom-one-dark"] .json-token-boolean { color: #c678dd; }
+:root[data-theme="hljs-atom-one-dark"] .json-token-null { color: #c678dd; }
+:root[data-theme="hljs-atom-one-dark"] .json-token-punctuation { color: #abb2bf; }
+:root[data-theme="hljs-atom-one-dark"] .json-parser-type-legend i { background: currentColor; }

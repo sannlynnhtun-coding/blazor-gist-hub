@@ -1,35 +1,41 @@
 @inject IJSRuntime JS
 
-<button @onclick="ToggleTheme" class="neo-theme-toggle neo-icon-button relative inline-flex items-center justify-center p-2 rounded-md bg-card border border-border hover:bg-secondary transition-all group overflow-hidden" title="Toggle Theme" aria-label="Toggle color theme" aria-pressed="@(IsDark ? "true" : "false")">
-    <div class="relative w-6 h-6">
-        <!-- Sun Icon -->
-        <div class="absolute inset-0 transform transition-all duration-500 @(IsDark ? "rotate-90 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100")">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun text-[#956400]"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-        </div>
-        <!-- Moon Icon -->
-        <div class="absolute inset-0 transform transition-all duration-500 @(IsDark ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-0 opacity-0")">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon text-muted-foreground"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-        </div>
-    </div>
-</button>
+<select class="neo-theme-select bg-card text-foreground border border-border rounded-md text-sm font-bold" aria-label="Page theme" title="Choose page theme" value="@Theme" @onchange="ChangeTheme">
+    <optgroup label="GistHub">
+    <option value="light">☀ Light</option>
+    <option value="dark">☾ Dark</option>
+    <option value="ocean">◈ Ocean</option>
+    <option value="forest">❋ Forest</option>
+    <option value="rose">✿ Rose</option>
+    </optgroup>
+    <optgroup label="Highlight.js">
+        @foreach (var palette in HighlightThemes)
+        {
+            <option value="@palette.Id">@palette.Name</option>
+        }
+    </optgroup>
+</select>
 
 @code {
-    private bool IsDark { get; set; }
+    private ThemeOption[] HighlightThemes = [];
+    private sealed record ThemeOption(string Id, string Name);
+    private string Theme = "light";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            IsDark = await JS.InvokeAsync<bool>("isDarkThemeActive");
+            HighlightThemes = await JS.InvokeAsync<ThemeOption[]>("getGistHubThemes");
+            Theme = await JS.InvokeAsync<string>("getGistHubTheme");
             StateHasChanged();
         }
     }
 
-    private async Task ToggleTheme()
+    private async Task ChangeTheme(ChangeEventArgs args)
     {
-        IsDark = !IsDark;
-        var theme = IsDark ? "dark" : "light";
-        await JS.InvokeVoidAsync("applyGistHubTheme", theme);
-        await JS.InvokeVoidAsync("localStorage.setItem", "theme", theme);
+        var selected = args.Value?.ToString() ?? "light";
+        if (selected == Theme) return;
+        Theme = selected;
+        await JS.InvokeVoidAsync("applyGistHubTheme", Theme);
     }
 }

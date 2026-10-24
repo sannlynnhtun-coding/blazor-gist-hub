@@ -1,0 +1,112 @@
+/* Highlight.js 11.11.1: tomorrow-night-bright.css. Original theme attribution follows. */
+:root[data-theme="hljs-tomorrow-night-bright"] {
+--background: 0 0% 0%;
+--foreground: 0 0% 92%;
+--card: 0 0% 4%;
+--card-foreground: 0 0% 92%;
+--popover: 0 0% 4%;
+--popover-foreground: 0 0% 92%;
+--primary: 281 45% 72%;
+--primary-foreground: 0 0% 5%;
+--secondary: 68 55% 54%;
+--secondary-foreground: 0 0% 5%;
+--accent: 26 77% 59%;
+--accent-foreground: 0 0% 5%;
+--muted: 0 0% 9%;
+--muted-foreground: 0 0% 66%;
+--destructive: 281 45% 72%;
+--destructive-foreground: 0 0% 5%;
+--border: 0 0% 37%;
+--input: 0 0% 37%;
+--ring: 281 45% 72%;
+--neo-yellow: #c397d8;
+--neo-pink: #e78c45;
+--neo-purple: #7aa6da;
+--neo-green: #b9ca4a;
+--neo-cyan: #b9ca4a;
+--neo-red: #e78c45;
+--neo-paper: #0b0b0b;
+--neo-code-text: #eaeaea;
+--neo-shadow: #333333;
+--neo-interactive: #c397d8;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-tomorrow-night-bright"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-tomorrow-night-bright"] code.hljs {
+  padding: 3px 5px !important
+}
+/* Tomorrow Night Bright Theme */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Tomorrow Comment */
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-comment,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-quote {
+  color: #969896 !important
+}
+/* Tomorrow Red */
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-variable,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-template-variable,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-tag,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-name,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-selector-id,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-selector-class,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-regexp,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-deletion {
+  color: #d54e53 !important
+}
+/* Tomorrow Orange */
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-number,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-built_in,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-literal,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-type,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-params,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-meta,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-link {
+  color: #e78c45 !important
+}
+/* Tomorrow Yellow */
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-attribute {
+  color: #e7c547 !important
+}
+/* Tomorrow Green */
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-string,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-symbol,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-bullet,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-addition {
+  color: #b9ca4a !important
+}
+/* Tomorrow Blue */
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-title,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-section {
+  color: #7aa6da !important
+}
+/* Tomorrow Purple */
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-keyword,
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-selector-tag {
+  color: #c397d8 !important
+}
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs {
+  background: black !important;
+  color: #eaeaea !important
+}
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-tomorrow-night-bright"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-tomorrow-night-bright"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #000000 !important; color: #eaeaea !important; }
+
+:root[data-theme="hljs-tomorrow-night-bright"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-tomorrow-night-bright"] .json-token-field { color: #7aa6da; }
+:root[data-theme="hljs-tomorrow-night-bright"] .json-token-string { color: #b9ca4a; }
+:root[data-theme="hljs-tomorrow-night-bright"] .json-token-number { color: #e78c45; }
+:root[data-theme="hljs-tomorrow-night-bright"] .json-token-boolean { color: #c397d8; }
+:root[data-theme="hljs-tomorrow-night-bright"] .json-token-null { color: #c397d8; }
+:root[data-theme="hljs-tomorrow-night-bright"] .json-token-punctuation { color: #eaeaea; }
+:root[data-theme="hljs-tomorrow-night-bright"] .json-parser-type-legend i { background: currentColor; }

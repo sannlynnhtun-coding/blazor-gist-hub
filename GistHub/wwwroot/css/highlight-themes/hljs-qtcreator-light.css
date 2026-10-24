@@ -1,0 +1,118 @@
+/* Highlight.js 11.11.1: qtcreator-light.css. Original theme attribution follows. */
+:root[data-theme="hljs-qtcreator-light"] {
+--background: 0 0% 100%;
+--foreground: 0 0% 0%;
+--card: 0 0% 96%;
+--card-foreground: 0 0% 0%;
+--popover: 0 0% 96%;
+--popover-foreground: 0 0% 0%;
+--primary: 60 100% 25%;
+--primary-foreground: 0 0% 5%;
+--secondary: 120 100% 25%;
+--secondary-foreground: 0 0% 100%;
+--accent: 240 100% 25%;
+--accent-foreground: 0 0% 100%;
+--muted: 0 0% 90%;
+--muted-foreground: 0 0% 28%;
+--destructive: 60 100% 25%;
+--destructive-foreground: 0 0% 5%;
+--border: 0 0% 60%;
+--input: 0 0% 60%;
+--ring: 60 100% 25%;
+--neo-yellow: #d3d3a6;
+--neo-pink: #a6a6d3;
+--neo-purple: #a6a6a6;
+--neo-green: #a6d3a6;
+--neo-cyan: #a6d3a6;
+--neo-red: #a6a6d3;
+--neo-paper: #f4f4f4;
+--neo-code-text: #000000;
+--neo-shadow: #c7c7c7;
+--neo-interactive: #808000;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-qtcreator-light"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-qtcreator-light"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+Qt Creator light color scheme
+*/
+:root[data-theme="hljs-qtcreator-light"] .hljs {
+  color: #000000 !important;
+  background: #ffffff !important
+}
+:root[data-theme="hljs-qtcreator-light"] .hljs-strong,
+:root[data-theme="hljs-qtcreator-light"] .hljs-emphasis {
+  color: #000000 !important
+}
+:root[data-theme="hljs-qtcreator-light"] .hljs-bullet,
+:root[data-theme="hljs-qtcreator-light"] .hljs-quote,
+:root[data-theme="hljs-qtcreator-light"] .hljs-number,
+:root[data-theme="hljs-qtcreator-light"] .hljs-regexp,
+:root[data-theme="hljs-qtcreator-light"] .hljs-literal {
+  color: #000080 !important
+}
+:root[data-theme="hljs-qtcreator-light"] .hljs-code
+.hljs-selector-class {
+  color: #800080 !important
+}
+:root[data-theme="hljs-qtcreator-light"] .hljs-emphasis,
+:root[data-theme="hljs-qtcreator-light"] .hljs-stronge,
+:root[data-theme="hljs-qtcreator-light"] .hljs-type {
+  font-style: italic !important
+}
+:root[data-theme="hljs-qtcreator-light"] .hljs-keyword,
+:root[data-theme="hljs-qtcreator-light"] .hljs-selector-tag,
+:root[data-theme="hljs-qtcreator-light"] .hljs-function,
+:root[data-theme="hljs-qtcreator-light"] .hljs-section,
+:root[data-theme="hljs-qtcreator-light"] .hljs-symbol,
+:root[data-theme="hljs-qtcreator-light"] .hljs-name {
+  color: #808000 !important
+}
+:root[data-theme="hljs-qtcreator-light"] .hljs-subst,
+:root[data-theme="hljs-qtcreator-light"] .hljs-tag,
+:root[data-theme="hljs-qtcreator-light"] .hljs-title {
+  color: #000000 !important
+}
+:root[data-theme="hljs-qtcreator-light"] .hljs-attribute {
+  color: #800000 !important
+}
+:root[data-theme="hljs-qtcreator-light"] .hljs-variable,
+:root[data-theme="hljs-qtcreator-light"] .hljs-params,
+:root[data-theme="hljs-qtcreator-light"] .hljs-title.class_,
+:root[data-theme="hljs-qtcreator-light"] .hljs-class .hljs-title {
+  color: #0055AF !important
+}
+:root[data-theme="hljs-qtcreator-light"] .hljs-string,
+:root[data-theme="hljs-qtcreator-light"] .hljs-selector-id,
+:root[data-theme="hljs-qtcreator-light"] .hljs-selector-attr,
+:root[data-theme="hljs-qtcreator-light"] .hljs-selector-pseudo,
+:root[data-theme="hljs-qtcreator-light"] .hljs-type,
+:root[data-theme="hljs-qtcreator-light"] .hljs-built_in,
+:root[data-theme="hljs-qtcreator-light"] .hljs-template-tag,
+:root[data-theme="hljs-qtcreator-light"] .hljs-template-variable,
+:root[data-theme="hljs-qtcreator-light"] .hljs-addition,
+:root[data-theme="hljs-qtcreator-light"] .hljs-link {
+  color: #008000 !important
+}
+:root[data-theme="hljs-qtcreator-light"] .hljs-comment,
+:root[data-theme="hljs-qtcreator-light"] .hljs-meta,
+:root[data-theme="hljs-qtcreator-light"] .hljs-deletion {
+  color: #008000 !important
+}
+:root[data-theme="hljs-qtcreator-light"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #ffffff !important; color: #000000 !important; }
+
+:root[data-theme="hljs-qtcreator-light"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-qtcreator-light"] .json-token-field { color: #000000; }
+:root[data-theme="hljs-qtcreator-light"] .json-token-string { color: #008000; }
+:root[data-theme="hljs-qtcreator-light"] .json-token-number { color: #000080; }
+:root[data-theme="hljs-qtcreator-light"] .json-token-boolean { color: #808000; }
+:root[data-theme="hljs-qtcreator-light"] .json-token-null { color: #808000; }
+:root[data-theme="hljs-qtcreator-light"] .json-token-punctuation { color: #000000; }
+:root[data-theme="hljs-qtcreator-light"] .json-parser-type-legend i { background: currentColor; }

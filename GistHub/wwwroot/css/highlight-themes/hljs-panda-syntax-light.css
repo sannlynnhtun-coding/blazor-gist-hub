@@ -1,0 +1,133 @@
+/* Highlight.js 11.11.1: panda-syntax-light.css. Original theme attribution follows. */
+:root[data-theme="hljs-panda-syntax-light"] {
+--background: 0 0% 90%;
+--foreground: 200 3% 17%;
+--card: 200 0% 87%;
+--card-foreground: 200 3% 17%;
+--popover: 200 0% 87%;
+--popover-foreground: 200 3% 17%;
+--primary: 324 70% 50%;
+--primary-foreground: 0 0% 5%;
+--secondary: 171 81% 27%;
+--secondary-foreground: 0 0% 100%;
+--accent: 266 48% 49%;
+--accent-foreground: 0 0% 100%;
+--muted: 200 0% 83%;
+--muted-foreground: 200 1% 38%;
+--destructive: 324 70% 50%;
+--destructive-foreground: 0 0% 5%;
+--border: 200 1% 61%;
+--input: 200 1% 61%;
+--ring: 324 70% 50%;
+--neo-yellow: #f2b3d9;
+--neo-pink: #cfbde7;
+--neo-purple: #cfbde7;
+--neo-green: #aad2cc;
+--neo-cyan: #b4b5b6;
+--neo-red: #cfbde7;
+--neo-paper: #dedede;
+--neo-code-text: #2a2c2d;
+--neo-shadow: #bdbdbd;
+--neo-interactive: #d92792;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-panda-syntax-light"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-panda-syntax-light"] code.hljs {
+  padding: 3px 5px !important
+}
+/**
+ * Panda Syntax Theme for Highlight.js
+ * Based on: https://github.com/tinkertrain/panda-syntax-vscode
+ * Author: Annmarie Switzer <https://github.com/annmarie-switzer>
+ */
+:root[data-theme="hljs-panda-syntax-light"] .hljs {
+  color: #2a2c2d !important;
+  background: #e6e6e6 !important
+}
+:root[data-theme="hljs-panda-syntax-light"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-panda-syntax-light"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-panda-syntax-light"] .hljs-link {
+  text-decoration: underline !important
+}
+:root[data-theme="hljs-panda-syntax-light"] .hljs-comment,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-quote {
+  color: #676B79 !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-panda-syntax-light"] .hljs-params {
+  color: #676B79 !important
+}
+:root[data-theme="hljs-panda-syntax-light"] .hljs-punctuation,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-attr {
+  color: #2a2c2d !important
+}
+:root[data-theme="hljs-panda-syntax-light"] .hljs-selector-tag,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-name,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-meta,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-operator,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-char.escape_ {
+  color: #c56200 !important
+}
+:root[data-theme="hljs-panda-syntax-light"] .hljs-keyword,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-deletion {
+  color: #d92792 !important
+}
+:root[data-theme="hljs-panda-syntax-light"] .hljs-regexp,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-selector-pseudo,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-selector-attr,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-variable.language_ {
+  color: #cc5e91 !important
+}
+:root[data-theme="hljs-panda-syntax-light"] .hljs-subst,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-property,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-code,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-formula,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-section,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-title.function_ {
+  color: #3787c7 !important
+}
+:root[data-theme="hljs-panda-syntax-light"] .hljs-string,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-symbol,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-bullet,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-addition,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-selector-class,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-title.class_,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-title.class_.inherited__,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-meta .hljs-string {
+  color: #0d7d6c !important
+}
+:root[data-theme="hljs-panda-syntax-light"] .hljs-variable,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-template-variable,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-number,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-literal,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-type,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-link,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-built_in,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-title,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-selector-id,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-tag,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-doctag,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-attribute,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-template-tag,
+:root[data-theme="hljs-panda-syntax-light"] .hljs-meta .hljs-keyword {
+  color: #7641bb !important
+}
+:root[data-theme="hljs-panda-syntax-light"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #e6e6e6 !important; color: #2a2c2d !important; }
+
+:root[data-theme="hljs-panda-syntax-light"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-panda-syntax-light"] .json-token-field { color: #2a2c2d; }
+:root[data-theme="hljs-panda-syntax-light"] .json-token-string { color: #0d7d6c; }
+:root[data-theme="hljs-panda-syntax-light"] .json-token-number { color: #7641bb; }
+:root[data-theme="hljs-panda-syntax-light"] .json-token-boolean { color: #d92792; }
+:root[data-theme="hljs-panda-syntax-light"] .json-token-null { color: #d92792; }
+:root[data-theme="hljs-panda-syntax-light"] .json-token-punctuation { color: #2a2c2d; }
+:root[data-theme="hljs-panda-syntax-light"] .json-parser-type-legend i { background: currentColor; }

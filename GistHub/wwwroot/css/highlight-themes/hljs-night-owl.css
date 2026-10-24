@@ -1,0 +1,218 @@
+/* Highlight.js 11.11.1: night-owl.css. Original theme attribution follows. */
+:root[data-theme="hljs-night-owl"] {
+--background: 207 95% 8%;
+--foreground: 217 34% 88%;
+--card: 207 64% 11%;
+--card-foreground: 217 34% 88%;
+--popover: 207 64% 11%;
+--popover-foreground: 217 34% 88%;
+--primary: 276 68% 75%;
+--primary-foreground: 0 0% 5%;
+--secondary: 35 71% 74%;
+--secondary-foreground: 0 0% 5%;
+--accent: 14 90% 70%;
+--accent-foreground: 0 0% 5%;
+--muted: 207 45% 16%;
+--muted-foreground: 213 15% 66%;
+--destructive: 276 68% 75%;
+--destructive-foreground: 0 0% 5%;
+--border: 210 15% 40%;
+--input: 210 15% 40%;
+--ring: 276 68% 75%;
+--neo-yellow: #c792ea;
+--neo-pink: #f78c6c;
+--neo-purple: #dcdcaa;
+--neo-green: #ecc48d;
+--neo-cyan: #7fdbca;
+--neo-red: #f78c6c;
+--neo-paper: #0b1f30;
+--neo-code-text: #d6deeb;
+--neo-shadow: #304252;
+--neo-interactive: #c792ea;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-night-owl"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-night-owl"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+
+Night Owl for highlight.js (c) Carl Baxter <carl@cbax.tech>
+
+An adaptation of Sarah Drasner's Night Owl VS Code Theme
+https://github.com/sdras/night-owl-vscode-theme
+
+Copyright (c) 2018 Sarah Drasner
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+:root[data-theme="hljs-night-owl"] .hljs {
+  background: #011627 !important;
+  color: #d6deeb !important
+}
+/* General Purpose */
+:root[data-theme="hljs-night-owl"] .hljs-keyword {
+  color: #c792ea !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-built_in {
+  color: #addb67 !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-type {
+  color: #82aaff !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-literal {
+  color: #ff5874 !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-number {
+  color: #F78C6C !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-regexp {
+  color: #5ca7e4 !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-string {
+  color: #ecc48d !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-subst {
+  color: #d3423e !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-symbol {
+  color: #82aaff !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-class {
+  color: #ffcb8b !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-function {
+  color: #82AAFF !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-title {
+  color: #DCDCAA !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-params {
+  color: #7fdbca !important
+}
+/* Meta */
+:root[data-theme="hljs-night-owl"] .hljs-comment {
+  color: #637777 !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-doctag {
+  color: #7fdbca !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-meta {
+  color: #82aaff !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-meta .hljs-keyword {
+  color: #82aaff !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-meta .hljs-string {
+  color: #ecc48d !important
+}
+/* Tags, attributes, config */
+:root[data-theme="hljs-night-owl"] .hljs-section {
+  color: #82b1ff !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-tag,
+:root[data-theme="hljs-night-owl"] .hljs-name {
+  color: #7fdbca !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-attr {
+  color: #7fdbca !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-attribute {
+  color: #80cbc4 !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-variable {
+  color: #addb67 !important
+}
+/* Markup */
+:root[data-theme="hljs-night-owl"] .hljs-bullet {
+  color: #d9f5dd !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-code {
+  color: #80CBC4 !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-emphasis {
+  color: #c792ea !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-strong {
+  color: #addb67 !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-formula {
+  color: #c792ea !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-link {
+  color: #ff869a !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-quote {
+  color: #697098 !important;
+  font-style: italic !important
+}
+/* CSS */
+:root[data-theme="hljs-night-owl"] .hljs-selector-tag {
+  color: #ff6363 !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-selector-id {
+  color: #fad430 !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-selector-class {
+  color: #addb67 !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-selector-attr,
+:root[data-theme="hljs-night-owl"] .hljs-selector-pseudo {
+  color: #c792ea !important;
+  font-style: italic !important
+}
+/* Templates */
+:root[data-theme="hljs-night-owl"] .hljs-template-tag {
+  color: #c792ea !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-template-variable {
+  color: #addb67 !important
+}
+/* diff */
+:root[data-theme="hljs-night-owl"] .hljs-addition {
+  color: #addb67ff !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-night-owl"] .hljs-deletion {
+  color: #EF535090 !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-night-owl"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #011627 !important; color: #d6deeb !important; }
+
+:root[data-theme="hljs-night-owl"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-night-owl"] .json-token-field { color: #7fdbca; }
+:root[data-theme="hljs-night-owl"] .json-token-string { color: #ecc48d; }
+:root[data-theme="hljs-night-owl"] .json-token-number { color: #f78c6c; }
+:root[data-theme="hljs-night-owl"] .json-token-boolean { color: #c792ea; }
+:root[data-theme="hljs-night-owl"] .json-token-null { color: #c792ea; }
+:root[data-theme="hljs-night-owl"] .json-token-punctuation { color: #d6deeb; }
+:root[data-theme="hljs-night-owl"] .json-parser-type-legend i { background: currentColor; }

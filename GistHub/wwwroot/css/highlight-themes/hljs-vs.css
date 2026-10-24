@@ -1,0 +1,107 @@
+/* Highlight.js 11.11.1: vs.css. Original theme attribution follows. */
+:root[data-theme="hljs-vs"] {
+--background: 0 0% 100%;
+--foreground: 0 0% 0%;
+--card: 0 0% 96%;
+--card-foreground: 0 0% 0%;
+--popover: 0 0% 96%;
+--popover-foreground: 0 0% 0%;
+--primary: 240 100% 50%;
+--primary-foreground: 0 0% 100%;
+--secondary: 0 77% 36%;
+--secondary-foreground: 0 0% 100%;
+--accent: 240 100% 50%;
+--accent-foreground: 0 0% 100%;
+--muted: 0 0% 90%;
+--muted-foreground: 0 0% 28%;
+--destructive: 240 100% 50%;
+--destructive-foreground: 0 0% 100%;
+--border: 0 0% 60%;
+--input: 0 0% 60%;
+--ring: 240 100% 50%;
+--neo-yellow: #a6a6ff;
+--neo-pink: #a6a6ff;
+--neo-purple: #dfadad;
+--neo-green: #dfadad;
+--neo-cyan: #ffa6a6;
+--neo-red: #a6a6ff;
+--neo-paper: #f4f4f4;
+--neo-code-text: #000000;
+--neo-shadow: #c7c7c7;
+--neo-interactive: #0000ff;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-vs"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-vs"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+
+Visual Studio-like style based on original C# coloring by Jason Diamond <jason@diamond.name>
+
+*/
+:root[data-theme="hljs-vs"] .hljs {
+  background: white !important;
+  color: black !important
+}
+:root[data-theme="hljs-vs"] .hljs-comment,
+:root[data-theme="hljs-vs"] .hljs-quote,
+:root[data-theme="hljs-vs"] .hljs-variable {
+  color: #008000 !important
+}
+:root[data-theme="hljs-vs"] .hljs-keyword,
+:root[data-theme="hljs-vs"] .hljs-selector-tag,
+:root[data-theme="hljs-vs"] .hljs-built_in,
+:root[data-theme="hljs-vs"] .hljs-name,
+:root[data-theme="hljs-vs"] .hljs-tag {
+  color: #00f !important
+}
+:root[data-theme="hljs-vs"] .hljs-string,
+:root[data-theme="hljs-vs"] .hljs-title,
+:root[data-theme="hljs-vs"] .hljs-section,
+:root[data-theme="hljs-vs"] .hljs-attribute,
+:root[data-theme="hljs-vs"] .hljs-literal,
+:root[data-theme="hljs-vs"] .hljs-template-tag,
+:root[data-theme="hljs-vs"] .hljs-template-variable,
+:root[data-theme="hljs-vs"] .hljs-type,
+:root[data-theme="hljs-vs"] .hljs-addition {
+  color: #a31515 !important
+}
+:root[data-theme="hljs-vs"] .hljs-deletion,
+:root[data-theme="hljs-vs"] .hljs-selector-attr,
+:root[data-theme="hljs-vs"] .hljs-selector-pseudo,
+:root[data-theme="hljs-vs"] .hljs-meta {
+  color: #2b91af !important
+}
+:root[data-theme="hljs-vs"] .hljs-doctag {
+  color: #808080 !important
+}
+:root[data-theme="hljs-vs"] .hljs-attr {
+  color: #f00 !important
+}
+:root[data-theme="hljs-vs"] .hljs-symbol,
+:root[data-theme="hljs-vs"] .hljs-bullet,
+:root[data-theme="hljs-vs"] .hljs-link {
+  color: #00b0e8 !important
+}
+:root[data-theme="hljs-vs"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-vs"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-vs"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #ffffff !important; color: #000000 !important; }
+
+:root[data-theme="hljs-vs"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-vs"] .json-token-field { color: #ff0000; }
+:root[data-theme="hljs-vs"] .json-token-string { color: #a31515; }
+:root[data-theme="hljs-vs"] .json-token-number { color: #000000; }
+:root[data-theme="hljs-vs"] .json-token-boolean { color: #0000ff; }
+:root[data-theme="hljs-vs"] .json-token-null { color: #0000ff; }
+:root[data-theme="hljs-vs"] .json-token-punctuation { color: #000000; }
+:root[data-theme="hljs-vs"] .json-parser-type-legend i { background: currentColor; }

@@ -1,0 +1,124 @@
+/* Highlight.js 11.11.1: foundation.css. Original theme attribution follows. */
+:root[data-theme="hljs-foundation"] {
+--background: 0 0% 93%;
+--foreground: 0 0% 0%;
+--card: 0 0% 89%;
+--card-foreground: 0 0% 0%;
+--popover: 0 0% 89%;
+--popover-foreground: 0 0% 0%;
+--primary: 180 100% 30%;
+--primary-foreground: 0 0% 5%;
+--secondary: 345 86% 47%;
+--secondary-foreground: 0 0% 100%;
+--accent: 180 100% 30%;
+--accent-foreground: 0 0% 5%;
+--muted: 0 0% 84%;
+--muted-foreground: 0 0% 26%;
+--destructive: 180 100% 30%;
+--destructive-foreground: 0 0% 5%;
+--border: 0 0% 56%;
+--input: 0 0% 56%;
+--ring: 180 100% 30%;
+--neo-yellow: #a6dbdb;
+--neo-pink: #a6dbdb;
+--neo-purple: #dba6a6;
+--neo-green: #f3acbe;
+--neo-cyan: #f3acbe;
+--neo-red: #a6dbdb;
+--neo-paper: #e3e3e3;
+--neo-code-text: #000000;
+--neo-shadow: #bababa;
+--neo-interactive: #009999;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-foundation"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-foundation"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+Description: Foundation 4 docs style for highlight.js
+Author: Dan Allen <dan.j.allen@gmail.com>
+Website: http://foundation.zurb.com/docs/
+Version: 1.0
+Date: 2013-04-02
+*/
+:root[data-theme="hljs-foundation"] .hljs {
+  background: #eee !important;
+  color: black !important
+}
+:root[data-theme="hljs-foundation"] .hljs-link,
+:root[data-theme="hljs-foundation"] .hljs-emphasis,
+:root[data-theme="hljs-foundation"] .hljs-attribute,
+:root[data-theme="hljs-foundation"] .hljs-addition {
+  color: #070 !important
+}
+:root[data-theme="hljs-foundation"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-foundation"] .hljs-strong,
+:root[data-theme="hljs-foundation"] .hljs-string,
+:root[data-theme="hljs-foundation"] .hljs-deletion {
+  color: #d14 !important
+}
+:root[data-theme="hljs-foundation"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-foundation"] .hljs-quote,
+:root[data-theme="hljs-foundation"] .hljs-comment {
+  color: #998 !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-foundation"] .hljs-section,
+:root[data-theme="hljs-foundation"] .hljs-title {
+  color: #900 !important
+}
+:root[data-theme="hljs-foundation"] .hljs-class .hljs-title,
+:root[data-theme="hljs-foundation"] .hljs-title.class_,
+:root[data-theme="hljs-foundation"] .hljs-type {
+  color: #458 !important
+}
+:root[data-theme="hljs-foundation"] .hljs-variable,
+:root[data-theme="hljs-foundation"] .hljs-template-variable {
+  color: #336699 !important
+}
+:root[data-theme="hljs-foundation"] .hljs-bullet {
+  color: #997700 !important
+}
+:root[data-theme="hljs-foundation"] .hljs-meta {
+  color: #3344bb !important
+}
+:root[data-theme="hljs-foundation"] .hljs-code,
+:root[data-theme="hljs-foundation"] .hljs-number,
+:root[data-theme="hljs-foundation"] .hljs-literal,
+:root[data-theme="hljs-foundation"] .hljs-keyword,
+:root[data-theme="hljs-foundation"] .hljs-selector-tag {
+  color: #099 !important
+}
+:root[data-theme="hljs-foundation"] .hljs-regexp {
+  background-color: #fff0ff !important;
+  color: #880088 !important
+}
+:root[data-theme="hljs-foundation"] .hljs-symbol {
+  color: #990073 !important
+}
+:root[data-theme="hljs-foundation"] .hljs-tag,
+:root[data-theme="hljs-foundation"] .hljs-name,
+:root[data-theme="hljs-foundation"] .hljs-selector-id,
+:root[data-theme="hljs-foundation"] .hljs-selector-class {
+  color: #007700 !important
+}
+:root[data-theme="hljs-foundation"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #eeeeee !important; color: #000000 !important; }
+
+:root[data-theme="hljs-foundation"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-foundation"] .json-token-field { color: #990000; }
+:root[data-theme="hljs-foundation"] .json-token-string { color: #dd1144; }
+:root[data-theme="hljs-foundation"] .json-token-number { color: #009999; }
+:root[data-theme="hljs-foundation"] .json-token-boolean { color: #009999; }
+:root[data-theme="hljs-foundation"] .json-token-null { color: #009999; }
+:root[data-theme="hljs-foundation"] .json-token-punctuation { color: #000000; }
+:root[data-theme="hljs-foundation"] .json-parser-type-legend i { background: currentColor; }

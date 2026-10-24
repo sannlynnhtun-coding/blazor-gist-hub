@@ -1,0 +1,120 @@
+/* Highlight.js 11.11.1: lioshi.css. Original theme attribution follows. */
+:root[data-theme="hljs-lioshi"] {
+--background: 0 0% 19%;
+--foreground: 140 3% 78%;
+--card: 140 0% 21%;
+--card-foreground: 140 3% 78%;
+--popover: 140 0% 21%;
+--popover-foreground: 140 3% 78%;
+--primary: 304 24% 66%;
+--primary-foreground: 0 0% 5%;
+--secondary: 66 39% 57%;
+--secondary-foreground: 0 0% 5%;
+--accent: 25 66% 62%;
+--accent-foreground: 0 0% 5%;
+--muted: 140 0% 25%;
+--muted-foreground: 140 1% 61%;
+--destructive: 304 24% 66%;
+--destructive-foreground: 0 0% 5%;
+--border: 140 1% 42%;
+--input: 140 1% 42%;
+--ring: 304 24% 66%;
+--neo-yellow: #be94bb;
+--neo-pink: #de935f;
+--neo-purple: #81a2be;
+--neo-green: #b5bd68;
+--neo-cyan: #b5bd68;
+--neo-red: #de935f;
+--neo-paper: #373737;
+--neo-code-text: #c5c8c6;
+--neo-shadow: #515151;
+--neo-interactive: #be94bb;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-lioshi"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-lioshi"] code.hljs {
+  padding: 3px 5px !important
+}
+/* lioshi Theme */
+/* Original theme - https://github.com/lioshi/vscode-lioshi-theme */
+:root[data-theme="hljs-lioshi"] .hljs {
+  background: #303030 !important;
+  color: #c5c8c6 !important
+}
+/* Comment */
+:root[data-theme="hljs-lioshi"] .hljs-comment {
+  color: #8d8d8d !important
+}
+/* quote */
+:root[data-theme="hljs-lioshi"] .hljs-quote {
+  color: #b3c7d8 !important
+}
+/* Red */
+:root[data-theme="hljs-lioshi"] .hljs-variable,
+:root[data-theme="hljs-lioshi"] .hljs-template-variable,
+:root[data-theme="hljs-lioshi"] .hljs-tag,
+:root[data-theme="hljs-lioshi"] .hljs-name,
+:root[data-theme="hljs-lioshi"] .hljs-selector-id,
+:root[data-theme="hljs-lioshi"] .hljs-selector-class,
+:root[data-theme="hljs-lioshi"] .hljs-regexp,
+:root[data-theme="hljs-lioshi"] .hljs-deletion {
+  color: #cc6666 !important
+}
+/* Orange */
+:root[data-theme="hljs-lioshi"] .hljs-number,
+:root[data-theme="hljs-lioshi"] .hljs-built_in,
+:root[data-theme="hljs-lioshi"] .hljs-literal,
+:root[data-theme="hljs-lioshi"] .hljs-type,
+:root[data-theme="hljs-lioshi"] .hljs-subst
+.hljs-link {
+  color: #de935f !important
+}
+/* Yellow */
+:root[data-theme="hljs-lioshi"] .hljs-attribute {
+  color: #f0c674 !important
+}
+/* Green */
+:root[data-theme="hljs-lioshi"] .hljs-string,
+:root[data-theme="hljs-lioshi"] .hljs-bullet,
+:root[data-theme="hljs-lioshi"] .hljs-params,
+:root[data-theme="hljs-lioshi"] .hljs-addition {
+  color: #b5bd68 !important
+}
+/* Purple */
+:root[data-theme="hljs-lioshi"] .hljs-selector-tag,
+:root[data-theme="hljs-lioshi"] .hljs-keyword,
+:root[data-theme="hljs-lioshi"] .hljs-function,
+:root[data-theme="hljs-lioshi"] .hljs-class {
+  color: #be94bb !important
+}
+/* Blue */
+:root[data-theme="hljs-lioshi"] .hljs-title,
+:root[data-theme="hljs-lioshi"] .hljs-meta,
+:root[data-theme="hljs-lioshi"] .hljs-section {
+  color: #81a2be !important
+}
+/* Purple light */
+:root[data-theme="hljs-lioshi"] .hljs-symbol {
+  color: #dbc4d9 !important
+}
+:root[data-theme="hljs-lioshi"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-lioshi"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-lioshi"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #303030 !important; color: #c5c8c6 !important; }
+
+:root[data-theme="hljs-lioshi"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-lioshi"] .json-token-field { color: #81a2be; }
+:root[data-theme="hljs-lioshi"] .json-token-string { color: #b5bd68; }
+:root[data-theme="hljs-lioshi"] .json-token-number { color: #de935f; }
+:root[data-theme="hljs-lioshi"] .json-token-boolean { color: #be94bb; }
+:root[data-theme="hljs-lioshi"] .json-token-null { color: #be94bb; }
+:root[data-theme="hljs-lioshi"] .json-token-punctuation { color: #c5c8c6; }
+:root[data-theme="hljs-lioshi"] .json-parser-type-legend i { background: currentColor; }

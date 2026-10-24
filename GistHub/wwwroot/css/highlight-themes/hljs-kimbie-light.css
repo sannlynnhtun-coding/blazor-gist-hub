@@ -1,0 +1,113 @@
+/* Highlight.js 11.11.1: kimbie-light.css. Original theme attribution follows. */
+:root[data-theme="hljs-kimbie-light"] {
+--background: 35 83% 91%;
+--foreground: 30 37% 38%;
+--card: 35 68% 88%;
+--card-foreground: 30 37% 38%;
+--popover: 35 68% 88%;
+--popover-foreground: 30 37% 38%;
+--primary: 356 19% 50%;
+--primary-foreground: 0 0% 100%;
+--secondary: 74 35% 45%;
+--secondary-foreground: 0 0% 5%;
+--accent: 32 92% 58%;
+--accent-foreground: 0 0% 5%;
+--muted: 35 57% 85%;
+--muted-foreground: 31 26% 53%;
+--destructive: 356 19% 50%;
+--destructive-foreground: 0 0% 100%;
+--border: 33 33% 70%;
+--input: 33 33% 70%;
+--ring: 356 19% 50%;
+--neo-yellow: #dbcacb;
+--neo-pink: #fcdcb7;
+--neo-purple: #fac9b7;
+--neo-green: #d5dcc0;
+--neo-cyan: #d5dcc0;
+--neo-red: #fcdcb7;
+--neo-paper: #f6e5cd;
+--neo-code-text: #84613d;
+--neo-shadow: #e1cdb3;
+--neo-interactive: #98676a;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-kimbie-light"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-kimbie-light"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+    Name:     Kimbie (light)
+    Author:   Jan T. Sott
+    License:  Creative Commons Attribution-ShareAlike 4.0 Unported License
+    URL:      https://github.com/idleberg/Kimbie-highlight.js
+*/
+:root[data-theme="hljs-kimbie-light"] .hljs {
+  background: #fbebd4 !important;
+  color: #84613d !important
+}
+/* Kimbie Comment */
+:root[data-theme="hljs-kimbie-light"] .hljs-comment,
+:root[data-theme="hljs-kimbie-light"] .hljs-quote {
+  color: #a57a4c !important
+}
+/* Kimbie Red */
+:root[data-theme="hljs-kimbie-light"] .hljs-variable,
+:root[data-theme="hljs-kimbie-light"] .hljs-template-variable,
+:root[data-theme="hljs-kimbie-light"] .hljs-tag,
+:root[data-theme="hljs-kimbie-light"] .hljs-name,
+:root[data-theme="hljs-kimbie-light"] .hljs-selector-id,
+:root[data-theme="hljs-kimbie-light"] .hljs-selector-class,
+:root[data-theme="hljs-kimbie-light"] .hljs-regexp,
+:root[data-theme="hljs-kimbie-light"] .hljs-meta {
+  color: #dc3958 !important
+}
+/* Kimbie Orange */
+:root[data-theme="hljs-kimbie-light"] .hljs-number,
+:root[data-theme="hljs-kimbie-light"] .hljs-built_in,
+:root[data-theme="hljs-kimbie-light"] .hljs-literal,
+:root[data-theme="hljs-kimbie-light"] .hljs-type,
+:root[data-theme="hljs-kimbie-light"] .hljs-params,
+:root[data-theme="hljs-kimbie-light"] .hljs-deletion,
+:root[data-theme="hljs-kimbie-light"] .hljs-link {
+  color: #f79a32 !important
+}
+/* Kimbie Green */
+:root[data-theme="hljs-kimbie-light"] .hljs-string,
+:root[data-theme="hljs-kimbie-light"] .hljs-symbol,
+:root[data-theme="hljs-kimbie-light"] .hljs-bullet,
+:root[data-theme="hljs-kimbie-light"] .hljs-addition {
+  color: #889b4a !important
+}
+/* Kimbie Purple */
+:root[data-theme="hljs-kimbie-light"] .hljs-keyword,
+:root[data-theme="hljs-kimbie-light"] .hljs-selector-tag,
+:root[data-theme="hljs-kimbie-light"] .hljs-function {
+  color: #98676a !important
+}
+/* Kimbie Yellow */
+:root[data-theme="hljs-kimbie-light"] .hljs-title,
+:root[data-theme="hljs-kimbie-light"] .hljs-section,
+:root[data-theme="hljs-kimbie-light"] .hljs-attribute {
+  color: #f06431 !important
+}
+:root[data-theme="hljs-kimbie-light"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-kimbie-light"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-kimbie-light"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #fbebd4 !important; color: #84613d !important; }
+
+:root[data-theme="hljs-kimbie-light"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-kimbie-light"] .json-token-field { color: #f06431; }
+:root[data-theme="hljs-kimbie-light"] .json-token-string { color: #889b4a; }
+:root[data-theme="hljs-kimbie-light"] .json-token-number { color: #f79a32; }
+:root[data-theme="hljs-kimbie-light"] .json-token-boolean { color: #98676a; }
+:root[data-theme="hljs-kimbie-light"] .json-token-null { color: #98676a; }
+:root[data-theme="hljs-kimbie-light"] .json-token-punctuation { color: #84613d; }
+:root[data-theme="hljs-kimbie-light"] .json-parser-type-legend i { background: currentColor; }

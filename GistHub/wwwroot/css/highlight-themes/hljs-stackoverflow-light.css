@@ -1,0 +1,161 @@
+/* Highlight.js 11.11.1: stackoverflow-light.css. Original theme attribution follows. */
+:root[data-theme="hljs-stackoverflow-light"] {
+--background: 0 0% 96%;
+--foreground: 210 8% 20%;
+--card: 210 1% 93%;
+--card-foreground: 210 8% 20%;
+--popover: 210 1% 93%;
+--popover-foreground: 210 8% 20%;
+--primary: 205 99% 29%;
+--primary-foreground: 0 0% 100%;
+--secondary: 81 81% 26%;
+--secondary-foreground: 0 0% 100%;
+--accent: 28 99% 36%;
+--accent-foreground: 0 0% 100%;
+--muted: 210 1% 89%;
+--muted-foreground: 210 3% 41%;
+--destructive: 205 99% 29%;
+--destructive-foreground: 0 0% 100%;
+--border: 210 2% 66%;
+--input: 210 2% 66%;
+--ring: 205 99% 29%;
+--neo-yellow: #a6c4d9;
+--neo-pink: #e6c4a6;
+--neo-purple: #e6c4a6;
+--neo-green: #c3d0aa;
+--neo-cyan: #a6c4d9;
+--neo-red: #e6c4a6;
+--neo-paper: #ededed;
+--neo-code-text: #2f3337;
+--neo-shadow: #cacbcc;
+--neo-interactive: #015692;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-stackoverflow-light"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-stackoverflow-light"] code.hljs {
+  padding: 3px 5px !important
+}
+/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/
+:root[data-theme="hljs-stackoverflow-light"] .hljs {
+  /* var(--highlight-color) */
+  color: #2f3337 !important;
+  /* var(--highlight-bg) */
+  background: #f6f6f6 !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-subst {
+  /* var(--highlight-color) */
+  color: #2f3337 !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-comment {
+  /* var(--highlight-comment) */
+  color: #656e77 !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-keyword,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-selector-tag,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-meta .hljs-keyword,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-doctag,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-section {
+  /* var(--highlight-keyword) */
+  color: #015692 !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-attr {
+  /* var(--highlight-attribute); */
+  color: #015692 !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-attribute {
+  /* var(--highlight-symbol) */
+  color: #803378 !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-name,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-type,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-number,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-selector-id,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-quote,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-template-tag {
+  /* var(--highlight-namespace) */
+  color: #b75501 !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-selector-class {
+  /* var(--highlight-keyword) */
+  color: #015692 !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-string,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-regexp,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-symbol,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-variable,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-template-variable,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-link,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-selector-attr {
+  /* var(--highlight-variable) */
+  color: #54790d !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-meta,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-selector-pseudo {
+  /* var(--highlight-keyword) */
+  color: #015692 !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-built_in,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-title,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-literal {
+  /* var(--highlight-literal) */
+  color: #b75501 !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-bullet,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-code {
+  /* var(--highlight-punctuation) */
+  color: #535a60 !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-meta .hljs-string {
+  /* var(--highlight-variable) */
+  color: #54790d !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-deletion {
+  /* var(--highlight-deletion) */
+  color: #c02d2e !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-addition {
+  /* var(--highlight-addition) */
+  color: #2f6f44 !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-stackoverflow-light"] .hljs-formula,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-operator,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-params,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-property,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-punctuation,
+:root[data-theme="hljs-stackoverflow-light"] .hljs-tag {
+  /* purposely ignored */
+  
+}
+:root[data-theme="hljs-stackoverflow-light"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #f6f6f6 !important; color: #2f3337 !important; }
+
+:root[data-theme="hljs-stackoverflow-light"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-stackoverflow-light"] .json-token-field { color: #015692; }
+:root[data-theme="hljs-stackoverflow-light"] .json-token-string { color: #54790d; }
+:root[data-theme="hljs-stackoverflow-light"] .json-token-number { color: #b75501; }
+:root[data-theme="hljs-stackoverflow-light"] .json-token-boolean { color: #015692; }
+:root[data-theme="hljs-stackoverflow-light"] .json-token-null { color: #015692; }
+:root[data-theme="hljs-stackoverflow-light"] .json-token-punctuation { color: #2f3337; }
+:root[data-theme="hljs-stackoverflow-light"] .json-parser-type-legend i { background: currentColor; }

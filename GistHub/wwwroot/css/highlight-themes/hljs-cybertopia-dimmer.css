@@ -1,0 +1,147 @@
+/* Highlight.js 11.11.1: cybertopia-dimmer.css. Original theme attribution follows. */
+:root[data-theme="hljs-cybertopia-dimmer"] {
+--background: 0 0% 100%;
+--foreground: 0 0% 13%;
+--card: 0 0% 96%;
+--card-foreground: 0 0% 13%;
+--popover: 0 0% 96%;
+--popover-foreground: 0 0% 13%;
+--primary: 0 0% 13%;
+--primary-foreground: 0 0% 100%;
+--secondary: 0 0% 13%;
+--secondary-foreground: 0 0% 100%;
+--accent: 0 0% 13%;
+--accent-foreground: 0 0% 100%;
+--muted: 0 0% 91%;
+--muted-foreground: 0 0% 37%;
+--destructive: 0 0% 13%;
+--destructive-foreground: 0 0% 100%;
+--border: 0 0% 65%;
+--input: 0 0% 65%;
+--ring: 0 0% 13%;
+--neo-yellow: #b1b1b1;
+--neo-pink: #b1b1b1;
+--neo-purple: #b1b1b1;
+--neo-green: #b1b1b1;
+--neo-cyan: #b1b1b1;
+--neo-red: #b1b1b1;
+--neo-paper: #f5f5f5;
+--neo-code-text: #202020;
+--neo-shadow: #cecece;
+--neo-interactive: #202020;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-cybertopia-dimmer"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-cybertopia-dimmer"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+  Theme: Cybertopia Dimmer
+  Author: Alexandre ZANNI (noraj)
+  Repository: https://github.com/noraj/cybertopia-highlightjs
+*/
+:root[data-theme="hljs-cybertopia-dimmer"] :root {
+  --hljs-bg: #101010 !important;
+  --hljs-mono-1: #abb2bf !important;
+  --hljs-mono-3: #5c6370 !important;
+  --hljs-hue-1: #97C502 !important;
+  --hljs-hue-2: #469EBE !important;
+  --hljs-hue-3: #A246BE !important;
+  --hljs-hue-4: #02c797 !important;
+  --hljs-hue-5: #C50233 !important;
+  --hljs-hue-6: #BE6446 !important;
+  --hljs-hue-6-2: #c5bb02 !important;
+  --hljs-hue-7: #64BE46
+ !important}
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs {
+  color: var(--hljs-mono-1) !important;
+  background: var(--hljs-bg) !important
+}
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-comment,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-quote,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-code {
+  color: var(--hljs-mono-3) !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-doctag,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-keyword,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-formula,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-meta .hljs-keyword {
+  color: var(--hljs-hue-3) !important
+}
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-section,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-name,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-selector-tag,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-deletion,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-subst {
+  color: var(--hljs-hue-5) !important
+}
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-literal {
+  color: var(--hljs-hue-1) !important
+}
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-string,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-regexp,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-addition,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-attribute,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-meta .hljs-string {
+  color: var(--hljs-hue-4) !important
+}
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-attr,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-variable,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-template-variable,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-type,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-selector-class,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-selector-attr,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-selector-pseudo,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-number,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-punctuation,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-variable.language_ {
+  color: var(--hljs-hue-6) !important
+}
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-symbol,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-bullet,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-link,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-meta,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-selector-id,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-title,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-title.function_,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-property,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-tag,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-char.escape_ {
+  color: var(--hljs-hue-2) !important
+}
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-built_in,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-title.class_,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-title.class_.inherited__,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-class .hljs-title {
+  color: var(--hljs-hue-6-2) !important
+}
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-link {
+  text-decoration: underline !important
+}
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-params,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-operator,
+:root[data-theme="hljs-cybertopia-dimmer"] .hljs-template-tag {
+  color: var(--hljs-hue-7) !important
+}
+:root[data-theme="hljs-cybertopia-dimmer"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #ffffff !important; color: #202020 !important; }
+
+:root[data-theme="hljs-cybertopia-dimmer"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-cybertopia-dimmer"] .json-token-field { color: #202020; }
+:root[data-theme="hljs-cybertopia-dimmer"] .json-token-string { color: #202020; }
+:root[data-theme="hljs-cybertopia-dimmer"] .json-token-number { color: #202020; }
+:root[data-theme="hljs-cybertopia-dimmer"] .json-token-boolean { color: #202020; }
+:root[data-theme="hljs-cybertopia-dimmer"] .json-token-null { color: #202020; }
+:root[data-theme="hljs-cybertopia-dimmer"] .json-token-punctuation { color: #202020; }
+:root[data-theme="hljs-cybertopia-dimmer"] .json-parser-type-legend i { background: currentColor; }

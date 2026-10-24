@@ -1,0 +1,106 @@
+/* Highlight.js 11.11.1: school-book.css. Original theme attribution follows. */
+:root[data-theme="hljs-school-book"] {
+--background: 59 79% 83%;
+--foreground: 84 62% 22%;
+--card: 60 66% 80%;
+--card-foreground: 84 62% 22%;
+--popover: 60 66% 80%;
+--popover-foreground: 84 62% 22%;
+--primary: 207 100% 30%;
+--primary-foreground: 0 0% 100%;
+--secondary: 257 100% 31%;
+--secondary-foreground: 0 0% 100%;
+--accent: 207 100% 30%;
+--accent-foreground: 0 0% 100%;
+--muted: 62 57% 77%;
+--muted-foreground: 77 34% 39%;
+--destructive: 207 100% 30%;
+--destructive-foreground: 0 0% 100%;
+--border: 69 32% 58%;
+--input: 69 32% 58%;
+--ring: 207 100% 30%;
+--neo-yellow: #a6c4db;
+--neo-pink: #a6c4db;
+--neo-purple: #b5a6dd;
+--neo-green: #b5a6dd;
+--neo-cyan: #b5a6dd;
+--neo-red: #a6c4db;
+--neo-paper: #eeeeab;
+--neo-code-text: #3e5915;
+--neo-shadow: #ced38f;
+--neo-interactive: #005599;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-school-book"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-school-book"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+
+School Book style from goldblog.com.ua (c) Zaripov Yura <yur4ik7@ukr.net>
+
+*/
+:root[data-theme="hljs-school-book"] .hljs {
+  color: #3e5915 !important;
+  background: #f6f5b2 !important
+}
+:root[data-theme="hljs-school-book"] .hljs-keyword,
+:root[data-theme="hljs-school-book"] .hljs-selector-tag,
+:root[data-theme="hljs-school-book"] .hljs-literal {
+  color: #005599 !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-school-book"] .hljs-subst {
+  color: #3e5915 !important
+}
+:root[data-theme="hljs-school-book"] .hljs-string,
+:root[data-theme="hljs-school-book"] .hljs-title,
+:root[data-theme="hljs-school-book"] .hljs-section,
+:root[data-theme="hljs-school-book"] .hljs-type,
+:root[data-theme="hljs-school-book"] .hljs-symbol,
+:root[data-theme="hljs-school-book"] .hljs-bullet,
+:root[data-theme="hljs-school-book"] .hljs-attribute,
+:root[data-theme="hljs-school-book"] .hljs-built_in,
+:root[data-theme="hljs-school-book"] .hljs-addition,
+:root[data-theme="hljs-school-book"] .hljs-variable,
+:root[data-theme="hljs-school-book"] .hljs-template-tag,
+:root[data-theme="hljs-school-book"] .hljs-template-variable,
+:root[data-theme="hljs-school-book"] .hljs-link {
+  color: #2c009f !important
+}
+:root[data-theme="hljs-school-book"] .hljs-comment,
+:root[data-theme="hljs-school-book"] .hljs-quote,
+:root[data-theme="hljs-school-book"] .hljs-deletion,
+:root[data-theme="hljs-school-book"] .hljs-meta {
+  color: #e60415 !important
+}
+:root[data-theme="hljs-school-book"] .hljs-keyword,
+:root[data-theme="hljs-school-book"] .hljs-selector-tag,
+:root[data-theme="hljs-school-book"] .hljs-literal,
+:root[data-theme="hljs-school-book"] .hljs-doctag,
+:root[data-theme="hljs-school-book"] .hljs-title,
+:root[data-theme="hljs-school-book"] .hljs-section,
+:root[data-theme="hljs-school-book"] .hljs-type,
+:root[data-theme="hljs-school-book"] .hljs-name,
+:root[data-theme="hljs-school-book"] .hljs-selector-id,
+:root[data-theme="hljs-school-book"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-school-book"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-school-book"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #f6f5b2 !important; color: #3e5915 !important; }
+
+:root[data-theme="hljs-school-book"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-school-book"] .json-token-field { color: #2c009f; }
+:root[data-theme="hljs-school-book"] .json-token-string { color: #2c009f; }
+:root[data-theme="hljs-school-book"] .json-token-number { color: #3e5915; }
+:root[data-theme="hljs-school-book"] .json-token-boolean { color: #005599; }
+:root[data-theme="hljs-school-book"] .json-token-null { color: #005599; }
+:root[data-theme="hljs-school-book"] .json-token-punctuation { color: #3e5915; }
+:root[data-theme="hljs-school-book"] .json-parser-type-legend i { background: currentColor; }

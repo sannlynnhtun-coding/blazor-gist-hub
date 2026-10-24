@@ -1,0 +1,113 @@
+/* Highlight.js 11.11.1: tomorrow-night-blue.css. Original theme attribution follows. */
+:root[data-theme="hljs-tomorrow-night-blue"] {
+--background: 213 100% 16%;
+--foreground: 0 0% 100%;
+--card: 213 77% 20%;
+--card-foreground: 0 0% 100%;
+--popover: 213 77% 20%;
+--popover-foreground: 0 0% 100%;
+--primary: 282 100% 87%;
+--primary-foreground: 0 0% 5%;
+--secondary: 87 72% 80%;
+--secondary-foreground: 0 0% 5%;
+--accent: 29 100% 78%;
+--accent-foreground: 0 0% 5%;
+--muted: 213 59% 24%;
+--muted-foreground: 213 19% 76%;
+--destructive: 282 100% 87%;
+--destructive-foreground: 0 0% 5%;
+--border: 213 19% 50%;
+--input: 213 19% 50%;
+--ring: 282 100% 87%;
+--neo-yellow: #ebbbff;
+--neo-pink: #ffc58f;
+--neo-purple: #bbdaff;
+--neo-green: #d1f1a9;
+--neo-cyan: #d1f1a9;
+--neo-red: #ffc58f;
+--neo-paper: #0b2e59;
+--neo-code-text: #ffffff;
+--neo-shadow: #385477;
+--neo-interactive: #ebbbff;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-tomorrow-night-blue"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-tomorrow-night-blue"] code.hljs {
+  padding: 3px 5px !important
+}
+/* Tomorrow Night Blue Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Tomorrow Comment */
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-comment,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-quote {
+  color: #7285b7 !important
+}
+/* Tomorrow Red */
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-variable,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-template-variable,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-tag,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-name,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-selector-id,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-selector-class,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-regexp,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-deletion {
+  color: #ff9da4 !important
+}
+/* Tomorrow Orange */
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-number,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-built_in,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-literal,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-type,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-params,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-meta,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-link {
+  color: #ffc58f !important
+}
+/* Tomorrow Yellow */
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-attribute {
+  color: #ffeead !important
+}
+/* Tomorrow Green */
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-string,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-symbol,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-bullet,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-addition {
+  color: #d1f1a9 !important
+}
+/* Tomorrow Blue */
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-title,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-section {
+  color: #bbdaff !important
+}
+/* Tomorrow Purple */
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-keyword,
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-selector-tag {
+  color: #ebbbff !important
+}
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs {
+  background: #002451 !important;
+  color: white !important
+}
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-tomorrow-night-blue"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-tomorrow-night-blue"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #002451 !important; color: #ffffff !important; }
+
+:root[data-theme="hljs-tomorrow-night-blue"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-tomorrow-night-blue"] .json-token-field { color: #bbdaff; }
+:root[data-theme="hljs-tomorrow-night-blue"] .json-token-string { color: #d1f1a9; }
+:root[data-theme="hljs-tomorrow-night-blue"] .json-token-number { color: #ffc58f; }
+:root[data-theme="hljs-tomorrow-night-blue"] .json-token-boolean { color: #ebbbff; }
+:root[data-theme="hljs-tomorrow-night-blue"] .json-token-null { color: #ebbbff; }
+:root[data-theme="hljs-tomorrow-night-blue"] .json-token-punctuation { color: #ffffff; }
+:root[data-theme="hljs-tomorrow-night-blue"] .json-parser-type-legend i { background: currentColor; }

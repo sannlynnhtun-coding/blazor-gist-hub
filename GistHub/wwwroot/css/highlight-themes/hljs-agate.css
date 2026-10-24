@@ -1,0 +1,171 @@
+/* Highlight.js 11.11.1: agate.css. Original theme attribution follows. */
+:root[data-theme="hljs-agate"] {
+--background: 0 0% 20%;
+--foreground: 0 0% 100%;
+--card: 0 0% 24%;
+--card-foreground: 0 0% 100%;
+--popover: 0 0% 24%;
+--popover-foreground: 0 0% 100%;
+--primary: 29 95% 77%;
+--primary-foreground: 0 0% 5%;
+--secondary: 120 94% 81%;
+--secondary-foreground: 0 0% 5%;
+--accent: 0 56% 61%;
+--accent-foreground: 0 0% 5%;
+--muted: 0 0% 28%;
+--muted-foreground: 0 0% 78%;
+--destructive: 29 95% 77%;
+--destructive-foreground: 0 0% 5%;
+--border: 0 0% 52%;
+--input: 0 0% 52%;
+--ring: 29 95% 77%;
+--neo-yellow: #fcc28c;
+--neo-pink: #d36363;
+--neo-purple: #ffffaa;
+--neo-green: #a2fca2;
+--neo-cyan: #7bd694;
+--neo-red: #d36363;
+--neo-paper: #3c3c3c;
+--neo-code-text: #ffffff;
+--neo-shadow: #606060;
+--neo-interactive: #fcc28c;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-agate"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-agate"] code.hljs {
+  padding: 3px 5px !important
+}
+/*!
+   Theme: Agate
+   Author: (c) Taufik Nurrohman <hi@taufik-nurrohman.com>
+   Maintainer: @taufik-nurrohman
+   Updated: 2021-04-24
+
+   #333
+   #62c8f3
+   #7bd694
+   #888
+   #a2fca2
+   #ade5fc
+   #b8d8a2
+   #c6b4f0
+   #d36363
+   #fc9b9b
+   #fcc28c
+   #ffa
+   #fff
+*/
+:root[data-theme="hljs-agate"] .hljs {
+  background: #333 !important;
+  color: #fff !important
+}
+:root[data-theme="hljs-agate"] .hljs-doctag,
+:root[data-theme="hljs-agate"] .hljs-meta-keyword,
+:root[data-theme="hljs-agate"] .hljs-name,
+:root[data-theme="hljs-agate"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-agate"] .hljs-code,
+:root[data-theme="hljs-agate"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-agate"] .hljs-section,
+:root[data-theme="hljs-agate"] .hljs-tag {
+  color: #62c8f3 !important
+}
+:root[data-theme="hljs-agate"] .hljs-selector-class,
+:root[data-theme="hljs-agate"] .hljs-selector-id,
+:root[data-theme="hljs-agate"] .hljs-template-variable,
+:root[data-theme="hljs-agate"] .hljs-variable {
+  color: #ade5fc !important
+}
+:root[data-theme="hljs-agate"] .hljs-meta-string,
+:root[data-theme="hljs-agate"] .hljs-string {
+  color: #a2fca2 !important
+}
+:root[data-theme="hljs-agate"] .hljs-attr,
+:root[data-theme="hljs-agate"] .hljs-quote,
+:root[data-theme="hljs-agate"] .hljs-selector-attr {
+  color: #7bd694 !important
+}
+:root[data-theme="hljs-agate"] .hljs-tag .hljs-attr {
+  color: inherit !important
+}
+:root[data-theme="hljs-agate"] .hljs-attribute,
+:root[data-theme="hljs-agate"] .hljs-title,
+:root[data-theme="hljs-agate"] .hljs-type {
+  color: #ffa !important
+}
+:root[data-theme="hljs-agate"] .hljs-number,
+:root[data-theme="hljs-agate"] .hljs-symbol {
+  color: #d36363 !important
+}
+:root[data-theme="hljs-agate"] .hljs-bullet,
+:root[data-theme="hljs-agate"] .hljs-template-tag {
+  color: #b8d8a2 !important
+}
+:root[data-theme="hljs-agate"] .hljs-built_in,
+:root[data-theme="hljs-agate"] .hljs-keyword,
+:root[data-theme="hljs-agate"] .hljs-literal,
+:root[data-theme="hljs-agate"] .hljs-selector-tag {
+  color: #fcc28c !important
+}
+:root[data-theme="hljs-agate"] .hljs-code,
+:root[data-theme="hljs-agate"] .hljs-comment,
+:root[data-theme="hljs-agate"] .hljs-formula {
+  color: #888 !important
+}
+:root[data-theme="hljs-agate"] .hljs-link,
+:root[data-theme="hljs-agate"] .hljs-selector-pseudo,
+:root[data-theme="hljs-agate"] .hljs-regexp {
+  color: #c6b4f0 !important
+}
+:root[data-theme="hljs-agate"] .hljs-meta {
+  color: #fc9b9b !important
+}
+:root[data-theme="hljs-agate"] .hljs-deletion {
+  background: #fc9b9b !important;
+  color: #333 !important
+}
+:root[data-theme="hljs-agate"] .hljs-addition {
+  background: #a2fca2 !important;
+  color: #333 !important
+}
+/* Purposely ignored */
+:root[data-theme="hljs-agate"] .hljs-operator,
+:root[data-theme="hljs-agate"] .hljs-params,
+:root[data-theme="hljs-agate"] .hljs-property,
+:root[data-theme="hljs-agate"] .hljs-punctuation {
+  
+}
+:root[data-theme="hljs-agate"] .hljs-subst {
+  color: #fff !important
+}
+/* This applies only if HTML auto-merging plugin is enabled by user (#2889) */
+:root[data-theme="hljs-agate"] .hljs a {
+  color: inherit !important
+}
+:root[data-theme="hljs-agate"] .hljs a:focus,
+:root[data-theme="hljs-agate"] .hljs a:hover {
+  color: inherit !important;
+  text-decoration: underline !important
+}
+:root[data-theme="hljs-agate"] .hljs mark {
+  background: #555 !important;
+  color: inherit !important
+}
+:root[data-theme="hljs-agate"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #333333 !important; color: #ffffff !important; }
+
+:root[data-theme="hljs-agate"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-agate"] .json-token-field { color: #7bd694; }
+:root[data-theme="hljs-agate"] .json-token-string { color: #a2fca2; }
+:root[data-theme="hljs-agate"] .json-token-number { color: #d36363; }
+:root[data-theme="hljs-agate"] .json-token-boolean { color: #fcc28c; }
+:root[data-theme="hljs-agate"] .json-token-null { color: #fcc28c; }
+:root[data-theme="hljs-agate"] .json-token-punctuation { color: #ffffff; }
+:root[data-theme="hljs-agate"] .json-parser-type-legend i { background: currentColor; }

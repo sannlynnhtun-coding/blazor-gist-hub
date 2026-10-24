@@ -1,0 +1,134 @@
+/* Highlight.js 11.11.1: srcery.css. Original theme attribution follows. */
+:root[data-theme="hljs-srcery"] {
+--background: 40 6% 10%;
+--foreground: 39 90% 88%;
+--card: 40 8% 14%;
+--card-foreground: 39 90% 88%;
+--popover: 40 8% 14%;
+--popover-foreground: 39 90% 88%;
+--primary: 2 86% 55%;
+--primary-foreground: 0 0% 5%;
+--secondary: 76 55% 48%;
+--secondary-foreground: 0 0% 5%;
+--accent: 26 11% 51%;
+--accent-foreground: 0 0% 5%;
+--muted: 39 9% 18%;
+--muted-foreground: 39 24% 66%;
+--destructive: 2 86% 55%;
+--destructive-foreground: 0 0% 5%;
+--border: 39 12% 41%;
+--input: 39 12% 41%;
+--ring: 2 86% 55%;
+--neo-yellow: #ef2f27;
+--neo-pink: #918175;
+--neo-purple: #fbb829;
+--neo-green: #98bc37;
+--neo-cyan: #98bc37;
+--neo-red: #918175;
+--neo-paper: #262421;
+--neo-code-text: #fce8c3;
+--neo-shadow: #4d483e;
+--neo-interactive: #ef2f27;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-srcery"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-srcery"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+Theme: Srcery
+Description: Srcery dark color scheme for highlight.js
+Author: Chen Bin <chen.bin@gmail.com>
+Maintainer: @redguardtoo
+Website: https://srcery-colors.github.io/
+Date: 2021-04-13
+*/
+:root[data-theme="hljs-srcery"] .hljs {
+  background: #1C1B19 !important;
+  /* Black */
+  color: #FCE8C3 !important/* Bright White */
+  
+}
+/* Bright White */
+:root[data-theme="hljs-srcery"] .hljs-subst,
+:root[data-theme="hljs-srcery"] .hljs-quote,
+:root[data-theme="hljs-srcery"] .hljs-literal {
+  color: #FCE8C3 !important
+}
+/* Bright Blue */
+:root[data-theme="hljs-srcery"] .hljs-type,
+:root[data-theme="hljs-srcery"] .hljs-symbol {
+  color: #68A8E4 !important
+}
+/* Red */
+:root[data-theme="hljs-srcery"] .hljs-keyword,
+:root[data-theme="hljs-srcery"] .hljs-deletion {
+  color: #EF2F27 !important
+}
+/* Yellow */
+:root[data-theme="hljs-srcery"] .hljs-name,
+:root[data-theme="hljs-srcery"] .hljs-function,
+:root[data-theme="hljs-srcery"] .hljs-attribute,
+:root[data-theme="hljs-srcery"] .hljs-selector-attr,
+:root[data-theme="hljs-srcery"] .hljs-selector-id,
+:root[data-theme="hljs-srcery"] .hljs-selector-class,
+:root[data-theme="hljs-srcery"] .hljs-selector-pseudo,
+:root[data-theme="hljs-srcery"] .hljs-section,
+:root[data-theme="hljs-srcery"] .hljs-title {
+  color: #FBB829 !important
+}
+/* Cyan */
+:root[data-theme="hljs-srcery"] .hljs-code,
+:root[data-theme="hljs-srcery"] .hljs-variable,
+:root[data-theme="hljs-srcery"] .hljs-property,
+:root[data-theme="hljs-srcery"] .hljs-template-variable,
+:root[data-theme="hljs-srcery"] .hljs-class {
+  color: #0AAEB3 !important
+}
+/* Bright Green */
+:root[data-theme="hljs-srcery"] .hljs-string,
+:root[data-theme="hljs-srcery"] .hljs-regexp,
+:root[data-theme="hljs-srcery"] .hljs-bullet,
+:root[data-theme="hljs-srcery"] .hljs-addition {
+  color: #98BC37 !important
+}
+/* Bright Magenta */
+:root[data-theme="hljs-srcery"] .hljs-built_in,
+:root[data-theme="hljs-srcery"] .hljs-params {
+  color: #FF5C8F !important
+}
+/* Blue */
+:root[data-theme="hljs-srcery"] .hljs-template-tag,
+:root[data-theme="hljs-srcery"] .hljs-selector-tag {
+  color: #2C78BF !important
+}
+/* Bright Black */
+:root[data-theme="hljs-srcery"] .hljs-link,
+:root[data-theme="hljs-srcery"] .hljs-number,
+:root[data-theme="hljs-srcery"] .hljs-comment,
+:root[data-theme="hljs-srcery"] .hljs-meta {
+  color: #918175 !important
+}
+:root[data-theme="hljs-srcery"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-srcery"] .hljs-strong {
+  font-weight: bold !important
+}
+/* @see https://github.com/srcery-colors/srcery-emacs for reference */
+
+:root[data-theme="hljs-srcery"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #1c1b19 !important; color: #fce8c3 !important; }
+
+:root[data-theme="hljs-srcery"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-srcery"] .json-token-field { color: #fbb829; }
+:root[data-theme="hljs-srcery"] .json-token-string { color: #98bc37; }
+:root[data-theme="hljs-srcery"] .json-token-number { color: #918175; }
+:root[data-theme="hljs-srcery"] .json-token-boolean { color: #ef2f27; }
+:root[data-theme="hljs-srcery"] .json-token-null { color: #ef2f27; }
+:root[data-theme="hljs-srcery"] .json-token-punctuation { color: #fce8c3; }
+:root[data-theme="hljs-srcery"] .json-parser-type-legend i { background: currentColor; }

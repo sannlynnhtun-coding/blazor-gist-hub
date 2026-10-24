@@ -1,0 +1,134 @@
+/* Highlight.js 11.11.1: devibeans.css. Original theme attribution follows. */
+:root[data-theme="hljs-devibeans"] {
+--background: 0 0% 0%;
+--foreground: 23 4% 62%;
+--card: 22 3% 3%;
+--card-foreground: 23 4% 62%;
+--popover: 22 3% 3%;
+--popover-foreground: 23 4% 62%;
+--primary: 207 89% 68%;
+--primary-foreground: 0 0% 5%;
+--secondary: 95 49% 36%;
+--secondary-foreground: 0 0% 5%;
+--accent: 1 83% 63%;
+--accent-foreground: 0 0% 5%;
+--muted: 23 3% 6%;
+--muted-foreground: 22 3% 45%;
+--destructive: 207 89% 68%;
+--destructive-foreground: 0 0% 5%;
+--border: 23 3% 25%;
+--input: 23 3% 25%;
+--ring: 207 89% 68%;
+--neo-yellow: #64b5f6;
+--neo-pink: #ef5350;
+--neo-purple: #ff8700;
+--neo-green: #558b2f;
+--neo-cyan: #8787d7;
+--neo-red: #ef5350;
+--neo-paper: #070707;
+--neo-code-text: #a39e9b;
+--neo-shadow: #242322;
+--neo-interactive: #64b5f6;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-devibeans"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-devibeans"] code.hljs {
+  padding: 3px 5px !important
+}
+/*!
+    Theme: devibeans (dark)
+    Author: @terminaldweller
+    Maintainer: @terminaldweller
+
+    Inspired by vim's jellybeans theme (https://github.com/nanotech/jellybeans.vim)
+*/
+:root[data-theme="hljs-devibeans"] .hljs {
+  background: #000000 !important;
+  color: #a39e9b !important
+}
+:root[data-theme="hljs-devibeans"] .hljs-attr,
+:root[data-theme="hljs-devibeans"] .hljs-template-tag {
+  color: #8787d7 !important
+}
+:root[data-theme="hljs-devibeans"] .hljs-comment,
+:root[data-theme="hljs-devibeans"] .hljs-doctag,
+:root[data-theme="hljs-devibeans"] .hljs-quote {
+  color: #339966 !important
+}
+:root[data-theme="hljs-devibeans"] .hljs-params {
+  color: #a39e9b !important
+}
+:root[data-theme="hljs-devibeans"] .hljs-regexp {
+  color: #d700ff !important
+}
+:root[data-theme="hljs-devibeans"] .hljs-tag,
+:root[data-theme="hljs-devibeans"] .hljs-selector-id,
+:root[data-theme="hljs-devibeans"] .hljs-number,
+:root[data-theme="hljs-devibeans"] .hljs-literal {
+  color: #ef5350 !important
+}
+:root[data-theme="hljs-devibeans"] .hljs-meta,
+:root[data-theme="hljs-devibeans"] .hljs-meta .hljs-keyword {
+  color: #0087ff !important
+}
+/* opt-out */
+:root[data-theme="hljs-devibeans"] .hljs-operator,
+:root[data-theme="hljs-devibeans"] .hljs-punctuation {
+  
+}
+:root[data-theme="hljs-devibeans"] .hljs-selector-class,
+:root[data-theme="hljs-devibeans"] .hljs-code,
+:root[data-theme="hljs-devibeans"] .hljs-formula,
+:root[data-theme="hljs-devibeans"] .hljs-variable,
+:root[data-theme="hljs-devibeans"] .hljs-template-variable,
+:root[data-theme="hljs-devibeans"] .hljs-selector-attr,
+:root[data-theme="hljs-devibeans"] .hljs-selector-pseudo,
+:root[data-theme="hljs-devibeans"] .hljs-link,
+:root[data-theme="hljs-devibeans"] .hljs-keyword {
+  color: #64b5f6 !important
+}
+:root[data-theme="hljs-devibeans"] .hljs-built_in,
+:root[data-theme="hljs-devibeans"] .hljs-title,
+:root[data-theme="hljs-devibeans"] .hljs-deletion {
+  color: #ff8700 !important
+}
+:root[data-theme="hljs-devibeans"] .hljs-type,
+:root[data-theme="hljs-devibeans"] .hljs-section,
+:root[data-theme="hljs-devibeans"] .hljs-function,
+:root[data-theme="hljs-devibeans"] .hljs-name,
+:root[data-theme="hljs-devibeans"] .hljs-property,
+:root[data-theme="hljs-devibeans"] .hljs-attribute {
+  color: #ffd75f !important
+}
+:root[data-theme="hljs-devibeans"] .hljs-meta .hljs-string,
+:root[data-theme="hljs-devibeans"] .hljs-string,
+:root[data-theme="hljs-devibeans"] .hljs-subst,
+:root[data-theme="hljs-devibeans"] .hljs-symbol,
+:root[data-theme="hljs-devibeans"] .hljs-bullet,
+:root[data-theme="hljs-devibeans"] .hljs-addition {
+  color: #558b2f !important
+}
+:root[data-theme="hljs-devibeans"] .hljs-selector-tag {
+  color: #9966ff !important
+}
+:root[data-theme="hljs-devibeans"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-devibeans"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-devibeans"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #000000 !important; color: #a39e9b !important; }
+
+:root[data-theme="hljs-devibeans"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-devibeans"] .json-token-field { color: #8787d7; }
+:root[data-theme="hljs-devibeans"] .json-token-string { color: #558b2f; }
+:root[data-theme="hljs-devibeans"] .json-token-number { color: #ef5350; }
+:root[data-theme="hljs-devibeans"] .json-token-boolean { color: #64b5f6; }
+:root[data-theme="hljs-devibeans"] .json-token-null { color: #64b5f6; }
+:root[data-theme="hljs-devibeans"] .json-token-punctuation { color: #a39e9b; }
+:root[data-theme="hljs-devibeans"] .json-parser-type-legend i { background: currentColor; }

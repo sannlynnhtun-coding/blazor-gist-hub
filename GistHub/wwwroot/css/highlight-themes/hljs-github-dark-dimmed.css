@@ -1,0 +1,161 @@
+/* Highlight.js 11.11.1: github-dark-dimmed.css. Original theme attribution follows. */
+:root[data-theme="hljs-github-dark-dimmed"] {
+--background: 215 15% 16%;
+--foreground: 210 19% 73%;
+--card: 215 14% 18%;
+--card-foreground: 210 19% 73%;
+--popover: 215 14% 18%;
+--popover-foreground: 210 19% 73%;
+--primary: 4 87% 68%;
+--primary-foreground: 0 0% 5%;
+--secondary: 207 100% 79%;
+--secondary-foreground: 0 0% 5%;
+--accent: 210 100% 71%;
+--accent-foreground: 0 0% 5%;
+--muted: 214 12% 21%;
+--muted-foreground: 211 10% 57%;
+--destructive: 4 87% 68%;
+--destructive-foreground: 0 0% 5%;
+--border: 212 9% 39%;
+--input: 212 9% 39%;
+--ring: 4 87% 68%;
+--neo-yellow: #f47067;
+--neo-pink: #6cb6ff;
+--neo-purple: #dcbdfb;
+--neo-green: #96d0ff;
+--neo-cyan: #6cb6ff;
+--neo-red: #6cb6ff;
+--neo-paper: #282e35;
+--neo-code-text: #adbac7;
+--neo-shadow: #414750;
+--neo-interactive: #f47067;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-github-dark-dimmed"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] code.hljs {
+  padding: 3px 5px !important
+}
+/*!
+  Theme: GitHub Dark Dimmed
+  Description: Dark dimmed theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Colors taken from GitHub's CSS
+*/
+:root[data-theme="hljs-github-dark-dimmed"] .hljs {
+  color: #adbac7 !important;
+  background: #22272e !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-doctag,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-keyword,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-meta .hljs-keyword,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-template-tag,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-template-variable,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-type,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-variable.language_ {
+  /* prettylights-syntax-keyword */
+  color: #f47067 !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-title,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-title.class_,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-title.class_.inherited__,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-title.function_ {
+  /* prettylights-syntax-entity */
+  color: #dcbdfb !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-attr,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-attribute,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-literal,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-meta,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-number,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-operator,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-variable,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-selector-attr,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-selector-class,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-selector-id {
+  /* prettylights-syntax-constant */
+  color: #6cb6ff !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-regexp,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-string,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-meta .hljs-string {
+  /* prettylights-syntax-string */
+  color: #96d0ff !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-built_in,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-symbol {
+  /* prettylights-syntax-variable */
+  color: #f69d50 !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-comment,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-code,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-formula {
+  /* prettylights-syntax-comment */
+  color: #768390 !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-name,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-quote,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-selector-tag,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-selector-pseudo {
+  /* prettylights-syntax-entity-tag */
+  color: #8ddb8c !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-subst {
+  /* prettylights-syntax-storage-modifier-import */
+  color: #adbac7 !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-section {
+  /* prettylights-syntax-markup-heading */
+  color: #316dca !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-bullet {
+  /* prettylights-syntax-markup-list */
+  color: #eac55f !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-emphasis {
+  /* prettylights-syntax-markup-italic */
+  color: #adbac7 !important;
+  font-style: italic !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-strong {
+  /* prettylights-syntax-markup-bold */
+  color: #adbac7 !important;
+  font-weight: bold !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-addition {
+  /* prettylights-syntax-markup-inserted */
+  color: #b4f1b4 !important;
+  background-color: #1b4721 !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-deletion {
+  /* prettylights-syntax-markup-deleted */
+  color: #ffd8d3 !important;
+  background-color: #78191b !important
+}
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-char.escape_,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-link,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-params,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-property,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-punctuation,
+:root[data-theme="hljs-github-dark-dimmed"] .hljs-tag {
+  /* purposely ignored */
+  
+}
+:root[data-theme="hljs-github-dark-dimmed"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #22272e !important; color: #adbac7 !important; }
+
+:root[data-theme="hljs-github-dark-dimmed"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-github-dark-dimmed"] .json-token-field { color: #6cb6ff; }
+:root[data-theme="hljs-github-dark-dimmed"] .json-token-string { color: #96d0ff; }
+:root[data-theme="hljs-github-dark-dimmed"] .json-token-number { color: #6cb6ff; }
+:root[data-theme="hljs-github-dark-dimmed"] .json-token-boolean { color: #f47067; }
+:root[data-theme="hljs-github-dark-dimmed"] .json-token-null { color: #f47067; }
+:root[data-theme="hljs-github-dark-dimmed"] .json-token-punctuation { color: #adbac7; }
+:root[data-theme="hljs-github-dark-dimmed"] .json-parser-type-legend i { background: currentColor; }

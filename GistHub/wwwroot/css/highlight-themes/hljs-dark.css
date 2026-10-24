@@ -1,0 +1,106 @@
+/* Highlight.js 11.11.1: dark.css. Original theme attribution follows. */
+:root[data-theme="hljs-dark"] {
+--background: 0 0% 19%;
+--foreground: 0 0% 87%;
+--card: 0 0% 22%;
+--card-foreground: 0 0% 87%;
+--popover: 0 0% 22%;
+--popover-foreground: 0 0% 87%;
+--primary: 0 0% 100%;
+--primary-foreground: 0 0% 5%;
+--secondary: 0 56% 70%;
+--secondary-foreground: 0 0% 5%;
+--accent: 0 0% 100%;
+--accent-foreground: 0 0% 5%;
+--muted: 0 0% 26%;
+--muted-foreground: 0 0% 68%;
+--destructive: 0 0% 100%;
+--destructive-foreground: 0 0% 5%;
+--border: 0 0% 46%;
+--input: 0 0% 46%;
+--ring: 0 0% 100%;
+--neo-yellow: #ffffff;
+--neo-pink: #ffffff;
+--neo-purple: #dd8888;
+--neo-green: #dd8888;
+--neo-cyan: #dd8888;
+--neo-red: #ffffff;
+--neo-paper: #383838;
+--neo-code-text: #dddddd;
+--neo-shadow: #565656;
+--neo-interactive: #ffffff;
+--neo-on-accent: #0c0c0c;
+--neo-grid-opacity: 0.06; --neo-canvas-grid-opacity: 0.1;
+}
+:root[data-theme="hljs-dark"] pre code.hljs {
+  display: block !important;
+  overflow-x: auto !important;
+  padding: 1em !important
+}
+:root[data-theme="hljs-dark"] code.hljs {
+  padding: 3px 5px !important
+}
+/*
+
+Dark style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+
+*/
+:root[data-theme="hljs-dark"] .hljs {
+  color: #ddd !important;
+  background: #303030 !important
+}
+:root[data-theme="hljs-dark"] .hljs-keyword,
+:root[data-theme="hljs-dark"] .hljs-selector-tag,
+:root[data-theme="hljs-dark"] .hljs-literal,
+:root[data-theme="hljs-dark"] .hljs-section,
+:root[data-theme="hljs-dark"] .hljs-link {
+  color: white !important
+}
+:root[data-theme="hljs-dark"] .hljs-subst {
+  /* default */
+  
+}
+:root[data-theme="hljs-dark"] .hljs-string,
+:root[data-theme="hljs-dark"] .hljs-title,
+:root[data-theme="hljs-dark"] .hljs-name,
+:root[data-theme="hljs-dark"] .hljs-type,
+:root[data-theme="hljs-dark"] .hljs-attribute,
+:root[data-theme="hljs-dark"] .hljs-symbol,
+:root[data-theme="hljs-dark"] .hljs-bullet,
+:root[data-theme="hljs-dark"] .hljs-built_in,
+:root[data-theme="hljs-dark"] .hljs-addition,
+:root[data-theme="hljs-dark"] .hljs-variable,
+:root[data-theme="hljs-dark"] .hljs-template-tag,
+:root[data-theme="hljs-dark"] .hljs-template-variable {
+  color: #d88 !important
+}
+:root[data-theme="hljs-dark"] .hljs-comment,
+:root[data-theme="hljs-dark"] .hljs-quote,
+:root[data-theme="hljs-dark"] .hljs-deletion,
+:root[data-theme="hljs-dark"] .hljs-meta {
+  color: #979797 !important
+}
+:root[data-theme="hljs-dark"] .hljs-keyword,
+:root[data-theme="hljs-dark"] .hljs-selector-tag,
+:root[data-theme="hljs-dark"] .hljs-literal,
+:root[data-theme="hljs-dark"] .hljs-title,
+:root[data-theme="hljs-dark"] .hljs-section,
+:root[data-theme="hljs-dark"] .hljs-doctag,
+:root[data-theme="hljs-dark"] .hljs-type,
+:root[data-theme="hljs-dark"] .hljs-name,
+:root[data-theme="hljs-dark"] .hljs-strong {
+  font-weight: bold !important
+}
+:root[data-theme="hljs-dark"] .hljs-emphasis {
+  font-style: italic !important
+}
+:root[data-theme="hljs-dark"] :is(.neo-code-preview, .neo-code-preview__content, .neo-code-window, .neo-code-window-content > pre, .neo-editor-input, .json-parser-input, .json-parser-result-wrap) { background: #303030 !important; color: #dddddd !important; }
+
+:root[data-theme="hljs-dark"] :is(.neo-code-preview, .neo-code-window, .json-parser-result-wrap) { border-color: hsl(var(--border)) !important; }
+:root[data-theme="hljs-dark"] .json-token-field { color: #dd8888; }
+:root[data-theme="hljs-dark"] .json-token-string { color: #dd8888; }
+:root[data-theme="hljs-dark"] .json-token-number { color: #dddddd; }
+:root[data-theme="hljs-dark"] .json-token-boolean { color: #ffffff; }
+:root[data-theme="hljs-dark"] .json-token-null { color: #ffffff; }
+:root[data-theme="hljs-dark"] .json-token-punctuation { color: #dddddd; }
+:root[data-theme="hljs-dark"] .json-parser-type-legend i { background: currentColor; }
