@@ -43,13 +43,14 @@ const presetContext = { window: {
     setItem(key, value) { pair.store[key] = value; }
 }};
 runInNewContext(source, presetContext);
-const picker = {};
+const picker = { dataset: {} };
 assert.equal(presetContext.window.getGistHubStylePresets().length, 7);
 for (const preset of presetContext.window.getGistHubStylePresets()) {
     assert.ok(themeIds.has(preset.theme));
     assert.ok(styleIds.has(preset.style));
     presetContext.window.applyGistHubStylePreset(picker, preset.id);
     assert.equal(pair.store.theme, preset.theme);
+    assert.equal(picker.dataset.savedStyle, preset.style);
     assert.equal(picker.savedTheme, preset.theme);
     assert.equal(boot(pair.store['gisthub:interface-style']).getGistHubStyle(), preset.style);
 }

@@ -49,11 +49,51 @@ window.initializeGistHubThemePicker = (root) => {
     const panel = root.querySelector('[popover]');
     const trigger = root.querySelector('.neo-theme-trigger');
     const search = panel.querySelector('input');
-    const options = () => [...panel.querySelectorAll('[data-theme-option]')].filter(option => !option.hidden);
-    const restore = () => window.applyGistHubTheme(root.dataset.savedTheme, false);
+    const list = panel.querySelector('[role="listbox"]');
+    const tabs = [...panel.querySelectorAll('[data-appearance-tab]')];
+    const allOptions = [...list.querySelectorAll('[data-appearance-kind]')];
+    let category = 'themes';
+    const options = () => allOptions.filter(option => !option.hidden);
+    const restore = () => {
+        window.applyGistHubStyle(root.dataset.savedStyle, false);
+        window.applyGistHubTheme(root.dataset.savedTheme, false);
+    };
+    const filter = () => {
+        const query = search.value.trim().toLocaleLowerCase();
+        allOptions.forEach(option => {
+            option.hidden = option.dataset.appearanceKind !== category || !option.dataset.searchText.toLocaleLowerCase().includes(query);
+        });
+        list.querySelectorAll('[data-appearance-group]').forEach(group => {
+            group.hidden = ![...group.querySelectorAll('[data-appearance-kind]')].some(option => !option.hidden);
+        });
+        const count = options().length;
+        panel.querySelector('.neo-appearance-count').textContent = `${count} ${count === 1 ? category.slice(0, -1) : category}`;
+        panel.querySelector('.neo-theme-panel__empty').hidden = count !== 0;
+        list.scrollTop = 0;
+    };
+    const changeCategory = tab => {
+        category = tab.dataset.appearanceTab;
+        tabs.forEach(button => {
+            button.setAttribute('aria-selected', String(button === tab));
+            button.tabIndex = button === tab ? 0 : -1;
+        });
+        panel.querySelector('[role="tabpanel"]').setAttribute('aria-labelledby', tab.id);
+        search.setAttribute('aria-label', `Search ${category}`);
+        search.placeholder = `Search ${category}…`;
+        list.setAttribute('aria-label', `Available ${category}`);
+        search.value = '';
+        restore();
+        filter();
+    };
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+        changeCategory(tab);
+        search.focus();
+    }));
     const preview = event => {
-        const option = event.target.closest('[data-theme-option]');
-        if (option && !option.hidden) window.applyGistHubTheme(option.dataset.themeOption, false);
+        const option = event.target.closest('[data-appearance-kind]');
+        if (!option || option.hidden) return;
+        window.applyGistHubStyle(option.dataset.styleOption ?? root.dataset.savedStyle, false);
+        window.applyGistHubTheme(option.dataset.themeOption ?? root.dataset.savedTheme, false);
     };
     panel.addEventListener('pointerover', preview);
     panel.addEventListener('focusin', preview);
@@ -63,18 +103,12 @@ window.initializeGistHubThemePicker = (root) => {
         if (event.newState === 'closed') restore();
         else {
             search.value = '';
-            panel.querySelectorAll('[data-theme-option]').forEach(option => { option.hidden = false; });
-            panel.querySelector('.neo-theme-panel__empty').hidden = true;
+            filter();
+            search.focus({ preventScroll: true });
         }
     });
-    search.addEventListener('input', () => {
-        const query = search.value.trim().toLocaleLowerCase();
-        panel.querySelectorAll('[data-theme-option]').forEach(option => {
-            option.hidden = !option.dataset.themeName.toLocaleLowerCase().includes(query);
-        });
-        panel.querySelector('.neo-theme-panel__empty').hidden = options().length !== 0;
-        restore();
-    });
+    search.addEventListener('input', () => { restore(); filter(); });
+    search.addEventListener('focus', restore);
     root.addEventListener('keydown', event => {
         if (event.key === 'Escape' && panel.matches(':popover-open')) {
             event.preventDefault();
@@ -83,14 +117,23 @@ window.initializeGistHubThemePicker = (root) => {
             trigger.focus();
             return;
         }
+        const tab = event.target.closest('[data-appearance-tab]');
+        if (tab && ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+            event.preventDefault();
+            const index = tabs.indexOf(tab);
+            const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 :
+                (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+            changeCategory(tabs[next]);
+            tabs[next].focus();
+            return;
+        }
         if (event.target === trigger && ['ArrowDown', 'ArrowUp'].includes(event.key)) {
             event.preventDefault();
             panel.showPopover();
-            const selected = options().find(option => option.dataset.themeOption === root.dataset.savedTheme);
-            (selected ?? options()[0])?.focus();
+            search.focus();
             return;
         }
-        if (!panel.contains(event.target) || event.target.closest('.neo-style-control')) return;
+        if (!panel.contains(event.target) || (event.target !== search && !event.target.closest('[data-appearance-kind]'))) return;
         const visible = options();
         if (event.target === search && event.key === 'Enter') {
             event.preventDefault();
@@ -98,20 +141,31 @@ window.initializeGistHubThemePicker = (root) => {
         } else if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key) &&
                    (event.target !== search || event.key.startsWith('Arrow'))) {
             event.preventDefault();
+            if (!visible.length) return;
             const index = visible.indexOf(document.activeElement);
             const next = event.key === 'Home' ? 0 : event.key === 'End' ? visible.length - 1 :
-                event.key === 'ArrowDown' ? (index + 1) % visible.length : (index - 1 + visible.length) % visible.length;
-            visible[next]?.focus();
+                index < 0 ? (event.key === 'ArrowDown' ? 0 : visible.length - 1) :
+                (index + (event.key === 'ArrowDown' ? 1 : -1) + visible.length) % visible.length;
+            visible[next].focus();
+            visible[next].scrollIntoView({ block: 'nearest' });
         }
     });
+    filter();
 };
 window.commitGistHubThemePicker = (root, theme) => {
     root.dataset.savedTheme = theme;
+    window.applyGistHubStyle(root.dataset.savedStyle, false);
     window.applyGistHubTheme(theme);
     root.querySelector('[popover]').hidePopover();
     root.querySelector('.neo-theme-trigger').focus();
 };
+window.commitGistHubAppearancePicker = (root, style, theme) => {
+    root.dataset.savedStyle = style;
+    window.applyGistHubStyle(style);
+    window.commitGistHubThemePicker(root, theme);
+};
 window.closeGistHubThemePicker = (root) => {
+    window.applyGistHubStyle(root.dataset.savedStyle, false);
     window.applyGistHubTheme(root.dataset.savedTheme, false);
     root.querySelector('[popover]').hidePopover();
 };

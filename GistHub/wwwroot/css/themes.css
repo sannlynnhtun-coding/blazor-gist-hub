@@ -90,3 +90,29 @@
 :root[data-theme^="vscode-"] .json-parser-pane--output { background: hsl(var(--card)); }
 .neo-gist-card button[aria-label="Remove bookmark"] { color: var(--neo-interactive) !important; }
 .neo-gist-card button[class~="hover:bg-[#FBF3DB]"]:hover { background: var(--neo-yellow) !important; color: var(--neo-on-accent) !important; }
+/* Compact searchable appearance popup. */
+.neo-theme-panel:popover-open { display: flex; flex-direction: column; overflow: hidden; }
+.neo-theme-panel__header { flex-shrink: 0; padding: .8rem 1rem; background: hsl(var(--card)); color: hsl(var(--foreground)); border-bottom-width: 1px; }
+.neo-theme-panel__header h2 { font-size: 1rem; }
+.neo-theme-panel__badge { border: 1px solid hsl(var(--border)); box-shadow: none; transform: none; }
+.neo-appearance-tabs { display: flex; gap: .25rem; flex-shrink: 0; padding: .5rem .7rem; border-bottom: 1px solid hsl(var(--border)); }
+.neo-appearance-tabs button { flex: 1; min-height: 2.5rem; padding: .4rem; border: 1px solid transparent; background: transparent; color: hsl(var(--foreground)); border-radius: .35rem; font-size: .8rem; font-weight: 700; }
+.neo-appearance-tabs button[aria-selected="true"] { background: hsl(var(--muted)); border-color: hsl(var(--primary)); }
+.neo-appearance-tabs button:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 1px; }
+.neo-theme-panel__search { position: relative; flex-shrink: 0; padding: .6rem .7rem; border-bottom-width: 1px; }
+.neo-theme-panel__search > svg { position: absolute; top: 50%; left: 1.35rem; transform: translateY(-50%); pointer-events: none; }
+.neo-theme-panel__search input { min-height: 2.6rem; padding-left: 2.1rem; font-size: .85rem; }
+.neo-appearance-summary { display: flex; justify-content: space-between; gap: .5rem; padding: .5rem 1rem; font-size: .65rem; color: hsl(var(--muted-foreground)); flex-shrink: 0; }
+.neo-appearance-results { min-height: 0; display: flex; flex-direction: column; }
+.neo-appearance-results .neo-theme-options { min-height: 0; padding: .25rem .5rem; }
+.neo-appearance-group-label { padding: .5rem .6rem .25rem; font-size: .65rem; font-weight: 700; color: hsl(var(--muted-foreground)); }
+.neo-theme-panel .neo-theme-option { min-height: 2.75rem; border-radius: .35rem; }
+.neo-theme-panel .neo-theme-option[aria-selected="true"] { background: hsl(var(--muted)); color: hsl(var(--foreground)); border-color: hsl(var(--primary)); }
+.neo-theme-panel .neo-theme-option__colors { border: none; box-shadow: none; gap: .15rem; }
+.neo-theme-panel .neo-theme-option__colors i { width: .8rem; height: .8rem; border-radius: 50%; border: 1px solid hsl(var(--foreground) / .3); }
+.neo-theme-panel .neo-theme-option__source { font-family: inherit; font-weight: 400; font-size: .65rem; line-height: 1.45; }
+.neo-theme-panel .neo-theme-option__check { color: hsl(var(--primary)); font-size: 1rem; }
+.neo-style-option__icon { display: grid; place-items: center; flex-shrink: 0; width: 2rem; height: 2rem; border: 1px solid hsl(var(--border)); border-radius: .35rem; font-family: Georgia, serif; font-size: .85rem; }
+.neo-theme-panel__footer { flex-shrink: 0; border-top-width: 1px; font-size: .6rem; }
+.neo-appearance-reset { display: flex; gap: .5rem; }
+.neo-appearance-reset .neo-theme-restore { margin-bottom: .5rem; box-shadow: none; min-height: 2.5rem; font-size: .7rem; }

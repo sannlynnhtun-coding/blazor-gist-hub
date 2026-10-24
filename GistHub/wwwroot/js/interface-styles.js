@@ -70,6 +70,7 @@
     window.applyGistHubStylePreset = (root, id) => {
         const preset = presets.find(entry => entry.id === id);
         if (!preset) return;
+        root.dataset.savedStyle = preset.style;
         window.applyGistHubStyle(preset.style);
         window.commitGistHubThemePicker(root, preset.theme);
         return preset;

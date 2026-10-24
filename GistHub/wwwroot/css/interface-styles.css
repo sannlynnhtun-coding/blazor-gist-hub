@@ -1,10 +1,3 @@
-.neo-style-control { padding: .8rem; border-bottom: 2px solid hsl(var(--border)); }
-.neo-style-control label { display: block; margin-bottom: .4rem; font-size: .8rem; font-weight: 800; }
-.neo-style-control select { width: 100%; padding: .6rem; border: 2px solid hsl(var(--border)); border-radius: .3rem; background: hsl(var(--background)); color: hsl(var(--foreground)); font: inherit; font-size: .8rem; }
-.neo-style-control p { margin: .5rem 0; font-size: .7rem; }
-.neo-style-reset { padding: .35rem .5rem; border: 1px solid hsl(var(--border)); border-radius: .25rem; font-size: .7rem; background: hsl(var(--card)); color: hsl(var(--foreground)); }
-.neo-style-control :is(select, button):focus-visible { outline: 3px solid hsl(var(--ring)); outline-offset: 2px; }
-
 /* No default overrides: the original appearance and palette remain intact. */
 :root {
   --style-radius: .65rem;
@@ -67,7 +60,6 @@
 :root[data-interface-style="flat"] .neo-page-heading { border-bottom: 1px solid hsl(var(--border)); }
 :root[data-interface-style="flat"] :is(.neo-sidebar, .neo-topbar) { border-radius: 0 !important; }
 
-.neo-palette-label { display: block; margin-bottom: .5rem; font-size: .8rem; font-weight: 800; }
 
 :root[data-interface-style]:not([data-interface-style="default"]) .neo-canvas { background-color: transparent; }
 :root[data-interface-style]:not([data-interface-style="default"]) .neo-decor { display: none; }
