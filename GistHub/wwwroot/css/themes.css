@@ -18,7 +18,7 @@
   overflow: auto; border: 3px solid hsl(var(--border)); border-radius: 0.35rem;
   background: hsl(var(--card)); color: hsl(var(--foreground)); box-shadow: 7px 7px 0 var(--neo-shadow);
 }
-.neo-theme-panel__header { display: flex; justify-content: space-between; align-items: center; padding: 1rem; gap: 1rem; background: var(--neo-yellow); color: #0c0c0c; border-bottom: 3px solid hsl(var(--border)); }
+.neo-theme-panel__header { display: flex; justify-content: space-between; align-items: center; padding: 1rem; gap: 1rem; background: var(--neo-yellow); color: var(--neo-on-accent); border-bottom: 3px solid hsl(var(--border)); }
 .neo-theme-panel__eyebrow { font-size: 0.6rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.13em; }
 .neo-theme-panel__header h2 { margin: 0.3rem 0 0; font-size: 1.25rem; }
 .neo-theme-panel__badge { padding: 0.2rem 0.4rem; background: hsl(var(--card)); color: hsl(var(--foreground)); border: 2px solid #0c0c0c; box-shadow: 2px 2px 0 #0c0c0c; font: 900 0.65rem ui-monospace, monospace; transform: rotate(5deg); }
@@ -48,3 +48,38 @@
   .neo-theme-panel { inset: 8.7rem 1rem auto auto; max-height: calc(100dvh - 10rem); }
   .neo-theme-options { max-height: min(19rem, 40dvh); }
 }
+
+/* Keep large surfaces quiet; reserve palette accents for actions and selected markers. */
+:root[data-theme^="vscode-"] :is(.neo-theme-panel__header, .json-parser-header, .code-image-header) {
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+}
+:root[data-theme^="vscode-"] :is(.json-parser-title-group, .json-parser-title-group .neo-kicker, .json-parser-pipeline, .code-image-title-group .neo-kicker) {
+  color: hsl(var(--foreground));
+}
+:root[data-theme^="vscode-"] .neo-kicker {
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+}
+:root[data-theme^="vscode-"] .neo-profile-card {
+  background: hsl(var(--card)) !important;
+  border-left: 4px solid hsl(var(--primary));
+}
+:root[data-theme^="vscode-"] :is(.neo-profile-card, .neo-profile-card span, .neo-profile-card svg) {
+  color: hsl(var(--foreground)) !important;
+}
+:root[data-theme^="vscode-"] :is(.nav-item.active, .nav-item:hover) {
+  color: hsl(var(--foreground)) !important;
+  background: hsl(var(--muted)) !important;
+}
+:root[data-theme^="vscode-"] .nav-item.active {
+  border-left: 4px solid hsl(var(--primary)) !important;
+  box-shadow: none;
+}
+:root[data-theme^="vscode-"] :is(.nav-item.active svg, .nav-item:hover svg) {
+  color: hsl(var(--primary)) !important;
+}
+:root[data-theme^="vscode-"] .neo-decor { background: hsl(var(--muted)); }
+:root[data-theme^="vscode-"] .json-parser-pane--output { background: hsl(var(--card)); }
+.neo-gist-card button[aria-label="Remove bookmark"] { color: var(--neo-interactive) !important; }
+.neo-gist-card button[class~="hover:bg-[#FBF3DB]"]:hover { background: var(--neo-yellow) !important; color: var(--neo-on-accent) !important; }

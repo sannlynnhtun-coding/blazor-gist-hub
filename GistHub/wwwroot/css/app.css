@@ -115,7 +115,7 @@
   }
 
   ::selection {
-    color: #0c0c0c;
+    color: var(--neo-on-accent);
     background: var(--neo-pink);
   }
 }
@@ -575,12 +575,12 @@
 }
 
 .neo-toolbar-menu-item__icon--cyan {
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-cyan);
 }
 
 .neo-toolbar-menu-item__icon--pink {
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-pink);
 }
 
@@ -804,7 +804,7 @@
   height: 4rem;
   align-items: center;
   justify-content: center;
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-yellow);
   border: 3px solid hsl(var(--border));
   border-radius: 0.4rem;
@@ -912,7 +912,7 @@
 
 .global-search-result mark {
   padding: 0 0.08em;
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-yellow);
   border-radius: 0.1rem;
 }
@@ -1003,7 +1003,7 @@
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
 }
 
 .json-parser-title-group h1 {
@@ -1012,7 +1012,7 @@
 }
 
 .json-parser-title-group .neo-kicker {
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
 }
 
 .json-parser-mark,
@@ -1036,7 +1036,7 @@
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.65rem;
   font-weight: 900;
@@ -1058,7 +1058,7 @@
   height: 2.7rem;
   justify-self: end;
   place-items: center;
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-pink);
   border: 2px solid #0c0c0c;
   border-radius: 0.3rem;
@@ -1159,7 +1159,7 @@
 }
 
 .json-parser-mode-toggle button[aria-pressed="true"] {
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-cyan);
   border-color: #0c0c0c;
 }
@@ -1295,7 +1295,7 @@
   right: 0.75rem;
   bottom: 0.75rem;
   padding: 0.18rem 0.4rem;
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-pink);
   border: 1px solid #0c0c0c;
   border-radius: 0.15rem;
@@ -1326,7 +1326,7 @@
   align-items: center;
   gap: 0.45rem;
   padding: 0.35rem 0.55rem;
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-green);
   border: 2px solid #0c0c0c;
   border-radius: 0.25rem;
@@ -1352,7 +1352,7 @@
   width: 3rem;
   height: 3rem;
   place-items: center;
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-yellow);
   border: 3px solid #0c0c0c;
   border-radius: 50%;
@@ -1403,7 +1403,7 @@
 
 .json-parser-empty-mark {
   background: var(--neo-yellow);
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   box-shadow: 4px 4px 0 var(--neo-pink);
 }
 
@@ -1558,7 +1558,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.2rem 0.55rem;
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-green);
   border: 2px solid hsl(var(--border));
   border-radius: 0.25rem;
@@ -1576,7 +1576,7 @@
 }
 
 .neo-mobile-nav a.active {
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-yellow);
 }
 
@@ -1597,12 +1597,10 @@
   color: hsl(var(--muted-foreground)) !important;
 }
 
-.neo-content [class~="bg-primary"],
-.neo-content [class~="bg-secondary"],
-.neo-content [class~="bg-accent"],
-.neo-content [class~="bg-destructive"] {
-  color: var(--neo-on-accent) !important;
-}
+.neo-content [class~="bg-primary"] { color: hsl(var(--primary-foreground)) !important; }
+.neo-content [class~="bg-secondary"] { color: hsl(var(--secondary-foreground)) !important; }
+.neo-content [class~="bg-accent"] { color: hsl(var(--accent-foreground)) !important; }
+.neo-content [class~="bg-destructive"] { color: hsl(var(--destructive-foreground)) !important; }
 
 .nav-item:hover svg,
 .nav-item.active svg {
@@ -1625,7 +1623,7 @@
 }
 
 .nav-item:hover {
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-cyan);
   border-color: hsl(var(--border));
   transform: translate(-1px, -1px);
@@ -1633,13 +1631,13 @@
 }
 
 .nav-item.active {
-  color: #0c0c0c !important;
+  color: var(--neo-on-accent) !important;
   background: var(--neo-yellow) !important;
   border-color: hsl(var(--border)) !important;
   box-shadow: 4px 4px 0 var(--neo-shadow);
 }
 
-.nav-item.active svg { color: #0c0c0c !important; }
+.nav-item.active svg { color: var(--neo-on-accent) !important; }
 .neo-gist-card button { color: hsl(var(--foreground)); }
 
 /* Shared surfaces used by every route. */
@@ -1698,21 +1696,21 @@ input[type="checkbox"] {
 
 span[class~="rounded-full"][class~="border"],
 span[class~="rounded-md"][class~="border"] {
-  color: #0c0c0c !important;
+  color: var(--neo-on-accent) !important;
   background: var(--neo-cyan) !important;
   border-width: 2px !important;
   border-color: #0c0c0c !important;
   border-radius: 0.25rem !important;
 }
 
-[class*="bg-[#FBF3DB]"] { background-color: var(--neo-yellow) !important; }
-[class*="bg-[#FDEBEC]"] { background-color: var(--neo-red) !important; }
-[class*="bg-[#EDF3EC]"] { background-color: var(--neo-green) !important; }
-[class*="bg-[#E1F3FE]"] { background-color: var(--neo-cyan) !important; }
+[class~="bg-[#FBF3DB]"] { background-color: var(--neo-yellow) !important; }
+[class~="bg-[#FDEBEC]"] { background-color: var(--neo-red) !important; }
+[class~="bg-[#EDF3EC]"] { background-color: var(--neo-green) !important; }
+[class~="bg-[#E1F3FE]"] { background-color: var(--neo-cyan) !important; }
 [class*="text-[#956400]"],
 [class*="text-[#9F2F2D]"],
 [class*="text-[#346538]"],
-[class*="text-[#1F6C9F]"] { color: #0c0c0c !important; }
+[class*="text-[#1F6C9F]"] { color: var(--neo-on-accent) !important; }
 
 .neo-content [class~="bg-[#111111]"] {
   border-color: hsl(var(--border)) !important;
@@ -2625,7 +2623,7 @@ span[class~="rounded-md"][class~="border"] {
   align-items: center;
   gap: 1.5rem;
   padding: 0.75rem 1.25rem;
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-pink);
   border-bottom: 3px solid #0c0c0c;
   box-shadow: 0 5px 0 var(--neo-shadow);
@@ -2644,7 +2642,7 @@ span[class~="rounded-md"][class~="border"] {
 }
 
 .code-image-title-group .neo-kicker {
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
 }
 
 .code-image-mark {
@@ -2653,7 +2651,7 @@ span[class~="rounded-md"][class~="border"] {
   height: 3rem;
   flex: 0 0 auto;
   place-items: center;
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-yellow);
   border: 2px solid #0c0c0c;
   border-radius: 0.3rem;
@@ -2694,7 +2692,7 @@ span[class~="rounded-md"][class~="border"] {
   height: 2.7rem;
   justify-self: end;
   place-items: center;
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-cyan);
   border: 2px solid #0c0c0c;
   border-radius: 0.3rem;
@@ -2919,7 +2917,7 @@ span[class~="rounded-md"][class~="border"] {
 }
 
 .code-image-mode-grid button[aria-pressed="true"] {
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-cyan);
   box-shadow: 2px 2px 0 var(--neo-shadow);
 }
@@ -2969,7 +2967,7 @@ span[class~="rounded-md"][class~="border"] {
 
 .code-image-theme.is-selected {
   background: var(--neo-yellow);
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   box-shadow: 2px 2px 0 var(--neo-shadow);
 }
 
@@ -3018,7 +3016,7 @@ span[class~="rounded-md"][class~="border"] {
 }
 
 .code-image-format-grid button[aria-pressed="true"] {
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-cyan);
   box-shadow: 2px 2px 0 var(--neo-shadow);
 }
@@ -3044,7 +3042,7 @@ span[class~="rounded-md"][class~="border"] {
 
 .code-image-range output {
   padding: 0.1rem 0.28rem;
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-purple);
   border: 1px solid #0c0c0c;
   border-radius: 0.15rem;
@@ -3087,7 +3085,7 @@ span[class~="rounded-md"][class~="border"] {
   align-items: center;
   gap: 0.4rem;
   padding: 0.3rem 0.48rem;
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-green);
   border: 2px solid #0c0c0c;
   border-radius: 0.22rem;
@@ -3521,7 +3519,7 @@ span[class~="rounded-md"][class~="border"] {
 }
 
 .code-image-copy-button.is-success {
-  color: #0c0c0c;
+  color: var(--neo-on-accent);
   background: var(--neo-green);
 }
 

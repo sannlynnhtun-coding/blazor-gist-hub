@@ -3,6 +3,7 @@
 // Rebuild from the checked-in source snapshot: node scripts/import-vscode-themes.mjs
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { rgb, hex, mapThemeRoles } from './theme-color-roles.mjs';
 const snapshotPath = resolve('GistHub/ThemeSources/vscode-themes.json');
 const parsePage = html => JSON.parse(html.match(/window\.__remixContext = (.*?);<\/script>/s)?.[1] ?? 'null')?.state?.loaderData;
 const getText = async url => {
@@ -63,38 +64,23 @@ if (process.argv.includes('--refresh') || process.argv.includes('--extend')) {
   writeFileSync(snapshotPath, JSON.stringify({ capturedOn: new Date().toISOString().slice(0, 10), variantPolicy: 'First displayed variant of each of the first 50 results per ranking.', themes: results }, null, 2) + '\n');
 }
 const snapshot = JSON.parse(readFileSync(snapshotPath, 'utf8'));
-const rgb = value => {
-  const match = value?.match(/^#([\da-f]{6}|[\da-f]{3})(?:[\da-f]{2})?$/i);
-  if (!match) throw new Error(`Invalid theme color: ${value}`);
-  const hex = match[1].length === 3 ? [...match[1]].map(c => c + c).join('') : match[1];
-  return [0, 2, 4].map(i => parseInt(hex.slice(i, i + 2), 16));
-};
-const hex = color => '#' + color.map(n => Math.round(n).toString(16).padStart(2, '0')).join('');
-const mix = (a, b, t) => a.map((n, i) => n * (1 - t) + b[i] * t);
-const ink = color => color.map(n => { const c = n / 255; return c <= 0.04045 ? c / 12.92 : ((c + .055) / 1.055) ** 2.4; }).reduce((sum, c, i) => sum + c * [.2126, .7152, .0722][i], 0) > .179 ? [12, 12, 12] : [255, 255, 255];
 const hsl = color => {
   const [r, g, b] = color.map(n => n / 255), max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min, l = (max + min) / 2;
   const hue = !d ? 0 : max === r ? (g - b) / d + (g < b ? 6 : 0) : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
-  return `${Math.round(hue * 60)} ${Math.round((d ? d / (1 - Math.abs(2 * l - 1)) : 0) * 100)}% ${Math.round(l * 100)}%`;
+  return `${+(hue * 60).toFixed(3)} ${+((d ? d / (1 - Math.abs(2 * l - 1)) : 0) * 100).toFixed(3)}% ${+(l * 100).toFixed(3)}%`;
 };
 const catalog = [], styles = [];
 for (const theme of snapshot.themes) {
   const existing = catalog.find(entry => entry.id === theme.id);
   if (existing) { existing.source += ` · ${theme.sort === 'installs' ? 'Installs' : 'Weekly'} #${theme.rank}`; continue; }
-  const c = theme.colors, s = theme.syntax;
-  const bg = rgb(c.editorBackground), fg = rgb(c.editorForeground);
-  const card = rgb(c.activityBarBackground ?? c.editorBackground), muted = mix(bg, fg, .1), border = mix(bg, fg, .4);
-  const primary = rgb(s.keyword), secondary = rgb(s.string), accent = rgb(s.title);
-  const dark = ink(bg)[0] === 255;
-  const surface = color => dark ? mix(color, [255, 255, 255], .15) : mix(color, [255, 255, 255], .65);
-  const vars = { background: bg, foreground: fg, card, 'card-foreground': fg, popover: card, 'popover-foreground': fg,
-    primary, 'primary-foreground': ink(primary), secondary, 'secondary-foreground': ink(secondary), accent, 'accent-foreground': ink(accent),
-    muted, 'muted-foreground': mix(bg, fg, .72), destructive: primary, 'destructive-foreground': ink(primary), border, input: border, ring: accent };
-  const tokens = { yellow: surface(primary), pink: surface(accent), purple: surface(rgb(s.number)), green: surface(secondary), cyan: surface(rgb(s.variable)), red: surface(primary), paper: card, 'code-text': fg, shadow: mix(bg, fg, .23), interactive: primary, 'on-accent': ink(surface(rgb(s.variable))) };
+  const s = theme.syntax;
+  const roles = mapThemeRoles(theme);
+  const { vars, tokens, dark } = roles;
+  const bg = rgb(roles.bg), fg = rgb(roles.fg), primary = rgb(roles.primary), secondary = rgb(roles.vars.secondary);
   const prefix = `:root[data-theme="${theme.id}"]`;
   let css = `/* Palette: ${theme.name.replaceAll('*/', '')} — ${theme.url} */\n${prefix}{`;
-  for (const [key, value] of Object.entries(vars)) css += `--${key}:${hsl(value)};`;
-  for (const [key, value] of Object.entries(tokens)) css += `--neo-${key}:${hex(value)};`;
+  for (const [key, value] of Object.entries(vars)) css += `--${key}:${hsl(rgb(value))};`;
+  for (const [key, value] of Object.entries(tokens)) css += `--neo-${key}:${value};`;
   css += '--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}\n';
   css += `${prefix} :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:${hex(bg)}!important;color:${hex(fg)}!important;}\n`;
   css += `${prefix} :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}\n`;
