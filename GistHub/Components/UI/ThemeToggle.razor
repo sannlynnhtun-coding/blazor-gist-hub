@@ -1,6 +1,6 @@
 @inject IJSRuntime JS
 
-<select class="neo-theme-select bg-card text-foreground border border-border rounded-md text-sm font-bold" aria-label="Page theme" title="Choose page theme" value="@Theme" @onchange="ChangeTheme">
+<select class="neo-theme-select bg-card text-foreground border border-border rounded-md text-sm font-bold" aria-label="Page theme" title="Choose page theme" value="@Theme" @oninput="ChangeTheme" @onchange="ChangeTheme">
     <optgroup label="GistHub">
     <option value="light">☀ Light</option>
     <option value="dark">☾ Dark</option>

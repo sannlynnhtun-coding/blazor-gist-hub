@@ -1,4 +1,7 @@
 /* Full-page palettes reuse the same semantic and illustration tokens. */
+:root.theme-switching *,
+:root.theme-switching *::before,
+:root.theme-switching *::after { transition: none !important; }
 :root[data-theme="ocean"] {
   --background: 204 60% 12%; --foreground: 196 40% 91%;
   --card: 204 48% 17%; --card-foreground: 196 40% 91%;

@@ -9,6 +9,7 @@ const source = resolve(process.argv[2]);
 const target = resolve('GistHub/wwwroot/css/highlight-themes');
 mkdirSync(target, { recursive: true });
 const catalog = [];
+const bundledStyles = [];
 const hex = value => {
   const match = value?.match(/#([\da-f]{6}|[\da-f]{3})\b/i);
   if (!match) {
@@ -79,9 +80,11 @@ for (const file of readdirSync(join(source, 'styles'), { recursive: true }).filt
   }
   output += `:root[data-theme="${id}"] .json-parser-type-legend i { background: currentColor; }\n`;
   writeFileSync(join(target, id + '.css'), output);
+  bundledStyles.push(output);
   catalog.push({ id, name: title, dark, chrome: rgb(bg) });
 }
 writeFileSync(resolve('GistHub/wwwroot/js/highlight-theme-catalog.js'), 'window.gistHubHighlightThemes = ' + JSON.stringify(catalog) + ';\n');
+writeFileSync(resolve('GistHub/wwwroot/css/highlight-themes.css'), bundledStyles.join('\n'));
 copyFileSync(join(source, 'LICENSE'), join(target, 'LICENSE'));
 console.log(`Imported ${catalog.length} Highlight.js themes.`);
 

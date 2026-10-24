@@ -14,22 +14,14 @@
     window.applyGistHubTheme = (theme, persist = true) => {
         if (!Object.hasOwn(themes, theme)) theme = 'light';
         const palette = themes[theme];
+        document.documentElement.classList.add('theme-switching');
         document.documentElement.dataset.theme = theme;
         document.documentElement.classList.toggle('dark', palette.dark);
         document.documentElement.style.colorScheme = palette.dark ? 'dark' : 'light';
         document.querySelector('meta[name="theme-color"]')?.setAttribute('content', palette.chrome);
-        let stylesheet = document.getElementById('highlight-page-theme');
-        if (theme.startsWith('hljs-')) {
-            if (!stylesheet) {
-                stylesheet = document.createElement('link');
-                stylesheet.id = 'highlight-page-theme';
-                stylesheet.rel = 'stylesheet';
-                document.head.appendChild(stylesheet);
-            }
-            stylesheet.href = `css/highlight-themes/${theme}.css`;
-        } else {
-            stylesheet?.remove();
-        }
+        // Flush the palette with transitions disabled, then restore normal hover effects.
+        void document.documentElement.offsetHeight;
+        document.documentElement.classList.remove('theme-switching');
         if (persist) {
             try { localStorage.setItem('theme', theme); } catch { /* Storage can be disabled. */ }
         }
