@@ -8,8 +8,7 @@
 @inject IGithubService Github
 
 <div class="neo-login-screen min-h-screen flex items-center justify-center p-6 bg-background relative overflow-hidden">
-    @if (!string.IsNullOrWhiteSpace(ErrorMessage))
-    {
+    <AutoDismissMessage @bind-Message="ErrorMessage">
         <div role="alert" aria-live="assertive" class="fixed top-6 right-6 z-50 w-[min(calc(100vw-3rem),24rem)] p-4 bg-[#FDEBEC] text-[#9F2F2D] border-2 border-[#9F2F2D] rounded-lg shadow-[6px_6px_0_0_#9F2F2D] animate-in slide-in-from-top-4 fade-in duration-200">
             <div class="flex items-start gap-3">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
@@ -22,7 +21,7 @@
                 </button>
             </div>
         </div>
-    }
+    </AutoDismissMessage>
 
     <!-- Login Card -->
     <div class="w-full max-w-md space-y-8 animate-in slide-in-from-bottom-10 fade-in duration-700">

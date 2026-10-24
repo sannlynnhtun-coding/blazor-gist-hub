@@ -1,4 +1,4 @@
-﻿@page "/my-gists"
+@page "/my-gists"
 @using GistHub.Components
 @using GistHub.Models
 @using GistHub.Services
@@ -129,29 +129,26 @@
         </div>
     }
 
-    @if (!string.IsNullOrWhiteSpace(GroupMessage))
-    {
+    <AutoDismissMessage @bind-Message="GroupMessage">
         <div class="p-3 rounded-xl border border-border bg-[#FBF3DB] text-sm text-[#956400] font-semibold">@GroupMessage</div>
-    }
+    </AutoDismissMessage>
 
-    @if (!string.IsNullOrWhiteSpace(ImportMessage))
-    {
+    <AutoDismissMessage @bind-Message="ImportMessage">
         <div class="p-3 rounded-xl border text-sm font-semibold @(ImportWasSuccessful ? "border-border bg-[#EDF3EC] text-[#346538]" : "border-border bg-[#FDEBEC] text-[#9F2F2D]")">
             @ImportMessage
         </div>
-    }
+    </AutoDismissMessage>
 
     @if (!string.IsNullOrWhiteSpace(SyncError))
     {
         <p role="alert" class="text-sm text-destructive">@SyncError</p>
     }
 
-    @if (!string.IsNullOrWhiteSpace(BookmarkBackupMessage))
-    {
+    <AutoDismissMessage @bind-Message="BookmarkBackupMessage">
         <div role="status" class="p-3 rounded-xl border text-sm font-semibold @(BookmarkBackupWasSuccessful ? "border-border bg-[#EDF3EC] text-[#346538]" : "border-border bg-[#FDEBEC] text-[#9F2F2D]")">
             @BookmarkBackupMessage
         </div>
-    }
+    </AutoDismissMessage>
 
     @if (!AppState.IsAuthenticated)
     {
@@ -736,7 +733,6 @@
         if (string.IsNullOrWhiteSpace(normalized))
         {
             GroupMessage = "Group name is required.";
-            await ClearGroupMessageAfterDelay();
             return;
         }
 
@@ -795,13 +791,6 @@
 
         await Storage.SaveGistAsync(gist);
         StateHasChanged();
-    }
-
-    private async Task ClearGroupMessageAfterDelay()
-    {
-        await Task.Delay(2500);
-        GroupMessage = "";
-        await InvokeAsync(StateHasChanged);
     }
 
     private void OpenImportDialog()

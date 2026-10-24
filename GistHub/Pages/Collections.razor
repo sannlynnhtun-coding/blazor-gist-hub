@@ -26,10 +26,9 @@
     }
     else
     {
-        @if (!string.IsNullOrWhiteSpace(ErrorMessage))
-        {
+        <AutoDismissMessage @bind-Message="ErrorMessage">
             <div class="p-4 rounded-xl bg-[#FDEBEC] border border-border text-[#9F2F2D] text-sm font-medium">@ErrorMessage</div>
-        }
+        </AutoDismissMessage>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div class="group relative">

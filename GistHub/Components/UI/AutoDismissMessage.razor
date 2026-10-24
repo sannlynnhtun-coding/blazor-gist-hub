@@ -1,0 +1,49 @@
+@implements IDisposable
+
+@if (!string.IsNullOrWhiteSpace(Message))
+{
+    @ChildContent
+}
+
+@code {
+    [Parameter] public string Message { get; set; } = "";
+    [Parameter] public EventCallback<string> MessageChanged { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private string? PreviousMessage;
+    private CancellationTokenSource? Lifetime;
+
+    protected override void OnParametersSet()
+    {
+        if (Message == PreviousMessage) return;
+        PreviousMessage = Message;
+        Lifetime?.Cancel();
+        Lifetime?.Dispose();
+        Lifetime = null;
+        if (!string.IsNullOrWhiteSpace(Message))
+        {
+            Lifetime = new CancellationTokenSource();
+            _ = DismissAsync(Lifetime.Token);
+        }
+    }
+
+    private async Task DismissAsync(CancellationToken token)
+    {
+        try
+        {
+            await Task.Delay(TimeSpan.FromSeconds(10), token);
+            await InvokeAsync(async () =>
+            {
+                if (!token.IsCancellationRequested)
+                    await MessageChanged.InvokeAsync("");
+            });
+        }
+        catch (OperationCanceledException) when (token.IsCancellationRequested) { }
+    }
+
+    public void Dispose()
+    {
+        Lifetime?.Cancel();
+        Lifetime?.Dispose();
+    }
+}

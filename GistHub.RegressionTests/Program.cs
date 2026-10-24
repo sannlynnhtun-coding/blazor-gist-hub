@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 await DiagramGistTests.RunAsync();
 await ProfileLoadingTests.RunAsync();
+await MessageDismissalTests.RunAsync();
 
 using (var tableDocument = System.Text.Json.JsonDocument.Parse("[{\"name\":\"<script>alert(1)</script>\",\"nested\":{\"x\":1}},{\"extra\":null,\"name\":\"=1+1\"}]"))
 {
