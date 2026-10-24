@@ -29,3 +29,31 @@ app.applyGistHubStyle('invalid');
 assert.equal(app.getGistHubStyle(), 'default');
 assert.equal(boot('glassmorphism', true).applyGistHubStyle('flat'), 'flat');
 console.log('PASS: seven styles plus original default, live changes, persistence, palette independence, invalid values and blocked storage.');
+
+const catalogContext = { window: {} };
+runInNewContext(readFileSync('GistHub/wwwroot/js/vscode-theme-catalog.js', 'utf8'), catalogContext);
+const themeIds = new Set(['light', 'dark', ...catalogContext.window.gistHubThemes.map(theme => theme.id)]);
+const styleIds = new Set(app.getGistHubStyles().map(style => style.id));
+const pair = boot();
+// The picker commit must update its saved palette before closing and rolling back previews.
+const presetContext = { window: {
+    commitGistHubThemePicker(root, theme) { root.savedTheme = theme; pair.store.theme = theme; }
+}, document: { documentElement: { dataset: {} } }, localStorage: {
+    getItem(key) { return pair.store[key]; },
+    setItem(key, value) { pair.store[key] = value; }
+}};
+runInNewContext(source, presetContext);
+const picker = {};
+assert.equal(presetContext.window.getGistHubStylePresets().length, 7);
+for (const preset of presetContext.window.getGistHubStylePresets()) {
+    assert.ok(themeIds.has(preset.theme));
+    assert.ok(styleIds.has(preset.style));
+    presetContext.window.applyGistHubStylePreset(picker, preset.id);
+    assert.equal(pair.store.theme, preset.theme);
+    assert.equal(picker.savedTheme, preset.theme);
+    assert.equal(boot(pair.store['gisthub:interface-style']).getGistHubStyle(), preset.style);
+}
+const lastTheme = pair.store.theme;
+presetContext.window.applyGistHubStylePreset(picker, 'invalid');
+assert.equal(pair.store.theme, lastTheme);
+console.log('PASS: seven valid style/theme presets save both choices and update the picker rollback target.');

@@ -66,3 +66,5 @@
 :root[data-interface-style="flat"] :is(.shadow, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl, .btn, .neo-theme-trigger, .neo-kicker, .neo-toolbar-menu__trigger) { box-shadow: none !important; }
 :root[data-interface-style="flat"] .neo-page-heading { border-bottom: 1px solid hsl(var(--border)); }
 :root[data-interface-style="flat"] :is(.neo-sidebar, .neo-topbar) { border-radius: 0 !important; }
+
+.neo-palette-label { display: block; margin-bottom: .5rem; font-size: .8rem; font-weight: 800; }

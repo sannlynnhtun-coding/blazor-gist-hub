@@ -9,21 +9,33 @@
     </button>
     <div id="@PanelId" popover="auto" class="neo-theme-panel" role="dialog" aria-label="Choose a theme">
         <header class="neo-theme-panel__header">
-            <div><span class="neo-theme-panel__eyebrow">Make it yours</span><h2>Pick your palette</h2></div>
+            <div><span class="neo-theme-panel__eyebrow">Make it yours</span><h2>Choose your appearance</h2></div>
             <span class="neo-theme-panel__badge">LIVE</span>
         </header>
         <div class="neo-style-control">
-            <label for="@StyleId">Interface style</label>
+            <label for="@StyleId">Common Visual Styles</label>
             <select id="@StyleId" value="@Style" @onchange="ChangeStyle" aria-describedby="@StyleHintId">
                 @foreach (var style in Styles)
                 {
                     <option value="@style.Id">@style.Name</option>
                 }
             </select>
-            <p id="@StyleHintId">@StyleDescription &middot; Changes apply instantly and are saved.</p>
+            <p id="@StyleHintId">@StyleDescription &middot; Keeps your selected color theme. Changes are saved instantly.</p>
             <button type="button" class="neo-style-reset" @onclick="RestoreStyle">Restore default style</button>
         </div>
+        <div class="neo-style-control">
+            <label for="@PresetId">Style + Theme presets</label>
+            <select id="@PresetId" value="@SelectedPreset" @onchange="ChangePreset" aria-describedby="@PresetHintId">
+                <option value="">Choose a style and theme combination</option>
+                @foreach (var preset in Presets)
+                {
+                    <option value="@preset.Id">@preset.Name</option>
+                }
+            </select>
+            <p id="@PresetHintId">Applies and saves both the visual style and color theme.</p>
+        </div>
         <div class="neo-theme-panel__search">
+            <span class="neo-palette-label">Color themes</span>
             <input type="search" aria-label="Search themes" placeholder="Find a theme…" autocomplete="off" autofocus aria-describedby="@HintId" />
         </div>
         <div class="neo-theme-options custom-scrollbar" role="listbox" aria-label="Available themes">
@@ -47,6 +59,20 @@
 
 @code {
     private ElementReference Picker;
+    private string PresetId => $"{PanelId}-preset";
+    private string PresetHintId => $"{PanelId}-preset-hint";
+    private List<StylePreset> Presets = [];
+    private sealed record StylePreset(string Id, string Name, string Style, string Theme);
+    private string SelectedPreset => Presets.FirstOrDefault(p => p.Style == Style && p.Theme == Theme)?.Id ?? "";
+
+    private async Task ChangePreset(ChangeEventArgs e)
+    {
+        var preset = await JS.InvokeAsync<StylePreset?>("applyGistHubStylePreset", Picker, e.Value?.ToString());
+        if (preset is null) return;
+        Style = preset.Style;
+        Theme = preset.Theme;
+    }
+
     private string StyleId => $"{PanelId}-style";
     private string StyleHintId => $"{PanelId}-style-hint";
     private string Style = "default";
@@ -56,6 +82,7 @@
 
     private async Task ChangeStyle(ChangeEventArgs e)
     {
+        await JS.InvokeVoidAsync("applyGistHubTheme", Theme, false);
         Style = await JS.InvokeAsync<string>("applyGistHubStyle", e.Value?.ToString());
     }
 
@@ -75,6 +102,7 @@
     {
         if (firstRender)
         {
+            Presets.AddRange(await JS.InvokeAsync<StylePreset[]>("getGistHubStylePresets"));
             Styles.AddRange(await JS.InvokeAsync<StyleOption[]>("getGistHubStyles"));
             Style = await JS.InvokeAsync<string>("getGistHubStyle");
             Palettes.AddRange(await JS.InvokeAsync<ThemeOption[]>("getGistHubThemes"));
@@ -96,6 +124,7 @@
 
     private async Task RestoreDefault()
     {
+        await RestoreStyle();
         await SelectTheme(await JS.InvokeAsync<string>("getGistHubDefaultTheme"));
     }
 

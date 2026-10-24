@@ -10,6 +10,23 @@
         { id: 'glassmorphism', name: 'Glassmorphism', description: 'Frosted panels and translucent layers' },
         { id: 'flat', name: 'Flat', description: 'Clean surfaces with minimal decoration' }
     ];
+    const presets = [
+        { id: 'bold-light', name: 'Neobrutalism + Light', style: 'neobrutalism', theme: 'light' },
+        { id: 'geometric-light', name: 'Bauhaus + Atom One Light', style: 'bauhaus', theme: 'vscode-akamud-vscode-theme-onelight-atom-one-light' },
+        { id: 'soft-nord', name: 'Neumorphism + Nord', style: 'neumorphism', theme: 'vscode-arcticicestudio-nord-visual-studio-code-nord' },
+        { id: 'retro-gruvbox', name: 'Retro Futurism + Gruvbox', style: 'retro-futurism', theme: 'vscode-jdinhlife-gruvbox-gruvbox-dark-hard' },
+        { id: 'cyber-tokyo', name: 'Cyberpunk + Tokyo Night', style: 'cyberpunk', theme: 'vscode-enkia-tokyo-night-tokyo-night' },
+        { id: 'glass-dark', name: 'Glassmorphism + Dark', style: 'glassmorphism', theme: 'dark' },
+        { id: 'flat-light', name: 'Flat + Light', style: 'flat', theme: 'light' }
+    ];
+    window.getGistHubStylePresets = () => presets;
+    window.applyGistHubStylePreset = (root, id) => {
+        const preset = presets.find(entry => entry.id === id);
+        if (!preset) return;
+        window.applyGistHubStyle(preset.style);
+        window.commitGistHubThemePicker(root, preset.theme);
+        return preset;
+    };
     window.getGistHubStyles = () => styles;
     window.getGistHubStyle = () => document.documentElement.dataset.interfaceStyle;
     window.applyGistHubStyle = (id, persist = true) => {
