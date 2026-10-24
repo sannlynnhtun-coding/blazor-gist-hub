@@ -15,9 +15,14 @@
         <div class="neo-style-control">
             <label for="@StyleId">Common Visual Styles</label>
             <select id="@StyleId" value="@Style" @onchange="ChangeStyle" aria-describedby="@StyleHintId">
-                @foreach (var style in Styles)
+                @foreach (var group in Styles.GroupBy(style => style.Group))
                 {
-                    <option value="@style.Id">@style.Name</option>
+                    <optgroup label="@group.Key">
+                        @foreach (var style in group)
+                        {
+                            <option value="@style.Id">@style.Name</option>
+                        }
+                    </optgroup>
                 }
             </select>
             <p id="@StyleHintId">@StyleDescription &middot; Keeps your selected color theme. Changes are saved instantly.</p>
@@ -77,7 +82,7 @@
     private string StyleHintId => $"{PanelId}-style-hint";
     private string Style = "default";
     private List<StyleOption> Styles = [];
-    private sealed record StyleOption(string Id, string Name, string Description);
+    private sealed record StyleOption(string Id, string Name, string Description, string Group);
     private string StyleDescription => Styles.FirstOrDefault(s => s.Id == Style)?.Description ?? "";
 
     private async Task ChangeStyle(ChangeEventArgs e)
