@@ -160,7 +160,21 @@
             <div class="neo-decor neo-decor--pink" aria-hidden="true"></div>
             <div class="neo-decor neo-decor--purple" aria-hidden="true"></div>
             <div class="neo-content max-w-6xl mx-auto space-y-10 animate-in fade-in duration-500">
-                @Body
+                @if (!IsProfileReady)
+                {
+                    <p role="status">Loading your local workspace…</p>
+                }
+                else if (ProfileLoadFailed)
+                {
+                    <div role="alert">
+                        <p>Could not open your local workspace. Your cached data has not been cleared.</p>
+                        <button class="btn btn-secondary btn-md" @onclick="LoadProfileAsync">Retry</button>
+                    </div>
+                }
+                else
+                {
+                    @Body
+                }
             </div>
         </div>
     </main>
@@ -186,6 +200,8 @@
     private const string FilesBlurredStorageKey = "gisthub:files-blurred";
 
     private bool IsSidebarVisible { get; set; } = true;
+    private bool IsProfileReady;
+    private bool ProfileLoadFailed;
     private bool AreFilesBlurred { get; set; }
     private bool IsToolsMenuOpen { get; set; }
     private bool IsSettingsMenuOpen { get; set; }
@@ -212,14 +228,31 @@
     protected override async Task OnInitializedAsync()
     {
         Navigation.LocationChanged += OnLocationChanged;
+        await LoadProfileAsync();
+    }
 
-        if (!AppState.IsAuthenticated)
+    private async Task LoadProfileAsync()
+    {
+        IsProfileReady = false;
+        ProfileLoadFailed = false;
+        try
         {
-            var profiles = await Storage.GetProfilesAsync();
-            if (profiles is { Count: > 0 })
+            if (!AppState.IsAuthenticated)
             {
-                AppState.SetProfile(profiles.First());
+                var profiles = await Storage.GetProfilesAsync();
+                if (profiles is { Count: > 0 })
+                {
+                    AppState.SetProfile(profiles.First());
+                }
             }
+        }
+        catch (Exception)
+        {
+            ProfileLoadFailed = true;
+        }
+        finally
+        {
+            IsProfileReady = true;
         }
     }
 

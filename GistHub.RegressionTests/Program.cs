@@ -4,6 +4,7 @@ using GistHub.Services;
 using Microsoft.AspNetCore.Components;
 
 await DiagramGistTests.RunAsync();
+await ProfileLoadingTests.RunAsync();
 
 using (var tableDocument = System.Text.Json.JsonDocument.Parse("[{\"name\":\"<script>alert(1)</script>\",\"nested\":{\"x\":1}},{\"extra\":null,\"name\":\"=1+1\"}]"))
 {
@@ -267,11 +268,11 @@ sealed class ThrowingGithubService : IGithubService
     public Task<List<LocalGist>> GetUserPublicGistsAsync(string username, string? token = null) => throw new NotSupportedException();
 }
 
-sealed class FakeStorageService : IStorageService
+class FakeStorageService : IStorageService
 {
     public Task InitAsync() => Task.CompletedTask;
     public Task SaveProfileAsync(GistProfile profile) => Task.CompletedTask;
-    public Task<List<GistProfile>> GetProfilesAsync() => Task.FromResult(new List<GistProfile>());
+    public virtual Task<List<GistProfile>> GetProfilesAsync() => Task.FromResult(new List<GistProfile>());
     public Task DeleteProfileAsync(string id) => Task.CompletedTask;
     public Task SaveGistAsync(LocalGist gist) => Task.CompletedTask;
     public Task<List<LocalGist>> GetLocalGistsAsync() => Task.FromResult(new List<LocalGist>());
