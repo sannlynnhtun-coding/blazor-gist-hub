@@ -81,10 +81,9 @@ for (const file of readdirSync(join(source, 'styles'), { recursive: true }).filt
   output += `:root[data-theme="${id}"] .json-parser-type-legend i { background: currentColor; }\n`;
   writeFileSync(join(target, id + '.css'), output);
   bundledStyles.push(output);
-  catalog.push({ id, name: title, dark, chrome: rgb(bg) });
+  catalog.push({ id, name: title, dark, chrome: rgb(bg), primary: rgb(primary), secondary: rgb(secondary) });
 }
 writeFileSync(resolve('GistHub/wwwroot/js/highlight-theme-catalog.js'), 'window.gistHubHighlightThemes = ' + JSON.stringify(catalog) + ';\n');
 writeFileSync(resolve('GistHub/wwwroot/css/highlight-themes.css'), bundledStyles.join('\n'));
 copyFileSync(join(source, 'LICENSE'), join(target, 'LICENSE'));
 console.log(`Imported ${catalog.length} Highlight.js themes.`);
-

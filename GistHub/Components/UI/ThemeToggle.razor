@@ -1,41 +1,79 @@
 @inject IJSRuntime JS
+@implements IAsyncDisposable
 
-<select class="neo-theme-select bg-card text-foreground border border-border rounded-md text-sm font-bold" aria-label="Page theme" title="Choose page theme" value="@Theme" @oninput="ChangeTheme" @onchange="ChangeTheme">
-    <optgroup label="GistHub">
-    <option value="light">☀ Light</option>
-    <option value="dark">☾ Dark</option>
-    <option value="ocean">◈ Ocean</option>
-    <option value="forest">❋ Forest</option>
-    <option value="rose">✿ Rose</option>
-    </optgroup>
-    <optgroup label="Highlight.js">
-        @foreach (var palette in HighlightThemes)
-        {
-            <option value="@palette.Id">@palette.Name</option>
-        }
-    </optgroup>
-</select>
+<div class="neo-theme-picker" @ref="Picker" data-saved-theme="@Theme">
+    <button class="neo-theme-trigger" type="button" popovertarget="@PanelId" aria-label="Page theme" aria-haspopup="dialog" title="Preview and choose a page theme">
+        <span class="neo-theme-trigger__swatch" aria-hidden="true"></span>
+        <span class="neo-theme-trigger__name">@SelectedName</span>
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6" /></svg>
+    </button>
+    <div id="@PanelId" popover="auto" class="neo-theme-panel" role="dialog" aria-label="Choose a theme">
+        <header class="neo-theme-panel__header">
+            <div><span class="neo-theme-panel__eyebrow">Make it yours</span><h2>Pick your palette</h2></div>
+            <span class="neo-theme-panel__badge">LIVE</span>
+        </header>
+        <div class="neo-theme-panel__search">
+            <input type="search" aria-label="Search themes" placeholder="Find a theme…" autocomplete="off" autofocus aria-describedby="@HintId" />
+        </div>
+        <div class="neo-theme-options custom-scrollbar" role="listbox" aria-label="Available themes">
+            @foreach (var palette in Palettes)
+            {
+                <button @key="palette.Id" type="button" role="option" tabindex="-1" aria-selected="@(Theme == palette.Id ? "true" : "false")"
+                        class="neo-theme-option" data-theme-option="@palette.Id" data-theme-name="@palette.Name" @onclick="() => SelectTheme(palette.Id)">
+                    <span class="neo-theme-option__colors" aria-hidden="true"><i style="background:@palette.Chrome"></i><i style="background:@palette.Primary"></i><i style="background:@palette.Secondary"></i></span>
+                    <span class="neo-theme-option__name">@palette.Name<span class="neo-theme-option__source">@(palette.Source ?? "Highlight.js")</span></span>
+                    <svg class="neo-theme-option__check" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 4 4L19 6" /></svg>
+                </button>
+            }
+        </div>
+        <p class="neo-theme-panel__empty" hidden>No themes found. Try another name.</p>
+        <footer id="@HintId" class="neo-theme-panel__footer">Hover or use ↑ ↓ to preview. Click or Enter to save.<span>Esc to cancel</span></footer>
+    </div>
+</div>
 
 @code {
-    private ThemeOption[] HighlightThemes = [];
-    private sealed record ThemeOption(string Id, string Name);
+    private ElementReference Picker;
+    private readonly string PanelId = $"theme-picker-{Guid.NewGuid():N}";
+    private string HintId => $"{PanelId}-hint";
+    private bool IsInitialized;
     private string Theme = "light";
+    private List<ThemeOption> Palettes = [
+        new("light", "Light", "#fffaf0", "#ffd524", "#78dce8", "GistHub"),
+        new("dark", "Dark", "#24242f", "#c6a344", "#609ba3", "GistHub"),
+        new("ocean", "Ocean", "#102b40", "#69ddcf", "#c3a1ed", "GistHub"),
+        new("forest", "Forest", "#eaf0e5", "#a7cb81", "#abd4c6", "GistHub"),
+        new("rose", "Rose", "#fff0f3", "#f4a4bc", "#cbb3ef", "GistHub")
+    ];
+    private string SelectedName => Palettes.FirstOrDefault(p => p.Id == Theme)?.Name ?? "Themes";
+    private sealed record ThemeOption(string Id, string Name, string Chrome, string Primary, string Secondary, string Source);
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            HighlightThemes = await JS.InvokeAsync<ThemeOption[]>("getGistHubThemes");
+            Palettes.AddRange(await JS.InvokeAsync<ThemeOption[]>("getGistHubThemes"));
             Theme = await JS.InvokeAsync<string>("getGistHubTheme");
             StateHasChanged();
         }
+        else if (!IsInitialized)
+        {
+            await JS.InvokeVoidAsync("initializeGistHubThemePicker", Picker);
+            IsInitialized = true;
+        }
     }
 
-    private async Task ChangeTheme(ChangeEventArgs args)
+    private async Task SelectTheme(string theme)
     {
-        var selected = args.Value?.ToString() ?? "light";
-        if (selected == Theme) return;
-        Theme = selected;
-        await JS.InvokeVoidAsync("applyGistHubTheme", Theme);
+        Theme = theme;
+        await JS.InvokeVoidAsync("commitGistHubThemePicker", Picker, theme);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (IsInitialized)
+        {
+            try { await JS.InvokeVoidAsync("closeGistHubThemePicker", Picker); }
+            catch (JSDisconnectedException) { }
+        }
     }
 }
