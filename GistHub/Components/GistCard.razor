@@ -113,6 +113,8 @@
                  role="region"
                  aria-label="Code preview"
                  tabindex="0"
+                 @ondragstart:preventDefault="true"
+                 @ondragstart:stopPropagation="true"
                  @onclick:stopPropagation="true">
                 <pre class="neo-code-preview__content font-mono @(Compact ? "text-xs leading-snug" : "text-[13px] leading-relaxed") text-[#2F3437] dark:text-foreground antialiased whitespace-pre-wrap break-words"><code @key="PreviewSource" @ref="PreviewElement" class="neo-code-preview__syntax">@SnippetPreview</code></pre>
             </div>
