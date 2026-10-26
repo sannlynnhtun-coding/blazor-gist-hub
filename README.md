@@ -4,6 +4,11 @@ GistHub is a Blazor WebAssembly progressive web app for discovering, creating, a
 
 ## Overview
 
+The Flutter Web and Android client is included in [GistHub.Flutter](GistHub.Flutter/README.md).
+It shares this repository and has its own [build/release workflow](.github/workflows/flutter.yml).
+The Flutter client excludes Diagram Editor and YouTube Downloader. Android APKs
+are published under [GitHub Releases](https://github.com/sannlynnhtun-coding/gisthub/releases).
+
 The app supports two complementary workflows:
 
 - Explore public gists as a guest, filter them by language, inspect another user's public gists, and connect a GitHub account when an action requires authentication.

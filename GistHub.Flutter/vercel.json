@@ -1,0 +1,7 @@
+{
+  "rewrites": [{"source": "/((?!assets/|canvaskit/|icons/|.*\\.[^/]+$).*)", "destination": "/index.html"}],
+  "headers": [
+    {"source": "/index.html", "headers": [{"key": "Cache-Control", "value": "no-cache"}]},
+    {"source": "/service-worker.js", "headers": [{"key": "Cache-Control", "value": "no-cache"}]}
+  ]
+}

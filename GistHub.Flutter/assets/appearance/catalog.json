@@ -1,0 +1,4609 @@
+{
+  "themes": [
+    {
+      "id": "vscode-kobber-spooky-halloween-theme-halloween",
+      "name": "🎃 Halloween",
+      "dark": true,
+      "chrome": "#14091e",
+      "primary": "#fe7518",
+      "secondary": "#0d0515",
+      "source": "Weekly #1 · Jacob Kobberrød",
+      "url": "https://vscodethemes.com/e/Kobber.spooky-halloween-theme/halloween",
+      "colors": {
+        "background": "#14091e",
+        "foreground": "#f2ecf7",
+        "card": "#09040f",
+        "secondary": "#0d0515",
+        "muted-foreground": "#dbab99",
+        "border": "#6b5b7b",
+        "primary": "#fe7518",
+        "primary-foreground": "#09040f",
+        "code": "#f2ecf7"
+      }
+    },
+    {
+      "id": "vscode-samsadchalilvalappil-liquid-glass-theme-liquid-glass-dark-by-samsad",
+      "name": "Liquid Glass Dark (by Samsad)",
+      "dark": true,
+      "chrome": "#1e1f22",
+      "primary": "#cf8e6d",
+      "secondary": "#141517",
+      "source": "Weekly #2 · Samsad Chalil Valappil",
+      "url": "https://vscodethemes.com/e/SamsadChalilValappil.liquid-glass-theme/liquid-glass-dark-by-samsad",
+      "colors": {
+        "background": "#1e1f22",
+        "foreground": "#bcbec3",
+        "card": "#121315",
+        "secondary": "#141517",
+        "muted-foreground": "#bcbec3",
+        "border": "#7a7e85",
+        "primary": "#cf8e6d",
+        "primary-foreground": "#121315",
+        "code": "#bcbec3"
+      }
+    },
+    {
+      "id": "vscode-kushpandya-spider-midnight-theme-antigravity-retro-arcade",
+      "name": "Antigravity Retro Arcade",
+      "dark": true,
+      "chrome": "#24273a",
+      "primary": "#c6a0f5",
+      "secondary": "#1e2030",
+      "source": "Weekly #3 · Kush Pandya",
+      "url": "https://vscodethemes.com/e/kushpandya.spider-midnight-theme/antigravity-retro-arcade",
+      "colors": {
+        "background": "#24273a",
+        "foreground": "#cad3f4",
+        "card": "#1e2030",
+        "secondary": "#1e2030",
+        "muted-foreground": "#cad3f4",
+        "border": "#8087a2",
+        "primary": "#c6a0f5",
+        "primary-foreground": "#1e2030",
+        "code": "#cad3f4"
+      }
+    },
+    {
+      "id": "vscode-sinsusquid-kasane-teto-theme-kasane-teto-dark",
+      "name": "Kasane Teto Dark",
+      "dark": true,
+      "chrome": "#252a32",
+      "primary": "#ff5a85",
+      "secondary": "#1e2228",
+      "source": "Weekly #4 · SinsuSquid",
+      "url": "https://vscodethemes.com/e/SinsuSquid.kasane-teto-theme/kasane-teto-dark",
+      "colors": {
+        "background": "#252a32",
+        "foreground": "#f0eef5",
+        "card": "#181a1f",
+        "secondary": "#1e2228",
+        "muted-foreground": "#f0eef5",
+        "border": "#6a7688",
+        "primary": "#ff5a85",
+        "primary-foreground": "#181a1f",
+        "code": "#f0eef5"
+      }
+    },
+    {
+      "id": "vscode-lilinhuang-burgundy-cream-theme-burgundy-cream-dark",
+      "name": "Burgundy Cream Dark",
+      "dark": true,
+      "chrome": "#251718",
+      "primary": "#f0e2d1",
+      "secondary": "#321d20",
+      "source": "Weekly #5 · lilin ",
+      "url": "https://vscodethemes.com/e/lilinhuang.burgundy-cream-theme/burgundy-cream-dark",
+      "colors": {
+        "background": "#251718",
+        "foreground": "#f0e2d1",
+        "card": "#531a1a",
+        "secondary": "#321d20",
+        "muted-foreground": "#dcc3aa",
+        "border": "#bca398",
+        "primary": "#f0e2d1",
+        "primary-foreground": "#251718",
+        "code": "#f0e2d1"
+      }
+    },
+    {
+      "id": "vscode-snrico-moonlight-gruvbox-material-community-gruvbox-material-dark",
+      "name": "Gruvbox Material Dark",
+      "dark": true,
+      "chrome": "#282827",
+      "primary": "#a89984",
+      "secondary": "#282827",
+      "source": "Weekly #6 · Moonlight Inc",
+      "url": "https://vscodethemes.com/e/snrico-moonlight.gruvbox-material-community/gruvbox-material-dark",
+      "colors": {
+        "background": "#282827",
+        "foreground": "#d4be98",
+        "card": "#282827",
+        "secondary": "#282827",
+        "muted-foreground": "#d4be98",
+        "border": "#928374",
+        "primary": "#a89984",
+        "primary-foreground": "#282827",
+        "code": "#d4be98"
+      }
+    },
+    {
+      "id": "vscode-lilinhuang-pastel-moonlight-theme-pastel-moonlight",
+      "name": "Pastel Moonlight",
+      "dark": false,
+      "chrome": "#f9f5f6",
+      "primary": "#5c4a52",
+      "secondary": "#f8e8ee",
+      "source": "Weekly #7 · lilin ",
+      "url": "https://vscodethemes.com/e/lilinhuang.pastel-moonlight-theme/pastel-moonlight",
+      "colors": {
+        "background": "#f9f5f6",
+        "foreground": "#5c4a52",
+        "card": "#f8e8ee",
+        "secondary": "#f8e8ee",
+        "muted-foreground": "#5c4a52",
+        "border": "#5c4a52",
+        "primary": "#5c4a52",
+        "primary-foreground": "#ffffff",
+        "code": "#5c4a52"
+      }
+    },
+    {
+      "id": "vscode-take-a-rest-dev-txt-beautifier-txt-dark",
+      "name": "TXT Dark",
+      "dark": true,
+      "chrome": "#1e1e1e",
+      "primary": "#b5cea8",
+      "secondary": "#252526",
+      "source": "Weekly #8 · take-a-rest-dev",
+      "url": "https://vscodethemes.com/e/take-a-rest-dev.txt-beautifier/txt-dark",
+      "colors": {
+        "background": "#1e1e1e",
+        "foreground": "#d4d4d4",
+        "card": "#333333",
+        "secondary": "#252526",
+        "muted-foreground": "#d4d4d4",
+        "border": "#6a9955",
+        "primary": "#b5cea8",
+        "primary-foreground": "#1e1e1e",
+        "code": "#d4d4d4"
+      }
+    },
+    {
+      "id": "vscode-dadayan1234-gradient-nitro-glass-gradient-nitro-glass",
+      "name": "Gradient Nitro Glass",
+      "dark": true,
+      "chrome": "#18132c",
+      "primary": "#22d3ee",
+      "secondary": "#171229",
+      "source": "Weekly #9 · dian_pqrstu",
+      "url": "https://vscodethemes.com/e/dadayan1234.gradient-nitro-glass/gradient-nitro-glass",
+      "colors": {
+        "background": "#18132c",
+        "foreground": "#f2f1fe",
+        "card": "#120c23",
+        "secondary": "#171229",
+        "muted-foreground": "#8d8c97",
+        "border": "#acb9c9",
+        "primary": "#22d3ee",
+        "primary-foreground": "#000000",
+        "code": "#f2f1fe"
+      }
+    },
+    {
+      "id": "vscode-monolisa-monolisa-for-vscode-monolisa-dark",
+      "name": "MonoLisa Dark",
+      "dark": true,
+      "chrome": "#122a40",
+      "primary": "#e7c44a",
+      "secondary": "#122a40",
+      "source": "Weekly #10 · MonoLisa",
+      "url": "https://vscodethemes.com/e/MonoLisa.monolisa-for-vscode/monolisa-dark",
+      "colors": {
+        "background": "#122a40",
+        "foreground": "#cce5ff",
+        "card": "#252526",
+        "secondary": "#122a40",
+        "muted-foreground": "#cce5ff",
+        "border": "#5c7a9c",
+        "primary": "#e7c44a",
+        "primary-foreground": "#252526",
+        "code": "#cce5ff"
+      }
+    },
+    {
+      "id": "vscode-szyreth-frierens-journey-frierens-journey",
+      "name": "Frieren's Journey",
+      "dark": false,
+      "chrome": "#d4ddd0",
+      "primary": "#684e79",
+      "secondary": "#e3eadf",
+      "source": "Weekly #11 · Juan Manuel San Martin",
+      "url": "https://vscodethemes.com/e/Szyreth.frierens-journey/frierens-journey",
+      "colors": {
+        "background": "#d4ddd0",
+        "foreground": "#1d2736",
+        "card": "#e3eadf",
+        "secondary": "#e3eadf",
+        "muted-foreground": "#1d2736",
+        "border": "#1d2736",
+        "primary": "#684e79",
+        "primary-foreground": "#e3eadf",
+        "code": "#1d2736"
+      }
+    },
+    {
+      "id": "vscode-avenor-avenor-theme-avenor-charcoal",
+      "name": "Avenor Charcoal",
+      "dark": true,
+      "chrome": "#1f1f1e",
+      "primary": "#5f8fe9",
+      "secondary": "#1b1b1c",
+      "source": "Weekly #12 · Avenor",
+      "url": "https://vscodethemes.com/e/avenor.avenor-theme/avenor-charcoal",
+      "colors": {
+        "background": "#1f1f1e",
+        "foreground": "#e4e9f0",
+        "card": "#141414",
+        "secondary": "#1b1b1c",
+        "muted-foreground": "#7d8896",
+        "border": "#7d90a8",
+        "primary": "#5f8fe9",
+        "primary-foreground": "#141414",
+        "code": "#e4e9f0"
+      }
+    },
+    {
+      "id": "vscode-lilinhuang-cozy-latte-cozy-latte-dark",
+      "name": "Cozy Latte Dark",
+      "dark": true,
+      "chrome": "#251f19",
+      "primary": "#d0a574",
+      "secondary": "#201b16",
+      "source": "Weekly #13 · lilin ",
+      "url": "https://vscodethemes.com/e/lilinhuang.cozy-latte/cozy-latte-dark",
+      "colors": {
+        "background": "#251f19",
+        "foreground": "#e4d7c2",
+        "card": "#201b16",
+        "secondary": "#201b16",
+        "muted-foreground": "#e4d7c2",
+        "border": "#8f806f",
+        "primary": "#d0a574",
+        "primary-foreground": "#201b16",
+        "code": "#e4d7c2"
+      }
+    },
+    {
+      "id": "vscode-toxicepoch-haunted-workspace-themes-haunted-workspace-afterlife-arcade",
+      "name": "Haunted Workspace: Afterlife Arcade",
+      "dark": true,
+      "chrome": "#0a1018",
+      "primary": "#ff7cd4",
+      "secondary": "#1b3140",
+      "source": "Weekly #14 · ToxicEpoch",
+      "url": "https://vscodethemes.com/e/toxicepoch.haunted-workspace-themes/haunted-workspace-afterlife-arcade",
+      "colors": {
+        "background": "#0a1018",
+        "foreground": "#f3f1f8",
+        "card": "#11222c",
+        "secondary": "#1b3140",
+        "muted-foreground": "#aba8be",
+        "border": "#aba8be",
+        "primary": "#ff7cd4",
+        "primary-foreground": "#0a1018",
+        "code": "#f3f1f8"
+      }
+    },
+    {
+      "id": "vscode-manish-surya-r-beautiful-background-beautiful-background-muted-dark",
+      "name": "Beautiful Background (Muted Dark)",
+      "dark": true,
+      "chrome": "#121219",
+      "primary": "#82aaff",
+      "secondary": "#121219",
+      "source": "Weekly #15 · Manish Sri Sai Surya Routhu",
+      "url": "https://vscodethemes.com/e/manish-surya-r.beautiful-background/beautiful-background-muted-dark",
+      "colors": {
+        "background": "#121219",
+        "foreground": "#d6d6e0",
+        "card": "#171721",
+        "secondary": "#121219",
+        "muted-foreground": "#d6d6e0",
+        "border": "#77778a",
+        "primary": "#82aaff",
+        "primary-foreground": "#121219",
+        "code": "#d6d6e0"
+      }
+    },
+    {
+      "id": "vscode-lilinhuang-lavender-mist-lavender-mist-dark",
+      "name": "Lavender Mist Dark",
+      "dark": true,
+      "chrome": "#1c192f",
+      "primary": "#b9a7ff",
+      "secondary": "#171525",
+      "source": "Weekly #16 · lilin ",
+      "url": "https://vscodethemes.com/e/lilinhuang.lavender-mist/lavender-mist-dark",
+      "colors": {
+        "background": "#1c192f",
+        "foreground": "#d6d0e8",
+        "card": "#171525",
+        "secondary": "#171525",
+        "muted-foreground": "#8e849f",
+        "border": "#8e849f",
+        "primary": "#b9a7ff",
+        "primary-foreground": "#171525",
+        "code": "#d6d0e8"
+      }
+    },
+    {
+      "id": "vscode-lilinhuang-lilac-dream-theme-lilac-bloom",
+      "name": "Lilac Bloom",
+      "dark": false,
+      "chrome": "#eeecf6",
+      "primary": "#6e5e94",
+      "secondary": "#ece7f4",
+      "source": "Weekly #17 · lilin ",
+      "url": "https://vscodethemes.com/e/lilinhuang.lilac-dream-theme/lilac-bloom",
+      "colors": {
+        "background": "#eeecf6",
+        "foreground": "#2a2632",
+        "card": "#ece7f4",
+        "secondary": "#ece7f4",
+        "muted-foreground": "#2a2632",
+        "border": "#8f7ea0",
+        "primary": "#6e5e94",
+        "primary-foreground": "#ffffff",
+        "code": "#2a2632"
+      }
+    },
+    {
+      "id": "vscode-ingjoelcaraballo-dark-green-vscode-theme-dark-green-hacker",
+      "name": "Dark Green Hacker",
+      "dark": true,
+      "chrome": "#040804",
+      "primary": "#38ff14",
+      "secondary": "#040804",
+      "source": "Weekly #18 · Ing Joel Caraballo",
+      "url": "https://vscodethemes.com/e/IngJoelCaraballo.dark-green-vscode-theme/dark-green-hacker",
+      "colors": {
+        "background": "#040804",
+        "foreground": "#d4d4d4",
+        "card": "#030603",
+        "secondary": "#040804",
+        "muted-foreground": "#72d572",
+        "border": "#72d572",
+        "primary": "#38ff14",
+        "primary-foreground": "#030603",
+        "code": "#d4d4d4"
+      }
+    },
+    {
+      "id": "vscode-polinashcherbina-pastel-dreams-theme-pack-blue-bloom",
+      "name": "Blue Bloom",
+      "dark": false,
+      "chrome": "#f5f9fc",
+      "primary": "#2e6690",
+      "secondary": "#f3f3f3",
+      "source": "Weekly #19 · Polina Shcherbina",
+      "url": "https://vscodethemes.com/e/PolinaShcherbina.pastel-dreams-theme-pack/blue-bloom",
+      "colors": {
+        "background": "#f5f9fc",
+        "foreground": "#2e3a47",
+        "card": "#eaf2f8",
+        "secondary": "#f3f3f3",
+        "muted-foreground": "#2e3a47",
+        "border": "#2e3a47",
+        "primary": "#2e6690",
+        "primary-foreground": "#f5f9fc",
+        "code": "#2e3a47"
+      }
+    },
+    {
+      "id": "vscode-zhengfeiyang-voyage-mate-color-themes-voyage-mate-dark",
+      "name": "Voyage Mate Dark",
+      "dark": true,
+      "chrome": "#564d4c",
+      "primary": "#fad8ed",
+      "secondary": "#564d4c",
+      "source": "Weekly #20 · Zhengfei Yang",
+      "url": "https://vscodethemes.com/e/ZhengfeiYang.voyage-mate-color-themes/voyage-mate-dark",
+      "colors": {
+        "background": "#564d4c",
+        "foreground": "#fff7fb",
+        "card": "#252526",
+        "secondary": "#564d4c",
+        "muted-foreground": "#d7f0ec",
+        "border": "#d7f0ec",
+        "primary": "#fad8ed",
+        "primary-foreground": "#252526",
+        "code": "#fff7fb"
+      }
+    },
+    {
+      "id": "vscode-shxwat-warm-glass-warm-glass-dark",
+      "name": "Warm Glass Dark",
+      "dark": true,
+      "chrome": "#0f0e11",
+      "primary": "#e7b564",
+      "secondary": "#0f0e11",
+      "source": "Weekly #21 · Warm Glass Studio",
+      "url": "https://vscodethemes.com/e/shxwat.warm-glass/warm-glass-dark",
+      "colors": {
+        "background": "#0f0e11",
+        "foreground": "#e9e4dc",
+        "card": "#333333",
+        "secondary": "#0f0e11",
+        "muted-foreground": "#e9e4dc",
+        "border": "#e9e4dc",
+        "primary": "#e7b564",
+        "primary-foreground": "#0f0e11",
+        "code": "#e9e4dc"
+      }
+    },
+    {
+      "id": "vscode-congard-vsc-islands-theme-islands",
+      "name": "Islands",
+      "dark": true,
+      "chrome": "#181a1c",
+      "primary": "#cf8e6d",
+      "secondary": "#181a1c",
+      "source": "Weekly #22 · congard",
+      "url": "https://vscodethemes.com/e/congard.vsc-islands-theme/islands",
+      "colors": {
+        "background": "#181a1c",
+        "foreground": "#bcbec3",
+        "card": "#181a1c",
+        "secondary": "#181a1c",
+        "muted-foreground": "#b0b1b3",
+        "border": "#7a7e85",
+        "primary": "#cf8e6d",
+        "primary-foreground": "#181a1c",
+        "code": "#bcbec3"
+      }
+    },
+    {
+      "id": "vscode-vauxe-hatsune-miku-vscode-theme-hatsune-miku-theme",
+      "name": "Hatsune Miku Theme",
+      "dark": true,
+      "chrome": "#1a1f24",
+      "primary": "#33ccbb",
+      "secondary": "#22282c",
+      "source": "Weekly #23 · vauxe",
+      "url": "https://vscodethemes.com/e/vauxe.hatsune-miku-vscode-theme/hatsune-miku-theme",
+      "colors": {
+        "background": "#1a1f24",
+        "foreground": "#dee8f2",
+        "card": "#22282c",
+        "secondary": "#22282c",
+        "muted-foreground": "#89a0a1",
+        "border": "#8dc6b6",
+        "primary": "#33ccbb",
+        "primary-foreground": "#0c1013",
+        "code": "#dee8f2"
+      }
+    },
+    {
+      "id": "vscode-kelvinelove-neonvscode-neonvscode",
+      "name": "NeonVSCode",
+      "dark": true,
+      "chrome": "#000000",
+      "primary": "#0077d4",
+      "secondary": "#000000",
+      "source": "Weekly #24 · kelvinelove",
+      "url": "https://vscodethemes.com/e/kelvinelove.neonvscode/neonvscode",
+      "colors": {
+        "background": "#000000",
+        "foreground": "#cccccc",
+        "card": "#000000",
+        "secondary": "#000000",
+        "muted-foreground": "#868686",
+        "border": "#ffffff",
+        "primary": "#0077d4",
+        "primary-foreground": "#000000",
+        "code": "#cccccc"
+      }
+    },
+    {
+      "id": "vscode-ddlc-fan-ddlc-themes-ddlc-monika-dark",
+      "name": "DDLC - Monika Dark",
+      "dark": true,
+      "chrome": "#0c1813",
+      "primary": "#35e08a",
+      "secondary": "#0f1713",
+      "source": "Weekly #25 · DDLC Fan",
+      "url": "https://vscodethemes.com/e/ddlc-fan.ddlc-themes/ddlc-monika-dark",
+      "colors": {
+        "background": "#0c1813",
+        "foreground": "#d8f5e6",
+        "card": "#07110e",
+        "secondary": "#0f1713",
+        "muted-foreground": "#64d498",
+        "border": "#64d498",
+        "primary": "#35e08a",
+        "primary-foreground": "#07110e",
+        "code": "#d8f5e6"
+      }
+    },
+    {
+      "id": "vscode-matheuslopesdev-dark-2026-monokai-dark-2026-monokai",
+      "name": "Dark 2026 Monokai",
+      "dark": true,
+      "chrome": "#121314",
+      "primary": "#3994bc",
+      "secondary": "#191a1b",
+      "source": "Weekly #26 · matheuslopesdev",
+      "url": "https://vscodethemes.com/e/matheuslopesdev.dark-2026-monokai/dark-2026-monokai",
+      "colors": {
+        "background": "#121314",
+        "foreground": "#bbbebf",
+        "card": "#191a1b",
+        "secondary": "#191a1b",
+        "muted-foreground": "#8b8c8c",
+        "border": "#88846f",
+        "primary": "#3994bc",
+        "primary-foreground": "#121314",
+        "code": "#bbbebf"
+      }
+    },
+    {
+      "id": "vscode-guyowen-macos-terminal-theme-macos-terminal-pro",
+      "name": "macOS Terminal (Pro)",
+      "dark": true,
+      "chrome": "#000000",
+      "primary": "#00d900",
+      "secondary": "#000000",
+      "source": "Weekly #27 · guyowen",
+      "url": "https://vscodethemes.com/e/guyowen.macos-terminal-theme/macos-terminal-pro",
+      "colors": {
+        "background": "#000000",
+        "foreground": "#f4f4f4",
+        "card": "#000000",
+        "secondary": "#000000",
+        "muted-foreground": "#f4f4f4",
+        "border": "#666666",
+        "primary": "#00d900",
+        "primary-foreground": "#000000",
+        "code": "#f4f4f4"
+      }
+    },
+    {
+      "id": "vscode-iareebahmad-jarvis-hud-jarvis-hud",
+      "name": "JARVIS HUD",
+      "dark": true,
+      "chrome": "#03080d",
+      "primary": "#00d9ff",
+      "secondary": "#010509",
+      "source": "Weekly #28 · Areeb Ahmad",
+      "url": "https://vscodethemes.com/e/iareebahmad.jarvis-hud/jarvis-hud",
+      "colors": {
+        "background": "#03080d",
+        "foreground": "#c5ccd6",
+        "card": "#010509",
+        "secondary": "#010509",
+        "muted-foreground": "#c5ccd6",
+        "border": "#59636e",
+        "primary": "#00d9ff",
+        "primary-foreground": "#010509",
+        "code": "#c5ccd6"
+      }
+    },
+    {
+      "id": "vscode-mozaddedalfeshani-murad-amoled-murad-alokito",
+      "name": "Murad Alokito",
+      "dark": false,
+      "chrome": "#f5fbf8",
+      "primary": "#0a7a6a",
+      "secondary": "#f5fbf8",
+      "source": "Weekly #29 · mozaddedalfeshani",
+      "url": "https://vscodethemes.com/e/mozaddedalfeshani.murad-amoled/murad-alokito",
+      "colors": {
+        "background": "#f5fbf8",
+        "foreground": "#1a2e28",
+        "card": "#eef7f3",
+        "secondary": "#f5fbf8",
+        "muted-foreground": "#5a736b",
+        "border": "#6e7681",
+        "primary": "#0a7a6a",
+        "primary-foreground": "#ffffff",
+        "code": "#1a2e28"
+      }
+    },
+    {
+      "id": "vscode-spicarrtechnology-nigga-theme-nigga",
+      "name": "Nigga",
+      "dark": true,
+      "chrome": "#060911",
+      "primary": "#ef7178",
+      "secondary": "#080f1c",
+      "source": "Weekly #30 · spicarr technology",
+      "url": "https://vscodethemes.com/e/spicarrtechnology.nigga-theme/nigga",
+      "colors": {
+        "background": "#060911",
+        "foreground": "#d6deea",
+        "card": "#050812",
+        "secondary": "#080f1c",
+        "muted-foreground": "#8fa3bd",
+        "border": "#8fa3bd",
+        "primary": "#ef7178",
+        "primary-foreground": "#050812",
+        "code": "#d6deea"
+      }
+    },
+    {
+      "id": "vscode-martinalejandrooviedo-russianhacker-theme-russian-hacker",
+      "name": "Russian Hacker",
+      "dark": true,
+      "chrome": "#0b0710",
+      "primary": "#e1ae84",
+      "secondary": "#0b0710",
+      "source": "Weekly #31 · Martin Alejandro Oviedo",
+      "url": "https://vscodethemes.com/e/MartinAlejandroOviedo.russianhacker-theme/russian-hacker",
+      "colors": {
+        "background": "#0b0710",
+        "foreground": "#e1ae84",
+        "card": "#0b0710",
+        "secondary": "#0b0710",
+        "muted-foreground": "#e2ae84",
+        "border": "#e2ae84",
+        "primary": "#e1ae84",
+        "primary-foreground": "#0b0710",
+        "code": "#e1ae84"
+      }
+    },
+    {
+      "id": "vscode-thomas-fazzari-vscode-edgerunners-edgerunners",
+      "name": "Edgerunners",
+      "dark": true,
+      "chrome": "#070b11",
+      "primary": "#ff6b8b",
+      "secondary": "#252526",
+      "source": "Weekly #32 · Thomas Fazzari",
+      "url": "https://vscodethemes.com/e/thomas-fazzari.vscode-edgerunners/edgerunners",
+      "colors": {
+        "background": "#070b11",
+        "foreground": "#a8a49d",
+        "card": "#05080d",
+        "secondary": "#252526",
+        "muted-foreground": "#a8a49d",
+        "border": "#71798a",
+        "primary": "#ff6b8b",
+        "primary-foreground": "#05080d",
+        "code": "#a8a49d"
+      }
+    },
+    {
+      "id": "vscode-agusmoky-kangel-ngo-kangel-needy-girl-overdose",
+      "name": "KAngel — Needy Girl Overdose",
+      "dark": true,
+      "chrome": "#0d0a13",
+      "primary": "#ff6eb4",
+      "secondary": "#080610",
+      "source": "Weekly #33 · Agusmoky",
+      "url": "https://vscodethemes.com/e/Agusmoky.kangel-ngo/kangel-needy-girl-overdose",
+      "colors": {
+        "background": "#0d0a13",
+        "foreground": "#f0d6f5",
+        "card": "#080610",
+        "secondary": "#080610",
+        "muted-foreground": "#f0d6f5",
+        "border": "#f0d6f5",
+        "primary": "#ff6eb4",
+        "primary-foreground": "#080610",
+        "code": "#f0d6f5"
+      }
+    },
+    {
+      "id": "vscode-abhishekchoudhury-adalabs-terminal-adalabs-terminal",
+      "name": "AdaLabs Terminal",
+      "dark": true,
+      "chrome": "#000000",
+      "primary": "#00d9ff",
+      "secondary": "#000000",
+      "source": "Weekly #34 · Abhishek Choudhury",
+      "url": "https://vscodethemes.com/e/AbhishekChoudhury.adalabs-terminal/adalabs-terminal",
+      "colors": {
+        "background": "#000000",
+        "foreground": "#dce3ea",
+        "card": "#000000",
+        "secondary": "#000000",
+        "muted-foreground": "#dce3ea",
+        "border": "#59636e",
+        "primary": "#00d9ff",
+        "primary-foreground": "#000000",
+        "code": "#dce3ea"
+      }
+    },
+    {
+      "id": "vscode-axelollivier-ambience-themes-ambience-amber",
+      "name": "Ambience: Amber",
+      "dark": true,
+      "chrome": "#19140d",
+      "primary": "#feb454",
+      "secondary": "#110d08",
+      "source": "Weekly #35 · Axel Ollivier",
+      "url": "https://vscodethemes.com/e/AxelOllivier.ambience-themes/ambience-amber",
+      "colors": {
+        "background": "#19140d",
+        "foreground": "#dfb074",
+        "card": "#110d08",
+        "secondary": "#110d08",
+        "muted-foreground": "#dfb074",
+        "border": "#7e6549",
+        "primary": "#feb454",
+        "primary-foreground": "#110d08",
+        "code": "#dfb074"
+      }
+    },
+    {
+      "id": "vscode-luanzt-oh-my-dark-oh-my-dark",
+      "name": "Oh My Dark",
+      "dark": true,
+      "chrome": "#171817",
+      "primary": "#88c0d0",
+      "secondary": "#141414",
+      "source": "Weekly #36 · luanzt",
+      "url": "https://vscodethemes.com/e/luanzt.oh-my-dark/oh-my-dark",
+      "colors": {
+        "background": "#171817",
+        "foreground": "#f0f0f0",
+        "card": "#141414",
+        "secondary": "#141414",
+        "muted-foreground": "#f0f0f0",
+        "border": "#7b7f8b",
+        "primary": "#88c0d0",
+        "primary-foreground": "#141414",
+        "code": "#f0f0f0"
+      }
+    },
+    {
+      "id": "vscode-evanlong-cursor-themes-cursor-dark",
+      "name": "Cursor Dark",
+      "dark": true,
+      "chrome": "#171817",
+      "primary": "#88c0d0",
+      "secondary": "#141414",
+      "source": "Weekly #37 · Evan Long",
+      "url": "https://vscodethemes.com/e/evanlong.cursor-themes/cursor-dark",
+      "colors": {
+        "background": "#171817",
+        "foreground": "#f0f0f0",
+        "card": "#141414",
+        "secondary": "#141414",
+        "muted-foreground": "#f0f0f0",
+        "border": "#f0f0f0",
+        "primary": "#88c0d0",
+        "primary-foreground": "#141414",
+        "code": "#f0f0f0"
+      }
+    },
+    {
+      "id": "vscode-servicenow-now-vscode-extension-ainpx-lab-aiux-dark",
+      "name": "AIUX Dark",
+      "dark": true,
+      "chrome": "#0a1828",
+      "primary": "#61d94e",
+      "secondary": "#0b1c2e",
+      "source": "Weekly #38 · ServiceNow",
+      "url": "https://vscodethemes.com/e/ServiceNow.now-vscode-extension-ainpx-lab/aiux-dark",
+      "colors": {
+        "background": "#0a1828",
+        "foreground": "#f2f2f2",
+        "card": "#060f18",
+        "secondary": "#0b1c2e",
+        "muted-foreground": "#f2f2f2",
+        "border": "#5a8095",
+        "primary": "#61d94e",
+        "primary-foreground": "#060f18",
+        "code": "#f2f2f2"
+      }
+    },
+    {
+      "id": "vscode-hasiburr-dracula-pro-pack-dracula-pro-abyss",
+      "name": "Dracula Pro Abyss",
+      "dark": true,
+      "chrome": "#050b14",
+      "primary": "#eb4898",
+      "secondary": "#02070d",
+      "source": "Weekly #39 · Hasibur R",
+      "url": "https://vscodethemes.com/e/HasiburR.dracula-pro-pack/dracula-pro-abyss",
+      "colors": {
+        "background": "#050b14",
+        "foreground": "#f0f9ff",
+        "card": "#010408",
+        "secondary": "#02070d",
+        "muted-foreground": "#f0f9ff",
+        "border": "#f0f9ff",
+        "primary": "#eb4898",
+        "primary-foreground": "#010408",
+        "code": "#f0f9ff"
+      }
+    },
+    {
+      "id": "vscode-davellen-koda-theme-vscode-koda",
+      "name": "Koda",
+      "dark": true,
+      "chrome": "#0f0f0f",
+      "primary": "#d9ba73",
+      "secondary": "#0f0f0f",
+      "source": "Weekly #40 · davellen",
+      "url": "https://vscodethemes.com/e/davellen.koda-theme-vscode/koda",
+      "colors": {
+        "background": "#0f0f0f",
+        "foreground": "#b0b0b0",
+        "card": "#0f0f0f",
+        "secondary": "#0f0f0f",
+        "muted-foreground": "#b0b0b0",
+        "border": "#b0b0b0",
+        "primary": "#d9ba73",
+        "primary-foreground": "#0f0f0f",
+        "code": "#b0b0b0"
+      }
+    },
+    {
+      "id": "vscode-adityasasidhar-cutiepie-cutiepie-dark",
+      "name": "Cutiepie Dark",
+      "dark": true,
+      "chrome": "#0a0907",
+      "primary": "#f7b2c9",
+      "secondary": "#0a0907",
+      "source": "Weekly #41 · Aditya Sasidhar",
+      "url": "https://vscodethemes.com/e/adityasasidhar.cutiepie/cutiepie-dark",
+      "colors": {
+        "background": "#0a0907",
+        "foreground": "#ffffff",
+        "card": "#0a0907",
+        "secondary": "#0a0907",
+        "muted-foreground": "#9b808c",
+        "border": "#9b808c",
+        "primary": "#f7b2c9",
+        "primary-foreground": "#0a0907",
+        "code": "#ffffff"
+      }
+    },
+    {
+      "id": "vscode-mustafamanhal-vanta-black-black-bordered",
+      "name": "Black Bordered",
+      "dark": true,
+      "chrome": "#000000",
+      "primary": "#0079cb",
+      "secondary": "#000000",
+      "source": "Weekly #42 · Mustafa Manhal",
+      "url": "https://vscodethemes.com/e/MustafaManhal.vanta-black/black-bordered",
+      "colors": {
+        "background": "#000000",
+        "foreground": "#c0c0bf",
+        "card": "#000000",
+        "secondary": "#000000",
+        "muted-foreground": "#6a9955",
+        "border": "#6a9955",
+        "primary": "#0079cb",
+        "primary-foreground": "#000000",
+        "code": "#c0c0bf"
+      }
+    },
+    {
+      "id": "vscode-joseaneudyrosario-fiesta-dark-fiesta-dark",
+      "name": "Fiesta Dark",
+      "dark": true,
+      "chrome": "#191a19",
+      "primary": "#00b3b8",
+      "secondary": "#252525",
+      "source": "Weekly #43 · Jose Aneudy Rosario",
+      "url": "https://vscodethemes.com/e/JoseAneudyRosario.fiesta-dark/fiesta-dark",
+      "colors": {
+        "background": "#191a19",
+        "foreground": "#d4d4d4",
+        "card": "#1f1f1e",
+        "secondary": "#252525",
+        "muted-foreground": "#d4d4d4",
+        "border": "#858585",
+        "primary": "#00b3b8",
+        "primary-foreground": "#191a19",
+        "code": "#d4d4d4"
+      }
+    },
+    {
+      "id": "vscode-smallyu-codex-palette-codex-palette-absolutely-dark",
+      "name": "Codex Palette — Absolutely Dark",
+      "dark": true,
+      "chrome": "#2c2d2b",
+      "primary": "#00c853",
+      "secondary": "#373735",
+      "source": "Weekly #44 · smallyu",
+      "url": "https://vscodethemes.com/e/smallyu.codex-palette/codex-palette-absolutely-dark",
+      "colors": {
+        "background": "#2c2d2b",
+        "foreground": "#f9f9f7",
+        "card": "#373735",
+        "secondary": "#373735",
+        "muted-foreground": "#b2b2b0",
+        "border": "#b2b2b0",
+        "primary": "#00c853",
+        "primary-foreground": "#2c2d2b",
+        "code": "#f9f9f7"
+      }
+    },
+    {
+      "id": "vscode-yallankardaz-arknights-endfield-theme-arknights-endfield-light",
+      "name": "Arknights: Endfield (Light)",
+      "dark": false,
+      "chrome": "#fafaf7",
+      "primary": "#1a7a40",
+      "secondary": "#eeecec",
+      "source": "Weekly #45 · Yalla Nkardaz",
+      "url": "https://vscodethemes.com/e/YallaNkardaz.arknights-endfield-theme/arknights-endfield-light",
+      "colors": {
+        "background": "#fafaf7",
+        "foreground": "#1d1e22",
+        "card": "#eeecec",
+        "secondary": "#eeecec",
+        "muted-foreground": "#1d1e22",
+        "border": "#2a2a30",
+        "primary": "#1a7a40",
+        "primary-foreground": "#fffdfd",
+        "code": "#1d1e22"
+      }
+    },
+    {
+      "id": "vscode-igolskyi-vsc-vscode-github-dark-inspired-theme-github-dark-inspired",
+      "name": "GitHub Dark Inspired",
+      "dark": true,
+      "chrome": "#0d1117",
+      "primary": "#2ec27e",
+      "secondary": "#0d1117",
+      "source": "Weekly #46 · igolskyi-vsc",
+      "url": "https://vscodethemes.com/e/igolskyi-vsc.vscode-github-dark-inspired-theme/github-dark-inspired",
+      "colors": {
+        "background": "#0d1117",
+        "foreground": "#e6edf3",
+        "card": "#010409",
+        "secondary": "#0d1117",
+        "muted-foreground": "#e6edf3",
+        "border": "#6272a4",
+        "primary": "#2ec27e",
+        "primary-foreground": "#000000",
+        "code": "#e6edf3"
+      }
+    },
+    {
+      "id": "vscode-tmaume-tung-tung-tung-sahur-theme-tung-tung-sahur-dark",
+      "name": "Tung Tung Sahur Dark",
+      "dark": true,
+      "chrome": "#18110d",
+      "primary": "#c66f28",
+      "secondary": "#100a06",
+      "source": "Weekly #47 · TMaume",
+      "url": "https://vscodethemes.com/e/TMaume.tung-tung-tung-sahur-theme/tung-tung-sahur-dark",
+      "colors": {
+        "background": "#18110d",
+        "foreground": "#dcc4a9",
+        "card": "#140c06",
+        "secondary": "#100a06",
+        "muted-foreground": "#dcc4a9",
+        "border": "#755c48",
+        "primary": "#c66f28",
+        "primary-foreground": "#100a06",
+        "code": "#dcc4a9"
+      }
+    },
+    {
+      "id": "vscode-chaoxh-green-pro-green-pro",
+      "name": "Green Pro",
+      "dark": false,
+      "chrome": "#dce8d4",
+      "primary": "#2d6a4f",
+      "secondary": "#d3dfc9",
+      "source": "Weekly #48 · chaox",
+      "url": "https://vscodethemes.com/e/chaoxh.green-pro/green-pro",
+      "colors": {
+        "background": "#dce8d4",
+        "foreground": "#2c3a33",
+        "card": "#d3dfc9",
+        "secondary": "#d3dfc9",
+        "muted-foreground": "#2c3a33",
+        "border": "#6f7c74",
+        "primary": "#2d6a4f",
+        "primary-foreground": "#f5f9f1",
+        "code": "#2c3a33"
+      }
+    },
+    {
+      "id": "vscode-overengineered-org-everforest-complete-everforest-complete-dark",
+      "name": "Everforest Complete Dark",
+      "dark": true,
+      "chrome": "#2d353b",
+      "primary": "#a6c080",
+      "secondary": "#272e33",
+      "source": "Weekly #49 · Overengineered",
+      "url": "https://vscodethemes.com/e/overengineered-org.everforest-complete/everforest-complete-dark",
+      "colors": {
+        "background": "#2d353b",
+        "foreground": "#d3c6aa",
+        "card": "#272e33",
+        "secondary": "#272e33",
+        "muted-foreground": "#9ba89e",
+        "border": "#9ba89e",
+        "primary": "#a6c080",
+        "primary-foreground": "#20272b",
+        "code": "#d3c6aa"
+      }
+    },
+    {
+      "id": "vscode-steventheuerl-forest-phosphor-forest-phosphor",
+      "name": "Forest Phosphor",
+      "dark": true,
+      "chrome": "#0f180b",
+      "primary": "#7af8ff",
+      "secondary": "#0d170b",
+      "source": "Weekly #50 · Steven Theuerl",
+      "url": "https://vscodethemes.com/e/StevenTheuerl.forest-phosphor/forest-phosphor",
+      "colors": {
+        "background": "#0f180b",
+        "foreground": "#a2eba1",
+        "card": "#0d170b",
+        "secondary": "#0d170b",
+        "muted-foreground": "#a2eba1",
+        "border": "#5c8656",
+        "primary": "#7af8ff",
+        "primary-foreground": "#0d170b",
+        "code": "#a2eba1"
+      }
+    },
+    {
+      "id": "vscode-ms-vscode-cpptools-themes-2017-dark-visual-studio-c-c",
+      "name": "2017 Dark (Visual Studio - C/C++)",
+      "dark": true,
+      "chrome": "#1e1e1e",
+      "primary": "#b5cea8",
+      "secondary": "#252526",
+      "source": "Installs #1 · Microsoft",
+      "url": "https://vscodethemes.com/e/ms-vscode.cpptools-themes/2017-dark-visual-studio-c-c",
+      "colors": {
+        "background": "#1e1e1e",
+        "foreground": "#d4d4d4",
+        "card": "#333333",
+        "secondary": "#252526",
+        "muted-foreground": "#d4d4d4",
+        "border": "#6a9955",
+        "primary": "#b5cea8",
+        "primary-foreground": "#1e1e1e",
+        "code": "#d4d4d4"
+      }
+    },
+    {
+      "id": "vscode-ms-vscode-powershell-powershell-ise",
+      "name": "PowerShell ISE",
+      "dark": false,
+      "chrome": "#ffffff",
+      "primary": "#00008b",
+      "secondary": "#f3f3f3",
+      "source": "Installs #2 · Microsoft",
+      "url": "https://vscodethemes.com/e/ms-vscode.PowerShell/powershell-ise",
+      "colors": {
+        "background": "#ffffff",
+        "foreground": "#333333",
+        "card": "#f3f3f3",
+        "secondary": "#f3f3f3",
+        "muted-foreground": "#006400",
+        "border": "#006400",
+        "primary": "#00008b",
+        "primary-foreground": "#ffffff",
+        "code": "#333333"
+      }
+    },
+    {
+      "id": "vscode-github-github-vscode-theme-github-dark",
+      "name": "GitHub Dark",
+      "dark": true,
+      "chrome": "#24282d",
+      "primary": "#f9826c",
+      "secondary": "#24282d",
+      "source": "Installs #3 · GitHub",
+      "url": "https://vscodethemes.com/e/GitHub.github-vscode-theme/github-dark",
+      "colors": {
+        "background": "#24282d",
+        "foreground": "#e1e4e8",
+        "card": "#1e2328",
+        "secondary": "#24282d",
+        "muted-foreground": "#e1e4e8",
+        "border": "#6a737d",
+        "primary": "#f9826c",
+        "primary-foreground": "#1b1f23",
+        "code": "#e1e4e8"
+      }
+    },
+    {
+      "id": "vscode-zhuangtongfa-material-theme-one-dark-pro",
+      "name": "One Dark Pro",
+      "dark": true,
+      "chrome": "#272c33",
+      "primary": "#c678dd",
+      "secondary": "#272c33",
+      "source": "Installs #4 · binaryify",
+      "url": "https://vscodethemes.com/e/zhuangtongfa.Material-theme/one-dark-pro",
+      "colors": {
+        "background": "#272c33",
+        "foreground": "#aab2bf",
+        "card": "#21252b",
+        "secondary": "#272c33",
+        "muted-foreground": "#aab2bf",
+        "border": "#7f848e",
+        "primary": "#c678dd",
+        "primary-foreground": "#171a1e",
+        "code": "#aab2bf"
+      }
+    },
+    {
+      "id": "vscode-dracula-theme-theme-dracula-dracula-theme",
+      "name": "Dracula Theme",
+      "dark": true,
+      "chrome": "#272a36",
+      "primary": "#ff79c6",
+      "secondary": "#191a21",
+      "source": "Installs #5 · Dracula Theme",
+      "url": "https://vscodethemes.com/e/dracula-theme.theme-dracula/dracula-theme",
+      "colors": {
+        "background": "#272a36",
+        "foreground": "#f8f8f2",
+        "card": "#343746",
+        "secondary": "#191a21",
+        "muted-foreground": "#f8f8f2",
+        "border": "#f8f8f2",
+        "primary": "#ff79c6",
+        "primary-foreground": "#191a21",
+        "code": "#f8f8f2"
+      }
+    },
+    {
+      "id": "vscode-akamud-vscode-theme-onedark-atom-one-dark",
+      "name": "Atom One Dark",
+      "dark": true,
+      "chrome": "#272c33",
+      "primary": "#61afef",
+      "secondary": "#21252b",
+      "source": "Installs #6 · Mahmoud Ali",
+      "url": "https://vscodethemes.com/e/akamud.vscode-theme-onedark/atom-one-dark",
+      "colors": {
+        "background": "#272c33",
+        "foreground": "#aab2bf",
+        "card": "#333842",
+        "secondary": "#21252b",
+        "muted-foreground": "#aab2bf",
+        "border": "#aab2bf",
+        "primary": "#61afef",
+        "primary-foreground": "#171a1e",
+        "code": "#aab2bf"
+      }
+    },
+    {
+      "id": "vscode-equinusocio-vsc-material-theme-material-theme",
+      "name": "Material Theme",
+      "dark": true,
+      "chrome": "#263238",
+      "primary": "#80cbc4",
+      "secondary": "#263238",
+      "source": "Installs #7 · Material Theme",
+      "url": "https://vscodethemes.com/e/Equinusocio.vsc-material-theme/material-theme",
+      "colors": {
+        "background": "#263238",
+        "foreground": "#edffff",
+        "card": "#263238",
+        "secondary": "#263238",
+        "muted-foreground": "#edffff",
+        "border": "#edffff",
+        "primary": "#80cbc4",
+        "primary-foreground": "#000000",
+        "code": "#edffff"
+      }
+    },
+    {
+      "id": "vscode-teabyii-ayu-ayu-dark",
+      "name": "Ayu Dark",
+      "dark": true,
+      "chrome": "#10141c",
+      "primary": "#e6b450",
+      "secondary": "#0b0e14",
+      "source": "Installs #8 · Ayu Theme",
+      "url": "https://vscodethemes.com/e/teabyii.ayu/ayu-dark",
+      "colors": {
+        "background": "#10141c",
+        "foreground": "#bebdb6",
+        "card": "#0c1017",
+        "secondary": "#0b0e14",
+        "muted-foreground": "#bebdb6",
+        "border": "#5a6673",
+        "primary": "#e6b450",
+        "primary-foreground": "#000102",
+        "code": "#bebdb6"
+      }
+    },
+    {
+      "id": "vscode-monokai-theme-monokai-pro-vscode-monokai-classic",
+      "name": "Monokai Classic",
+      "dark": true,
+      "chrome": "#272822",
+      "primary": "#e6db74",
+      "secondary": "#272822",
+      "source": "Installs #9 · monokai",
+      "url": "https://vscodethemes.com/e/monokai.theme-monokai-pro-vscode/monokai-classic",
+      "colors": {
+        "background": "#272822",
+        "foreground": "#fdfff1",
+        "card": "#161613",
+        "secondary": "#272822",
+        "muted-foreground": "#fdfff1",
+        "border": "#fdfff1",
+        "primary": "#e6db74",
+        "primary-foreground": "#161613",
+        "code": "#fdfff1"
+      }
+    },
+    {
+      "id": "vscode-johnpapa-winteriscoming-winter-is-coming-dark-black",
+      "name": "Winter is Coming (Dark Black)",
+      "dark": true,
+      "chrome": "#272822",
+      "primary": "#219fd5",
+      "secondary": "#272822",
+      "source": "Installs #10 · John Papa",
+      "url": "https://vscodethemes.com/e/johnpapa.winteriscoming/winter-is-coming-dark-black",
+      "colors": {
+        "background": "#272822",
+        "foreground": "#a7dbf7",
+        "card": "#010e1a",
+        "secondary": "#272822",
+        "muted-foreground": "#999999",
+        "border": "#999999",
+        "primary": "#219fd5",
+        "primary-foreground": "#010e1a",
+        "code": "#a7dbf7"
+      }
+    },
+    {
+      "id": "vscode-sdras-night-owl-night-owl",
+      "name": "Night Owl",
+      "dark": true,
+      "chrome": "#011627",
+      "primary": "#c792ea",
+      "secondary": "#011627",
+      "source": "Installs #11 · sarah.drasner",
+      "url": "https://vscodethemes.com/e/sdras.night-owl/night-owl",
+      "colors": {
+        "background": "#011627",
+        "foreground": "#d6deea",
+        "card": "#01111c",
+        "secondary": "#011627",
+        "muted-foreground": "#d6deea",
+        "border": "#637777",
+        "primary": "#c792ea",
+        "primary-foreground": "#01111c",
+        "code": "#d6deea"
+      }
+    },
+    {
+      "id": "vscode-enkia-tokyo-night-tokyo-night",
+      "name": "Tokyo Night",
+      "dark": true,
+      "chrome": "#1a1b25",
+      "primary": "#9d7cd8",
+      "secondary": "#16161e",
+      "source": "Installs #12 · enkia",
+      "url": "https://vscodethemes.com/e/enkia.tokyo-night/tokyo-night",
+      "colors": {
+        "background": "#1a1b25",
+        "foreground": "#a9b1d6",
+        "card": "#16161e",
+        "secondary": "#16161e",
+        "muted-foreground": "#a9b1d6",
+        "border": "#a9b1d6",
+        "primary": "#9d7cd8",
+        "primary-foreground": "#101014",
+        "code": "#a9b1d6"
+      }
+    },
+    {
+      "id": "vscode-azemoh-one-monokai-one-monokai",
+      "name": "One Monokai",
+      "dark": true,
+      "chrome": "#272c33",
+      "primary": "#56b6c2",
+      "secondary": "#21252b",
+      "source": "Installs #13 · Joshua Azemoh",
+      "url": "https://vscodethemes.com/e/azemoh.one-monokai/one-monokai",
+      "colors": {
+        "background": "#272c33",
+        "foreground": "#bbbbbb",
+        "card": "#2f333d",
+        "secondary": "#21252b",
+        "muted-foreground": "#bbbbbb",
+        "border": "#bbbbbb",
+        "primary": "#56b6c2",
+        "primary-foreground": "#171a1e",
+        "code": "#bbbbbb"
+      }
+    },
+    {
+      "id": "vscode-whizkydee-material-palenight-theme-palenight-italic",
+      "name": "Palenight Italic",
+      "dark": true,
+      "chrome": "#292d3e",
+      "primary": "#c792ea",
+      "secondary": "#31364a",
+      "source": "Installs #14 · Olaolu Olawuyi",
+      "url": "https://vscodethemes.com/e/whizkydee.material-palenight-theme/palenight-italic",
+      "colors": {
+        "background": "#292d3e",
+        "foreground": "#bfc7d5",
+        "card": "#282c3c",
+        "secondary": "#31364a",
+        "muted-foreground": "#bfc7d5",
+        "border": "#bfc7d5",
+        "primary": "#c792ea",
+        "primary-foreground": "#262a39",
+        "code": "#bfc7d5"
+      }
+    },
+    {
+      "id": "vscode-robbowen-synthwave-vscode-synthwave-84",
+      "name": "SynthWave '84",
+      "dark": true,
+      "chrome": "#262334",
+      "primary": "#f97e72",
+      "secondary": "#241b2e",
+      "source": "Installs #15 · Robb Owen",
+      "url": "https://vscodethemes.com/e/RobbOwen.synthwave-vscode/synthwave-84",
+      "colors": {
+        "background": "#262334",
+        "foreground": "#bbbbbb",
+        "card": "#171520",
+        "secondary": "#241b2e",
+        "muted-foreground": "#848bbd",
+        "border": "#848bbd",
+        "primary": "#f97e72",
+        "primary-foreground": "#171520",
+        "code": "#bbbbbb"
+      }
+    },
+    {
+      "id": "vscode-ahmadawais-shades-of-purple-shades-of-purple",
+      "name": "Shades of Purple",
+      "dark": true,
+      "chrome": "#2d2b54",
+      "primary": "#f9d000",
+      "secondary": "#2d2b54",
+      "source": "Installs #16 · Ahmad Awais ⚡",
+      "url": "https://vscodethemes.com/e/ahmadawais.shades-of-purple/shades-of-purple",
+      "colors": {
+        "background": "#2d2b54",
+        "foreground": "#ffffff",
+        "card": "#28284d",
+        "secondary": "#2d2b54",
+        "muted-foreground": "#a599e9",
+        "border": "#b362ff",
+        "primary": "#f9d000",
+        "primary-foreground": "#1e1e3e",
+        "code": "#ffffff"
+      }
+    },
+    {
+      "id": "vscode-wesbos-theme-cobalt2-cobalt2",
+      "name": "Cobalt2",
+      "dark": true,
+      "chrome": "#193549",
+      "primary": "#fec600",
+      "secondary": "#14232c",
+      "source": "Installs #17 · Wes Bos",
+      "url": "https://vscodethemes.com/e/wesbos.theme-cobalt2/cobalt2",
+      "colors": {
+        "background": "#193549",
+        "foreground": "#ffffff",
+        "card": "#122738",
+        "secondary": "#14232c",
+        "muted-foreground": "#ffffff",
+        "border": "#0088ff",
+        "primary": "#fec600",
+        "primary-foreground": "#000000",
+        "code": "#ffffff"
+      }
+    },
+    {
+      "id": "vscode-eliverlara-andromeda-andromeda",
+      "name": "Andromeda",
+      "dark": true,
+      "chrome": "#22252d",
+      "primary": "#00b0ff",
+      "secondary": "#22252d",
+      "source": "Installs #18 · Eliver  Lara",
+      "url": "https://vscodethemes.com/e/EliverLara.andromeda/andromeda",
+      "colors": {
+        "background": "#22252d",
+        "foreground": "#d4ced9",
+        "card": "#22252d",
+        "secondary": "#22252d",
+        "muted-foreground": "#d4ced9",
+        "border": "#d4ced9",
+        "primary": "#00b0ff",
+        "primary-foreground": "#20232a",
+        "code": "#d4ced9"
+      }
+    },
+    {
+      "id": "vscode-tal7aouy-theme-theme",
+      "name": "Theme",
+      "dark": true,
+      "chrome": "#272c33",
+      "primary": "#61afef",
+      "secondary": "#272c33",
+      "source": "Installs #19 · Mhammed Talhaouy",
+      "url": "https://vscodethemes.com/e/tal7aouy.theme/theme",
+      "colors": {
+        "background": "#272c33",
+        "foreground": "#aab2bf",
+        "card": "#21252b",
+        "secondary": "#272c33",
+        "muted-foreground": "#aab2bf",
+        "border": "#7f848e",
+        "primary": "#61afef",
+        "primary-foreground": "#171a1e",
+        "code": "#aab2bf"
+      }
+    },
+    {
+      "id": "vscode-beardedbear-beardedtheme-bearded-themanopia-experimental",
+      "name": "Bearded Themanopia (Experimental)",
+      "dark": true,
+      "chrome": "#1a1e27",
+      "primary": "#9887eb",
+      "secondary": "#101218",
+      "source": "Installs #20 · BeardedBear",
+      "url": "https://vscodethemes.com/e/BeardedBear.beardedtheme/bearded-themanopia-experimental",
+      "colors": {
+        "background": "#1a1e27",
+        "foreground": "#ccd0dc",
+        "card": "#161921",
+        "secondary": "#101218",
+        "muted-foreground": "#ccd0dc",
+        "border": "#ccd0dc",
+        "primary": "#9887eb",
+        "primary-foreground": "#0e1016",
+        "code": "#ccd0dc"
+      }
+    },
+    {
+      "id": "vscode-akamud-vscode-theme-onelight-atom-one-light",
+      "name": "Atom One Light",
+      "dark": false,
+      "chrome": "#fafafa",
+      "primary": "#a626a4",
+      "secondary": "#fafafa",
+      "source": "Installs #21 · Mahmoud Ali",
+      "url": "https://vscodethemes.com/e/akamud.vscode-theme-onelight/atom-one-light",
+      "colors": {
+        "background": "#fafafa",
+        "foreground": "#383a42",
+        "card": "#fafafa",
+        "secondary": "#fafafa",
+        "muted-foreground": "#383a42",
+        "border": "#383a42",
+        "primary": "#a626a4",
+        "primary-foreground": "#ffffff",
+        "code": "#383a42"
+      }
+    },
+    {
+      "id": "vscode-catppuccin-catppuccin-vsc-catppuccin-frappe",
+      "name": "Catppuccin Frappé",
+      "dark": true,
+      "chrome": "#303446",
+      "primary": "#ca9ee6",
+      "secondary": "#292c3c",
+      "source": "Installs #22 · Catppuccin",
+      "url": "https://vscodethemes.com/e/Catppuccin.catppuccin-vsc/catppuccin-frappe",
+      "colors": {
+        "background": "#303446",
+        "foreground": "#c6d0f5",
+        "card": "#222633",
+        "secondary": "#292c3c",
+        "muted-foreground": "#949cbb",
+        "border": "#949cbb",
+        "primary": "#ca9ee6",
+        "primary-foreground": "#222633",
+        "code": "#c6d0f5"
+      }
+    },
+    {
+      "id": "vscode-liviuschera-noctis-noctis",
+      "name": "Noctis",
+      "dark": true,
+      "chrome": "#052528",
+      "primary": "#40d4e7",
+      "secondary": "#052528",
+      "source": "Installs #23 · Liviu Schera",
+      "url": "https://vscodethemes.com/e/liviuschera.noctis/noctis",
+      "colors": {
+        "background": "#052528",
+        "foreground": "#b2cacd",
+        "card": "#062e32",
+        "secondary": "#052528",
+        "muted-foreground": "#b2cacd",
+        "border": "#5b858b",
+        "primary": "#40d4e7",
+        "primary-foreground": "#0f1415",
+        "code": "#b2cacd"
+      }
+    },
+    {
+      "id": "vscode-arcticicestudio-nord-visual-studio-code-nord",
+      "name": "Nord",
+      "dark": true,
+      "chrome": "#2e343f",
+      "primary": "#88c0d0",
+      "secondary": "#2e343f",
+      "source": "Installs #24 · arcticicestudio",
+      "url": "https://vscodethemes.com/e/arcticicestudio.nord-visual-studio-code/nord",
+      "colors": {
+        "background": "#2e343f",
+        "foreground": "#d7dee9",
+        "card": "#2e343f",
+        "secondary": "#2e343f",
+        "muted-foreground": "#d7dee9",
+        "border": "#d7dee9",
+        "primary": "#88c0d0",
+        "primary-foreground": "#2e343f",
+        "code": "#d7dee9"
+      }
+    },
+    {
+      "id": "vscode-tinkertrain-theme-panda-panda-syntax",
+      "name": "Panda Syntax",
+      "dark": true,
+      "chrome": "#282a2a",
+      "primary": "#19f9d8",
+      "secondary": "#252526",
+      "source": "Installs #25 · Panda Theme",
+      "url": "https://vscodethemes.com/e/tinkertrain.theme-panda/panda-syntax",
+      "colors": {
+        "background": "#282a2a",
+        "foreground": "#e6e6e6",
+        "card": "#222223",
+        "secondary": "#252526",
+        "muted-foreground": "#e6e6e6",
+        "border": "#e6e6e6",
+        "primary": "#19f9d8",
+        "primary-foreground": "#222223",
+        "code": "#e6e6e6"
+      }
+    },
+    {
+      "id": "vscode-jdinhlife-gruvbox-gruvbox-dark-hard",
+      "name": "Gruvbox Dark Hard",
+      "dark": true,
+      "chrome": "#1d2021",
+      "primary": "#fe8019",
+      "secondary": "#1d2021",
+      "source": "Installs #26 · jdinhlife",
+      "url": "https://vscodethemes.com/e/jdinhlife.gruvbox/gruvbox-dark-hard",
+      "colors": {
+        "background": "#1d2021",
+        "foreground": "#eadbb2",
+        "card": "#1d2021",
+        "secondary": "#1d2021",
+        "muted-foreground": "#eadbb2",
+        "border": "#928374",
+        "primary": "#fe8019",
+        "primary-foreground": "#1d2021",
+        "code": "#eadbb2"
+      }
+    },
+    {
+      "id": "vscode-rocketseat-theme-omni-omni",
+      "name": "Omni",
+      "dark": true,
+      "chrome": "#191622",
+      "primary": "#ff79c6",
+      "secondary": "#15121e",
+      "source": "Installs #27 · Rocketseat",
+      "url": "https://vscodethemes.com/e/rocketseat.theme-omni/omni",
+      "colors": {
+        "background": "#191622",
+        "foreground": "#e1e1e6",
+        "card": "#201b2d",
+        "secondary": "#15121e",
+        "muted-foreground": "#e1e1e6",
+        "border": "#e1e1e6",
+        "primary": "#ff79c6",
+        "primary-foreground": "#13111b",
+        "code": "#e1e1e6"
+      }
+    },
+    {
+      "id": "vscode-pawelborkar-jellyfish-jellyfish",
+      "name": "JellyFish",
+      "dark": true,
+      "chrome": "#00002c",
+      "primary": "#fed900",
+      "secondary": "#00002c",
+      "source": "Installs #28 · Pawel Borkar",
+      "url": "https://vscodethemes.com/e/PawelBorkar.jellyfish/jellyfish",
+      "colors": {
+        "background": "#00002c",
+        "foreground": "#ffffff",
+        "card": "#000124",
+        "secondary": "#00002c",
+        "muted-foreground": "#838383",
+        "border": "#838383",
+        "primary": "#fed900",
+        "primary-foreground": "#00001c",
+        "code": "#ffffff"
+      }
+    },
+    {
+      "id": "vscode-rokoroku-vscode-theme-darcula-darcula",
+      "name": "Darcula",
+      "dark": true,
+      "chrome": "#242424",
+      "primary": "#ffc66d",
+      "secondary": "#252526",
+      "source": "Installs #29 · rokoroku",
+      "url": "https://vscodethemes.com/e/rokoroku.vscode-theme-darcula/darcula",
+      "colors": {
+        "background": "#242424",
+        "foreground": "#cccccc",
+        "card": "#474847",
+        "secondary": "#252526",
+        "muted-foreground": "#cccccc",
+        "border": "#cccccc",
+        "primary": "#ffc66d",
+        "primary-foreground": "#242424",
+        "code": "#cccccc"
+      }
+    },
+    {
+      "id": "vscode-fisheva-eva-theme-eva-dark",
+      "name": "Eva Dark",
+      "dark": true,
+      "chrome": "#272c33",
+      "primary": "#a78cfa",
+      "secondary": "#272c33",
+      "source": "Installs #30 · fisheva",
+      "url": "https://vscodethemes.com/e/fisheva.eva-theme/eva-dark",
+      "colors": {
+        "background": "#272c33",
+        "foreground": "#9da5b3",
+        "card": "#21252b",
+        "secondary": "#272c33",
+        "muted-foreground": "#9da5b3",
+        "border": "#9da5b3",
+        "primary": "#a78cfa",
+        "primary-foreground": "#171a1e",
+        "code": "#9da5b3"
+      }
+    },
+    {
+      "id": "vscode-shopify-ruby-extensions-pack-spinel",
+      "name": "Spinel",
+      "dark": true,
+      "chrome": "#2f2f2e",
+      "primary": "#d1ccf1",
+      "secondary": "#252526",
+      "source": "Installs #31 · Shopify",
+      "url": "https://vscodethemes.com/e/Shopify.ruby-extensions-pack/spinel",
+      "colors": {
+        "background": "#2f2f2e",
+        "foreground": "#d1ccf1",
+        "card": "#333333",
+        "secondary": "#252526",
+        "muted-foreground": "#bea17f",
+        "border": "#bea17f",
+        "primary": "#d1ccf1",
+        "primary-foreground": "#252526",
+        "code": "#d1ccf1"
+      }
+    },
+    {
+      "id": "vscode-mariorodeghiero-vue-theme-vue-theme",
+      "name": "Vue Theme",
+      "dark": true,
+      "chrome": "#002b35",
+      "primary": "#09cbdd",
+      "secondary": "#002b35",
+      "source": "Installs #32 · mariorodeghiero",
+      "url": "https://vscodethemes.com/e/mariorodeghiero.vue-theme/vue-theme",
+      "colors": {
+        "background": "#002b35",
+        "foreground": "#e6e6e6",
+        "card": "#002b35",
+        "secondary": "#002b35",
+        "muted-foreground": "#e6e6e6",
+        "border": "#8a8787",
+        "primary": "#09cbdd",
+        "primary-foreground": "#252526",
+        "code": "#e6e6e6"
+      }
+    },
+    {
+      "id": "vscode-unthrottled-doki-theme-doki-theme-azurlane-essex",
+      "name": "Doki Theme: AzurLane:  Essex",
+      "dark": true,
+      "chrome": "#001c39",
+      "primary": "#2d96ea",
+      "secondary": "#001c39",
+      "source": "Installs #33 · Unthrottled",
+      "url": "https://vscodethemes.com/e/unthrottled.doki-theme/doki-theme-azurlane-essex",
+      "colors": {
+        "background": "#001c39",
+        "foreground": "#f8f8f2",
+        "card": "#002446",
+        "secondary": "#001c39",
+        "muted-foreground": "#f8f8f2",
+        "border": "#6387af",
+        "primary": "#2d96ea",
+        "primary-foreground": "#001c39",
+        "code": "#f8f8f2"
+      }
+    },
+    {
+      "id": "vscode-fabiospampinato-vscode-monokai-night-monokai-night",
+      "name": "Monokai Night",
+      "dark": true,
+      "chrome": "#1f1f1e",
+      "primary": "#66d9ef",
+      "secondary": "#1f1f1e",
+      "source": "Installs #34 · Fabio Spampinato",
+      "url": "https://vscodethemes.com/e/fabiospampinato.vscode-monokai-night/monokai-night",
+      "colors": {
+        "background": "#1f1f1e",
+        "foreground": "#dddddc",
+        "card": "#0f0f0e",
+        "secondary": "#1f1f1e",
+        "muted-foreground": "#878888",
+        "border": "#75715e",
+        "primary": "#66d9ef",
+        "primary-foreground": "#000000",
+        "code": "#dddddc"
+      }
+    },
+    {
+      "id": "vscode-miguelsolorio-min-theme-min-dark",
+      "name": "Min Dark",
+      "dark": true,
+      "chrome": "#1f1f1e",
+      "primary": "#f97583",
+      "secondary": "#191a19",
+      "source": "Installs #35 · Miguel Solorio",
+      "url": "https://vscodethemes.com/e/miguelsolorio.min-theme/min-dark",
+      "colors": {
+        "background": "#1f1f1e",
+        "foreground": "#bbbbbb",
+        "card": "#191a19",
+        "secondary": "#191a19",
+        "muted-foreground": "#bbbbbb",
+        "border": "#6b737c",
+        "primary": "#f97583",
+        "primary-foreground": "#191a19",
+        "code": "#bbbbbb"
+      }
+    },
+    {
+      "id": "vscode-benjaminbenais-copilot-theme-copilot-theme",
+      "name": "Copilot Theme",
+      "dark": true,
+      "chrome": "#222a2e",
+      "primary": "#89ddff",
+      "secondary": "#192023",
+      "source": "Installs #36 · Benjamin Benais",
+      "url": "https://vscodethemes.com/e/BenjaminBenais.copilot-theme/copilot-theme",
+      "colors": {
+        "background": "#222a2e",
+        "foreground": "#939da5",
+        "card": "#192023",
+        "secondary": "#192023",
+        "muted-foreground": "#939da5",
+        "border": "#707a84",
+        "primary": "#89ddff",
+        "primary-foreground": "#101416",
+        "code": "#939da5"
+      }
+    },
+    {
+      "id": "vscode-daltonmenezes-aura-theme-aura-dark",
+      "name": "Aura Dark",
+      "dark": true,
+      "chrome": "#15141a",
+      "primary": "#a277ff",
+      "secondary": "#15141a",
+      "source": "Installs #37 · Dalton Menezes",
+      "url": "https://vscodethemes.com/e/DaltonMenezes.aura-theme/aura-dark",
+      "colors": {
+        "background": "#15141a",
+        "foreground": "#edecee",
+        "card": "#110f15",
+        "secondary": "#15141a",
+        "muted-foreground": "#edecee",
+        "border": "#6d6d6d",
+        "primary": "#a277ff",
+        "primary-foreground": "#000000",
+        "code": "#edecee"
+      }
+    },
+    {
+      "id": "vscode-bceskavich-theme-dracula-at-night-dracula-at-night",
+      "name": "Dracula At Night",
+      "dark": true,
+      "chrome": "#0e1419",
+      "primary": "#ff79c6",
+      "secondary": "#253340",
+      "source": "Installs #38 · bceskavich",
+      "url": "https://vscodethemes.com/e/bceskavich.theme-dracula-at-night/dracula-at-night",
+      "colors": {
+        "background": "#0e1419",
+        "foreground": "#f8f8f2",
+        "card": "#253340",
+        "secondary": "#253340",
+        "muted-foreground": "#f8f8f2",
+        "border": "#f8f8f2",
+        "primary": "#ff79c6",
+        "primary-foreground": "#0e1419",
+        "code": "#f8f8f2"
+      }
+    },
+    {
+      "id": "vscode-tobiasalthoff-atom-material-theme-atom-material-theme",
+      "name": "Atom Material Theme",
+      "dark": true,
+      "chrome": "#263238",
+      "primary": "#c792ea",
+      "secondary": "#232e33",
+      "source": "Installs #39 · Tobias Althoff",
+      "url": "https://vscodethemes.com/e/tobiasalthoff.atom-material-theme/atom-material-theme",
+      "colors": {
+        "background": "#263238",
+        "foreground": "#d4d4d4",
+        "card": "#20292e",
+        "secondary": "#232e33",
+        "muted-foreground": "#d4d4d4",
+        "border": "#d4d4d4",
+        "primary": "#c792ea",
+        "primary-foreground": "#20292e",
+        "code": "#d4d4d4"
+      }
+    },
+    {
+      "id": "vscode-daylerees-rainglow-absent-contrast-rainglow",
+      "name": "Absent Contrast (rainglow)",
+      "dark": true,
+      "chrome": "#0e1114",
+      "primary": "#bed0e2",
+      "secondary": "#14191d",
+      "source": "Installs #40 · Dayle Rees",
+      "url": "https://vscodethemes.com/e/daylerees.rainglow/absent-contrast-rainglow",
+      "colors": {
+        "background": "#0e1114",
+        "foreground": "#aeb9c4",
+        "card": "#12161a",
+        "secondary": "#14191d",
+        "muted-foreground": "#aeb9c4",
+        "border": "#aeb9c4",
+        "primary": "#bed0e2",
+        "primary-foreground": "#060708",
+        "code": "#aeb9c4"
+      }
+    },
+    {
+      "id": "vscode-uloco-theme-bluloco-dark-bluloco-dark",
+      "name": "Bluloco Dark",
+      "dark": true,
+      "chrome": "#272c33",
+      "primary": "#10b1fe",
+      "secondary": "#22252a",
+      "source": "Installs #41 · Umut Topuzoğlu",
+      "url": "https://vscodethemes.com/e/uloco.theme-bluloco-dark/bluloco-dark",
+      "colors": {
+        "background": "#272c33",
+        "foreground": "#aab2bf",
+        "card": "#2d333d",
+        "secondary": "#22252a",
+        "muted-foreground": "#aab2bf",
+        "border": "#aab2bf",
+        "primary": "#10b1fe",
+        "primary-foreground": "#22252a",
+        "code": "#aab2bf"
+      }
+    },
+    {
+      "id": "vscode-felipe-mendes-slack-theme-slack-theme-aubergine",
+      "name": "Slack Theme Aubergine",
+      "dark": false,
+      "chrome": "#ffffff",
+      "primary": "#174781",
+      "secondary": "#f3f3f3",
+      "source": "Installs #42 · Felipe Mendes",
+      "url": "https://vscodethemes.com/e/felipe-mendes.slack-theme/slack-theme-aubergine",
+      "colors": {
+        "background": "#ffffff",
+        "foreground": "#000000",
+        "card": "#f9f9f9",
+        "secondary": "#f3f3f3",
+        "muted-foreground": "#514750",
+        "border": "#357b42",
+        "primary": "#174781",
+        "primary-foreground": "#ffffff",
+        "code": "#000000"
+      }
+    },
+    {
+      "id": "vscode-vira-vsc-vira-theme-vira-anthracite",
+      "name": "Vira Anthracite",
+      "dark": true,
+      "chrome": "#141718",
+      "primary": "#80cbc4",
+      "secondary": "#141718",
+      "source": "Installs #43 · Vira",
+      "url": "https://vscodethemes.com/e/vira.vsc-vira-theme/vira-anthracite",
+      "colors": {
+        "background": "#141718",
+        "foreground": "#ccdbe3",
+        "card": "#141718",
+        "secondary": "#141718",
+        "muted-foreground": "#ccdbe3",
+        "border": "#ccdbe3",
+        "primary": "#80cbc4",
+        "primary-foreground": "#000000",
+        "code": "#ccdbe3"
+      }
+    },
+    {
+      "id": "vscode-uloco-theme-bluloco-light-bluloco-light",
+      "name": "Bluloco Light",
+      "dark": false,
+      "chrome": "#f9f9f9",
+      "primary": "#823ff1",
+      "secondary": "#eeeeee",
+      "source": "Installs #44 · Umut Topuzoğlu",
+      "url": "https://vscodethemes.com/e/uloco.theme-bluloco-light/bluloco-light",
+      "colors": {
+        "background": "#f9f9f9",
+        "foreground": "#383a42",
+        "card": "#f1f1f1",
+        "secondary": "#eeeeee",
+        "muted-foreground": "#383a42",
+        "border": "#383a42",
+        "primary": "#823ff1",
+        "primary-foreground": "#ffffff",
+        "code": "#383a42"
+      }
+    },
+    {
+      "id": "vscode-kuscamara-electron-electron",
+      "name": "Electron",
+      "dark": true,
+      "chrome": "#202836",
+      "primary": "#d59df6",
+      "secondary": "#1b212d",
+      "source": "Installs #45 · Kus Cámara",
+      "url": "https://vscodethemes.com/e/kuscamara.electron/electron",
+      "colors": {
+        "background": "#202836",
+        "foreground": "#97a7c8",
+        "card": "#141820",
+        "secondary": "#1b212d",
+        "muted-foreground": "#97a7c8",
+        "border": "#97a7c8",
+        "primary": "#d59df6",
+        "primary-foreground": "#141820",
+        "code": "#97a7c8"
+      }
+    },
+    {
+      "id": "vscode-max-ss-cyberpunk-activate-scarlet-protocol-beta",
+      "name": "Activate SCARLET protocol (beta)",
+      "dark": true,
+      "chrome": "#101116",
+      "primary": "#00ffc8",
+      "secondary": "#101116",
+      "source": "Installs #46 · Max",
+      "url": "https://vscodethemes.com/e/max-SS.cyberpunk/activate-scarlet-protocol-beta",
+      "colors": {
+        "background": "#101116",
+        "foreground": "#ff0055",
+        "card": "#140009",
+        "secondary": "#101116",
+        "muted-foreground": "#ff0055",
+        "border": "#6766b3",
+        "primary": "#00ffc8",
+        "primary-foreground": "#000706",
+        "code": "#ff0055"
+      }
+    },
+    {
+      "id": "vscode-davidbwaters-macos-modern-theme-macos-modern-dark-ventura-xcode",
+      "name": "MacOS Modern Dark - Ventura Xcode",
+      "dark": true,
+      "chrome": "#232222",
+      "primary": "#fe7ab2",
+      "secondary": "#2c2c2a",
+      "source": "Installs #47 · davidbwaters",
+      "url": "https://vscodethemes.com/e/davidbwaters.macos-modern-theme/macos-modern-dark-ventura-xcode",
+      "colors": {
+        "background": "#232222",
+        "foreground": "#f5f5f5",
+        "card": "#353333",
+        "secondary": "#2c2c2a",
+        "muted-foreground": "#c2c0c0",
+        "border": "#7f8c98",
+        "primary": "#fe7ab2",
+        "primary-foreground": "#0f0f0f",
+        "code": "#f5f5f5"
+      }
+    },
+    {
+      "id": "vscode-eppz-eppz-code-eppz",
+      "name": "eppz!",
+      "dark": true,
+      "chrome": "#1e1e1e",
+      "primary": "#bbbbbb",
+      "secondary": "#252526",
+      "source": "Installs #48 · eppz!",
+      "url": "https://vscodethemes.com/e/eppz.eppz-code/eppz",
+      "colors": {
+        "background": "#1e1e1e",
+        "foreground": "#bbbbbb",
+        "card": "#333333",
+        "secondary": "#252526",
+        "muted-foreground": "#bbbbbb",
+        "border": "#bbbbbb",
+        "primary": "#bbbbbb",
+        "primary-foreground": "#1e1e1e",
+        "code": "#bbbbbb"
+      }
+    },
+    {
+      "id": "vscode-azemoh-theme-onedark-one-dark-theme",
+      "name": "One Dark Theme",
+      "dark": true,
+      "chrome": "#272c33",
+      "primary": "#61afef",
+      "secondary": "#21252b",
+      "source": "Installs #49 · Joshua Azemoh",
+      "url": "https://vscodethemes.com/e/azemoh.theme-onedark/one-dark-theme",
+      "colors": {
+        "background": "#272c33",
+        "foreground": "#bbbbbb",
+        "card": "#2f333d",
+        "secondary": "#21252b",
+        "muted-foreground": "#bbbbbb",
+        "border": "#bbbbbb",
+        "primary": "#61afef",
+        "primary-foreground": "#171a1e",
+        "code": "#bbbbbb"
+      }
+    },
+    {
+      "id": "vscode-sldobri-bunker-dobri-next-a00-black",
+      "name": "Dobri Next -A00- Black",
+      "dark": true,
+      "chrome": "#000000",
+      "primary": "#ffd300",
+      "secondary": "#000000",
+      "source": "Installs #50 · dobbbri",
+      "url": "https://vscodethemes.com/e/sldobri.bunker/dobri-next-a00-black",
+      "colors": {
+        "background": "#000000",
+        "foreground": "#ced5e5",
+        "card": "#000000",
+        "secondary": "#000000",
+        "muted-foreground": "#ced5e5",
+        "border": "#5c6370",
+        "primary": "#ffd300",
+        "primary-foreground": "#000000",
+        "code": "#ced5e5"
+      }
+    },
+    {
+      "id": "figma-ink-wash",
+      "name": "Figma-Ink wash",
+      "dark": false,
+      "chrome": "#cfcfcf",
+      "primary": "#252525",
+      "secondary": "#cfcfcf",
+      "source": "Figma · Color scheme 1",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-1-ink-wash",
+      "colors": {
+        "background": "#cfcfcf",
+        "foreground": "#252525",
+        "card": "#cfcfcf",
+        "secondary": "#cfcfcf",
+        "muted-foreground": "#252525",
+        "border": "#252525",
+        "primary": "#252525",
+        "primary-foreground": "#cfcfcf",
+        "code": "#252525"
+      }
+    },
+    {
+      "id": "figma-neutral-elegance",
+      "name": "Figma-Neutral elegance",
+      "dark": false,
+      "chrome": "#ffdbba",
+      "primary": "#674931",
+      "secondary": "#ffdbba",
+      "source": "Figma · Color scheme 2",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-2-neutral-elegance",
+      "colors": {
+        "background": "#ffdbba",
+        "foreground": "#674931",
+        "card": "#ffdbba",
+        "secondary": "#ffdbba",
+        "muted-foreground": "#674931",
+        "border": "#674931",
+        "primary": "#674931",
+        "primary-foreground": "#ffdbba",
+        "code": "#674931"
+      }
+    },
+    {
+      "id": "figma-jade-pebble-morning",
+      "name": "Figma-Jade pebble morning",
+      "dark": false,
+      "chrome": "#e7e7e7",
+      "primary": "#404f3c",
+      "secondary": "#e7e7e7",
+      "source": "Figma · Color scheme 3",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-3-jade-pebble-morning",
+      "colors": {
+        "background": "#e7e7e7",
+        "foreground": "#404f3c",
+        "card": "#e7e7e7",
+        "secondary": "#e7e7e7",
+        "muted-foreground": "#404f3c",
+        "border": "#404f3c",
+        "primary": "#404f3c",
+        "primary-foreground": "#e7e7e7",
+        "code": "#404f3c"
+      }
+    },
+    {
+      "id": "figma-woodland",
+      "name": "Figma-Woodland",
+      "dark": false,
+      "chrome": "#aad31d",
+      "primary": "#535134",
+      "secondary": "#aad31d",
+      "source": "Figma · Color scheme 4",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-4-woodland",
+      "colors": {
+        "background": "#aad31d",
+        "foreground": "#535134",
+        "card": "#aad31d",
+        "secondary": "#aad31d",
+        "muted-foreground": "#535134",
+        "border": "#535134",
+        "primary": "#535134",
+        "primary-foreground": "#aad31d",
+        "code": "#535134"
+      }
+    },
+    {
+      "id": "figma-driftwood-pearl-morning",
+      "name": "Figma-Driftwood pearl morning",
+      "dark": false,
+      "chrome": "#cccdc8",
+      "primary": "#59312a",
+      "secondary": "#cccdc8",
+      "source": "Figma · Color scheme 5",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-5-driftwood-pearl-morning",
+      "colors": {
+        "background": "#cccdc8",
+        "foreground": "#59312a",
+        "card": "#cccdc8",
+        "secondary": "#cccdc8",
+        "muted-foreground": "#59312a",
+        "border": "#59312a",
+        "primary": "#59312a",
+        "primary-foreground": "#cccdc8",
+        "code": "#59312a"
+      }
+    },
+    {
+      "id": "figma-graphite",
+      "name": "Figma-Graphite",
+      "dark": false,
+      "chrome": "#f4e9e6",
+      "primary": "#141414",
+      "secondary": "#f4e9e6",
+      "source": "Figma · Color scheme 6",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-6-graphite",
+      "colors": {
+        "background": "#f4e9e6",
+        "foreground": "#141414",
+        "card": "#f4e9e6",
+        "secondary": "#f4e9e6",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#f4e9e6",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-urban-slate",
+      "name": "Figma-Urban slate",
+      "dark": false,
+      "chrome": "#e9e7e8",
+      "primary": "#5f5652",
+      "secondary": "#e9e7e8",
+      "source": "Figma · Color scheme 7",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-7-urban-slate",
+      "colors": {
+        "background": "#e9e7e8",
+        "foreground": "#5f5652",
+        "card": "#e9e7e8",
+        "secondary": "#e9e7e8",
+        "muted-foreground": "#5f5652",
+        "border": "#5f5652",
+        "primary": "#5f5652",
+        "primary-foreground": "#e9e7e8",
+        "code": "#5f5652"
+      }
+    },
+    {
+      "id": "figma-pearl",
+      "name": "Figma-Pearl",
+      "dark": false,
+      "chrome": "#e9e3de",
+      "primary": "#666261",
+      "secondary": "#e9e3de",
+      "source": "Figma · Color scheme 8",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-8-pearl",
+      "colors": {
+        "background": "#e9e3de",
+        "foreground": "#666261",
+        "card": "#e9e3de",
+        "secondary": "#e9e3de",
+        "muted-foreground": "#666261",
+        "border": "#666261",
+        "primary": "#666261",
+        "primary-foreground": "#e9e3de",
+        "code": "#666261"
+      }
+    },
+    {
+      "id": "figma-vichy",
+      "name": "Figma-Vichy",
+      "dark": false,
+      "chrome": "#ffffff",
+      "primary": "#141414",
+      "secondary": "#ffffff",
+      "source": "Figma · Color scheme 9",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-9-vichy",
+      "colors": {
+        "background": "#ffffff",
+        "foreground": "#141414",
+        "card": "#ffffff",
+        "secondary": "#ffffff",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#ffffff",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-sorbet",
+      "name": "Figma-Sorbet",
+      "dark": false,
+      "chrome": "#fefefe",
+      "primary": "#141414",
+      "secondary": "#fefefe",
+      "source": "Figma · Color scheme 10",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-10-sorbet",
+      "colors": {
+        "background": "#fefefe",
+        "foreground": "#141414",
+        "card": "#fefefe",
+        "secondary": "#fefefe",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#fefefe",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-frozen-mist",
+      "name": "Figma-Frozen mist",
+      "dark": false,
+      "chrome": "#fcf8d7",
+      "primary": "#141414",
+      "secondary": "#fcf8d7",
+      "source": "Figma · Color scheme 11",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-11-frozen-mist",
+      "colors": {
+        "background": "#fcf8d7",
+        "foreground": "#141414",
+        "card": "#fcf8d7",
+        "secondary": "#fcf8d7",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#fcf8d7",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-yacht-club",
+      "name": "Figma-Yacht club",
+      "dark": false,
+      "chrome": "#f3f1ef",
+      "primary": "#225f73",
+      "secondary": "#f3f1ef",
+      "source": "Figma · Color scheme 12",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-12-yacht-club",
+      "colors": {
+        "background": "#f3f1ef",
+        "foreground": "#723e22",
+        "card": "#f3f1ef",
+        "secondary": "#f3f1ef",
+        "muted-foreground": "#723e22",
+        "border": "#723e22",
+        "primary": "#225f73",
+        "primary-foreground": "#f3f1ef",
+        "code": "#723e22"
+      }
+    },
+    {
+      "id": "figma-amber-walnut-morning",
+      "name": "Figma-Amber walnut morning",
+      "dark": false,
+      "chrome": "#eaefee",
+      "primary": "#4a413d",
+      "secondary": "#eaefee",
+      "source": "Figma · Color scheme 13",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-13-amber-walnut-morning",
+      "colors": {
+        "background": "#eaefee",
+        "foreground": "#4a413d",
+        "card": "#eaefee",
+        "secondary": "#eaefee",
+        "muted-foreground": "#4a413d",
+        "border": "#4a413d",
+        "primary": "#4a413d",
+        "primary-foreground": "#eaefee",
+        "code": "#4a413d"
+      }
+    },
+    {
+      "id": "figma-copper-aquamarine-dream",
+      "name": "Figma-Copper aquamarine dream",
+      "dark": false,
+      "chrome": "#bfb9b4",
+      "primary": "#141414",
+      "secondary": "#bfb9b4",
+      "source": "Figma · Color scheme 14",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-14-copper-aquamarine-dream",
+      "colors": {
+        "background": "#bfb9b4",
+        "foreground": "#141414",
+        "card": "#bfb9b4",
+        "secondary": "#bfb9b4",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#bfb9b4",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-cocoa-topaz-noonday",
+      "name": "Figma-Cocoa topaz noonday",
+      "dark": false,
+      "chrome": "#c7ab9e",
+      "primary": "#732f14",
+      "secondary": "#c7ab9e",
+      "source": "Figma · Color scheme 15",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-15-cocoa-topaz-noonday",
+      "colors": {
+        "background": "#c7ab9e",
+        "foreground": "#732f14",
+        "card": "#c7ab9e",
+        "secondary": "#c7ab9e",
+        "muted-foreground": "#732f14",
+        "border": "#732f14",
+        "primary": "#732f14",
+        "primary-foreground": "#fb9c44",
+        "code": "#732f14"
+      }
+    },
+    {
+      "id": "figma-sandstone-aquamarine-serenity",
+      "name": "Figma-Sandstone aquamarine serenity",
+      "dark": false,
+      "chrome": "#b0e1e7",
+      "primary": "#304d53",
+      "secondary": "#b0e1e7",
+      "source": "Figma · Color scheme 16",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-16-sandstone-aquamarine-serenity",
+      "colors": {
+        "background": "#b0e1e7",
+        "foreground": "#5a2e24",
+        "card": "#b0e1e7",
+        "secondary": "#b0e1e7",
+        "muted-foreground": "#5a2e24",
+        "border": "#5a2e24",
+        "primary": "#304d53",
+        "primary-foreground": "#b0e1e7",
+        "code": "#5a2e24"
+      }
+    },
+    {
+      "id": "figma-honey-opal-sunset",
+      "name": "Figma-Honey opal sunset",
+      "dark": false,
+      "chrome": "#f7d67a",
+      "primary": "#503c35",
+      "secondary": "#f7d67a",
+      "source": "Figma · Color scheme 17",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-17-honey-opal-sunset",
+      "colors": {
+        "background": "#f7d67a",
+        "foreground": "#503c35",
+        "card": "#f7d67a",
+        "secondary": "#f7d67a",
+        "muted-foreground": "#503c35",
+        "border": "#503c35",
+        "primary": "#503c35",
+        "primary-foreground": "#f7d67a",
+        "code": "#503c35"
+      }
+    },
+    {
+      "id": "figma-seashell-garnet-afternoon",
+      "name": "Figma-Seashell garnet afternoon",
+      "dark": false,
+      "chrome": "#f7c992",
+      "primary": "#141414",
+      "secondary": "#f7c992",
+      "source": "Figma · Color scheme 18",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-18-seashell-garnet-afternoon",
+      "colors": {
+        "background": "#f7c992",
+        "foreground": "#141414",
+        "card": "#f7c992",
+        "secondary": "#f7c992",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#f7c992",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-rose-quartz-evening",
+      "name": "Figma-Rose quartz evening",
+      "dark": false,
+      "chrome": "#e0d9d9",
+      "primary": "#63242e",
+      "secondary": "#e0d9d9",
+      "source": "Figma · Color scheme 19",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-19-rose-quartz-evening",
+      "colors": {
+        "background": "#e0d9d9",
+        "foreground": "#63242e",
+        "card": "#e0d9d9",
+        "secondary": "#e0d9d9",
+        "muted-foreground": "#63242e",
+        "border": "#63242e",
+        "primary": "#63242e",
+        "primary-foreground": "#e0d9d9",
+        "code": "#63242e"
+      }
+    },
+    {
+      "id": "figma-calcite",
+      "name": "Figma-Calcite",
+      "dark": false,
+      "chrome": "#dedcda",
+      "primary": "#3c4043",
+      "secondary": "#dedcda",
+      "source": "Figma · Color scheme 20",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-20-calcite",
+      "colors": {
+        "background": "#dedcda",
+        "foreground": "#3c4043",
+        "card": "#dedcda",
+        "secondary": "#dedcda",
+        "muted-foreground": "#3c4043",
+        "border": "#3c4043",
+        "primary": "#3c4043",
+        "primary-foreground": "#dedcda",
+        "code": "#3c4043"
+      }
+    },
+    {
+      "id": "figma-fireside",
+      "name": "Figma-Fireside",
+      "dark": false,
+      "chrome": "#d9d4bd",
+      "primary": "#8a1a10",
+      "secondary": "#d9d4bd",
+      "source": "Figma · Color scheme 21",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-21-fireside",
+      "colors": {
+        "background": "#d9d4bd",
+        "foreground": "#8a1a10",
+        "card": "#d9d4bd",
+        "secondary": "#d9d4bd",
+        "muted-foreground": "#8a1a10",
+        "border": "#8a1a10",
+        "primary": "#8a1a10",
+        "primary-foreground": "#d9d4bd",
+        "code": "#8a1a10"
+      }
+    },
+    {
+      "id": "figma-terrazzo",
+      "name": "Figma-Terrazzo",
+      "dark": false,
+      "chrome": "#daccc3",
+      "primary": "#37504e",
+      "secondary": "#daccc3",
+      "source": "Figma · Color scheme 22",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-22-terrazzo",
+      "colors": {
+        "background": "#daccc3",
+        "foreground": "#37504e",
+        "card": "#daccc3",
+        "secondary": "#daccc3",
+        "muted-foreground": "#37504e",
+        "border": "#37504e",
+        "primary": "#37504e",
+        "primary-foreground": "#daccc3",
+        "code": "#37504e"
+      }
+    },
+    {
+      "id": "figma-sapphire-nightfall-whisper",
+      "name": "Figma-Sapphire nightfall whisper",
+      "dark": true,
+      "chrome": "#262c40",
+      "primary": "#a8c4ed",
+      "secondary": "#262c40",
+      "source": "Figma · Color scheme 23",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-23-sapphire-nightfall-whisper",
+      "colors": {
+        "background": "#262c40",
+        "foreground": "#a8c4ed",
+        "card": "#262c40",
+        "secondary": "#262c40",
+        "muted-foreground": "#a8c4ed",
+        "border": "#a8c4ed",
+        "primary": "#a8c4ed",
+        "primary-foreground": "#262c40",
+        "code": "#a8c4ed"
+      }
+    },
+    {
+      "id": "figma-lapis-velvet-evening",
+      "name": "Figma-Lapis velvet evening",
+      "dark": true,
+      "chrome": "#071849",
+      "primary": "#ebe0d2",
+      "secondary": "#071849",
+      "source": "Figma · Color scheme 24",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-24-lapis-velvet-evening",
+      "colors": {
+        "background": "#071849",
+        "foreground": "#ebe0d2",
+        "card": "#071849",
+        "secondary": "#071849",
+        "muted-foreground": "#ebe0d2",
+        "border": "#ebe0d2",
+        "primary": "#ebe0d2",
+        "primary-foreground": "#071849",
+        "code": "#ebe0d2"
+      }
+    },
+    {
+      "id": "figma-marina",
+      "name": "Figma-Marina",
+      "dark": false,
+      "chrome": "#fff1e8",
+      "primary": "#316181",
+      "secondary": "#fff1e8",
+      "source": "Figma · Color scheme 25",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-25-marina",
+      "colors": {
+        "background": "#fff1e8",
+        "foreground": "#316181",
+        "card": "#fff1e8",
+        "secondary": "#fff1e8",
+        "muted-foreground": "#316181",
+        "border": "#316181",
+        "primary": "#316181",
+        "primary-foreground": "#fff1e8",
+        "code": "#316181"
+      }
+    },
+    {
+      "id": "figma-emerald-lavender-lake",
+      "name": "Figma-Emerald lavender lake",
+      "dark": false,
+      "chrome": "#95dde5",
+      "primary": "#141414",
+      "secondary": "#95dde5",
+      "source": "Figma · Color scheme 26",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-26-emerald-lavender-lake",
+      "colors": {
+        "background": "#95dde5",
+        "foreground": "#141414",
+        "card": "#95dde5",
+        "secondary": "#95dde5",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#95dde5",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-sage-peridot-morning",
+      "name": "Figma-Sage peridot morning",
+      "dark": false,
+      "chrome": "#a7f1df",
+      "primary": "#345d31",
+      "secondary": "#a7f1df",
+      "source": "Figma · Color scheme 27",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-27-sage-peridot-morning",
+      "colors": {
+        "background": "#a7f1df",
+        "foreground": "#345d31",
+        "card": "#a7f1df",
+        "secondary": "#a7f1df",
+        "muted-foreground": "#345d31",
+        "border": "#345d31",
+        "primary": "#345d31",
+        "primary-foreground": "#a7f1df",
+        "code": "#345d31"
+      }
+    },
+    {
+      "id": "figma-amethyst-dawn-haze",
+      "name": "Figma-Amethyst dawn haze",
+      "dark": false,
+      "chrome": "#dece41",
+      "primary": "#341c69",
+      "secondary": "#dece41",
+      "source": "Figma · Color scheme 28",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-28-amethyst-dawn-haze",
+      "colors": {
+        "background": "#dece41",
+        "foreground": "#341c69",
+        "card": "#dece41",
+        "secondary": "#dece41",
+        "muted-foreground": "#341c69",
+        "border": "#341c69",
+        "primary": "#341c69",
+        "primary-foreground": "#dece41",
+        "code": "#341c69"
+      }
+    },
+    {
+      "id": "figma-moon-dust",
+      "name": "Figma-Moon dust",
+      "dark": false,
+      "chrome": "#d4d4ff",
+      "primary": "#141414",
+      "secondary": "#d4d4ff",
+      "source": "Figma · Color scheme 29",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-29-moon-dust",
+      "colors": {
+        "background": "#d4d4ff",
+        "foreground": "#141414",
+        "card": "#d4d4ff",
+        "secondary": "#d4d4ff",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#d4d4ff",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-turquoise-amber-autumn",
+      "name": "Figma-Turquoise amber autumn",
+      "dark": false,
+      "chrome": "#a5ccd3",
+      "primary": "#304b64",
+      "secondary": "#a5ccd3",
+      "source": "Figma · Color scheme 30",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-30-turquoise-amber-autumn",
+      "colors": {
+        "background": "#a5ccd3",
+        "foreground": "#631b08",
+        "card": "#a5ccd3",
+        "secondary": "#a5ccd3",
+        "muted-foreground": "#631b08",
+        "border": "#631b08",
+        "primary": "#304b64",
+        "primary-foreground": "#a5ccd3",
+        "code": "#631b08"
+      }
+    },
+    {
+      "id": "figma-sapphire-ash-morning",
+      "name": "Figma-Sapphire ash morning",
+      "dark": false,
+      "chrome": "#f6f6f6",
+      "primary": "#34637a",
+      "secondary": "#f6f6f6",
+      "source": "Figma · Color scheme 31",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-31-sapphire-ash-morning",
+      "colors": {
+        "background": "#f6f6f6",
+        "foreground": "#34637a",
+        "card": "#f6f6f6",
+        "secondary": "#f6f6f6",
+        "muted-foreground": "#34637a",
+        "border": "#34637a",
+        "primary": "#34637a",
+        "primary-foreground": "#f6f6f6",
+        "code": "#34637a"
+      }
+    },
+    {
+      "id": "figma-frosted-aura",
+      "name": "Figma-Frosted aura",
+      "dark": false,
+      "chrome": "#ffffff",
+      "primary": "#141414",
+      "secondary": "#ffffff",
+      "source": "Figma · Color scheme 32",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-32-frosted-aura",
+      "colors": {
+        "background": "#ffffff",
+        "foreground": "#141414",
+        "card": "#ffffff",
+        "secondary": "#ffffff",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#ffffff",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-royal-glimmer",
+      "name": "Figma-Royal glimmer",
+      "dark": true,
+      "chrome": "#024943",
+      "primary": "#ffffff",
+      "secondary": "#024943",
+      "source": "Figma · Color scheme 33",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-33-royal-glimmer",
+      "colors": {
+        "background": "#024943",
+        "foreground": "#ffffff",
+        "card": "#024943",
+        "secondary": "#024943",
+        "muted-foreground": "#ffffff",
+        "border": "#ffffff",
+        "primary": "#ffffff",
+        "primary-foreground": "#293c7c",
+        "code": "#ffffff"
+      }
+    },
+    {
+      "id": "figma-neptune",
+      "name": "Figma-Neptune",
+      "dark": false,
+      "chrome": "#8fd9fc",
+      "primary": "#141414",
+      "secondary": "#8fd9fc",
+      "source": "Figma · Color scheme 34",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-34-neptune",
+      "colors": {
+        "background": "#8fd9fc",
+        "foreground": "#141414",
+        "card": "#8fd9fc",
+        "secondary": "#8fd9fc",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#8fd9fc",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-tropical-jade-sunrise",
+      "name": "Figma-Tropical jade sunrise",
+      "dark": false,
+      "chrome": "#f9d679",
+      "primary": "#141414",
+      "secondary": "#f9d679",
+      "source": "Figma · Color scheme 35",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-35-tropical-jade-sunrise",
+      "colors": {
+        "background": "#f9d679",
+        "foreground": "#141414",
+        "card": "#f9d679",
+        "secondary": "#f9d679",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#f9d679",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-amethyst-mint-harmony",
+      "name": "Figma-Amethyst mint harmony",
+      "dark": true,
+      "chrome": "#572e55",
+      "primary": "#8ef688",
+      "secondary": "#572e55",
+      "source": "Figma · Color scheme 36",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-36-amethyst-mint-harmony",
+      "colors": {
+        "background": "#572e55",
+        "foreground": "#8ef688",
+        "card": "#572e55",
+        "secondary": "#572e55",
+        "muted-foreground": "#8ef688",
+        "border": "#8ef688",
+        "primary": "#8ef688",
+        "primary-foreground": "#2a3f38",
+        "code": "#8ef688"
+      }
+    },
+    {
+      "id": "figma-hibiscus-aura",
+      "name": "Figma-Hibiscus aura",
+      "dark": true,
+      "chrome": "#733d6f",
+      "primary": "#ffffff",
+      "secondary": "#733d6f",
+      "source": "Figma · Color scheme 37",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-37-hibiscus-aura",
+      "colors": {
+        "background": "#733d6f",
+        "foreground": "#ffffff",
+        "card": "#733d6f",
+        "secondary": "#733d6f",
+        "muted-foreground": "#ffffff",
+        "border": "#ffffff",
+        "primary": "#ffffff",
+        "primary-foreground": "#733d6f",
+        "code": "#ffffff"
+      }
+    },
+    {
+      "id": "figma-ocean-ruby-radiance",
+      "name": "Figma-Ocean ruby radiance",
+      "dark": false,
+      "chrome": "#b3dae3",
+      "primary": "#005ab2",
+      "secondary": "#b3dae3",
+      "source": "Figma · Color scheme 38",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-38-ocean-ruby-radiance",
+      "colors": {
+        "background": "#b3dae3",
+        "foreground": "#005ab2",
+        "card": "#b3dae3",
+        "secondary": "#b3dae3",
+        "muted-foreground": "#005ab2",
+        "border": "#005ab2",
+        "primary": "#005ab2",
+        "primary-foreground": "#b3dae3",
+        "code": "#005ab2"
+      }
+    },
+    {
+      "id": "figma-tropical-heat",
+      "name": "Figma-Tropical heat",
+      "dark": false,
+      "chrome": "#fceec3",
+      "primary": "#141414",
+      "secondary": "#fceec3",
+      "source": "Figma · Color scheme 39",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-39-tropical-heat",
+      "colors": {
+        "background": "#fceec3",
+        "foreground": "#141414",
+        "card": "#fceec3",
+        "secondary": "#fceec3",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#fceec3",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-celestial",
+      "name": "Figma-Celestial",
+      "dark": false,
+      "chrome": "#fff125",
+      "primary": "#2324ff",
+      "secondary": "#fff125",
+      "source": "Figma · Color scheme 40",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-40-celestial",
+      "colors": {
+        "background": "#fff125",
+        "foreground": "#2324ff",
+        "card": "#fff125",
+        "secondary": "#fff125",
+        "muted-foreground": "#2324ff",
+        "border": "#2324ff",
+        "primary": "#2324ff",
+        "primary-foreground": "#fff125",
+        "code": "#2324ff"
+      }
+    },
+    {
+      "id": "figma-festive-eve",
+      "name": "Figma-Festive eve",
+      "dark": false,
+      "chrome": "#23afff",
+      "primary": "#141414",
+      "secondary": "#23afff",
+      "source": "Figma · Color scheme 41",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-41-festive-eve",
+      "colors": {
+        "background": "#23afff",
+        "foreground": "#141414",
+        "card": "#23afff",
+        "secondary": "#23afff",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#23afff",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-freshly-squeezed",
+      "name": "Figma-Freshly squeezed",
+      "dark": false,
+      "chrome": "#ffe642",
+      "primary": "#141414",
+      "secondary": "#ffe642",
+      "source": "Figma · Color scheme 42",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-42-freshly-squeezed",
+      "colors": {
+        "background": "#ffe642",
+        "foreground": "#141414",
+        "card": "#ffe642",
+        "secondary": "#ffe642",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#ffe642",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-jelly-shoes",
+      "name": "Figma-Jelly shoes",
+      "dark": false,
+      "chrome": "#c4d6ff",
+      "primary": "#141414",
+      "secondary": "#c4d6ff",
+      "source": "Figma · Color scheme 43",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-43-jelly-shoes",
+      "colors": {
+        "background": "#c4d6ff",
+        "foreground": "#141414",
+        "card": "#c4d6ff",
+        "secondary": "#c4d6ff",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#c4d6ff",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-opaline",
+      "name": "Figma-Opaline",
+      "dark": false,
+      "chrome": "#f5f4f7",
+      "primary": "#141414",
+      "secondary": "#f5f4f7",
+      "source": "Figma · Color scheme 44",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-44-opaline",
+      "colors": {
+        "background": "#f5f4f7",
+        "foreground": "#141414",
+        "card": "#f5f4f7",
+        "secondary": "#f5f4f7",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#f5f4f7",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-gossamer",
+      "name": "Figma-Gossamer",
+      "dark": false,
+      "chrome": "#fafafa",
+      "primary": "#141414",
+      "secondary": "#fafafa",
+      "source": "Figma · Color scheme 45",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-45-gossamer",
+      "colors": {
+        "background": "#fafafa",
+        "foreground": "#141414",
+        "card": "#fafafa",
+        "secondary": "#fafafa",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#fafafa",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-clockwork",
+      "name": "Figma-Clockwork",
+      "dark": false,
+      "chrome": "#f8f8f8",
+      "primary": "#141414",
+      "secondary": "#f8f8f8",
+      "source": "Figma · Color scheme 46",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-46-clockwork",
+      "colors": {
+        "background": "#f8f8f8",
+        "foreground": "#141414",
+        "card": "#f8f8f8",
+        "secondary": "#f8f8f8",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#f8f8f8",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-lemon-granite-morning",
+      "name": "Figma-Lemon granite morning",
+      "dark": false,
+      "chrome": "#f2e408",
+      "primary": "#2d4c5d",
+      "secondary": "#f2e408",
+      "source": "Figma · Color scheme 47",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-47-lemon-granite-morning",
+      "colors": {
+        "background": "#f2e408",
+        "foreground": "#2d4c5d",
+        "card": "#f2e408",
+        "secondary": "#f2e408",
+        "muted-foreground": "#2d4c5d",
+        "border": "#2d4c5d",
+        "primary": "#2d4c5d",
+        "primary-foreground": "#f2e408",
+        "code": "#2d4c5d"
+      }
+    },
+    {
+      "id": "figma-arctic-reflection",
+      "name": "Figma-Arctic reflection",
+      "dark": false,
+      "chrome": "#f3fcfb",
+      "primary": "#243c4d",
+      "secondary": "#f3fcfb",
+      "source": "Figma · Color scheme 48",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-48-arctic-reflection",
+      "colors": {
+        "background": "#f3fcfb",
+        "foreground": "#243c4d",
+        "card": "#f3fcfb",
+        "secondary": "#f3fcfb",
+        "muted-foreground": "#243c4d",
+        "border": "#243c4d",
+        "primary": "#243c4d",
+        "primary-foreground": "#f3fcfb",
+        "code": "#243c4d"
+      }
+    },
+    {
+      "id": "figma-slate",
+      "name": "Figma-Slate",
+      "dark": false,
+      "chrome": "#f1f1f1",
+      "primary": "#141414",
+      "secondary": "#f1f1f1",
+      "source": "Figma · Color scheme 49",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-49-slate",
+      "colors": {
+        "background": "#f1f1f1",
+        "foreground": "#141414",
+        "card": "#f1f1f1",
+        "secondary": "#f1f1f1",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#f1f1f1",
+        "code": "#141414"
+      }
+    },
+    {
+      "id": "figma-autumn-luxe",
+      "name": "Figma-Autumn luxe",
+      "dark": false,
+      "chrome": "#e3e1eb",
+      "primary": "#322c27",
+      "secondary": "#e3e1eb",
+      "source": "Figma · Color scheme 50",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-50-autumn-luxe",
+      "colors": {
+        "background": "#e3e1eb",
+        "foreground": "#322c27",
+        "card": "#e3e1eb",
+        "secondary": "#e3e1eb",
+        "muted-foreground": "#322c27",
+        "border": "#322c27",
+        "primary": "#322c27",
+        "primary-foreground": "#e3e1eb",
+        "code": "#322c27"
+      }
+    },
+    {
+      "id": "figma-inked",
+      "name": "Figma-Inked",
+      "dark": false,
+      "chrome": "#e0dedc",
+      "primary": "#000000",
+      "secondary": "#e0dedc",
+      "source": "Figma · Color scheme 51",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-51-inked",
+      "colors": {
+        "background": "#e0dedc",
+        "foreground": "#000000",
+        "card": "#e0dedc",
+        "secondary": "#e0dedc",
+        "muted-foreground": "#000000",
+        "border": "#000000",
+        "primary": "#000000",
+        "primary-foreground": "#e0dedc",
+        "code": "#000000"
+      }
+    },
+    {
+      "id": "figma-wraith",
+      "name": "Figma-Wraith",
+      "dark": true,
+      "chrome": "#1e1803",
+      "primary": "#8c886a",
+      "secondary": "#1e1803",
+      "source": "Figma · Color scheme 52",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-52-wraith",
+      "colors": {
+        "background": "#1e1803",
+        "foreground": "#e6e3e4",
+        "card": "#1e1803",
+        "secondary": "#1e1803",
+        "muted-foreground": "#e6e3e4",
+        "border": "#e6e3e4",
+        "primary": "#8c886a",
+        "primary-foreground": "#1e1803",
+        "code": "#e6e3e4"
+      }
+    },
+    {
+      "id": "figma-urban-nocturne",
+      "name": "Figma-Urban nocturne",
+      "dark": false,
+      "chrome": "#d6d6d6",
+      "primary": "#141414",
+      "secondary": "#d6d6d6",
+      "source": "Figma · Color scheme 53",
+      "url": "https://www.figma.com/resource-library/website-color-schemes/#color-scheme-53-urban-nocturne",
+      "colors": {
+        "background": "#d6d6d6",
+        "foreground": "#141414",
+        "card": "#d6d6d6",
+        "secondary": "#d6d6d6",
+        "muted-foreground": "#141414",
+        "border": "#141414",
+        "primary": "#141414",
+        "primary-foreground": "#e2e800",
+        "code": "#141414"
+      }
+    }
+  ],
+  "fonts": [
+    {
+      "id": "default",
+      "name": "Inter (Default)",
+      "family": "Inter Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/inter-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "josefin-sans",
+      "name": "Josefin Sans",
+      "family": "Josefin Sans Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/josefin-sans-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "roboto",
+      "name": "Roboto",
+      "family": "Roboto Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/roboto-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "open-sans",
+      "name": "Open Sans",
+      "family": "Open Sans Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/open-sans-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "rubik",
+      "name": "Rubik",
+      "family": "Rubik Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/rubik-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "dm-sans",
+      "name": "DM Sans",
+      "family": "DM Sans Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/dm-sans-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "poppins",
+      "name": "Poppins",
+      "family": "Poppins",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/poppins-latin-400-normal.ttf",
+        "assets/appearance/poppins-latin-700-normal.ttf"
+      ]
+    },
+    {
+      "id": "lato",
+      "name": "Lato",
+      "family": "Lato",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/lato-latin-400-normal.ttf",
+        "assets/appearance/lato-latin-700-normal.ttf"
+      ]
+    },
+    {
+      "id": "nunito",
+      "name": "Nunito",
+      "family": "Nunito Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/nunito-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "ubuntu",
+      "name": "Ubuntu",
+      "family": "Ubuntu",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/ubuntu-latin-400-normal.ttf",
+        "assets/appearance/ubuntu-latin-700-normal.ttf"
+      ]
+    },
+    {
+      "id": "source-sans-pro",
+      "name": "Source Sans Pro",
+      "family": "Source Sans Pro",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/source-sans-pro-latin-400-normal.ttf",
+        "assets/appearance/source-sans-pro-latin-700-normal.ttf"
+      ]
+    },
+    {
+      "id": "work-sans",
+      "name": "Work Sans",
+      "family": "Work Sans Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/work-sans-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "manrope",
+      "name": "Manrope",
+      "family": "Manrope Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/manrope-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "raleway",
+      "name": "Raleway",
+      "family": "Raleway Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/raleway-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "montserrat",
+      "name": "Montserrat",
+      "family": "Montserrat Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/montserrat-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "playfair-display",
+      "name": "Playfair Display",
+      "family": "Playfair Display Variable",
+      "group": "Serif",
+      "assets": [
+        "assets/appearance/playfair-display-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "libre-baskerville",
+      "name": "Libre Baskerville",
+      "family": "Libre Baskerville Variable",
+      "group": "Serif",
+      "assets": [
+        "assets/appearance/libre-baskerville-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "neuton",
+      "name": "Neuton",
+      "family": "Neuton",
+      "group": "Serif",
+      "assets": [
+        "assets/appearance/neuton-latin-400-normal.ttf",
+        "assets/appearance/neuton-latin-700-normal.ttf"
+      ]
+    },
+    {
+      "id": "lora",
+      "name": "Lora",
+      "family": "Lora Variable",
+      "group": "Serif",
+      "assets": [
+        "assets/appearance/lora-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "arvo",
+      "name": "Arvo",
+      "family": "Arvo",
+      "group": "Slab serif",
+      "assets": [
+        "assets/appearance/arvo-latin-400-normal.ttf",
+        "assets/appearance/arvo-latin-700-normal.ttf"
+      ]
+    },
+    {
+      "id": "mona-sans",
+      "name": "Mona Sans",
+      "family": "Mona Sans Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/mona-sans-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "hubot-sans",
+      "name": "Hubot Sans",
+      "family": "Hubot Sans Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/hubot-sans-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "public-sans",
+      "name": "Public Sans",
+      "family": "Public Sans Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/public-sans-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "geist",
+      "name": "Geist Sans",
+      "family": "Geist Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/geist-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "space-grotesk",
+      "name": "Space Grotesk",
+      "family": "Space Grotesk Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/space-grotesk-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "figtree",
+      "name": "Figtree",
+      "family": "Figtree Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/figtree-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "instrument-sans",
+      "name": "Instrument Sans",
+      "family": "Instrument Sans Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/instrument-sans-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "onest",
+      "name": "Onest",
+      "family": "Onest Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/onest-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "plus-jakarta-sans",
+      "name": "Plus Jakarta Sans",
+      "family": "Plus Jakarta Sans Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/plus-jakarta-sans-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "outfit",
+      "name": "Outfit",
+      "family": "Outfit Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/outfit-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "lexend",
+      "name": "Lexend",
+      "family": "Lexend Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/lexend-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "aileron",
+      "name": "Aileron",
+      "family": "Aileron",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/aileron-latin-400-normal.ttf",
+        "assets/appearance/aileron-latin-700-normal.ttf"
+      ]
+    },
+    {
+      "id": "hind",
+      "name": "Hind",
+      "family": "Hind",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/hind-latin-400-normal.ttf",
+        "assets/appearance/hind-latin-700-normal.ttf"
+      ]
+    },
+    {
+      "id": "fira-sans",
+      "name": "Fira Sans",
+      "family": "Fira Sans",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/fira-sans-latin-400-normal.ttf",
+        "assets/appearance/fira-sans-latin-700-normal.ttf"
+      ]
+    },
+    {
+      "id": "be-vietnam-pro",
+      "name": "Be Vietnam Pro",
+      "family": "Be Vietnam Pro",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/be-vietnam-pro-latin-400-normal.ttf",
+        "assets/appearance/be-vietnam-pro-latin-700-normal.ttf"
+      ]
+    },
+    {
+      "id": "nacelle",
+      "name": "Nacelle",
+      "family": "Nacelle",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/nacelle-400-normal.otf",
+        "assets/appearance/nacelle-700-normal.otf"
+      ]
+    },
+    {
+      "id": "hk-grotesk",
+      "name": "HK Grotesk",
+      "family": "HK Grotesk",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/hk-grotesk-400-normal.otf",
+        "assets/appearance/hk-grotesk-700-normal.otf"
+      ]
+    },
+    {
+      "id": "playwrite-ar-guides",
+      "name": "Playwrite Argentina Guides",
+      "family": "Playwrite AR Guides",
+      "group": "Handwriting",
+      "assets": [
+        "assets/appearance/playwrite-ar-guides-latin-400-normal.ttf"
+      ]
+    },
+    {
+      "id": "rubik-storm",
+      "name": "Rubik Storm",
+      "family": "Rubik Storm",
+      "group": "Display / decorative",
+      "assets": [
+        "assets/appearance/rubik-storm-latin-ext-400-normal.ttf",
+        "assets/appearance/rubik-storm-latin-400-normal.ttf"
+      ]
+    },
+    {
+      "id": "noto-sans-chakma",
+      "name": "Noto Sans Chakma",
+      "family": "Noto Sans Chakma",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/noto-sans-chakma-latin-400-normal.ttf"
+      ]
+    },
+    {
+      "id": "google-sans",
+      "name": "Google Sans",
+      "family": "Google Sans Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/google-sans-latin-ext-wght-normal.ttf",
+        "assets/appearance/google-sans-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "noto-sans-kharoshthi",
+      "name": "Noto Sans Kharoshthi",
+      "family": "Noto Sans Kharoshthi",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/noto-sans-kharoshthi-latin-400-normal.ttf"
+      ]
+    },
+    {
+      "id": "asap-sharp",
+      "name": "Asap Sharp",
+      "family": "Asap Sharp Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/asap-sharp-latin-ext-wght-normal.ttf",
+        "assets/appearance/asap-sharp-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "noto-sans-jp",
+      "name": "Noto Sans Japanese",
+      "family": "Noto Sans JP Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/noto-sans-jp-latin-ext-wght-normal.ttf",
+        "assets/appearance/noto-sans-jp-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "noto-sans-elbasan",
+      "name": "Noto Sans Elbasan",
+      "family": "Noto Sans Elbasan",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/noto-sans-elbasan-latin-400-normal.ttf"
+      ]
+    },
+    {
+      "id": "arimo",
+      "name": "Arimo",
+      "family": "Arimo Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/arimo-latin-ext-wght-normal.ttf",
+        "assets/appearance/arimo-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "noto-serif-gurmukhi",
+      "name": "Noto Serif Gurmukhi",
+      "family": "Noto Serif Gurmukhi Variable",
+      "group": "Serif",
+      "assets": [
+        "assets/appearance/noto-serif-gurmukhi-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "roboto-condensed",
+      "name": "Roboto Condensed",
+      "family": "Roboto Condensed Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/roboto-condensed-latin-ext-wght-normal.ttf",
+        "assets/appearance/roboto-condensed-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "roboto-mono",
+      "name": "Roboto Mono",
+      "family": "Roboto Mono Variable",
+      "group": "Monospace",
+      "assets": [
+        "assets/appearance/roboto-mono-latin-ext-wght-normal.ttf",
+        "assets/appearance/roboto-mono-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "oswald",
+      "name": "Oswald",
+      "family": "Oswald Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/oswald-latin-ext-wght-normal.ttf",
+        "assets/appearance/oswald-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "noto-sans",
+      "name": "Noto Sans",
+      "family": "Noto Sans Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/noto-sans-latin-ext-wght-normal.ttf",
+        "assets/appearance/noto-sans-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "yarndings-12",
+      "name": "Yarndings 12",
+      "family": "Yarndings 12",
+      "group": "Display / decorative",
+      "assets": [
+        "assets/appearance/yarndings-12-latin-400-normal.ttf"
+      ]
+    },
+    {
+      "id": "nunito-sans",
+      "name": "Nunito Sans",
+      "family": "Nunito Sans Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/nunito-sans-latin-ext-wght-normal.ttf",
+        "assets/appearance/nunito-sans-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "noto-sans-nabataean",
+      "name": "Noto Sans Nabataean",
+      "family": "Noto Sans Nabataean",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/noto-sans-nabataean-latin-400-normal.ttf"
+      ]
+    },
+    {
+      "id": "roboto-slab",
+      "name": "Roboto Slab",
+      "family": "Roboto Slab Variable",
+      "group": "Serif",
+      "assets": [
+        "assets/appearance/roboto-slab-latin-ext-wght-normal.ttf",
+        "assets/appearance/roboto-slab-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "playwrite-it-trad",
+      "name": "Playwrite Italia Tradizionale",
+      "family": "Playwrite IT Trad Variable",
+      "group": "Handwriting",
+      "assets": [
+        "assets/appearance/playwrite-it-trad-fallback-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "merriweather",
+      "name": "Merriweather",
+      "family": "Merriweather Variable",
+      "group": "Serif",
+      "assets": [
+        "assets/appearance/merriweather-latin-ext-wght-normal.ttf",
+        "assets/appearance/merriweather-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "kanit",
+      "name": "Kanit",
+      "family": "Kanit",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/kanit-latin-ext-400-normal.ttf",
+        "assets/appearance/kanit-latin-400-normal.ttf",
+        "assets/appearance/kanit-latin-ext-700-normal.ttf",
+        "assets/appearance/kanit-latin-700-normal.ttf"
+      ]
+    },
+    {
+      "id": "bebas-neue",
+      "name": "Bebas Neue",
+      "family": "Bebas Neue",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/bebas-neue-latin-ext-400-normal.ttf",
+        "assets/appearance/bebas-neue-latin-400-normal.ttf"
+      ]
+    },
+    {
+      "id": "archivo-black",
+      "name": "Archivo Black",
+      "family": "Archivo Black",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/archivo-black-latin-ext-400-normal.ttf",
+        "assets/appearance/archivo-black-latin-400-normal.ttf"
+      ]
+    },
+    {
+      "id": "noto-sans-kr",
+      "name": "Noto Sans Korean",
+      "family": "Noto Sans KR Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/noto-sans-kr-latin-ext-wght-normal.ttf",
+        "assets/appearance/noto-sans-kr-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "micro-5-charted",
+      "name": "Micro 5 Charted",
+      "family": "Micro 5 Charted",
+      "group": "Display / decorative",
+      "assets": [
+        "assets/appearance/micro-5-charted-latin-ext-400-normal.ttf",
+        "assets/appearance/micro-5-charted-latin-400-normal.ttf"
+      ]
+    },
+    {
+      "id": "jetbrains-mono",
+      "name": "JetBrains Mono",
+      "family": "JetBrains Mono Variable",
+      "group": "Monospace",
+      "assets": [
+        "assets/appearance/jetbrains-mono-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "barlow",
+      "name": "Barlow",
+      "family": "Barlow",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/barlow-latin-ext-400-normal.ttf",
+        "assets/appearance/barlow-latin-400-normal.ttf",
+        "assets/appearance/barlow-latin-ext-700-normal.ttf",
+        "assets/appearance/barlow-latin-700-normal.ttf"
+      ]
+    },
+    {
+      "id": "pt-sans",
+      "name": "PT Sans",
+      "family": "PT Sans",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/pt-sans-latin-ext-400-normal.ttf",
+        "assets/appearance/pt-sans-latin-400-normal.ttf",
+        "assets/appearance/pt-sans-latin-ext-700-normal.ttf",
+        "assets/appearance/pt-sans-latin-700-normal.ttf"
+      ]
+    },
+    {
+      "id": "archivo",
+      "name": "Archivo",
+      "family": "Archivo Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/archivo-latin-ext-wght-normal.ttf",
+        "assets/appearance/archivo-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "noto-sans-tc",
+      "name": "Noto Sans Traditional Chinese",
+      "family": "Noto Sans TC Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/noto-sans-tc-latin-ext-wght-normal.ttf",
+        "assets/appearance/noto-sans-tc-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "noto-sans-mandaic",
+      "name": "Noto Sans Mandaic",
+      "family": "Noto Sans Mandaic",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/noto-sans-mandaic-latin-400-normal.ttf"
+      ]
+    },
+    {
+      "id": "source-sans-3",
+      "name": "Source Sans 3",
+      "family": "Source Sans 3 Variable",
+      "group": "Sans serif",
+      "assets": [
+        "assets/appearance/source-sans-3-latin-ext-wght-normal.ttf",
+        "assets/appearance/source-sans-3-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "developer-jetbrains-mono",
+      "name": "developer-JetBrains Mono",
+      "family": "JetBrains Mono Variable",
+      "group": "Developer",
+      "assets": [
+        "assets/appearance/jetbrains-mono-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "developer-fira-code",
+      "name": "developer-Fira Code",
+      "family": "Fira Code Variable",
+      "group": "Developer",
+      "assets": [
+        "assets/appearance/fira-code-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "developer-geist-mono",
+      "name": "developer-Geist Mono",
+      "family": "Geist Mono Variable",
+      "group": "Developer",
+      "assets": [
+        "assets/appearance/geist-mono-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "developer-google-sans-code",
+      "name": "developer-Google Sans Code",
+      "family": "Google Sans Code Variable",
+      "group": "Developer",
+      "assets": [
+        "assets/appearance/google-sans-code-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "developer-iosevka",
+      "name": "developer-Iosevka",
+      "family": "Iosevka",
+      "group": "Developer",
+      "assets": [
+        "assets/appearance/iosevka-latin-400-normal.ttf",
+        "assets/appearance/iosevka-latin-700-normal.ttf"
+      ]
+    },
+    {
+      "id": "developer-source-code-pro",
+      "name": "developer-Source Code Pro",
+      "family": "Source Code Pro Variable",
+      "group": "Developer",
+      "assets": [
+        "assets/appearance/source-code-pro-latin-wght-normal.ttf"
+      ]
+    },
+    {
+      "id": "myanmar",
+      "name": "Noto Sans Myanmar",
+      "family": "Noto Sans Myanmar Variable",
+      "group": "Script fonts",
+      "assets": [
+        "assets/appearance/noto-sans-myanmar-myanmar-wght-normal.ttf"
+      ]
+    }
+  ],
+  "styles": [
+    {
+      "id": "default",
+      "name": "Current style (Default)",
+      "description": "Original GistHub appearance",
+      "group": "Original styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "neobrutalism",
+      "name": "Neobrutalism",
+      "description": "Heavy outlines and bold offset shadows",
+      "group": "Original styles",
+      "radius": [
+        2.4
+      ],
+      "border": 3.0,
+      "elevation": 3
+    },
+    {
+      "id": "bauhaus",
+      "name": "Bauhaus",
+      "description": "Geometric accents and structured surfaces",
+      "group": "Original styles",
+      "radius": [
+        0.0
+      ],
+      "border": 2.0,
+      "elevation": 0
+    },
+    {
+      "id": "neumorphism",
+      "name": "Neumorphism",
+      "description": "Soft raised surfaces and inset controls",
+      "group": "Original styles",
+      "radius": [
+        16.0
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "retro-futurism",
+      "name": "Retro Futurism",
+      "description": "Arcade frames and vintage terminal details",
+      "group": "Original styles",
+      "radius": [
+        3.2
+      ],
+      "border": 2.0,
+      "elevation": 3
+    },
+    {
+      "id": "cyberpunk",
+      "name": "Cyberpunk",
+      "description": "Angular panels and restrained accent glow",
+      "group": "Original styles",
+      "radius": [
+        0.0,
+        14.4,
+        0.0,
+        14.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "glassmorphism",
+      "name": "Glassmorphism",
+      "description": "Frosted panels and translucent layers",
+      "group": "Original styles",
+      "radius": [
+        16.0
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "flat",
+      "name": "Flat",
+      "description": "Clean surfaces with minimal decoration",
+      "group": "Original styles",
+      "radius": [
+        8.0
+      ],
+      "border": 1.0,
+      "elevation": 0
+    },
+    {
+      "id": "neoclassical",
+      "name": "Neoclassical",
+      "description": "Balanced panels with classical heading rules",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "baroque",
+      "name": "Baroque",
+      "description": "Layered frames and deep surface shadows",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "aurora",
+      "name": "Aurora",
+      "description": "Ambient color fields and floating rounded panels",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "ethereal",
+      "name": "Ethereal",
+      "description": "Light surface shadows and open rounded frames",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "filigree",
+      "name": "Filigree",
+      "description": "Fine dotted trim around polished surfaces",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "acanthus",
+      "name": "Acanthus",
+      "description": "Leaf-shaped corners and paired accent rules",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "anthropomorphic",
+      "name": "Anthropomorphic",
+      "description": "Friendly capsule controls and expressive corner details",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "pixel-art",
+      "name": "Pixel Art",
+      "description": "Stepped shadows and pixel-grid framing",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "conceptual-sketch",
+      "name": "Conceptual Sketch",
+      "description": "Dashed ink outlines on a ruled canvas",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "luxury-typography",
+      "name": "Luxury Typography",
+      "description": "Spaced editorial headings and fine framing",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "japandi",
+      "name": "Japandi",
+      "description": "Quiet surfaces and understated section dividers",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "memphis",
+      "name": "Memphis",
+      "description": "Geometric canvas marks and offset accent shadows",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "bohemian",
+      "name": "Bohemian",
+      "description": "Woven canvas texture and stitched section trim",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "shabby-chic",
+      "name": "Shabby Chic",
+      "description": "Dotted vintage frames and soft inset edges",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "cottagecore",
+      "name": "Farmhouse / Cottagecore",
+      "description": "Gingham canvas with simple framed surfaces",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "victorian",
+      "name": "Victorian",
+      "description": "Double frames and ornamental heading dividers",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "art-deco",
+      "name": "Art Deco",
+      "description": "Stepped double outlines and geometric heading rules",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "art-nouveau",
+      "name": "Art Nouveau",
+      "description": "Flowing corners and curved accent dividers",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "mystical-western",
+      "name": "Mystical Western",
+      "description": "Celestial canvas marks and engraved frame details",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "kitsch",
+      "name": "Kitsch",
+      "description": "Glossy controls with playful layered accents",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "y2k",
+      "name": "Y2K",
+      "description": "Chrome-like inset highlights and capsule controls",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "brutalism",
+      "name": "Brutalism",
+      "description": "Square utilitarian frames with stark section rules",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "cybercore",
+      "name": "Cybercore",
+      "description": "Technical grid lines and precise accent frames",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "synthwave",
+      "name": "Synthwave",
+      "description": "Perspective-inspired grid and luminous edges",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "vaporwave",
+      "name": "Vaporwave",
+      "description": "Layered horizon bands and offset translucent frames",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "pop-art",
+      "name": "Pop Art",
+      "description": "Halftone canvas and comic-style heading emphasis",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "bento-box",
+      "name": "Bento Box",
+      "description": "Consistent modular panels with inset surface framing",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "graffiti",
+      "name": "Graffiti",
+      "description": "Speckled canvas and broad expressive heading strokes",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "tenebrism",
+      "name": "Tenebrism",
+      "description": "Spotlit canvas with deep contrasting panel shadows",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "gothic",
+      "name": "Gothic",
+      "description": "Arched panels and narrow engraved heading rules",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "pointillism",
+      "name": "Pointillism",
+      "description": "Layered dot fields and delicate stippled borders",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "mixed-media",
+      "name": "Mixed Media",
+      "description": "Mixed frame edges with offset paper layers",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "steampunk",
+      "name": "Steampunk",
+      "description": "Riveted heading trim and inset mechanical frames",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "kawaii",
+      "name": "Kawaii",
+      "description": "Pill controls and soft bubble-patterned surfaces",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "coquette",
+      "name": "Coquette",
+      "description": "Paired ribbon-like rules and delicate inset trim",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "surrealism",
+      "name": "Surrealism",
+      "description": "Unexpected organic corners and abstract orbit fields",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "utilitarian",
+      "name": "Utilitarian",
+      "description": "Plain technical panels and clearly separated controls",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "mid-century",
+      "name": "Mid-Century",
+      "description": "Organic geometric canvas with slim offset framing",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "scrapbook",
+      "name": "Scrapbook",
+      "description": "Paper layers and taped section-heading details",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "neo-frutiger-aero",
+      "name": "Neo Frutiger Aero",
+      "description": "Glossy aqua-like surfaces using the current accent",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "dark-magic-academia",
+      "name": "Dark Magic Academia",
+      "description": "Engraved book-like framing and scholarly headings",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "light-academia",
+      "name": "Light Academia",
+      "description": "Linen-like texture and restrained editorial rules",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "wabi-sabi",
+      "name": "Wabi Sabi",
+      "description": "Uneven organic corners and quiet grain patterns",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "wild-west",
+      "name": "South West / Wild West",
+      "description": "Stitched frames and strong slab-like heading rules",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "nautical",
+      "name": "Nautical",
+      "description": "Striped canvas and rope-like paired panel trim",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "rebus",
+      "name": "Rebus",
+      "description": "Geometric symbol accents with clearly labeled controls",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "modular-typography",
+      "name": "Modular Typography",
+      "description": "Grid-aligned heading blocks and segmented rules",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    },
+    {
+      "id": "cruip",
+      "name": "Cruip",
+      "description": "Artifact-inspired dashboard with quiet borders and rounded surfaces",
+      "group": "More design styles",
+      "radius": [
+        10.4
+      ],
+      "border": 1.0,
+      "elevation": 3
+    }
+  ],
+  "presets": [
+    {
+      "id": "bold-light",
+      "name": "Neobrutalism + Light",
+      "style": "neobrutalism",
+      "theme": "light"
+    },
+    {
+      "id": "geometric-light",
+      "name": "Bauhaus + Atom One Light",
+      "style": "bauhaus",
+      "theme": "vscode-akamud-vscode-theme-onelight-atom-one-light"
+    },
+    {
+      "id": "soft-nord",
+      "name": "Neumorphism + Nord",
+      "style": "neumorphism",
+      "theme": "vscode-arcticicestudio-nord-visual-studio-code-nord"
+    },
+    {
+      "id": "retro-gruvbox",
+      "name": "Retro Futurism + Gruvbox",
+      "style": "retro-futurism",
+      "theme": "vscode-jdinhlife-gruvbox-gruvbox-dark-hard"
+    },
+    {
+      "id": "cyber-tokyo",
+      "name": "Cyberpunk + Tokyo Night",
+      "style": "cyberpunk",
+      "theme": "vscode-enkia-tokyo-night-tokyo-night"
+    },
+    {
+      "id": "glass-dark",
+      "name": "Glassmorphism + Dark",
+      "style": "glassmorphism",
+      "theme": "dark"
+    },
+    {
+      "id": "flat-light",
+      "name": "Flat + Light",
+      "style": "flat",
+      "theme": "light"
+    }
+  ]
+}
