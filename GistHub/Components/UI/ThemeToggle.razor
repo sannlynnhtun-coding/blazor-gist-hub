@@ -2,7 +2,7 @@
 @implements IAsyncDisposable
 
 <div class="neo-theme-picker" @ref="Picker" data-saved-theme="@Theme" data-saved-style="@Style" data-saved-font="@Font">
-    <button class="neo-theme-trigger" type="button" popovertarget="@PanelId" aria-label="Page theme" aria-haspopup="dialog" title="Preview and choose a page theme">
+    <button class="neo-theme-trigger" type="button" popovertarget="@PanelId" aria-label="@($"{SelectedName} page theme")" aria-haspopup="dialog" title="Preview and choose a page theme">
         <span class="neo-theme-trigger__swatch" aria-hidden="true"></span>
         <span class="neo-theme-trigger__name">@SelectedName</span>
         <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6" /></svg>
