@@ -19,8 +19,13 @@ function boot(saved, blocked = false) {
 }
 const app = boot();
 const fonts = app.window.getGistHubFonts();
-assert.equal(fonts.length, 37);
-assert.equal(new Set(fonts.map(f => f.id)).size, 37);
+assert.equal(fonts.length, 69);
+assert.equal(new Set(fonts.map(f => f.id)).size, 69);
+const trending = JSON.parse(readFileSync('GistHub/ThemeSources/google-fonts-trending.json', 'utf8')).fonts;
+assert.equal(trending.length, 50);
+assert.equal(new Set(trending.map(f => f.id)).size, 50);
+assert.deepEqual(trending.map(f => f.rank), Array.from({ length: 50 }, (_, i) => i + 1));
+assert.ok(trending.every(f => fonts.some(option => option.id === f.id)));
 assert.equal(app.window.getGistHubFont(), 'default');
 for (const font of fonts) {
     assert.ok(css.includes(`font-family: '${font.family}'`), font.family);
@@ -44,4 +49,4 @@ for (const [, url] of css.matchAll(/url\(([^)]+)\)/g)) {
     assert.ok(existsSync(path));
     assert.equal(readFileSync(path).subarray(0, 4).toString(), path.pathname.endsWith('.otf') ? 'OTTO' : 'wOF2');
 }
-console.log('PASS: 37 real local font families, persistence, nonpersistent preview, defaults, Burmese fallback, code/palette independence and valid WOFF2/OTF assets.');
+console.log('PASS: 69 real local font families, persistence, nonpersistent preview, defaults, Burmese fallback, code/palette independence and valid WOFF2/OTF assets.');

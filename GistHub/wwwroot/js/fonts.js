@@ -221,6 +221,198 @@
         "name": "HK Grotesk",
         "family": "HK Grotesk",
         "group": "Sans serif"
+    },
+    {
+        "id": "playwrite-ar-guides",
+        "name": "Playwrite Argentina Guides",
+        "family": "Playwrite AR Guides",
+        "group": "Handwriting"
+    },
+    {
+        "id": "rubik-storm",
+        "name": "Rubik Storm",
+        "family": "Rubik Storm",
+        "group": "Display / decorative"
+    },
+    {
+        "id": "noto-sans-chakma",
+        "name": "Noto Sans Chakma",
+        "family": "Noto Sans Chakma",
+        "group": "Sans serif"
+    },
+    {
+        "id": "google-sans",
+        "name": "Google Sans",
+        "family": "Google Sans Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "noto-sans-kharoshthi",
+        "name": "Noto Sans Kharoshthi",
+        "family": "Noto Sans Kharoshthi",
+        "group": "Sans serif"
+    },
+    {
+        "id": "asap-sharp",
+        "name": "Asap Sharp",
+        "family": "Asap Sharp Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "noto-sans-jp",
+        "name": "Noto Sans Japanese",
+        "family": "Noto Sans JP Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "noto-sans-elbasan",
+        "name": "Noto Sans Elbasan",
+        "family": "Noto Sans Elbasan",
+        "group": "Sans serif"
+    },
+    {
+        "id": "arimo",
+        "name": "Arimo",
+        "family": "Arimo Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "noto-serif-gurmukhi",
+        "name": "Noto Serif Gurmukhi",
+        "family": "Noto Serif Gurmukhi Variable",
+        "group": "Serif"
+    },
+    {
+        "id": "roboto-condensed",
+        "name": "Roboto Condensed",
+        "family": "Roboto Condensed Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "roboto-mono",
+        "name": "Roboto Mono",
+        "family": "Roboto Mono Variable",
+        "group": "Monospace"
+    },
+    {
+        "id": "oswald",
+        "name": "Oswald",
+        "family": "Oswald Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "noto-sans",
+        "name": "Noto Sans",
+        "family": "Noto Sans Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "yarndings-12",
+        "name": "Yarndings 12",
+        "family": "Yarndings 12",
+        "group": "Display / decorative"
+    },
+    {
+        "id": "nunito-sans",
+        "name": "Nunito Sans",
+        "family": "Nunito Sans Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "noto-sans-nabataean",
+        "name": "Noto Sans Nabataean",
+        "family": "Noto Sans Nabataean",
+        "group": "Sans serif"
+    },
+    {
+        "id": "roboto-slab",
+        "name": "Roboto Slab",
+        "family": "Roboto Slab Variable",
+        "group": "Serif"
+    },
+    {
+        "id": "playwrite-it-trad",
+        "name": "Playwrite Italia Tradizionale",
+        "family": "Playwrite IT Trad Variable",
+        "group": "Handwriting"
+    },
+    {
+        "id": "merriweather",
+        "name": "Merriweather",
+        "family": "Merriweather Variable",
+        "group": "Serif"
+    },
+    {
+        "id": "kanit",
+        "name": "Kanit",
+        "family": "Kanit",
+        "group": "Sans serif"
+    },
+    {
+        "id": "bebas-neue",
+        "name": "Bebas Neue",
+        "family": "Bebas Neue",
+        "group": "Sans serif"
+    },
+    {
+        "id": "archivo-black",
+        "name": "Archivo Black",
+        "family": "Archivo Black",
+        "group": "Sans serif"
+    },
+    {
+        "id": "noto-sans-kr",
+        "name": "Noto Sans Korean",
+        "family": "Noto Sans KR Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "micro-5-charted",
+        "name": "Micro 5 Charted",
+        "family": "Micro 5 Charted",
+        "group": "Display / decorative"
+    },
+    {
+        "id": "jetbrains-mono",
+        "name": "JetBrains Mono",
+        "family": "JetBrains Mono Variable",
+        "group": "Monospace"
+    },
+    {
+        "id": "barlow",
+        "name": "Barlow",
+        "family": "Barlow",
+        "group": "Sans serif"
+    },
+    {
+        "id": "pt-sans",
+        "name": "PT Sans",
+        "family": "PT Sans",
+        "group": "Sans serif"
+    },
+    {
+        "id": "archivo",
+        "name": "Archivo",
+        "family": "Archivo Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "noto-sans-tc",
+        "name": "Noto Sans Traditional Chinese",
+        "family": "Noto Sans TC Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "noto-sans-mandaic",
+        "name": "Noto Sans Mandaic",
+        "family": "Noto Sans Mandaic",
+        "group": "Sans serif"
+    },
+    {
+        "id": "source-sans-3",
+        "name": "Source Sans 3",
+        "family": "Source Sans 3 Variable",
+        "group": "Sans serif"
     }
 ];
     window.getGistHubFonts = () => fonts;

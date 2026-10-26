@@ -67,3 +67,42 @@ Source: https://www.untitledui.com/blog/best-free-fonts
 Existing families are reused, giving 37 unique choices. Nacelle and HK Grotesk ship original OTF files; other new families use Latin WOFF2 subsets. Static families include normal 400 and 700; other weights and italics may be synthesized. Burmese and code fallbacks stay unchanged.
 
 Not bundled: Satoshi, Switzer, General Sans and Supreme (Fontshare custom licensing is not assumed to permit public repository redistribution and font-selection services); Neue Haas Grotesk, Aktiv Grotesk and Futura PT (Adobe subscription/commercial licensing). No substitute fonts are presented as these families.
+
+## Google Fonts Trending: first 50
+
+Captured 2026-10-26 from https://fonts.google.com/ with the visible sort set to Trending. UI order matches metadata `defaultSort`, not the standalone `trending` field. Exact ranks and picker IDs are in `ThemeSources/google-fonts-trending.json`. Existing entries are reused; 32 choices added, 69 total.
+
+- `@fontsource/playwrite-ar-guides@5.3.0` — Playwrite AR Guides (OFL-1.1)
+- `@fontsource/rubik-storm@5.3.0` — Rubik Storm (OFL-1.1)
+- `@fontsource/noto-sans-chakma@5.3.0` — Noto Sans Chakma (OFL-1.1)
+- `@fontsource-variable/google-sans@5.3.2` — Google Sans Variable (OFL-1.1)
+- `@fontsource/noto-sans-kharoshthi@5.3.0` — Noto Sans Kharoshthi (OFL-1.1)
+- `@fontsource-variable/asap-sharp@5.3.1` — Asap Sharp Variable (OFL-1.1)
+- `@fontsource-variable/noto-sans-jp@5.3.1` — Noto Sans JP Variable (OFL-1.1)
+- `@fontsource/noto-sans-elbasan@5.3.0` — Noto Sans Elbasan (OFL-1.1)
+- `@fontsource-variable/arimo@5.3.0` — Arimo Variable (OFL-1.1)
+- `@fontsource-variable/noto-serif-gurmukhi@5.3.0` — Noto Serif Gurmukhi Variable (OFL-1.1)
+- `@fontsource-variable/roboto-condensed@5.3.0` — Roboto Condensed Variable (OFL-1.1)
+- `@fontsource-variable/roboto-mono@5.3.0` — Roboto Mono Variable (OFL-1.1)
+- `@fontsource-variable/oswald@5.3.0` — Oswald Variable (OFL-1.1)
+- `@fontsource-variable/noto-sans@5.3.0` — Noto Sans Variable (OFL-1.1)
+- `@fontsource/yarndings-12@5.3.0` — Yarndings 12 (OFL-1.1)
+- `@fontsource-variable/nunito-sans@5.3.0` — Nunito Sans Variable (OFL-1.1)
+- `@fontsource/noto-sans-nabataean@5.3.0` — Noto Sans Nabataean (OFL-1.1)
+- `@fontsource-variable/roboto-slab@5.3.0` — Roboto Slab Variable (Apache-2.0)
+- `@fontsource-variable/playwrite-it-trad@5.3.0` — Playwrite IT Trad Variable (OFL-1.1)
+- `@fontsource-variable/merriweather@5.3.0` — Merriweather Variable (OFL-1.1)
+- `@fontsource/kanit@5.3.0` — Kanit (OFL-1.1)
+- `@fontsource/bebas-neue@5.3.0` — Bebas Neue (OFL-1.1)
+- `@fontsource/archivo-black@5.3.0` — Archivo Black (OFL-1.1)
+- `@fontsource-variable/noto-sans-kr@5.3.1` — Noto Sans KR Variable (OFL-1.1)
+- `@fontsource/micro-5-charted@5.3.0` — Micro 5 Charted (OFL-1.1)
+- `@fontsource-variable/jetbrains-mono@5.3.0` — reuses existing assets
+- `@fontsource/barlow@5.3.0` — Barlow (OFL-1.1)
+- `@fontsource/pt-sans@5.3.0` — PT Sans (OFL-1.1)
+- `@fontsource-variable/archivo@5.3.0` — Archivo Variable (OFL-1.1)
+- `@fontsource-variable/noto-sans-tc@5.3.1` — Noto Sans TC Variable (OFL-1.1)
+- `@fontsource/noto-sans-mandaic@5.3.0` — Noto Sans Mandaic (OFL-1.1)
+- `@fontsource-variable/source-sans-3@5.3.1` — Source Sans 3 Variable (OFL-1.1)
+
+Latin subsets serve website UI; Noto JP/KR/TC do not bundle full CJK character sets. Other script-specific Noto families include native subsets. Characters outside bundled coverage use system fallback. Handwriting/decorative fonts retain their original designs and are not recommended for body text. The appearance picker keeps Inter for readable recovery controls. Single-weight families may synthesize bold; added families may synthesize italic. Original licenses accompany all assets.

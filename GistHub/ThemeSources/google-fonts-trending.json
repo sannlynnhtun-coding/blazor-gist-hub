@@ -1,0 +1,258 @@
+{
+  "source": "https://fonts.google.com/",
+  "metadataSource": "https://fonts.google.com/metadata/fonts",
+  "captured": "2026-10-26",
+  "sort": "Trending: visible default order (metadata defaultSort includes promoted/popular families)",
+  "fonts": [
+    {
+      "rank": 1,
+      "family": "Roboto",
+      "id": "roboto"
+    },
+    {
+      "rank": 2,
+      "family": "Playwrite AR Guides",
+      "id": "playwrite-ar-guides"
+    },
+    {
+      "rank": 3,
+      "family": "Rubik Storm",
+      "id": "rubik-storm"
+    },
+    {
+      "rank": 4,
+      "family": "Open Sans",
+      "id": "open-sans"
+    },
+    {
+      "rank": 5,
+      "family": "Noto Sans Chakma",
+      "id": "noto-sans-chakma"
+    },
+    {
+      "rank": 6,
+      "family": "Google Sans",
+      "id": "google-sans"
+    },
+    {
+      "rank": 7,
+      "family": "Noto Sans Kharoshthi",
+      "id": "noto-sans-kharoshthi"
+    },
+    {
+      "rank": 8,
+      "family": "Inter",
+      "id": "default"
+    },
+    {
+      "rank": 9,
+      "family": "Montserrat",
+      "id": "montserrat"
+    },
+    {
+      "rank": 10,
+      "family": "Poppins",
+      "id": "poppins"
+    },
+    {
+      "rank": 11,
+      "family": "Asap Sharp",
+      "id": "asap-sharp"
+    },
+    {
+      "rank": 12,
+      "family": "Noto Sans JP",
+      "id": "noto-sans-jp"
+    },
+    {
+      "rank": 13,
+      "family": "Lato",
+      "id": "lato"
+    },
+    {
+      "rank": 14,
+      "family": "Noto Sans Elbasan",
+      "id": "noto-sans-elbasan"
+    },
+    {
+      "rank": 15,
+      "family": "Arimo",
+      "id": "arimo"
+    },
+    {
+      "rank": 16,
+      "family": "Noto Serif Gurmukhi",
+      "id": "noto-serif-gurmukhi"
+    },
+    {
+      "rank": 17,
+      "family": "Roboto Condensed",
+      "id": "roboto-condensed"
+    },
+    {
+      "rank": 18,
+      "family": "Roboto Mono",
+      "id": "roboto-mono"
+    },
+    {
+      "rank": 19,
+      "family": "Oswald",
+      "id": "oswald"
+    },
+    {
+      "rank": 20,
+      "family": "Noto Sans",
+      "id": "noto-sans"
+    },
+    {
+      "rank": 21,
+      "family": "DM Sans",
+      "id": "dm-sans"
+    },
+    {
+      "rank": 22,
+      "family": "Yarndings 12",
+      "id": "yarndings-12"
+    },
+    {
+      "rank": 23,
+      "family": "Raleway",
+      "id": "raleway"
+    },
+    {
+      "rank": 24,
+      "family": "Playfair Display",
+      "id": "playfair-display"
+    },
+    {
+      "rank": 25,
+      "family": "Nunito",
+      "id": "nunito"
+    },
+    {
+      "rank": 26,
+      "family": "Nunito Sans",
+      "id": "nunito-sans"
+    },
+    {
+      "rank": 27,
+      "family": "Noto Sans Nabataean",
+      "id": "noto-sans-nabataean"
+    },
+    {
+      "rank": 28,
+      "family": "Roboto Slab",
+      "id": "roboto-slab"
+    },
+    {
+      "rank": 29,
+      "family": "Rubik",
+      "id": "rubik"
+    },
+    {
+      "rank": 30,
+      "family": "Manrope",
+      "id": "manrope"
+    },
+    {
+      "rank": 31,
+      "family": "Outfit",
+      "id": "outfit"
+    },
+    {
+      "rank": 32,
+      "family": "Ubuntu",
+      "id": "ubuntu"
+    },
+    {
+      "rank": 33,
+      "family": "Playwrite IT Trad",
+      "id": "playwrite-it-trad"
+    },
+    {
+      "rank": 34,
+      "family": "Merriweather",
+      "id": "merriweather"
+    },
+    {
+      "rank": 35,
+      "family": "Kanit",
+      "id": "kanit"
+    },
+    {
+      "rank": 36,
+      "family": "Bebas Neue",
+      "id": "bebas-neue"
+    },
+    {
+      "rank": 37,
+      "family": "Plus Jakarta Sans",
+      "id": "plus-jakarta-sans"
+    },
+    {
+      "rank": 38,
+      "family": "Archivo Black",
+      "id": "archivo-black"
+    },
+    {
+      "rank": 39,
+      "family": "Noto Sans KR",
+      "id": "noto-sans-kr"
+    },
+    {
+      "rank": 40,
+      "family": "Figtree",
+      "id": "figtree"
+    },
+    {
+      "rank": 41,
+      "family": "Micro 5 Charted",
+      "id": "micro-5-charted"
+    },
+    {
+      "rank": 42,
+      "family": "Lora",
+      "id": "lora"
+    },
+    {
+      "rank": 43,
+      "family": "Work Sans",
+      "id": "work-sans"
+    },
+    {
+      "rank": 44,
+      "family": "JetBrains Mono",
+      "id": "jetbrains-mono"
+    },
+    {
+      "rank": 45,
+      "family": "Barlow",
+      "id": "barlow"
+    },
+    {
+      "rank": 46,
+      "family": "PT Sans",
+      "id": "pt-sans"
+    },
+    {
+      "rank": 47,
+      "family": "Archivo",
+      "id": "archivo"
+    },
+    {
+      "rank": 48,
+      "family": "Noto Sans TC",
+      "id": "noto-sans-tc"
+    },
+    {
+      "rank": 49,
+      "family": "Noto Sans Mandaic",
+      "id": "noto-sans-mandaic"
+    },
+    {
+      "rank": 50,
+      "family": "Source Sans 3",
+      "id": "source-sans-3"
+    }
+  ]
+}
