@@ -119,6 +119,108 @@
         "name": "Arvo",
         "family": "Arvo",
         "group": "Slab serif"
+    },
+    {
+        "id": "mona-sans",
+        "name": "Mona Sans",
+        "family": "Mona Sans Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "hubot-sans",
+        "name": "Hubot Sans",
+        "family": "Hubot Sans Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "public-sans",
+        "name": "Public Sans",
+        "family": "Public Sans Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "geist",
+        "name": "Geist Sans",
+        "family": "Geist Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "space-grotesk",
+        "name": "Space Grotesk",
+        "family": "Space Grotesk Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "figtree",
+        "name": "Figtree",
+        "family": "Figtree Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "instrument-sans",
+        "name": "Instrument Sans",
+        "family": "Instrument Sans Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "onest",
+        "name": "Onest",
+        "family": "Onest Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "plus-jakarta-sans",
+        "name": "Plus Jakarta Sans",
+        "family": "Plus Jakarta Sans Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "outfit",
+        "name": "Outfit",
+        "family": "Outfit Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "lexend",
+        "name": "Lexend",
+        "family": "Lexend Variable",
+        "group": "Sans serif"
+    },
+    {
+        "id": "aileron",
+        "name": "Aileron",
+        "family": "Aileron",
+        "group": "Sans serif"
+    },
+    {
+        "id": "hind",
+        "name": "Hind",
+        "family": "Hind",
+        "group": "Sans serif"
+    },
+    {
+        "id": "fira-sans",
+        "name": "Fira Sans",
+        "family": "Fira Sans",
+        "group": "Sans serif"
+    },
+    {
+        "id": "be-vietnam-pro",
+        "name": "Be Vietnam Pro",
+        "family": "Be Vietnam Pro",
+        "group": "Sans serif"
+    },
+    {
+        "id": "nacelle",
+        "name": "Nacelle",
+        "family": "Nacelle",
+        "group": "Sans serif"
+    },
+    {
+        "id": "hk-grotesk",
+        "name": "HK Grotesk",
+        "family": "HK Grotesk",
+        "group": "Sans serif"
     }
 ];
     window.getGistHubFonts = () => fonts;

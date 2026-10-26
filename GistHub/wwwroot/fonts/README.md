@@ -41,3 +41,29 @@ The searchable Fonts tab includes 20 families from [Figma's list](https://www.fi
 Ranade, Object Sans, Soria and Sreda are not bundled or represented by substitute fonts. Ranade's [Fontshare license](https://www.fontshare.com/fonts/ranade) restricts repository redistribution and font-selection services; [Object Sans](https://pangrampangram.com/products/object-sans) has commercial licensing. Suitable redistributable webfont files and license terms for Soria and Sreda were not verified. These four require suitable files and distribution permission before inclusion here.
 
 Selecting a font changes UI text and heading families. Code keeps JetBrains Mono and Burmese keeps Noto Sans Myanmar. The default Inter selection restores style-specific heading fonts. `gisthub:font` stores the selection; hover and keyboard focus preview without writing storage. The Fonts list uses the interface font so opening it does not load every family merely to render its name. The published service worker caches the bundled font assets after installation.
+
+## Untitled UI additions
+
+Source: https://www.untitledui.com/blog/best-free-fonts
+
+- `@fontsource-variable/mona-sans@5.3.0` — Mona Sans Variable
+- `@fontsource-variable/hubot-sans@5.3.0` — Hubot Sans Variable
+- `@fontsource-variable/public-sans@5.3.0` — Public Sans Variable
+- `@fontsource-variable/geist@5.3.0` — Geist Variable
+- `@fontsource-variable/space-grotesk@5.3.0` — Space Grotesk Variable
+- `@fontsource-variable/figtree@5.3.0` — Figtree Variable
+- `@fontsource-variable/instrument-sans@5.3.0` — Instrument Sans Variable
+- `@fontsource-variable/onest@5.3.1` — Onest Variable
+- `@fontsource-variable/plus-jakarta-sans@5.3.0` — Plus Jakarta Sans Variable
+- `@fontsource-variable/outfit@5.3.0` — Outfit Variable
+- `@fontsource-variable/lexend@5.3.0` — Lexend Variable
+- `@fontsource/aileron@5.3.0` — Aileron
+- `@fontsource/hind@5.3.0` — Hind
+- `@fontsource/fira-sans@5.3.0` — Fira Sans
+- `@fontsource/be-vietnam-pro@5.3.0` — Be Vietnam Pro
+- Nacelle — Dot Colon version 1.00 (original OTF files)
+- HK Grotesk — HankenDesignCo/HK-Grotesk commit `e481a20f59f7b1da1f9e0b6f02130aeab21d1a80` (original OTF files)
+
+Existing families are reused, giving 37 unique choices. Nacelle and HK Grotesk ship original OTF files; other new families use Latin WOFF2 subsets. Static families include normal 400 and 700; other weights and italics may be synthesized. Burmese and code fallbacks stay unchanged.
+
+Not bundled: Satoshi, Switzer, General Sans and Supreme (Fontshare custom licensing is not assumed to permit public repository redistribution and font-selection services); Neue Haas Grotesk, Aktiv Grotesk and Futura PT (Adobe subscription/commercial licensing). No substitute fonts are presented as these families.
