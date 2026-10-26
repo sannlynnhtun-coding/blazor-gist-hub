@@ -16,3 +16,29 @@ window.highlightGistPreview = (element, source, language, filename) => {
     element.classList.add('hljs');
     element.dataset.previewLanguage = resolved;
 };
+
+window.renderGistMarkdownPreview = (element, source) => {
+    if (!element) return;
+    // Fail closed to readable source if either bundled dependency is unavailable.
+    element.textContent = source;
+    if (!window.marked || !window.DOMPurify) {
+        element.style.whiteSpace = 'pre-wrap';
+        return;
+    }
+    element.style.removeProperty('white-space');
+    element.innerHTML = window.DOMPurify.sanitize(window.marked.parse(source), {
+        USE_PROFILES: { html: true },
+        FORBID_TAGS: ['form', 'input', 'button', 'textarea', 'select', 'style'],
+        FORBID_ATTR: ['style', 'id', 'name']
+    });
+    element.querySelectorAll('a').forEach(link => {
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.draggable = false;
+    });
+    element.querySelectorAll('pre code').forEach(block => {
+        const language = Array.from(block.classList)
+            .find(name => name.startsWith('language-'))?.slice(9) ?? '';
+        window.highlightGistPreview(block, block.textContent, language, '');
+    });
+};

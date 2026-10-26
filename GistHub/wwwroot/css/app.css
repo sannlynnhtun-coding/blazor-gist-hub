@@ -1814,6 +1814,28 @@ span[class~="rounded-md"][class~="border"] {
   height: 0;
 }
 
+.neo-markdown-preview {
+  line-height: 1.6;
+}
+
+.neo-markdown-preview > :first-child { margin-top: 0; }
+.neo-markdown-preview > :last-child { margin-bottom: 0; }
+.neo-markdown-preview :is(p, ul, ol, blockquote, pre, table, hr) { margin-block: .75em; }
+.neo-markdown-preview :is(h1, h2, h3, h4, h5, h6) { margin-block: 1em .5em; font-weight: 700; line-height: 1.3; }
+.neo-markdown-preview h1 { font-size: 1.5em; }
+.neo-markdown-preview h2 { font-size: 1.3em; }
+.neo-markdown-preview h3 { font-size: 1.15em; }
+.neo-markdown-preview ul { list-style: disc; padding-left: 1.5em; }
+.neo-markdown-preview ol { list-style: decimal; padding-left: 1.5em; }
+.neo-markdown-preview li > :is(ul, ol) { margin-block: .25em; }
+.neo-markdown-preview a { color: hsl(var(--primary)); text-decoration: underline; }
+.neo-markdown-preview blockquote { border-left: 3px solid hsl(var(--border)); padding-left: .75em; }
+.neo-markdown-preview :is(pre, code) { font-family: ui-monospace, monospace; font-size: .95em; }
+.neo-markdown-preview pre { white-space: pre-wrap; overflow-wrap: anywhere; padding: .5em; background: hsl(var(--muted)); border-radius: .25rem; }
+.neo-markdown-preview pre code.hljs { padding: 0; background: transparent; white-space: inherit; overflow: visible; }
+.neo-markdown-preview table { width: 100%; border-collapse: collapse; }
+.neo-markdown-preview :is(th, td) { border: 1px solid hsl(var(--border)); padding: .35em .5em; text-align: left; }
+
 .neo-coming-card:nth-child(4n + 1) { background: var(--neo-yellow) !important; }
 .neo-coming-card:nth-child(4n + 2) { background: var(--neo-cyan) !important; }
 .neo-coming-card:nth-child(4n + 3) { background: var(--neo-pink) !important; }

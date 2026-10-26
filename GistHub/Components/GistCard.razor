@@ -111,12 +111,19 @@
             <!-- Code Preview -->
             <div class="neo-code-preview relative bg-[#F7F6F3] dark:bg-muted rounded-lg @(Compact ? "p-2" : "p-4") border border-border transition-all duration-300"
                  role="region"
-                 aria-label="Code preview"
+                 aria-label="@(ShowMarkdownPreview ? "Markdown preview" : "Code preview")"
                  tabindex="0"
                  @ondragstart:preventDefault="true"
                  @ondragstart:stopPropagation="true"
                  @onclick:stopPropagation="true">
-                <pre class="neo-code-preview__content font-mono @(Compact ? "text-xs leading-snug" : "text-[13px] leading-relaxed") text-[#2F3437] dark:text-foreground antialiased whitespace-pre-wrap break-words"><code @key="PreviewSource" @ref="PreviewElement" class="neo-code-preview__syntax">@SnippetPreview</code></pre>
+                @if (ShowMarkdownPreview)
+                {
+                    <div @key="PreviewRenderKey" @ref="PreviewElement" class="neo-code-preview__content neo-markdown-preview @(Compact ? "text-xs leading-snug" : "text-[13px] leading-relaxed")">@SnippetPreview</div>
+                }
+                else
+                {
+                    <pre class="neo-code-preview__content font-mono @(Compact ? "text-xs leading-snug" : "text-[13px] leading-relaxed") text-[#2F3437] dark:text-foreground antialiased whitespace-pre-wrap break-words"><code @key="PreviewRenderKey" @ref="PreviewElement" class="neo-code-preview__syntax">@SnippetPreview</code></pre>
+                }
             </div>
         </div>
 
@@ -137,6 +144,22 @@
             }
             
             <div class="neo-gist-card__footer-actions flex items-center gap-2">
+                @if (IsMarkdown)
+                {
+                    <button type="button" @onclick="TogglePreviewMode" @onclick:stopPropagation="true"
+                            class="w-7 h-7 inline-flex items-center justify-center rounded-lg hover:bg-accent text-muted-foreground hover:text-primary transition-colors"
+                            aria-label="@(ShowMarkdownPreview ? "Show Markdown code" : "Show Markdown preview")"
+                            title="@(ShowMarkdownPreview ? "Show Markdown code" : "Show Markdown preview")">
+                        @if (ShowMarkdownPreview)
+                        {
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-14-2 18"/></svg>
+                        }
+                        else
+                        {
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+                        }
+                    </button>
+                }
                 @if (ShowVisibilityToggle)
                 {
                     <button @onclick="ToggleVisibility" @onclick:stopPropagation="true" class="w-7 h-7 inline-flex items-center justify-center rounded-lg transition-colors @(IsPublic ? "bg-[#EDF3EC] text-[#346538] hover:bg-[#DCEBDC]" : "bg-[#FBF3DB] text-[#956400] hover:bg-[#F3E7BF]")" aria-label="@(IsPublic ? "Public gist. Change to secret" : "Secret gist. Change to public")" aria-pressed="@(IsPublic ? "true" : "false")" title="@(IsPublic ? "Public — change to secret" : "Secret — change to public")">
@@ -255,7 +278,26 @@
     [Parameter] public string SnippetFilename { get; set; } = "";
     private ElementReference PreviewElement;
     private (string, string, string) PreviewSource => (SnippetPreview, SnippetLanguage, SnippetFilename);
-    private (string, string, string)? HighlightedSource;
+    private bool IsMarkdown => string.Equals(SnippetLanguage?.Trim(), "Markdown", StringComparison.OrdinalIgnoreCase)
+        || SnippetFilename.EndsWith(".md", StringComparison.OrdinalIgnoreCase)
+        || SnippetFilename.EndsWith(".markdown", StringComparison.OrdinalIgnoreCase);
+    private bool IsCodeView;
+    private bool ShowMarkdownPreview => IsMarkdown && !IsCodeView;
+    private ((string, string, string), bool) PreviewRenderKey => (PreviewSource, ShowMarkdownPreview);
+    private ((string, string, string), bool)? RenderedPreview;
+    private (string, string, string)? PreviewIdentity;
+
+    protected override void OnParametersSet()
+    {
+        var identity = (Id, SnippetFilename, SnippetLanguage);
+        if (PreviewIdentity != identity)
+        {
+            IsCodeView = false;
+            PreviewIdentity = identity;
+        }
+    }
+
+    private void TogglePreviewMode() => IsCodeView = !IsCodeView;
     [Parameter] public int Stars { get; set; } = 0;
     [Parameter] public int Forks { get; set; } = 0;
     [Parameter] public bool IsSelected { get; set; }
@@ -289,11 +331,19 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (HighlightedSource != PreviewSource)
+        if (RenderedPreview != PreviewRenderKey)
         {
             var source = PreviewSource;
-            await JS.InvokeVoidAsync("highlightGistPreview", PreviewElement, source.Item1, source.Item2, source.Item3);
-            HighlightedSource = source;
+            var renderKey = PreviewRenderKey;
+            if (ShowMarkdownPreview)
+            {
+                await JS.InvokeVoidAsync("renderGistMarkdownPreview", PreviewElement, source.Item1);
+            }
+            else
+            {
+                await JS.InvokeVoidAsync("highlightGistPreview", PreviewElement, source.Item1, source.Item2, source.Item3);
+            }
+            RenderedPreview = renderKey;
         }
 
         if (FocusPopoverPending)

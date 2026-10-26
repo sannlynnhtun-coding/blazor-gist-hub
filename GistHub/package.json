@@ -8,10 +8,12 @@
     "release:css": "npx tailwindcss -i ./wwwroot/css/app.css -o ./wwwroot/css/output.css --minify"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.1",
-    "autoprefixer": "^10.4.17",
-    "postcss": "^8.4.35",
+    "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.10",
-    "@tailwindcss/forms": "^0.5.7"
+    "autoprefixer": "^10.4.17",
+    "dompurify": "^3.4.17",
+    "marked": "^18.1.1",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1"
   }
 }

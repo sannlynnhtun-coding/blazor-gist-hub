@@ -514,6 +514,11 @@ try {
     await waitFor(`Boolean(document.querySelector('a[href="/my-gists?favorites=true"]'))`, "the Collections bookmark shortcut");
   }
 
+  if (process.env.BROWSER_CHECK_MARKDOWN === "1") {
+    const { checkMarkdownCards } = await import('./test-markdown-cards.mjs');
+    await checkMarkdownCards({ evaluate, send, sessionId, waitFor, url });
+  }
+
   const failures = [...new Set([
     ...observedMessages.filter((message) => errorPatterns.some((pattern) => pattern.test(message))),
     ...verificationFailures,
