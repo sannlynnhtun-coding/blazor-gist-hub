@@ -55,6 +55,7 @@ window.initializeGistHubThemePicker = (root) => {
     let category = 'themes';
     const options = () => allOptions.filter(option => !option.hidden);
     const restore = () => {
+        window.applyGistHubFont(root.dataset.savedFont, false);
         window.applyGistHubStyle(root.dataset.savedStyle, false);
         window.applyGistHubTheme(root.dataset.savedTheme, false);
     };
@@ -92,6 +93,7 @@ window.initializeGistHubThemePicker = (root) => {
     const preview = event => {
         const option = event.target.closest('[data-appearance-kind]');
         if (!option || option.hidden) return;
+        window.applyGistHubFont(option.dataset.fontOption ?? root.dataset.savedFont, false);
         window.applyGistHubStyle(option.dataset.styleOption ?? root.dataset.savedStyle, false);
         window.applyGistHubTheme(option.dataset.themeOption ?? root.dataset.savedTheme, false);
     };
@@ -154,6 +156,7 @@ window.initializeGistHubThemePicker = (root) => {
 };
 window.commitGistHubThemePicker = (root, theme) => {
     root.dataset.savedTheme = theme;
+    window.applyGistHubFont(root.dataset.savedFont, false);
     window.applyGistHubStyle(root.dataset.savedStyle, false);
     window.applyGistHubTheme(theme);
     root.querySelector('[popover]').hidePopover();
@@ -165,7 +168,13 @@ window.commitGistHubAppearancePicker = (root, style, theme) => {
     window.commitGistHubThemePicker(root, theme);
 };
 window.closeGistHubThemePicker = (root) => {
+    window.applyGistHubFont(root.dataset.savedFont, false);
     window.applyGistHubStyle(root.dataset.savedStyle, false);
     window.applyGistHubTheme(root.dataset.savedTheme, false);
     root.querySelector('[popover]').hidePopover();
+};
+
+window.commitGistHubFontPicker = (root, font) => {
+    root.dataset.savedFont = window.applyGistHubFont(font);
+    window.commitGistHubThemePicker(root, root.dataset.savedTheme);
 };
