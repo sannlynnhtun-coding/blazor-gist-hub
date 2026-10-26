@@ -101,17 +101,17 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: "Aptos", "Trebuchet MS", system-ui, sans-serif;
+    font-family: var(--font-ui);
     line-height: 1.55;
     background-image: radial-gradient(hsl(var(--foreground) / var(--neo-grid-opacity)) 1px, transparent 1px);
     background-size: 18px 18px;
     background-attachment: fixed;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: "Arial Black", "Aptos Display", "Franklin Gothic Heavy", sans-serif;
-    font-weight: 900 !important;
-    letter-spacing: -0.045em;
-    line-height: 1.02;
+    font-family: var(--font-ui);
+    font-weight: 700 !important;
+    letter-spacing: -0.025em;
+    line-height: 1.35;
   }
 
   ::selection {
@@ -907,7 +907,7 @@
   display: -webkit-box;
   overflow: hidden;
   color: hsl(var(--muted-foreground));
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-family: var(--font-code);
   font-size: 0.72rem;
   font-weight: 600;
   line-height: 1.45;
@@ -1034,7 +1034,7 @@
   border: 2px solid #0c0c0c;
   border-radius: 0.3rem;
   box-shadow: 4px 4px 0 var(--neo-purple);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-code);
   font-size: 0.9rem;
   font-weight: 900;
 }
@@ -1044,7 +1044,7 @@
   align-items: center;
   gap: 0.65rem;
   color: var(--neo-on-accent);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-code);
   font-size: 0.65rem;
   font-weight: 900;
   letter-spacing: 0.06em;
@@ -1123,7 +1123,7 @@
 
 .json-parser-step {
   color: hsl(var(--muted-foreground));
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-code);
   font-size: 0.65rem;
   font-weight: 900;
   letter-spacing: 0.12em;
@@ -1157,7 +1157,7 @@
   padding: 0.25rem 0.55rem;
   border: 1px solid transparent;
   border-radius: 0.18rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-code);
   font-size: 0.62rem;
   font-weight: 900;
   letter-spacing: 0.04em;
@@ -1211,7 +1211,7 @@
   margin: -0.2rem 0 0.65rem;
   padding-inline: 0.2rem;
   color: hsl(var(--muted-foreground));
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-code);
   font-size: 0.6rem;
   font-weight: 900;
   letter-spacing: 0.04em;
@@ -1243,7 +1243,7 @@
   overflow: auto;
   overscroll-behavior: contain;
   border-radius: 0.35rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-family: var(--font-code);
   font-size: clamp(0.78rem, 1.1vw, 0.92rem);
   line-height: 1.7;
   tab-size: 2;
@@ -1306,7 +1306,7 @@
   background: var(--neo-pink);
   border: 1px solid #0c0c0c;
   border-radius: 0.15rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-code);
   font-size: 0.58rem;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -1395,7 +1395,7 @@
 
 .json-parser-message strong {
   color: #fffaf0;
-  font-family: "Arial Black", "Aptos Display", "Franklin Gothic Heavy", sans-serif;
+  font-family: var(--font-ui);
   font-size: 1rem;
 }
 
@@ -1830,7 +1830,7 @@ span[class~="rounded-md"][class~="border"] {
 .neo-markdown-preview li > :is(ul, ol) { margin-block: .25em; }
 .neo-markdown-preview a { color: hsl(var(--primary)); text-decoration: underline; }
 .neo-markdown-preview blockquote { border-left: 3px solid hsl(var(--border)); padding-left: .75em; }
-.neo-markdown-preview :is(pre, code) { font-family: ui-monospace, monospace; font-size: .95em; }
+.neo-markdown-preview :is(pre, code) { font-family: var(--font-code); font-size: .95em; }
 .neo-markdown-preview pre { white-space: pre-wrap; overflow-wrap: anywhere; padding: .5em; background: hsl(var(--muted)); border-radius: .25rem; }
 .neo-markdown-preview pre code.hljs { padding: 0; background: transparent; white-space: inherit; overflow: visible; }
 .neo-markdown-preview table { width: 100%; border-collapse: collapse; }
@@ -2715,7 +2715,7 @@ span[class~="rounded-md"][class~="border"] {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-code);
   font-size: 0.65rem;
   font-weight: 900;
   letter-spacing: 0.06em;
@@ -2804,7 +2804,7 @@ span[class~="rounded-md"][class~="border"] {
 
 .code-image-step {
   color: hsl(var(--muted-foreground));
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-code);
   font-size: 0.62rem;
   font-weight: 900;
   letter-spacing: 0.12em;
@@ -3090,7 +3090,7 @@ span[class~="rounded-md"][class~="border"] {
   background: var(--neo-purple);
   border: 1px solid #0c0c0c;
   border-radius: 0.15rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-code);
   font-size: 0.58rem;
   font-weight: 900;
 }
@@ -3653,7 +3653,7 @@ span[class~="rounded-md"][class~="border"] {
   min-height: 2.5rem;
   padding: 0.7rem 0.15rem 0;
   color: hsl(var(--muted-foreground));
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-code);
   font-size: 0.58rem;
   font-weight: 900;
   letter-spacing: 0.04em;

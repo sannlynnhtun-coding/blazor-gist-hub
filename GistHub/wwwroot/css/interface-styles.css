@@ -34,14 +34,14 @@
 :root[data-interface-style="neumorphism"] .btn { box-shadow: 3px 3px 8px hsl(var(--foreground) / .18) !important; }
 
 :root[data-interface-style="retro-futurism"] { --style-radius: .2rem; --style-border: 2px; --style-shadow: 4px 4px 0 hsl(var(--primary) / .65); }
-:root[data-interface-style="retro-futurism"] :is(.neo-page-heading h1, .neo-kicker, .neo-code-window-bar, .neo-theme-panel__header) { font-family: ui-monospace, monospace; letter-spacing: .06em; }
+:root[data-interface-style="retro-futurism"] :is(.neo-page-heading h1, .neo-kicker, .neo-code-window-bar, .neo-theme-panel__header) { font-family: var(--font-code); letter-spacing: .06em; }
 :root[data-interface-style="retro-futurism"] .neo-gist-card { border-style: double; border-width: 4px; }
 :root[data-interface-style="retro-futurism"] .neo-topbar { border-bottom-style: dashed; }
 :root[data-interface-style="retro-futurism"] body { background-image: repeating-linear-gradient(0deg, transparent 0 5px, hsl(var(--foreground) / .025) 5px 6px) !important; }
 
 :root[data-interface-style="cyberpunk"] { --style-radius: 0 .9rem 0 .9rem; --style-border: 1px; --style-shadow: 0 0 0 1px hsl(var(--primary) / .45), 0 0 18px hsl(var(--primary) / .18); }
 :root[data-interface-style="cyberpunk"] :is(.neo-gist-card, .neo-sidebar, .neo-code-window, .neo-theme-panel) { border-color: hsl(var(--primary)); }
-:root[data-interface-style="cyberpunk"] :is(.neo-page-heading h1, .neo-kicker) { font-family: ui-monospace, monospace; letter-spacing: .04em; }
+:root[data-interface-style="cyberpunk"] :is(.neo-page-heading h1, .neo-kicker) { font-family: var(--font-code); letter-spacing: .04em; }
 :root[data-interface-style="cyberpunk"] .neo-page-heading { border-bottom: 2px solid hsl(var(--primary)); }
 
 :root[data-interface-style="glassmorphism"] { --style-radius: 1rem; --style-shadow: 0 8px 28px hsl(var(--foreground) / .12); }
@@ -63,3 +63,5 @@
 
 :root[data-interface-style]:not([data-interface-style="default"]) .neo-canvas { background-color: transparent; }
 :root[data-interface-style]:not([data-interface-style="default"]) .neo-decor { display: none; }
+
+:root[data-interface-style="neobrutalism"] :is(h1, h2, h3) { font-weight: 900 !important; }
