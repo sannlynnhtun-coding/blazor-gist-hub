@@ -4,6 +4,8 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { rgb, hex, mapThemeRoles } from './theme-color-roles.mjs';
+import { figmaThemes } from './figma-theme-source.mjs';
+const figma = process.argv.includes('--figma');
 const snapshotPath = resolve('GistHub/ThemeSources/vscode-themes.json');
 const parsePage = html => JSON.parse(html.match(/window\.__remixContext = (.*?);<\/script>/s)?.[1] ?? 'null')?.state?.loaderData;
 const getText = async url => {
@@ -63,7 +65,7 @@ if (process.argv.includes('--refresh') || process.argv.includes('--extend')) {
   results.sort((a, b) => a.sort === b.sort ? a.rank - b.rank : a.sort === 'trendingWeekly' ? -1 : 1);
   writeFileSync(snapshotPath, JSON.stringify({ capturedOn: new Date().toISOString().slice(0, 10), variantPolicy: 'First displayed variant of each of the first 50 results per ranking.', themes: results }, null, 2) + '\n');
 }
-const snapshot = JSON.parse(readFileSync(snapshotPath, 'utf8'));
+const snapshot = figma ? { themes: figmaThemes } : JSON.parse(readFileSync(snapshotPath, 'utf8'));
 const hsl = color => {
   const [r, g, b] = color.map(n => n / 255), max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min, l = (max + min) / 2;
   const hue = !d ? 0 : max === r ? (g - b) / d + (g < b ? 6 : 0) : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
@@ -91,8 +93,8 @@ for (const theme of snapshot.themes) {
   for (const [name, color] of Object.entries({ field:s.variable, string:s.string, number:s.number, boolean:s.keyword, null:s.keyword, punctuation:hex(fg) })) css += `${prefix} .json-token-${name}{color:${color};}\n`;
   css += `${prefix} .json-parser-type-legend i{background:currentColor;}\n`;
   styles.push(css);
-  catalog.push({ id:theme.id, name:theme.name, dark, chrome:hex(bg), primary:hex(primary), secondary:hex(secondary), source:`${theme.sort === 'installs' ? 'Installs' : 'Weekly'} #${theme.rank} · ${theme.publisher}`, url:theme.url });
+  catalog.push({ id:theme.id, name:theme.name, dark, chrome:hex(bg), primary:hex(primary), secondary:hex(secondary), source:theme.source ?? `${theme.sort === 'installs' ? 'Installs' : 'Weekly'} #${theme.rank} · ${theme.publisher}`, url:theme.url });
 }
-writeFileSync(resolve('GistHub/wwwroot/css/vscode-themes.css'), styles.join('\n'));
-writeFileSync(resolve('GistHub/wwwroot/js/vscode-theme-catalog.js'), 'window.gistHubThemes = ' + JSON.stringify(catalog) + ';\n');
-console.log(`Generated ${catalog.length} VS Code palettes from ${snapshot.themes.length} ranked results.`);
+writeFileSync(resolve(`GistHub/wwwroot/css/${figma ? 'figma' : 'vscode'}-themes.css`), styles.join('\n'));
+writeFileSync(resolve(`GistHub/wwwroot/js/${figma ? 'figma' : 'vscode'}-theme-catalog.js`), `window.${figma ? 'gistHubFigmaThemes' : 'gistHubThemes'} = ` + JSON.stringify(catalog) + ';\n');
+console.log(`Generated ${catalog.length} ${figma ? 'Figma' : 'VS Code'} palettes from ${snapshot.themes.length} ranked results.`);

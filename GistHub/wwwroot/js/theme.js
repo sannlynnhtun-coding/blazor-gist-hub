@@ -3,7 +3,8 @@
     const catalog = [
         { id: 'light', name: 'Light', dark: false, chrome: '#FFD524', primary: '#ffd524', secondary: '#78dce8', source: 'GistHub · Default' },
         { id: 'dark', name: 'Dark', dark: true, chrome: '#24242F', primary: '#c6a344', secondary: '#609ba3', source: 'GistHub · Default' },
-        ...(window.gistHubThemes ?? [])
+        ...(window.gistHubThemes ?? []),
+        ...(window.gistHubFigmaThemes ?? [])
     ];
     const themes = Object.fromEntries(catalog.map(entry => [entry.id, entry]));
     const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;

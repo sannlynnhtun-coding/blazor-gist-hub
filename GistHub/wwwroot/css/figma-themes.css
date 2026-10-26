@@ -1,0 +1,953 @@
+/* Palette: Figma-Ink wash — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-1-ink-wash */
+:root[data-theme="figma-ink-wash"]{--background:0 0% 81.176%;--foreground:0 0% 14.51%;--card:0 0% 81.176%;--card-foreground:0 0% 14.51%;--popover:0 0% 81.176%;--popover-foreground:0 0% 14.51%;--primary:0 0% 14.51%;--primary-foreground:0 0% 81.176%;--secondary:0 0% 81.176%;--secondary-foreground:0 0% 14.51%;--accent:0 0% 81.176%;--accent-foreground:0 0% 14.51%;--muted:0 0% 81.176%;--muted-foreground:0 0% 14.51%;--destructive:0 0% 14.51%;--destructive-foreground:0 0% 81.176%;--border:0 0% 14.51%;--input:0 0% 14.51%;--ring:0 0% 14.51%;--neo-yellow:#252525;--neo-pink:#252525;--neo-purple:#252525;--neo-green:#252525;--neo-cyan:#252525;--neo-red:#252525;--neo-paper:#cfcfcf;--neo-code-text:#252525;--neo-shadow:#252525;--neo-interactive:#252525;--neo-on-accent:#cfcfcf;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-ink-wash"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#cfcfcf!important;color:#252525!important;}
+:root[data-theme="figma-ink-wash"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-ink-wash"] .hljs-keyword,:root[data-theme="figma-ink-wash"] .hljs-doctag,:root[data-theme="figma-ink-wash"] .hljs-type,:root[data-theme="figma-ink-wash"] .hljs-selector-tag,:root[data-theme="figma-ink-wash"] .hljs-template-tag,:root[data-theme="figma-ink-wash"] .hljs-template-variable{color:#252525!important;}
+:root[data-theme="figma-ink-wash"] .hljs-string,:root[data-theme="figma-ink-wash"] .hljs-regexp,:root[data-theme="figma-ink-wash"] .hljs-symbol,:root[data-theme="figma-ink-wash"] .hljs-bullet{color:#545454!important;}
+:root[data-theme="figma-ink-wash"] .hljs-number,:root[data-theme="figma-ink-wash"] .hljs-literal{color:#252525!important;}
+:root[data-theme="figma-ink-wash"] .hljs-title,:root[data-theme="figma-ink-wash"] .hljs-section,:root[data-theme="figma-ink-wash"] .hljs-built_in,:root[data-theme="figma-ink-wash"] .hljs-name{color:#545454!important;}
+:root[data-theme="figma-ink-wash"] .hljs-comment,:root[data-theme="figma-ink-wash"] .hljs-quote{color:#252525!important;}
+:root[data-theme="figma-ink-wash"] .hljs-attr,:root[data-theme="figma-ink-wash"] .hljs-attribute,:root[data-theme="figma-ink-wash"] .hljs-variable,:root[data-theme="figma-ink-wash"] .hljs-params{color:#252525!important;}
+:root[data-theme="figma-ink-wash"] .json-token-field{color:#252525;}
+:root[data-theme="figma-ink-wash"] .json-token-string{color:#545454;}
+:root[data-theme="figma-ink-wash"] .json-token-number{color:#252525;}
+:root[data-theme="figma-ink-wash"] .json-token-boolean{color:#252525;}
+:root[data-theme="figma-ink-wash"] .json-token-null{color:#252525;}
+:root[data-theme="figma-ink-wash"] .json-token-punctuation{color:#252525;}
+:root[data-theme="figma-ink-wash"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Neutral elegance — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-2-neutral-elegance */
+:root[data-theme="figma-neutral-elegance"]{--background:28.696 100% 86.471%;--foreground:26.667 35.526% 29.804%;--card:28.696 100% 86.471%;--card-foreground:26.667 35.526% 29.804%;--popover:28.696 100% 86.471%;--popover-foreground:26.667 35.526% 29.804%;--primary:26.667 35.526% 29.804%;--primary-foreground:28.696 100% 86.471%;--secondary:28.696 100% 86.471%;--secondary-foreground:26.667 35.526% 29.804%;--accent:28.696 100% 86.471%;--accent-foreground:26.667 35.526% 29.804%;--muted:28.696 100% 86.471%;--muted-foreground:26.667 35.526% 29.804%;--destructive:26.667 35.526% 29.804%;--destructive-foreground:28.696 100% 86.471%;--border:26.667 35.526% 29.804%;--input:26.667 35.526% 29.804%;--ring:26.667 35.526% 29.804%;--neo-yellow:#674931;--neo-pink:#674931;--neo-purple:#674931;--neo-green:#674931;--neo-cyan:#674931;--neo-red:#674931;--neo-paper:#ffdbba;--neo-code-text:#674931;--neo-shadow:#674931;--neo-interactive:#674931;--neo-on-accent:#ffdbba;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-neutral-elegance"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#ffdbba!important;color:#674931!important;}
+:root[data-theme="figma-neutral-elegance"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-neutral-elegance"] .hljs-keyword,:root[data-theme="figma-neutral-elegance"] .hljs-doctag,:root[data-theme="figma-neutral-elegance"] .hljs-type,:root[data-theme="figma-neutral-elegance"] .hljs-selector-tag,:root[data-theme="figma-neutral-elegance"] .hljs-template-tag,:root[data-theme="figma-neutral-elegance"] .hljs-template-variable{color:#674931!important;}
+:root[data-theme="figma-neutral-elegance"] .hljs-string,:root[data-theme="figma-neutral-elegance"] .hljs-regexp,:root[data-theme="figma-neutral-elegance"] .hljs-symbol,:root[data-theme="figma-neutral-elegance"] .hljs-bullet{color:#674931!important;}
+:root[data-theme="figma-neutral-elegance"] .hljs-number,:root[data-theme="figma-neutral-elegance"] .hljs-literal{color:#674931!important;}
+:root[data-theme="figma-neutral-elegance"] .hljs-title,:root[data-theme="figma-neutral-elegance"] .hljs-section,:root[data-theme="figma-neutral-elegance"] .hljs-built_in,:root[data-theme="figma-neutral-elegance"] .hljs-name{color:#674931!important;}
+:root[data-theme="figma-neutral-elegance"] .hljs-comment,:root[data-theme="figma-neutral-elegance"] .hljs-quote{color:#674931!important;}
+:root[data-theme="figma-neutral-elegance"] .hljs-attr,:root[data-theme="figma-neutral-elegance"] .hljs-attribute,:root[data-theme="figma-neutral-elegance"] .hljs-variable,:root[data-theme="figma-neutral-elegance"] .hljs-params{color:#674931!important;}
+:root[data-theme="figma-neutral-elegance"] .json-token-field{color:#674931;}
+:root[data-theme="figma-neutral-elegance"] .json-token-string{color:#674931;}
+:root[data-theme="figma-neutral-elegance"] .json-token-number{color:#674931;}
+:root[data-theme="figma-neutral-elegance"] .json-token-boolean{color:#674931;}
+:root[data-theme="figma-neutral-elegance"] .json-token-null{color:#674931;}
+:root[data-theme="figma-neutral-elegance"] .json-token-punctuation{color:#674931;}
+:root[data-theme="figma-neutral-elegance"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Jade pebble morning — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-3-jade-pebble-morning */
+:root[data-theme="figma-jade-pebble-morning"]{--background:0 0% 90.588%;--foreground:107.368 13.669% 27.255%;--card:0 0% 90.588%;--card-foreground:107.368 13.669% 27.255%;--popover:0 0% 90.588%;--popover-foreground:107.368 13.669% 27.255%;--primary:107.368 13.669% 27.255%;--primary-foreground:0 0% 90.588%;--secondary:0 0% 90.588%;--secondary-foreground:107.368 13.669% 27.255%;--accent:0 0% 90.588%;--accent-foreground:107.368 13.669% 27.255%;--muted:0 0% 90.588%;--muted-foreground:107.368 13.669% 27.255%;--destructive:107.368 13.669% 27.255%;--destructive-foreground:0 0% 90.588%;--border:107.368 13.669% 27.255%;--input:107.368 13.669% 27.255%;--ring:107.368 13.669% 27.255%;--neo-yellow:#404f3c;--neo-pink:#404f3c;--neo-purple:#404f3c;--neo-green:#404f3c;--neo-cyan:#404f3c;--neo-red:#404f3c;--neo-paper:#e7e7e7;--neo-code-text:#404f3c;--neo-shadow:#404f3c;--neo-interactive:#404f3c;--neo-on-accent:#e7e7e7;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-jade-pebble-morning"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#e7e7e7!important;color:#404f3c!important;}
+:root[data-theme="figma-jade-pebble-morning"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-jade-pebble-morning"] .hljs-keyword,:root[data-theme="figma-jade-pebble-morning"] .hljs-doctag,:root[data-theme="figma-jade-pebble-morning"] .hljs-type,:root[data-theme="figma-jade-pebble-morning"] .hljs-selector-tag,:root[data-theme="figma-jade-pebble-morning"] .hljs-template-tag,:root[data-theme="figma-jade-pebble-morning"] .hljs-template-variable{color:#404f3c!important;}
+:root[data-theme="figma-jade-pebble-morning"] .hljs-string,:root[data-theme="figma-jade-pebble-morning"] .hljs-regexp,:root[data-theme="figma-jade-pebble-morning"] .hljs-symbol,:root[data-theme="figma-jade-pebble-morning"] .hljs-bullet{color:#404f3c!important;}
+:root[data-theme="figma-jade-pebble-morning"] .hljs-number,:root[data-theme="figma-jade-pebble-morning"] .hljs-literal{color:#404f3c!important;}
+:root[data-theme="figma-jade-pebble-morning"] .hljs-title,:root[data-theme="figma-jade-pebble-morning"] .hljs-section,:root[data-theme="figma-jade-pebble-morning"] .hljs-built_in,:root[data-theme="figma-jade-pebble-morning"] .hljs-name{color:#404f3c!important;}
+:root[data-theme="figma-jade-pebble-morning"] .hljs-comment,:root[data-theme="figma-jade-pebble-morning"] .hljs-quote{color:#404f3c!important;}
+:root[data-theme="figma-jade-pebble-morning"] .hljs-attr,:root[data-theme="figma-jade-pebble-morning"] .hljs-attribute,:root[data-theme="figma-jade-pebble-morning"] .hljs-variable,:root[data-theme="figma-jade-pebble-morning"] .hljs-params{color:#404f3c!important;}
+:root[data-theme="figma-jade-pebble-morning"] .json-token-field{color:#404f3c;}
+:root[data-theme="figma-jade-pebble-morning"] .json-token-string{color:#404f3c;}
+:root[data-theme="figma-jade-pebble-morning"] .json-token-number{color:#404f3c;}
+:root[data-theme="figma-jade-pebble-morning"] .json-token-boolean{color:#404f3c;}
+:root[data-theme="figma-jade-pebble-morning"] .json-token-null{color:#404f3c;}
+:root[data-theme="figma-jade-pebble-morning"] .json-token-punctuation{color:#404f3c;}
+:root[data-theme="figma-jade-pebble-morning"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Woodland — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-4-woodland */
+:root[data-theme="figma-woodland"]{--background:73.516 75.833% 47.059%;--foreground:56.129 22.963% 26.471%;--card:73.516 75.833% 47.059%;--card-foreground:56.129 22.963% 26.471%;--popover:73.516 75.833% 47.059%;--popover-foreground:56.129 22.963% 26.471%;--primary:56.129 22.963% 26.471%;--primary-foreground:73.516 75.833% 47.059%;--secondary:73.516 75.833% 47.059%;--secondary-foreground:56.129 22.963% 26.471%;--accent:73.516 75.833% 47.059%;--accent-foreground:56.129 22.963% 26.471%;--muted:73.516 75.833% 47.059%;--muted-foreground:56.129 22.963% 26.471%;--destructive:56.129 22.963% 26.471%;--destructive-foreground:73.516 75.833% 47.059%;--border:56.129 22.963% 26.471%;--input:56.129 22.963% 26.471%;--ring:56.129 22.963% 26.471%;--neo-yellow:#535134;--neo-pink:#535134;--neo-purple:#535134;--neo-green:#535134;--neo-cyan:#535134;--neo-red:#535134;--neo-paper:#aad31d;--neo-code-text:#535134;--neo-shadow:#535134;--neo-interactive:#535134;--neo-on-accent:#aad31d;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-woodland"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#aad31d!important;color:#535134!important;}
+:root[data-theme="figma-woodland"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-woodland"] .hljs-keyword,:root[data-theme="figma-woodland"] .hljs-doctag,:root[data-theme="figma-woodland"] .hljs-type,:root[data-theme="figma-woodland"] .hljs-selector-tag,:root[data-theme="figma-woodland"] .hljs-template-tag,:root[data-theme="figma-woodland"] .hljs-template-variable{color:#535134!important;}
+:root[data-theme="figma-woodland"] .hljs-string,:root[data-theme="figma-woodland"] .hljs-regexp,:root[data-theme="figma-woodland"] .hljs-symbol,:root[data-theme="figma-woodland"] .hljs-bullet{color:#535134!important;}
+:root[data-theme="figma-woodland"] .hljs-number,:root[data-theme="figma-woodland"] .hljs-literal{color:#535134!important;}
+:root[data-theme="figma-woodland"] .hljs-title,:root[data-theme="figma-woodland"] .hljs-section,:root[data-theme="figma-woodland"] .hljs-built_in,:root[data-theme="figma-woodland"] .hljs-name{color:#535134!important;}
+:root[data-theme="figma-woodland"] .hljs-comment,:root[data-theme="figma-woodland"] .hljs-quote{color:#535134!important;}
+:root[data-theme="figma-woodland"] .hljs-attr,:root[data-theme="figma-woodland"] .hljs-attribute,:root[data-theme="figma-woodland"] .hljs-variable,:root[data-theme="figma-woodland"] .hljs-params{color:#535134!important;}
+:root[data-theme="figma-woodland"] .json-token-field{color:#535134;}
+:root[data-theme="figma-woodland"] .json-token-string{color:#535134;}
+:root[data-theme="figma-woodland"] .json-token-number{color:#535134;}
+:root[data-theme="figma-woodland"] .json-token-boolean{color:#535134;}
+:root[data-theme="figma-woodland"] .json-token-null{color:#535134;}
+:root[data-theme="figma-woodland"] .json-token-punctuation{color:#535134;}
+:root[data-theme="figma-woodland"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Driftwood pearl morning — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-5-driftwood-pearl-morning */
+:root[data-theme="figma-driftwood-pearl-morning"]{--background:72 4.762% 79.412%;--foreground:8.936 35.878% 25.686%;--card:72 4.762% 79.412%;--card-foreground:8.936 35.878% 25.686%;--popover:72 4.762% 79.412%;--popover-foreground:8.936 35.878% 25.686%;--primary:8.936 35.878% 25.686%;--primary-foreground:72 4.762% 79.412%;--secondary:72 4.762% 79.412%;--secondary-foreground:8.936 35.878% 25.686%;--accent:72 4.762% 79.412%;--accent-foreground:8.936 35.878% 25.686%;--muted:72 4.762% 79.412%;--muted-foreground:8.936 35.878% 25.686%;--destructive:8.936 35.878% 25.686%;--destructive-foreground:72 4.762% 79.412%;--border:8.936 35.878% 25.686%;--input:8.936 35.878% 25.686%;--ring:8.936 35.878% 25.686%;--neo-yellow:#59312a;--neo-pink:#59312a;--neo-purple:#59312a;--neo-green:#59312a;--neo-cyan:#59312a;--neo-red:#59312a;--neo-paper:#cccdc8;--neo-code-text:#59312a;--neo-shadow:#59312a;--neo-interactive:#59312a;--neo-on-accent:#cccdc8;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-driftwood-pearl-morning"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#cccdc8!important;color:#59312a!important;}
+:root[data-theme="figma-driftwood-pearl-morning"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-driftwood-pearl-morning"] .hljs-keyword,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-doctag,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-type,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-selector-tag,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-template-tag,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-template-variable{color:#59312a!important;}
+:root[data-theme="figma-driftwood-pearl-morning"] .hljs-string,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-regexp,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-symbol,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-bullet{color:#59312a!important;}
+:root[data-theme="figma-driftwood-pearl-morning"] .hljs-number,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-literal{color:#59312a!important;}
+:root[data-theme="figma-driftwood-pearl-morning"] .hljs-title,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-section,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-built_in,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-name{color:#59312a!important;}
+:root[data-theme="figma-driftwood-pearl-morning"] .hljs-comment,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-quote{color:#59312a!important;}
+:root[data-theme="figma-driftwood-pearl-morning"] .hljs-attr,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-attribute,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-variable,:root[data-theme="figma-driftwood-pearl-morning"] .hljs-params{color:#59312a!important;}
+:root[data-theme="figma-driftwood-pearl-morning"] .json-token-field{color:#59312a;}
+:root[data-theme="figma-driftwood-pearl-morning"] .json-token-string{color:#59312a;}
+:root[data-theme="figma-driftwood-pearl-morning"] .json-token-number{color:#59312a;}
+:root[data-theme="figma-driftwood-pearl-morning"] .json-token-boolean{color:#59312a;}
+:root[data-theme="figma-driftwood-pearl-morning"] .json-token-null{color:#59312a;}
+:root[data-theme="figma-driftwood-pearl-morning"] .json-token-punctuation{color:#59312a;}
+:root[data-theme="figma-driftwood-pearl-morning"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Graphite — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-6-graphite */
+:root[data-theme="figma-graphite"]{--background:12.857 38.889% 92.941%;--foreground:0 0% 7.843%;--card:12.857 38.889% 92.941%;--card-foreground:0 0% 7.843%;--popover:12.857 38.889% 92.941%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:12.857 38.889% 92.941%;--secondary:12.857 38.889% 92.941%;--secondary-foreground:0 0% 7.843%;--accent:12.857 38.889% 92.941%;--accent-foreground:0 0% 7.843%;--muted:12.857 38.889% 92.941%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:12.857 38.889% 92.941%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#f4e9e6;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#f4e9e6;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-graphite"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#f4e9e6!important;color:#141414!important;}
+:root[data-theme="figma-graphite"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-graphite"] .hljs-keyword,:root[data-theme="figma-graphite"] .hljs-doctag,:root[data-theme="figma-graphite"] .hljs-type,:root[data-theme="figma-graphite"] .hljs-selector-tag,:root[data-theme="figma-graphite"] .hljs-template-tag,:root[data-theme="figma-graphite"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-graphite"] .hljs-string,:root[data-theme="figma-graphite"] .hljs-regexp,:root[data-theme="figma-graphite"] .hljs-symbol,:root[data-theme="figma-graphite"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-graphite"] .hljs-number,:root[data-theme="figma-graphite"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-graphite"] .hljs-title,:root[data-theme="figma-graphite"] .hljs-section,:root[data-theme="figma-graphite"] .hljs-built_in,:root[data-theme="figma-graphite"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-graphite"] .hljs-comment,:root[data-theme="figma-graphite"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-graphite"] .hljs-attr,:root[data-theme="figma-graphite"] .hljs-attribute,:root[data-theme="figma-graphite"] .hljs-variable,:root[data-theme="figma-graphite"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-graphite"] .json-token-field{color:#141414;}
+:root[data-theme="figma-graphite"] .json-token-string{color:#141414;}
+:root[data-theme="figma-graphite"] .json-token-number{color:#141414;}
+:root[data-theme="figma-graphite"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-graphite"] .json-token-null{color:#141414;}
+:root[data-theme="figma-graphite"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-graphite"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Urban slate — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-7-urban-slate */
+:root[data-theme="figma-urban-slate"]{--background:330 4.348% 90.98%;--foreground:18.462 7.345% 34.706%;--card:330 4.348% 90.98%;--card-foreground:18.462 7.345% 34.706%;--popover:330 4.348% 90.98%;--popover-foreground:18.462 7.345% 34.706%;--primary:18.462 7.345% 34.706%;--primary-foreground:330 4.348% 90.98%;--secondary:330 4.348% 90.98%;--secondary-foreground:18.462 7.345% 34.706%;--accent:330 4.348% 90.98%;--accent-foreground:18.462 7.345% 34.706%;--muted:330 4.348% 90.98%;--muted-foreground:18.462 7.345% 34.706%;--destructive:18.462 7.345% 34.706%;--destructive-foreground:330 4.348% 90.98%;--border:18.462 7.345% 34.706%;--input:18.462 7.345% 34.706%;--ring:18.462 7.345% 34.706%;--neo-yellow:#5f5652;--neo-pink:#5f5652;--neo-purple:#5f5652;--neo-green:#5f5652;--neo-cyan:#5f5652;--neo-red:#5f5652;--neo-paper:#e9e7e8;--neo-code-text:#5f5652;--neo-shadow:#5f5652;--neo-interactive:#5f5652;--neo-on-accent:#e9e7e8;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-urban-slate"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#e9e7e8!important;color:#5f5652!important;}
+:root[data-theme="figma-urban-slate"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-urban-slate"] .hljs-keyword,:root[data-theme="figma-urban-slate"] .hljs-doctag,:root[data-theme="figma-urban-slate"] .hljs-type,:root[data-theme="figma-urban-slate"] .hljs-selector-tag,:root[data-theme="figma-urban-slate"] .hljs-template-tag,:root[data-theme="figma-urban-slate"] .hljs-template-variable{color:#5f5652!important;}
+:root[data-theme="figma-urban-slate"] .hljs-string,:root[data-theme="figma-urban-slate"] .hljs-regexp,:root[data-theme="figma-urban-slate"] .hljs-symbol,:root[data-theme="figma-urban-slate"] .hljs-bullet{color:#5f5652!important;}
+:root[data-theme="figma-urban-slate"] .hljs-number,:root[data-theme="figma-urban-slate"] .hljs-literal{color:#5f5652!important;}
+:root[data-theme="figma-urban-slate"] .hljs-title,:root[data-theme="figma-urban-slate"] .hljs-section,:root[data-theme="figma-urban-slate"] .hljs-built_in,:root[data-theme="figma-urban-slate"] .hljs-name{color:#5f5652!important;}
+:root[data-theme="figma-urban-slate"] .hljs-comment,:root[data-theme="figma-urban-slate"] .hljs-quote{color:#5f5652!important;}
+:root[data-theme="figma-urban-slate"] .hljs-attr,:root[data-theme="figma-urban-slate"] .hljs-attribute,:root[data-theme="figma-urban-slate"] .hljs-variable,:root[data-theme="figma-urban-slate"] .hljs-params{color:#5f5652!important;}
+:root[data-theme="figma-urban-slate"] .json-token-field{color:#5f5652;}
+:root[data-theme="figma-urban-slate"] .json-token-string{color:#5f5652;}
+:root[data-theme="figma-urban-slate"] .json-token-number{color:#5f5652;}
+:root[data-theme="figma-urban-slate"] .json-token-boolean{color:#5f5652;}
+:root[data-theme="figma-urban-slate"] .json-token-null{color:#5f5652;}
+:root[data-theme="figma-urban-slate"] .json-token-punctuation{color:#5f5652;}
+:root[data-theme="figma-urban-slate"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Pearl — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-8-pearl */
+:root[data-theme="figma-pearl"]{--background:27.273 20% 89.216%;--foreground:12 2.513% 39.02%;--card:27.273 20% 89.216%;--card-foreground:12 2.513% 39.02%;--popover:27.273 20% 89.216%;--popover-foreground:12 2.513% 39.02%;--primary:12 2.513% 39.02%;--primary-foreground:27.273 20% 89.216%;--secondary:27.273 20% 89.216%;--secondary-foreground:12 2.513% 39.02%;--accent:27.273 20% 89.216%;--accent-foreground:12 2.513% 39.02%;--muted:27.273 20% 89.216%;--muted-foreground:12 2.513% 39.02%;--destructive:12 2.513% 39.02%;--destructive-foreground:27.273 20% 89.216%;--border:12 2.513% 39.02%;--input:12 2.513% 39.02%;--ring:12 2.513% 39.02%;--neo-yellow:#666261;--neo-pink:#666261;--neo-purple:#666261;--neo-green:#666261;--neo-cyan:#666261;--neo-red:#666261;--neo-paper:#e9e3de;--neo-code-text:#666261;--neo-shadow:#666261;--neo-interactive:#666261;--neo-on-accent:#e9e3de;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-pearl"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#e9e3de!important;color:#666261!important;}
+:root[data-theme="figma-pearl"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-pearl"] .hljs-keyword,:root[data-theme="figma-pearl"] .hljs-doctag,:root[data-theme="figma-pearl"] .hljs-type,:root[data-theme="figma-pearl"] .hljs-selector-tag,:root[data-theme="figma-pearl"] .hljs-template-tag,:root[data-theme="figma-pearl"] .hljs-template-variable{color:#666261!important;}
+:root[data-theme="figma-pearl"] .hljs-string,:root[data-theme="figma-pearl"] .hljs-regexp,:root[data-theme="figma-pearl"] .hljs-symbol,:root[data-theme="figma-pearl"] .hljs-bullet{color:#666261!important;}
+:root[data-theme="figma-pearl"] .hljs-number,:root[data-theme="figma-pearl"] .hljs-literal{color:#666261!important;}
+:root[data-theme="figma-pearl"] .hljs-title,:root[data-theme="figma-pearl"] .hljs-section,:root[data-theme="figma-pearl"] .hljs-built_in,:root[data-theme="figma-pearl"] .hljs-name{color:#666261!important;}
+:root[data-theme="figma-pearl"] .hljs-comment,:root[data-theme="figma-pearl"] .hljs-quote{color:#666261!important;}
+:root[data-theme="figma-pearl"] .hljs-attr,:root[data-theme="figma-pearl"] .hljs-attribute,:root[data-theme="figma-pearl"] .hljs-variable,:root[data-theme="figma-pearl"] .hljs-params{color:#666261!important;}
+:root[data-theme="figma-pearl"] .json-token-field{color:#666261;}
+:root[data-theme="figma-pearl"] .json-token-string{color:#666261;}
+:root[data-theme="figma-pearl"] .json-token-number{color:#666261;}
+:root[data-theme="figma-pearl"] .json-token-boolean{color:#666261;}
+:root[data-theme="figma-pearl"] .json-token-null{color:#666261;}
+:root[data-theme="figma-pearl"] .json-token-punctuation{color:#666261;}
+:root[data-theme="figma-pearl"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Vichy — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-9-vichy */
+:root[data-theme="figma-vichy"]{--background:0 0% 100%;--foreground:0 0% 7.843%;--card:0 0% 100%;--card-foreground:0 0% 7.843%;--popover:0 0% 100%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:0 0% 100%;--secondary:0 0% 100%;--secondary-foreground:0 0% 7.843%;--accent:0 0% 100%;--accent-foreground:0 0% 7.843%;--muted:0 0% 100%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:0 0% 100%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#ffffff;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#ffffff;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-vichy"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#ffffff!important;color:#141414!important;}
+:root[data-theme="figma-vichy"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-vichy"] .hljs-keyword,:root[data-theme="figma-vichy"] .hljs-doctag,:root[data-theme="figma-vichy"] .hljs-type,:root[data-theme="figma-vichy"] .hljs-selector-tag,:root[data-theme="figma-vichy"] .hljs-template-tag,:root[data-theme="figma-vichy"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-vichy"] .hljs-string,:root[data-theme="figma-vichy"] .hljs-regexp,:root[data-theme="figma-vichy"] .hljs-symbol,:root[data-theme="figma-vichy"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-vichy"] .hljs-number,:root[data-theme="figma-vichy"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-vichy"] .hljs-title,:root[data-theme="figma-vichy"] .hljs-section,:root[data-theme="figma-vichy"] .hljs-built_in,:root[data-theme="figma-vichy"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-vichy"] .hljs-comment,:root[data-theme="figma-vichy"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-vichy"] .hljs-attr,:root[data-theme="figma-vichy"] .hljs-attribute,:root[data-theme="figma-vichy"] .hljs-variable,:root[data-theme="figma-vichy"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-vichy"] .json-token-field{color:#141414;}
+:root[data-theme="figma-vichy"] .json-token-string{color:#141414;}
+:root[data-theme="figma-vichy"] .json-token-number{color:#141414;}
+:root[data-theme="figma-vichy"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-vichy"] .json-token-null{color:#141414;}
+:root[data-theme="figma-vichy"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-vichy"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Sorbet — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-10-sorbet */
+:root[data-theme="figma-sorbet"]{--background:0 0% 99.608%;--foreground:0 0% 7.843%;--card:0 0% 99.608%;--card-foreground:0 0% 7.843%;--popover:0 0% 99.608%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:0 0% 99.608%;--secondary:0 0% 99.608%;--secondary-foreground:0 0% 7.843%;--accent:0 0% 99.608%;--accent-foreground:0 0% 7.843%;--muted:0 0% 99.608%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:0 0% 99.608%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#fefefe;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#fefefe;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-sorbet"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#fefefe!important;color:#141414!important;}
+:root[data-theme="figma-sorbet"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-sorbet"] .hljs-keyword,:root[data-theme="figma-sorbet"] .hljs-doctag,:root[data-theme="figma-sorbet"] .hljs-type,:root[data-theme="figma-sorbet"] .hljs-selector-tag,:root[data-theme="figma-sorbet"] .hljs-template-tag,:root[data-theme="figma-sorbet"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-sorbet"] .hljs-string,:root[data-theme="figma-sorbet"] .hljs-regexp,:root[data-theme="figma-sorbet"] .hljs-symbol,:root[data-theme="figma-sorbet"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-sorbet"] .hljs-number,:root[data-theme="figma-sorbet"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-sorbet"] .hljs-title,:root[data-theme="figma-sorbet"] .hljs-section,:root[data-theme="figma-sorbet"] .hljs-built_in,:root[data-theme="figma-sorbet"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-sorbet"] .hljs-comment,:root[data-theme="figma-sorbet"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-sorbet"] .hljs-attr,:root[data-theme="figma-sorbet"] .hljs-attribute,:root[data-theme="figma-sorbet"] .hljs-variable,:root[data-theme="figma-sorbet"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-sorbet"] .json-token-field{color:#141414;}
+:root[data-theme="figma-sorbet"] .json-token-string{color:#141414;}
+:root[data-theme="figma-sorbet"] .json-token-number{color:#141414;}
+:root[data-theme="figma-sorbet"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-sorbet"] .json-token-null{color:#141414;}
+:root[data-theme="figma-sorbet"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-sorbet"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Frozen mist — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-11-frozen-mist */
+:root[data-theme="figma-frozen-mist"]{--background:53.514 86.047% 91.569%;--foreground:0 0% 7.843%;--card:53.514 86.047% 91.569%;--card-foreground:0 0% 7.843%;--popover:53.514 86.047% 91.569%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:53.514 86.047% 91.569%;--secondary:53.514 86.047% 91.569%;--secondary-foreground:0 0% 7.843%;--accent:53.514 86.047% 91.569%;--accent-foreground:0 0% 7.843%;--muted:53.514 86.047% 91.569%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:53.514 86.047% 91.569%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#fcf8d7;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#fcf8d7;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-frozen-mist"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#fcf8d7!important;color:#141414!important;}
+:root[data-theme="figma-frozen-mist"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-frozen-mist"] .hljs-keyword,:root[data-theme="figma-frozen-mist"] .hljs-doctag,:root[data-theme="figma-frozen-mist"] .hljs-type,:root[data-theme="figma-frozen-mist"] .hljs-selector-tag,:root[data-theme="figma-frozen-mist"] .hljs-template-tag,:root[data-theme="figma-frozen-mist"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-frozen-mist"] .hljs-string,:root[data-theme="figma-frozen-mist"] .hljs-regexp,:root[data-theme="figma-frozen-mist"] .hljs-symbol,:root[data-theme="figma-frozen-mist"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-frozen-mist"] .hljs-number,:root[data-theme="figma-frozen-mist"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-frozen-mist"] .hljs-title,:root[data-theme="figma-frozen-mist"] .hljs-section,:root[data-theme="figma-frozen-mist"] .hljs-built_in,:root[data-theme="figma-frozen-mist"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-frozen-mist"] .hljs-comment,:root[data-theme="figma-frozen-mist"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-frozen-mist"] .hljs-attr,:root[data-theme="figma-frozen-mist"] .hljs-attribute,:root[data-theme="figma-frozen-mist"] .hljs-variable,:root[data-theme="figma-frozen-mist"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-frozen-mist"] .json-token-field{color:#141414;}
+:root[data-theme="figma-frozen-mist"] .json-token-string{color:#141414;}
+:root[data-theme="figma-frozen-mist"] .json-token-number{color:#141414;}
+:root[data-theme="figma-frozen-mist"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-frozen-mist"] .json-token-null{color:#141414;}
+:root[data-theme="figma-frozen-mist"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-frozen-mist"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Yacht club — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-12-yacht-club */
+:root[data-theme="figma-yacht-club"]{--background:30 14.286% 94.51%;--foreground:21 54.054% 29.02%;--card:30 14.286% 94.51%;--card-foreground:21 54.054% 29.02%;--popover:30 14.286% 94.51%;--popover-foreground:21 54.054% 29.02%;--primary:194.815 54.362% 29.216%;--primary-foreground:30 14.286% 94.51%;--secondary:30 14.286% 94.51%;--secondary-foreground:21 54.054% 29.02%;--accent:30 14.286% 94.51%;--accent-foreground:21 54.054% 29.02%;--muted:30 14.286% 94.51%;--muted-foreground:21 54.054% 29.02%;--destructive:21 54.054% 29.02%;--destructive-foreground:30 14.286% 94.51%;--border:21 54.054% 29.02%;--input:21 54.054% 29.02%;--ring:194.815 54.362% 29.216%;--neo-yellow:#225f73;--neo-pink:#723e22;--neo-purple:#225f73;--neo-green:#723e22;--neo-cyan:#225f73;--neo-red:#225f73;--neo-paper:#f3f1ef;--neo-code-text:#723e22;--neo-shadow:#723e22;--neo-interactive:#225f73;--neo-on-accent:#f3f1ef;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-yacht-club"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#f3f1ef!important;color:#723e22!important;}
+:root[data-theme="figma-yacht-club"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-yacht-club"] .hljs-keyword,:root[data-theme="figma-yacht-club"] .hljs-doctag,:root[data-theme="figma-yacht-club"] .hljs-type,:root[data-theme="figma-yacht-club"] .hljs-selector-tag,:root[data-theme="figma-yacht-club"] .hljs-template-tag,:root[data-theme="figma-yacht-club"] .hljs-template-variable{color:#225f73!important;}
+:root[data-theme="figma-yacht-club"] .hljs-string,:root[data-theme="figma-yacht-club"] .hljs-regexp,:root[data-theme="figma-yacht-club"] .hljs-symbol,:root[data-theme="figma-yacht-club"] .hljs-bullet{color:#723e22!important;}
+:root[data-theme="figma-yacht-club"] .hljs-number,:root[data-theme="figma-yacht-club"] .hljs-literal{color:#225f73!important;}
+:root[data-theme="figma-yacht-club"] .hljs-title,:root[data-theme="figma-yacht-club"] .hljs-section,:root[data-theme="figma-yacht-club"] .hljs-built_in,:root[data-theme="figma-yacht-club"] .hljs-name{color:#723e22!important;}
+:root[data-theme="figma-yacht-club"] .hljs-comment,:root[data-theme="figma-yacht-club"] .hljs-quote{color:#723e22!important;}
+:root[data-theme="figma-yacht-club"] .hljs-attr,:root[data-theme="figma-yacht-club"] .hljs-attribute,:root[data-theme="figma-yacht-club"] .hljs-variable,:root[data-theme="figma-yacht-club"] .hljs-params{color:#225f73!important;}
+:root[data-theme="figma-yacht-club"] .json-token-field{color:#225f73;}
+:root[data-theme="figma-yacht-club"] .json-token-string{color:#723e22;}
+:root[data-theme="figma-yacht-club"] .json-token-number{color:#225f73;}
+:root[data-theme="figma-yacht-club"] .json-token-boolean{color:#225f73;}
+:root[data-theme="figma-yacht-club"] .json-token-null{color:#225f73;}
+:root[data-theme="figma-yacht-club"] .json-token-punctuation{color:#723e22;}
+:root[data-theme="figma-yacht-club"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Amber walnut morning — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-13-amber-walnut-morning */
+:root[data-theme="figma-amber-walnut-morning"]{--background:168 13.514% 92.745%;--foreground:18.462 9.63% 26.471%;--card:168 13.514% 92.745%;--card-foreground:18.462 9.63% 26.471%;--popover:168 13.514% 92.745%;--popover-foreground:18.462 9.63% 26.471%;--primary:18.462 9.63% 26.471%;--primary-foreground:168 13.514% 92.745%;--secondary:168 13.514% 92.745%;--secondary-foreground:18.462 9.63% 26.471%;--accent:168 13.514% 92.745%;--accent-foreground:18.462 9.63% 26.471%;--muted:168 13.514% 92.745%;--muted-foreground:18.462 9.63% 26.471%;--destructive:18.462 9.63% 26.471%;--destructive-foreground:168 13.514% 92.745%;--border:18.462 9.63% 26.471%;--input:18.462 9.63% 26.471%;--ring:18.462 9.63% 26.471%;--neo-yellow:#4a413d;--neo-pink:#4a413d;--neo-purple:#4a413d;--neo-green:#4a413d;--neo-cyan:#4a413d;--neo-red:#4a413d;--neo-paper:#eaefee;--neo-code-text:#4a413d;--neo-shadow:#4a413d;--neo-interactive:#4a413d;--neo-on-accent:#eaefee;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-amber-walnut-morning"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#eaefee!important;color:#4a413d!important;}
+:root[data-theme="figma-amber-walnut-morning"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-amber-walnut-morning"] .hljs-keyword,:root[data-theme="figma-amber-walnut-morning"] .hljs-doctag,:root[data-theme="figma-amber-walnut-morning"] .hljs-type,:root[data-theme="figma-amber-walnut-morning"] .hljs-selector-tag,:root[data-theme="figma-amber-walnut-morning"] .hljs-template-tag,:root[data-theme="figma-amber-walnut-morning"] .hljs-template-variable{color:#4a413d!important;}
+:root[data-theme="figma-amber-walnut-morning"] .hljs-string,:root[data-theme="figma-amber-walnut-morning"] .hljs-regexp,:root[data-theme="figma-amber-walnut-morning"] .hljs-symbol,:root[data-theme="figma-amber-walnut-morning"] .hljs-bullet{color:#4a413d!important;}
+:root[data-theme="figma-amber-walnut-morning"] .hljs-number,:root[data-theme="figma-amber-walnut-morning"] .hljs-literal{color:#4a413d!important;}
+:root[data-theme="figma-amber-walnut-morning"] .hljs-title,:root[data-theme="figma-amber-walnut-morning"] .hljs-section,:root[data-theme="figma-amber-walnut-morning"] .hljs-built_in,:root[data-theme="figma-amber-walnut-morning"] .hljs-name{color:#4a413d!important;}
+:root[data-theme="figma-amber-walnut-morning"] .hljs-comment,:root[data-theme="figma-amber-walnut-morning"] .hljs-quote{color:#4a413d!important;}
+:root[data-theme="figma-amber-walnut-morning"] .hljs-attr,:root[data-theme="figma-amber-walnut-morning"] .hljs-attribute,:root[data-theme="figma-amber-walnut-morning"] .hljs-variable,:root[data-theme="figma-amber-walnut-morning"] .hljs-params{color:#4a413d!important;}
+:root[data-theme="figma-amber-walnut-morning"] .json-token-field{color:#4a413d;}
+:root[data-theme="figma-amber-walnut-morning"] .json-token-string{color:#4a413d;}
+:root[data-theme="figma-amber-walnut-morning"] .json-token-number{color:#4a413d;}
+:root[data-theme="figma-amber-walnut-morning"] .json-token-boolean{color:#4a413d;}
+:root[data-theme="figma-amber-walnut-morning"] .json-token-null{color:#4a413d;}
+:root[data-theme="figma-amber-walnut-morning"] .json-token-punctuation{color:#4a413d;}
+:root[data-theme="figma-amber-walnut-morning"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Copper aquamarine dream — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-14-copper-aquamarine-dream */
+:root[data-theme="figma-copper-aquamarine-dream"]{--background:27.273 7.914% 72.745%;--foreground:0 0% 7.843%;--card:27.273 7.914% 72.745%;--card-foreground:0 0% 7.843%;--popover:27.273 7.914% 72.745%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:27.273 7.914% 72.745%;--secondary:27.273 7.914% 72.745%;--secondary-foreground:0 0% 7.843%;--accent:27.273 7.914% 72.745%;--accent-foreground:0 0% 7.843%;--muted:27.273 7.914% 72.745%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:27.273 7.914% 72.745%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#bfb9b4;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#bfb9b4;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-copper-aquamarine-dream"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#bfb9b4!important;color:#141414!important;}
+:root[data-theme="figma-copper-aquamarine-dream"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-copper-aquamarine-dream"] .hljs-keyword,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-doctag,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-type,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-selector-tag,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-template-tag,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-copper-aquamarine-dream"] .hljs-string,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-regexp,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-symbol,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-copper-aquamarine-dream"] .hljs-number,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-copper-aquamarine-dream"] .hljs-title,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-section,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-built_in,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-copper-aquamarine-dream"] .hljs-comment,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-copper-aquamarine-dream"] .hljs-attr,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-attribute,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-variable,:root[data-theme="figma-copper-aquamarine-dream"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-copper-aquamarine-dream"] .json-token-field{color:#141414;}
+:root[data-theme="figma-copper-aquamarine-dream"] .json-token-string{color:#141414;}
+:root[data-theme="figma-copper-aquamarine-dream"] .json-token-number{color:#141414;}
+:root[data-theme="figma-copper-aquamarine-dream"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-copper-aquamarine-dream"] .json-token-null{color:#141414;}
+:root[data-theme="figma-copper-aquamarine-dream"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-copper-aquamarine-dream"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Cocoa topaz noonday — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-15-cocoa-topaz-noonday */
+:root[data-theme="figma-cocoa-topaz-noonday"]{--background:19.024 26.797% 70%;--foreground:17.053 70.37% 26.471%;--card:19.024 26.797% 70%;--card-foreground:17.053 70.37% 26.471%;--popover:19.024 26.797% 70%;--popover-foreground:17.053 70.37% 26.471%;--primary:17.053 70.37% 26.471%;--primary-foreground:28.852 95.812% 62.549%;--secondary:19.024 26.797% 70%;--secondary-foreground:17.053 70.37% 26.471%;--accent:19.024 26.797% 70%;--accent-foreground:17.053 70.37% 26.471%;--muted:19.024 26.797% 70%;--muted-foreground:17.053 70.37% 26.471%;--destructive:17.053 70.37% 26.471%;--destructive-foreground:28.852 95.812% 62.549%;--border:17.053 70.37% 26.471%;--input:17.053 70.37% 26.471%;--ring:17.053 70.37% 26.471%;--neo-yellow:#732f14;--neo-pink:#5b3c2b;--neo-purple:#732f14;--neo-green:#5b3c2b;--neo-cyan:#732f14;--neo-red:#732f14;--neo-paper:#c7ab9e;--neo-code-text:#732f14;--neo-shadow:#732f14;--neo-interactive:#732f14;--neo-on-accent:#fb9c44;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-cocoa-topaz-noonday"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#c7ab9e!important;color:#732f14!important;}
+:root[data-theme="figma-cocoa-topaz-noonday"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-keyword,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-doctag,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-type,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-selector-tag,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-template-tag,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-template-variable{color:#732f14!important;}
+:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-string,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-regexp,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-symbol,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-bullet{color:#5b3c2b!important;}
+:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-number,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-literal{color:#732f14!important;}
+:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-title,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-section,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-built_in,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-name{color:#5b3c2b!important;}
+:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-comment,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-quote{color:#732f14!important;}
+:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-attr,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-attribute,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-variable,:root[data-theme="figma-cocoa-topaz-noonday"] .hljs-params{color:#732f14!important;}
+:root[data-theme="figma-cocoa-topaz-noonday"] .json-token-field{color:#732f14;}
+:root[data-theme="figma-cocoa-topaz-noonday"] .json-token-string{color:#5b3c2b;}
+:root[data-theme="figma-cocoa-topaz-noonday"] .json-token-number{color:#732f14;}
+:root[data-theme="figma-cocoa-topaz-noonday"] .json-token-boolean{color:#732f14;}
+:root[data-theme="figma-cocoa-topaz-noonday"] .json-token-null{color:#732f14;}
+:root[data-theme="figma-cocoa-topaz-noonday"] .json-token-punctuation{color:#732f14;}
+:root[data-theme="figma-cocoa-topaz-noonday"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Sandstone aquamarine serenity — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-16-sandstone-aquamarine-serenity */
+:root[data-theme="figma-sandstone-aquamarine-serenity"]{--background:186.545 53.398% 79.804%;--foreground:11.111 42.857% 24.706%;--card:186.545 53.398% 79.804%;--card-foreground:11.111 42.857% 24.706%;--popover:186.545 53.398% 79.804%;--popover-foreground:11.111 42.857% 24.706%;--primary:190.286 26.718% 25.686%;--primary-foreground:186.545 53.398% 79.804%;--secondary:186.545 53.398% 79.804%;--secondary-foreground:11.111 42.857% 24.706%;--accent:186.545 53.398% 79.804%;--accent-foreground:11.111 42.857% 24.706%;--muted:186.545 53.398% 79.804%;--muted-foreground:11.111 42.857% 24.706%;--destructive:11.111 42.857% 24.706%;--destructive-foreground:186.545 53.398% 79.804%;--border:11.111 42.857% 24.706%;--input:11.111 42.857% 24.706%;--ring:190.286 26.718% 25.686%;--neo-yellow:#304d53;--neo-pink:#5a2e24;--neo-purple:#304d53;--neo-green:#5a2e24;--neo-cyan:#304d53;--neo-red:#304d53;--neo-paper:#b0e1e7;--neo-code-text:#5a2e24;--neo-shadow:#5a2e24;--neo-interactive:#304d53;--neo-on-accent:#b0e1e7;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-sandstone-aquamarine-serenity"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#b0e1e7!important;color:#5a2e24!important;}
+:root[data-theme="figma-sandstone-aquamarine-serenity"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-keyword,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-doctag,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-type,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-selector-tag,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-template-tag,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-template-variable{color:#304d53!important;}
+:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-string,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-regexp,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-symbol,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-bullet{color:#5a2e24!important;}
+:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-number,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-literal{color:#304d53!important;}
+:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-title,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-section,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-built_in,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-name{color:#5a2e24!important;}
+:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-comment,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-quote{color:#5a2e24!important;}
+:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-attr,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-attribute,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-variable,:root[data-theme="figma-sandstone-aquamarine-serenity"] .hljs-params{color:#304d53!important;}
+:root[data-theme="figma-sandstone-aquamarine-serenity"] .json-token-field{color:#304d53;}
+:root[data-theme="figma-sandstone-aquamarine-serenity"] .json-token-string{color:#5a2e24;}
+:root[data-theme="figma-sandstone-aquamarine-serenity"] .json-token-number{color:#304d53;}
+:root[data-theme="figma-sandstone-aquamarine-serenity"] .json-token-boolean{color:#304d53;}
+:root[data-theme="figma-sandstone-aquamarine-serenity"] .json-token-null{color:#304d53;}
+:root[data-theme="figma-sandstone-aquamarine-serenity"] .json-token-punctuation{color:#5a2e24;}
+:root[data-theme="figma-sandstone-aquamarine-serenity"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Honey opal sunset — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-17-honey-opal-sunset */
+:root[data-theme="figma-honey-opal-sunset"]{--background:44.16 88.652% 72.353%;--foreground:15.556 20.301% 26.078%;--card:44.16 88.652% 72.353%;--card-foreground:15.556 20.301% 26.078%;--popover:44.16 88.652% 72.353%;--popover-foreground:15.556 20.301% 26.078%;--primary:15.556 20.301% 26.078%;--primary-foreground:44.16 88.652% 72.353%;--secondary:44.16 88.652% 72.353%;--secondary-foreground:15.556 20.301% 26.078%;--accent:44.16 88.652% 72.353%;--accent-foreground:15.556 20.301% 26.078%;--muted:44.16 88.652% 72.353%;--muted-foreground:15.556 20.301% 26.078%;--destructive:15.556 20.301% 26.078%;--destructive-foreground:44.16 88.652% 72.353%;--border:15.556 20.301% 26.078%;--input:15.556 20.301% 26.078%;--ring:15.556 20.301% 26.078%;--neo-yellow:#503c35;--neo-pink:#503c35;--neo-purple:#503c35;--neo-green:#503c35;--neo-cyan:#503c35;--neo-red:#503c35;--neo-paper:#f7d67a;--neo-code-text:#503c35;--neo-shadow:#503c35;--neo-interactive:#503c35;--neo-on-accent:#f7d67a;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-honey-opal-sunset"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#f7d67a!important;color:#503c35!important;}
+:root[data-theme="figma-honey-opal-sunset"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-honey-opal-sunset"] .hljs-keyword,:root[data-theme="figma-honey-opal-sunset"] .hljs-doctag,:root[data-theme="figma-honey-opal-sunset"] .hljs-type,:root[data-theme="figma-honey-opal-sunset"] .hljs-selector-tag,:root[data-theme="figma-honey-opal-sunset"] .hljs-template-tag,:root[data-theme="figma-honey-opal-sunset"] .hljs-template-variable{color:#503c35!important;}
+:root[data-theme="figma-honey-opal-sunset"] .hljs-string,:root[data-theme="figma-honey-opal-sunset"] .hljs-regexp,:root[data-theme="figma-honey-opal-sunset"] .hljs-symbol,:root[data-theme="figma-honey-opal-sunset"] .hljs-bullet{color:#503c35!important;}
+:root[data-theme="figma-honey-opal-sunset"] .hljs-number,:root[data-theme="figma-honey-opal-sunset"] .hljs-literal{color:#503c35!important;}
+:root[data-theme="figma-honey-opal-sunset"] .hljs-title,:root[data-theme="figma-honey-opal-sunset"] .hljs-section,:root[data-theme="figma-honey-opal-sunset"] .hljs-built_in,:root[data-theme="figma-honey-opal-sunset"] .hljs-name{color:#503c35!important;}
+:root[data-theme="figma-honey-opal-sunset"] .hljs-comment,:root[data-theme="figma-honey-opal-sunset"] .hljs-quote{color:#503c35!important;}
+:root[data-theme="figma-honey-opal-sunset"] .hljs-attr,:root[data-theme="figma-honey-opal-sunset"] .hljs-attribute,:root[data-theme="figma-honey-opal-sunset"] .hljs-variable,:root[data-theme="figma-honey-opal-sunset"] .hljs-params{color:#503c35!important;}
+:root[data-theme="figma-honey-opal-sunset"] .json-token-field{color:#503c35;}
+:root[data-theme="figma-honey-opal-sunset"] .json-token-string{color:#503c35;}
+:root[data-theme="figma-honey-opal-sunset"] .json-token-number{color:#503c35;}
+:root[data-theme="figma-honey-opal-sunset"] .json-token-boolean{color:#503c35;}
+:root[data-theme="figma-honey-opal-sunset"] .json-token-null{color:#503c35;}
+:root[data-theme="figma-honey-opal-sunset"] .json-token-punctuation{color:#503c35;}
+:root[data-theme="figma-honey-opal-sunset"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Seashell garnet afternoon — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-18-seashell-garnet-afternoon */
+:root[data-theme="figma-seashell-garnet-afternoon"]{--background:32.673 86.325% 77.059%;--foreground:0 0% 7.843%;--card:32.673 86.325% 77.059%;--card-foreground:0 0% 7.843%;--popover:32.673 86.325% 77.059%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:32.673 86.325% 77.059%;--secondary:32.673 86.325% 77.059%;--secondary-foreground:0 0% 7.843%;--accent:32.673 86.325% 77.059%;--accent-foreground:0 0% 7.843%;--muted:32.673 86.325% 77.059%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:32.673 86.325% 77.059%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#f7c992;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#f7c992;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-seashell-garnet-afternoon"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#f7c992!important;color:#141414!important;}
+:root[data-theme="figma-seashell-garnet-afternoon"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-keyword,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-doctag,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-type,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-selector-tag,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-template-tag,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-string,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-regexp,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-symbol,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-number,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-title,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-section,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-built_in,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-comment,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-attr,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-attribute,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-variable,:root[data-theme="figma-seashell-garnet-afternoon"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-seashell-garnet-afternoon"] .json-token-field{color:#141414;}
+:root[data-theme="figma-seashell-garnet-afternoon"] .json-token-string{color:#141414;}
+:root[data-theme="figma-seashell-garnet-afternoon"] .json-token-number{color:#141414;}
+:root[data-theme="figma-seashell-garnet-afternoon"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-seashell-garnet-afternoon"] .json-token-null{color:#141414;}
+:root[data-theme="figma-seashell-garnet-afternoon"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-seashell-garnet-afternoon"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Rose quartz evening — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-19-rose-quartz-evening */
+:root[data-theme="figma-rose-quartz-evening"]{--background:0 10.145% 86.471%;--foreground:350.476 46.667% 26.471%;--card:0 10.145% 86.471%;--card-foreground:350.476 46.667% 26.471%;--popover:0 10.145% 86.471%;--popover-foreground:350.476 46.667% 26.471%;--primary:350.476 46.667% 26.471%;--primary-foreground:0 10.145% 86.471%;--secondary:0 10.145% 86.471%;--secondary-foreground:350.476 46.667% 26.471%;--accent:0 10.145% 86.471%;--accent-foreground:350.476 46.667% 26.471%;--muted:0 10.145% 86.471%;--muted-foreground:350.476 46.667% 26.471%;--destructive:350.476 46.667% 26.471%;--destructive-foreground:0 10.145% 86.471%;--border:350.476 46.667% 26.471%;--input:350.476 46.667% 26.471%;--ring:350.476 46.667% 26.471%;--neo-yellow:#63242e;--neo-pink:#63242e;--neo-purple:#63242e;--neo-green:#63242e;--neo-cyan:#63242e;--neo-red:#63242e;--neo-paper:#e0d9d9;--neo-code-text:#63242e;--neo-shadow:#63242e;--neo-interactive:#63242e;--neo-on-accent:#e0d9d9;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-rose-quartz-evening"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#e0d9d9!important;color:#63242e!important;}
+:root[data-theme="figma-rose-quartz-evening"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-rose-quartz-evening"] .hljs-keyword,:root[data-theme="figma-rose-quartz-evening"] .hljs-doctag,:root[data-theme="figma-rose-quartz-evening"] .hljs-type,:root[data-theme="figma-rose-quartz-evening"] .hljs-selector-tag,:root[data-theme="figma-rose-quartz-evening"] .hljs-template-tag,:root[data-theme="figma-rose-quartz-evening"] .hljs-template-variable{color:#63242e!important;}
+:root[data-theme="figma-rose-quartz-evening"] .hljs-string,:root[data-theme="figma-rose-quartz-evening"] .hljs-regexp,:root[data-theme="figma-rose-quartz-evening"] .hljs-symbol,:root[data-theme="figma-rose-quartz-evening"] .hljs-bullet{color:#63242e!important;}
+:root[data-theme="figma-rose-quartz-evening"] .hljs-number,:root[data-theme="figma-rose-quartz-evening"] .hljs-literal{color:#63242e!important;}
+:root[data-theme="figma-rose-quartz-evening"] .hljs-title,:root[data-theme="figma-rose-quartz-evening"] .hljs-section,:root[data-theme="figma-rose-quartz-evening"] .hljs-built_in,:root[data-theme="figma-rose-quartz-evening"] .hljs-name{color:#63242e!important;}
+:root[data-theme="figma-rose-quartz-evening"] .hljs-comment,:root[data-theme="figma-rose-quartz-evening"] .hljs-quote{color:#63242e!important;}
+:root[data-theme="figma-rose-quartz-evening"] .hljs-attr,:root[data-theme="figma-rose-quartz-evening"] .hljs-attribute,:root[data-theme="figma-rose-quartz-evening"] .hljs-variable,:root[data-theme="figma-rose-quartz-evening"] .hljs-params{color:#63242e!important;}
+:root[data-theme="figma-rose-quartz-evening"] .json-token-field{color:#63242e;}
+:root[data-theme="figma-rose-quartz-evening"] .json-token-string{color:#63242e;}
+:root[data-theme="figma-rose-quartz-evening"] .json-token-number{color:#63242e;}
+:root[data-theme="figma-rose-quartz-evening"] .json-token-boolean{color:#63242e;}
+:root[data-theme="figma-rose-quartz-evening"] .json-token-null{color:#63242e;}
+:root[data-theme="figma-rose-quartz-evening"] .json-token-punctuation{color:#63242e;}
+:root[data-theme="figma-rose-quartz-evening"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Calcite — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-20-calcite */
+:root[data-theme="figma-calcite"]{--background:30 5.714% 86.275%;--foreground:205.714 5.512% 24.902%;--card:30 5.714% 86.275%;--card-foreground:205.714 5.512% 24.902%;--popover:30 5.714% 86.275%;--popover-foreground:205.714 5.512% 24.902%;--primary:205.714 5.512% 24.902%;--primary-foreground:30 5.714% 86.275%;--secondary:30 5.714% 86.275%;--secondary-foreground:205.714 5.512% 24.902%;--accent:30 5.714% 86.275%;--accent-foreground:205.714 5.512% 24.902%;--muted:30 5.714% 86.275%;--muted-foreground:205.714 5.512% 24.902%;--destructive:205.714 5.512% 24.902%;--destructive-foreground:30 5.714% 86.275%;--border:205.714 5.512% 24.902%;--input:205.714 5.512% 24.902%;--ring:205.714 5.512% 24.902%;--neo-yellow:#3c4043;--neo-pink:#3c4043;--neo-purple:#3c4043;--neo-green:#3c4043;--neo-cyan:#3c4043;--neo-red:#3c4043;--neo-paper:#dedcda;--neo-code-text:#3c4043;--neo-shadow:#3c4043;--neo-interactive:#3c4043;--neo-on-accent:#dedcda;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-calcite"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#dedcda!important;color:#3c4043!important;}
+:root[data-theme="figma-calcite"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-calcite"] .hljs-keyword,:root[data-theme="figma-calcite"] .hljs-doctag,:root[data-theme="figma-calcite"] .hljs-type,:root[data-theme="figma-calcite"] .hljs-selector-tag,:root[data-theme="figma-calcite"] .hljs-template-tag,:root[data-theme="figma-calcite"] .hljs-template-variable{color:#3c4043!important;}
+:root[data-theme="figma-calcite"] .hljs-string,:root[data-theme="figma-calcite"] .hljs-regexp,:root[data-theme="figma-calcite"] .hljs-symbol,:root[data-theme="figma-calcite"] .hljs-bullet{color:#3c4043!important;}
+:root[data-theme="figma-calcite"] .hljs-number,:root[data-theme="figma-calcite"] .hljs-literal{color:#3c4043!important;}
+:root[data-theme="figma-calcite"] .hljs-title,:root[data-theme="figma-calcite"] .hljs-section,:root[data-theme="figma-calcite"] .hljs-built_in,:root[data-theme="figma-calcite"] .hljs-name{color:#3c4043!important;}
+:root[data-theme="figma-calcite"] .hljs-comment,:root[data-theme="figma-calcite"] .hljs-quote{color:#3c4043!important;}
+:root[data-theme="figma-calcite"] .hljs-attr,:root[data-theme="figma-calcite"] .hljs-attribute,:root[data-theme="figma-calcite"] .hljs-variable,:root[data-theme="figma-calcite"] .hljs-params{color:#3c4043!important;}
+:root[data-theme="figma-calcite"] .json-token-field{color:#3c4043;}
+:root[data-theme="figma-calcite"] .json-token-string{color:#3c4043;}
+:root[data-theme="figma-calcite"] .json-token-number{color:#3c4043;}
+:root[data-theme="figma-calcite"] .json-token-boolean{color:#3c4043;}
+:root[data-theme="figma-calcite"] .json-token-null{color:#3c4043;}
+:root[data-theme="figma-calcite"] .json-token-punctuation{color:#3c4043;}
+:root[data-theme="figma-calcite"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Fireside — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-21-fireside */
+:root[data-theme="figma-fireside"]{--background:49.286 26.923% 79.608%;--foreground:4.918 79.221% 30.196%;--card:49.286 26.923% 79.608%;--card-foreground:4.918 79.221% 30.196%;--popover:49.286 26.923% 79.608%;--popover-foreground:4.918 79.221% 30.196%;--primary:4.918 79.221% 30.196%;--primary-foreground:49.286 26.923% 79.608%;--secondary:49.286 26.923% 79.608%;--secondary-foreground:4.918 79.221% 30.196%;--accent:49.286 26.923% 79.608%;--accent-foreground:4.918 79.221% 30.196%;--muted:49.286 26.923% 79.608%;--muted-foreground:4.918 79.221% 30.196%;--destructive:4.918 79.221% 30.196%;--destructive-foreground:49.286 26.923% 79.608%;--border:4.918 79.221% 30.196%;--input:4.918 79.221% 30.196%;--ring:4.918 79.221% 30.196%;--neo-yellow:#8a1a10;--neo-pink:#724237;--neo-purple:#8a1a10;--neo-green:#724237;--neo-cyan:#8a1a10;--neo-red:#8a1a10;--neo-paper:#d9d4bd;--neo-code-text:#8a1a10;--neo-shadow:#8a1a10;--neo-interactive:#8a1a10;--neo-on-accent:#d9d4bd;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-fireside"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#d9d4bd!important;color:#8a1a10!important;}
+:root[data-theme="figma-fireside"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-fireside"] .hljs-keyword,:root[data-theme="figma-fireside"] .hljs-doctag,:root[data-theme="figma-fireside"] .hljs-type,:root[data-theme="figma-fireside"] .hljs-selector-tag,:root[data-theme="figma-fireside"] .hljs-template-tag,:root[data-theme="figma-fireside"] .hljs-template-variable{color:#8a1a10!important;}
+:root[data-theme="figma-fireside"] .hljs-string,:root[data-theme="figma-fireside"] .hljs-regexp,:root[data-theme="figma-fireside"] .hljs-symbol,:root[data-theme="figma-fireside"] .hljs-bullet{color:#724237!important;}
+:root[data-theme="figma-fireside"] .hljs-number,:root[data-theme="figma-fireside"] .hljs-literal{color:#8a1a10!important;}
+:root[data-theme="figma-fireside"] .hljs-title,:root[data-theme="figma-fireside"] .hljs-section,:root[data-theme="figma-fireside"] .hljs-built_in,:root[data-theme="figma-fireside"] .hljs-name{color:#724237!important;}
+:root[data-theme="figma-fireside"] .hljs-comment,:root[data-theme="figma-fireside"] .hljs-quote{color:#8a1a10!important;}
+:root[data-theme="figma-fireside"] .hljs-attr,:root[data-theme="figma-fireside"] .hljs-attribute,:root[data-theme="figma-fireside"] .hljs-variable,:root[data-theme="figma-fireside"] .hljs-params{color:#8a1a10!important;}
+:root[data-theme="figma-fireside"] .json-token-field{color:#8a1a10;}
+:root[data-theme="figma-fireside"] .json-token-string{color:#724237;}
+:root[data-theme="figma-fireside"] .json-token-number{color:#8a1a10;}
+:root[data-theme="figma-fireside"] .json-token-boolean{color:#8a1a10;}
+:root[data-theme="figma-fireside"] .json-token-null{color:#8a1a10;}
+:root[data-theme="figma-fireside"] .json-token-punctuation{color:#8a1a10;}
+:root[data-theme="figma-fireside"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Terrazzo — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-22-terrazzo */
+:root[data-theme="figma-terrazzo"]{--background:23.478 23.711% 80.98%;--foreground:175.2 18.519% 26.471%;--card:23.478 23.711% 80.98%;--card-foreground:175.2 18.519% 26.471%;--popover:23.478 23.711% 80.98%;--popover-foreground:175.2 18.519% 26.471%;--primary:175.2 18.519% 26.471%;--primary-foreground:23.478 23.711% 80.98%;--secondary:23.478 23.711% 80.98%;--secondary-foreground:175.2 18.519% 26.471%;--accent:23.478 23.711% 80.98%;--accent-foreground:175.2 18.519% 26.471%;--muted:23.478 23.711% 80.98%;--muted-foreground:175.2 18.519% 26.471%;--destructive:175.2 18.519% 26.471%;--destructive-foreground:23.478 23.711% 80.98%;--border:175.2 18.519% 26.471%;--input:175.2 18.519% 26.471%;--ring:175.2 18.519% 26.471%;--neo-yellow:#37504e;--neo-pink:#37504e;--neo-purple:#37504e;--neo-green:#37504e;--neo-cyan:#37504e;--neo-red:#37504e;--neo-paper:#daccc3;--neo-code-text:#37504e;--neo-shadow:#37504e;--neo-interactive:#37504e;--neo-on-accent:#daccc3;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-terrazzo"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#daccc3!important;color:#37504e!important;}
+:root[data-theme="figma-terrazzo"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-terrazzo"] .hljs-keyword,:root[data-theme="figma-terrazzo"] .hljs-doctag,:root[data-theme="figma-terrazzo"] .hljs-type,:root[data-theme="figma-terrazzo"] .hljs-selector-tag,:root[data-theme="figma-terrazzo"] .hljs-template-tag,:root[data-theme="figma-terrazzo"] .hljs-template-variable{color:#37504e!important;}
+:root[data-theme="figma-terrazzo"] .hljs-string,:root[data-theme="figma-terrazzo"] .hljs-regexp,:root[data-theme="figma-terrazzo"] .hljs-symbol,:root[data-theme="figma-terrazzo"] .hljs-bullet{color:#37504e!important;}
+:root[data-theme="figma-terrazzo"] .hljs-number,:root[data-theme="figma-terrazzo"] .hljs-literal{color:#37504e!important;}
+:root[data-theme="figma-terrazzo"] .hljs-title,:root[data-theme="figma-terrazzo"] .hljs-section,:root[data-theme="figma-terrazzo"] .hljs-built_in,:root[data-theme="figma-terrazzo"] .hljs-name{color:#37504e!important;}
+:root[data-theme="figma-terrazzo"] .hljs-comment,:root[data-theme="figma-terrazzo"] .hljs-quote{color:#37504e!important;}
+:root[data-theme="figma-terrazzo"] .hljs-attr,:root[data-theme="figma-terrazzo"] .hljs-attribute,:root[data-theme="figma-terrazzo"] .hljs-variable,:root[data-theme="figma-terrazzo"] .hljs-params{color:#37504e!important;}
+:root[data-theme="figma-terrazzo"] .json-token-field{color:#37504e;}
+:root[data-theme="figma-terrazzo"] .json-token-string{color:#37504e;}
+:root[data-theme="figma-terrazzo"] .json-token-number{color:#37504e;}
+:root[data-theme="figma-terrazzo"] .json-token-boolean{color:#37504e;}
+:root[data-theme="figma-terrazzo"] .json-token-null{color:#37504e;}
+:root[data-theme="figma-terrazzo"] .json-token-punctuation{color:#37504e;}
+:root[data-theme="figma-terrazzo"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Sapphire nightfall whisper — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-23-sapphire-nightfall-whisper */
+:root[data-theme="figma-sapphire-nightfall-whisper"]{--background:226.154 25.49% 20%;--foreground:215.652 65.714% 79.412%;--card:226.154 25.49% 20%;--card-foreground:215.652 65.714% 79.412%;--popover:226.154 25.49% 20%;--popover-foreground:215.652 65.714% 79.412%;--primary:215.652 65.714% 79.412%;--primary-foreground:226.154 25.49% 20%;--secondary:226.154 25.49% 20%;--secondary-foreground:215.652 65.714% 79.412%;--accent:226.154 25.49% 20%;--accent-foreground:215.652 65.714% 79.412%;--muted:226.154 25.49% 20%;--muted-foreground:215.652 65.714% 79.412%;--destructive:215.652 65.714% 79.412%;--destructive-foreground:226.154 25.49% 20%;--border:215.652 65.714% 79.412%;--input:215.652 65.714% 79.412%;--ring:215.652 65.714% 79.412%;--neo-yellow:#a8c4ed;--neo-pink:#a8c4ed;--neo-purple:#a8c4ed;--neo-green:#a8c4ed;--neo-cyan:#a8c4ed;--neo-red:#a8c4ed;--neo-paper:#262c40;--neo-code-text:#a8c4ed;--neo-shadow:#a8c4ed;--neo-interactive:#a8c4ed;--neo-on-accent:#262c40;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-sapphire-nightfall-whisper"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#262c40!important;color:#a8c4ed!important;}
+:root[data-theme="figma-sapphire-nightfall-whisper"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-keyword,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-doctag,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-type,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-selector-tag,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-template-tag,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-template-variable{color:#a8c4ed!important;}
+:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-string,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-regexp,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-symbol,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-bullet{color:#a8c4ed!important;}
+:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-number,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-literal{color:#a8c4ed!important;}
+:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-title,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-section,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-built_in,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-name{color:#a8c4ed!important;}
+:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-comment,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-quote{color:#a8c4ed!important;}
+:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-attr,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-attribute,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-variable,:root[data-theme="figma-sapphire-nightfall-whisper"] .hljs-params{color:#a8c4ed!important;}
+:root[data-theme="figma-sapphire-nightfall-whisper"] .json-token-field{color:#a8c4ed;}
+:root[data-theme="figma-sapphire-nightfall-whisper"] .json-token-string{color:#a8c4ed;}
+:root[data-theme="figma-sapphire-nightfall-whisper"] .json-token-number{color:#a8c4ed;}
+:root[data-theme="figma-sapphire-nightfall-whisper"] .json-token-boolean{color:#a8c4ed;}
+:root[data-theme="figma-sapphire-nightfall-whisper"] .json-token-null{color:#a8c4ed;}
+:root[data-theme="figma-sapphire-nightfall-whisper"] .json-token-punctuation{color:#a8c4ed;}
+:root[data-theme="figma-sapphire-nightfall-whisper"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Lapis velvet evening — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-24-lapis-velvet-evening */
+:root[data-theme="figma-lapis-velvet-evening"]{--background:224.545 82.5% 15.686%;--foreground:33.6 38.462% 87.255%;--card:224.545 82.5% 15.686%;--card-foreground:33.6 38.462% 87.255%;--popover:224.545 82.5% 15.686%;--popover-foreground:33.6 38.462% 87.255%;--primary:33.6 38.462% 87.255%;--primary-foreground:224.545 82.5% 15.686%;--secondary:224.545 82.5% 15.686%;--secondary-foreground:33.6 38.462% 87.255%;--accent:224.545 82.5% 15.686%;--accent-foreground:33.6 38.462% 87.255%;--muted:224.545 82.5% 15.686%;--muted-foreground:33.6 38.462% 87.255%;--destructive:33.6 38.462% 87.255%;--destructive-foreground:224.545 82.5% 15.686%;--border:33.6 38.462% 87.255%;--input:33.6 38.462% 87.255%;--ring:33.6 38.462% 87.255%;--neo-yellow:#ebe0d2;--neo-pink:#ebe0d2;--neo-purple:#ebe0d2;--neo-green:#ebe0d2;--neo-cyan:#ebe0d2;--neo-red:#ebe0d2;--neo-paper:#071849;--neo-code-text:#ebe0d2;--neo-shadow:#ebe0d2;--neo-interactive:#ebe0d2;--neo-on-accent:#071849;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-lapis-velvet-evening"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#071849!important;color:#ebe0d2!important;}
+:root[data-theme="figma-lapis-velvet-evening"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-lapis-velvet-evening"] .hljs-keyword,:root[data-theme="figma-lapis-velvet-evening"] .hljs-doctag,:root[data-theme="figma-lapis-velvet-evening"] .hljs-type,:root[data-theme="figma-lapis-velvet-evening"] .hljs-selector-tag,:root[data-theme="figma-lapis-velvet-evening"] .hljs-template-tag,:root[data-theme="figma-lapis-velvet-evening"] .hljs-template-variable{color:#ebe0d2!important;}
+:root[data-theme="figma-lapis-velvet-evening"] .hljs-string,:root[data-theme="figma-lapis-velvet-evening"] .hljs-regexp,:root[data-theme="figma-lapis-velvet-evening"] .hljs-symbol,:root[data-theme="figma-lapis-velvet-evening"] .hljs-bullet{color:#ccc9cd!important;}
+:root[data-theme="figma-lapis-velvet-evening"] .hljs-number,:root[data-theme="figma-lapis-velvet-evening"] .hljs-literal{color:#ebe0d2!important;}
+:root[data-theme="figma-lapis-velvet-evening"] .hljs-title,:root[data-theme="figma-lapis-velvet-evening"] .hljs-section,:root[data-theme="figma-lapis-velvet-evening"] .hljs-built_in,:root[data-theme="figma-lapis-velvet-evening"] .hljs-name{color:#ccc9cd!important;}
+:root[data-theme="figma-lapis-velvet-evening"] .hljs-comment,:root[data-theme="figma-lapis-velvet-evening"] .hljs-quote{color:#ebe0d2!important;}
+:root[data-theme="figma-lapis-velvet-evening"] .hljs-attr,:root[data-theme="figma-lapis-velvet-evening"] .hljs-attribute,:root[data-theme="figma-lapis-velvet-evening"] .hljs-variable,:root[data-theme="figma-lapis-velvet-evening"] .hljs-params{color:#ebe0d2!important;}
+:root[data-theme="figma-lapis-velvet-evening"] .json-token-field{color:#ebe0d2;}
+:root[data-theme="figma-lapis-velvet-evening"] .json-token-string{color:#ccc9cd;}
+:root[data-theme="figma-lapis-velvet-evening"] .json-token-number{color:#ebe0d2;}
+:root[data-theme="figma-lapis-velvet-evening"] .json-token-boolean{color:#ebe0d2;}
+:root[data-theme="figma-lapis-velvet-evening"] .json-token-null{color:#ebe0d2;}
+:root[data-theme="figma-lapis-velvet-evening"] .json-token-punctuation{color:#ebe0d2;}
+:root[data-theme="figma-lapis-velvet-evening"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Marina — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-25-marina */
+:root[data-theme="figma-marina"]{--background:23.478 100% 95.49%;--foreground:204 44.944% 34.902%;--card:23.478 100% 95.49%;--card-foreground:204 44.944% 34.902%;--popover:23.478 100% 95.49%;--popover-foreground:204 44.944% 34.902%;--primary:204 44.944% 34.902%;--primary-foreground:23.478 100% 95.49%;--secondary:23.478 100% 95.49%;--secondary-foreground:204 44.944% 34.902%;--accent:23.478 100% 95.49%;--accent-foreground:204 44.944% 34.902%;--muted:23.478 100% 95.49%;--muted-foreground:204 44.944% 34.902%;--destructive:24.935 43.503% 34.706%;--destructive-foreground:23.478 100% 95.49%;--border:204 44.944% 34.902%;--input:204 44.944% 34.902%;--ring:204 44.944% 34.902%;--neo-yellow:#316181;--neo-pink:#7f5232;--neo-purple:#316181;--neo-green:#7f5232;--neo-cyan:#316181;--neo-red:#316181;--neo-paper:#fff1e8;--neo-code-text:#316181;--neo-shadow:#316181;--neo-interactive:#316181;--neo-on-accent:#fff1e8;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-marina"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#fff1e8!important;color:#316181!important;}
+:root[data-theme="figma-marina"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-marina"] .hljs-keyword,:root[data-theme="figma-marina"] .hljs-doctag,:root[data-theme="figma-marina"] .hljs-type,:root[data-theme="figma-marina"] .hljs-selector-tag,:root[data-theme="figma-marina"] .hljs-template-tag,:root[data-theme="figma-marina"] .hljs-template-variable{color:#316181!important;}
+:root[data-theme="figma-marina"] .hljs-string,:root[data-theme="figma-marina"] .hljs-regexp,:root[data-theme="figma-marina"] .hljs-symbol,:root[data-theme="figma-marina"] .hljs-bullet{color:#7f5232!important;}
+:root[data-theme="figma-marina"] .hljs-number,:root[data-theme="figma-marina"] .hljs-literal{color:#316181!important;}
+:root[data-theme="figma-marina"] .hljs-title,:root[data-theme="figma-marina"] .hljs-section,:root[data-theme="figma-marina"] .hljs-built_in,:root[data-theme="figma-marina"] .hljs-name{color:#7f5232!important;}
+:root[data-theme="figma-marina"] .hljs-comment,:root[data-theme="figma-marina"] .hljs-quote{color:#316181!important;}
+:root[data-theme="figma-marina"] .hljs-attr,:root[data-theme="figma-marina"] .hljs-attribute,:root[data-theme="figma-marina"] .hljs-variable,:root[data-theme="figma-marina"] .hljs-params{color:#316181!important;}
+:root[data-theme="figma-marina"] .json-token-field{color:#316181;}
+:root[data-theme="figma-marina"] .json-token-string{color:#7f5232;}
+:root[data-theme="figma-marina"] .json-token-number{color:#316181;}
+:root[data-theme="figma-marina"] .json-token-boolean{color:#316181;}
+:root[data-theme="figma-marina"] .json-token-null{color:#316181;}
+:root[data-theme="figma-marina"] .json-token-punctuation{color:#316181;}
+:root[data-theme="figma-marina"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Emerald lavender lake — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-26-emerald-lavender-lake */
+:root[data-theme="figma-emerald-lavender-lake"]{--background:186 60.606% 74.118%;--foreground:0 0% 7.843%;--card:186 60.606% 74.118%;--card-foreground:0 0% 7.843%;--popover:186 60.606% 74.118%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:186 60.606% 74.118%;--secondary:186 60.606% 74.118%;--secondary-foreground:0 0% 7.843%;--accent:186 60.606% 74.118%;--accent-foreground:0 0% 7.843%;--muted:186 60.606% 74.118%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:186 60.606% 74.118%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#95dde5;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#95dde5;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-emerald-lavender-lake"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#95dde5!important;color:#141414!important;}
+:root[data-theme="figma-emerald-lavender-lake"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-emerald-lavender-lake"] .hljs-keyword,:root[data-theme="figma-emerald-lavender-lake"] .hljs-doctag,:root[data-theme="figma-emerald-lavender-lake"] .hljs-type,:root[data-theme="figma-emerald-lavender-lake"] .hljs-selector-tag,:root[data-theme="figma-emerald-lavender-lake"] .hljs-template-tag,:root[data-theme="figma-emerald-lavender-lake"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-emerald-lavender-lake"] .hljs-string,:root[data-theme="figma-emerald-lavender-lake"] .hljs-regexp,:root[data-theme="figma-emerald-lavender-lake"] .hljs-symbol,:root[data-theme="figma-emerald-lavender-lake"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-emerald-lavender-lake"] .hljs-number,:root[data-theme="figma-emerald-lavender-lake"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-emerald-lavender-lake"] .hljs-title,:root[data-theme="figma-emerald-lavender-lake"] .hljs-section,:root[data-theme="figma-emerald-lavender-lake"] .hljs-built_in,:root[data-theme="figma-emerald-lavender-lake"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-emerald-lavender-lake"] .hljs-comment,:root[data-theme="figma-emerald-lavender-lake"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-emerald-lavender-lake"] .hljs-attr,:root[data-theme="figma-emerald-lavender-lake"] .hljs-attribute,:root[data-theme="figma-emerald-lavender-lake"] .hljs-variable,:root[data-theme="figma-emerald-lavender-lake"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-emerald-lavender-lake"] .json-token-field{color:#141414;}
+:root[data-theme="figma-emerald-lavender-lake"] .json-token-string{color:#141414;}
+:root[data-theme="figma-emerald-lavender-lake"] .json-token-number{color:#141414;}
+:root[data-theme="figma-emerald-lavender-lake"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-emerald-lavender-lake"] .json-token-null{color:#141414;}
+:root[data-theme="figma-emerald-lavender-lake"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-emerald-lavender-lake"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Sage peridot morning — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-27-sage-peridot-morning */
+:root[data-theme="figma-sage-peridot-morning"]{--background:165.405 72.549% 80%;--foreground:115.909 30.986% 27.843%;--card:165.405 72.549% 80%;--card-foreground:115.909 30.986% 27.843%;--popover:165.405 72.549% 80%;--popover-foreground:115.909 30.986% 27.843%;--primary:115.909 30.986% 27.843%;--primary-foreground:165.405 72.549% 80%;--secondary:165.405 72.549% 80%;--secondary-foreground:115.909 30.986% 27.843%;--accent:165.405 72.549% 80%;--accent-foreground:115.909 30.986% 27.843%;--muted:165.405 72.549% 80%;--muted-foreground:115.909 30.986% 27.843%;--destructive:115.909 30.986% 27.843%;--destructive-foreground:165.405 72.549% 80%;--border:115.909 30.986% 27.843%;--input:115.909 30.986% 27.843%;--ring:115.909 30.986% 27.843%;--neo-yellow:#345d31;--neo-pink:#345d31;--neo-purple:#345d31;--neo-green:#345d31;--neo-cyan:#345d31;--neo-red:#345d31;--neo-paper:#a7f1df;--neo-code-text:#345d31;--neo-shadow:#345d31;--neo-interactive:#345d31;--neo-on-accent:#a7f1df;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-sage-peridot-morning"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#a7f1df!important;color:#345d31!important;}
+:root[data-theme="figma-sage-peridot-morning"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-sage-peridot-morning"] .hljs-keyword,:root[data-theme="figma-sage-peridot-morning"] .hljs-doctag,:root[data-theme="figma-sage-peridot-morning"] .hljs-type,:root[data-theme="figma-sage-peridot-morning"] .hljs-selector-tag,:root[data-theme="figma-sage-peridot-morning"] .hljs-template-tag,:root[data-theme="figma-sage-peridot-morning"] .hljs-template-variable{color:#345d31!important;}
+:root[data-theme="figma-sage-peridot-morning"] .hljs-string,:root[data-theme="figma-sage-peridot-morning"] .hljs-regexp,:root[data-theme="figma-sage-peridot-morning"] .hljs-symbol,:root[data-theme="figma-sage-peridot-morning"] .hljs-bullet{color:#345d31!important;}
+:root[data-theme="figma-sage-peridot-morning"] .hljs-number,:root[data-theme="figma-sage-peridot-morning"] .hljs-literal{color:#345d31!important;}
+:root[data-theme="figma-sage-peridot-morning"] .hljs-title,:root[data-theme="figma-sage-peridot-morning"] .hljs-section,:root[data-theme="figma-sage-peridot-morning"] .hljs-built_in,:root[data-theme="figma-sage-peridot-morning"] .hljs-name{color:#345d31!important;}
+:root[data-theme="figma-sage-peridot-morning"] .hljs-comment,:root[data-theme="figma-sage-peridot-morning"] .hljs-quote{color:#345d31!important;}
+:root[data-theme="figma-sage-peridot-morning"] .hljs-attr,:root[data-theme="figma-sage-peridot-morning"] .hljs-attribute,:root[data-theme="figma-sage-peridot-morning"] .hljs-variable,:root[data-theme="figma-sage-peridot-morning"] .hljs-params{color:#345d31!important;}
+:root[data-theme="figma-sage-peridot-morning"] .json-token-field{color:#345d31;}
+:root[data-theme="figma-sage-peridot-morning"] .json-token-string{color:#345d31;}
+:root[data-theme="figma-sage-peridot-morning"] .json-token-number{color:#345d31;}
+:root[data-theme="figma-sage-peridot-morning"] .json-token-boolean{color:#345d31;}
+:root[data-theme="figma-sage-peridot-morning"] .json-token-null{color:#345d31;}
+:root[data-theme="figma-sage-peridot-morning"] .json-token-punctuation{color:#345d31;}
+:root[data-theme="figma-sage-peridot-morning"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Amethyst dawn haze — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-28-amethyst-dawn-haze */
+:root[data-theme="figma-amethyst-dawn-haze"]{--background:53.885 70.404% 56.275%;--foreground:258.701 57.895% 26.078%;--card:53.885 70.404% 56.275%;--card-foreground:258.701 57.895% 26.078%;--popover:53.885 70.404% 56.275%;--popover-foreground:258.701 57.895% 26.078%;--primary:258.701 57.895% 26.078%;--primary-foreground:53.885 70.404% 56.275%;--secondary:53.885 70.404% 56.275%;--secondary-foreground:258.701 57.895% 26.078%;--accent:53.885 70.404% 56.275%;--accent-foreground:258.701 57.895% 26.078%;--muted:53.885 70.404% 56.275%;--muted-foreground:258.701 57.895% 26.078%;--destructive:258.701 57.895% 26.078%;--destructive-foreground:53.885 70.404% 56.275%;--border:258.701 57.895% 26.078%;--input:258.701 57.895% 26.078%;--ring:258.701 57.895% 26.078%;--neo-yellow:#341c69;--neo-pink:#472f5c;--neo-purple:#341c69;--neo-green:#472f5c;--neo-cyan:#341c69;--neo-red:#341c69;--neo-paper:#dece41;--neo-code-text:#341c69;--neo-shadow:#341c69;--neo-interactive:#341c69;--neo-on-accent:#dece41;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-amethyst-dawn-haze"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#dece41!important;color:#341c69!important;}
+:root[data-theme="figma-amethyst-dawn-haze"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-amethyst-dawn-haze"] .hljs-keyword,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-doctag,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-type,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-selector-tag,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-template-tag,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-template-variable{color:#341c69!important;}
+:root[data-theme="figma-amethyst-dawn-haze"] .hljs-string,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-regexp,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-symbol,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-bullet{color:#472f5c!important;}
+:root[data-theme="figma-amethyst-dawn-haze"] .hljs-number,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-literal{color:#341c69!important;}
+:root[data-theme="figma-amethyst-dawn-haze"] .hljs-title,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-section,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-built_in,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-name{color:#472f5c!important;}
+:root[data-theme="figma-amethyst-dawn-haze"] .hljs-comment,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-quote{color:#341c69!important;}
+:root[data-theme="figma-amethyst-dawn-haze"] .hljs-attr,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-attribute,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-variable,:root[data-theme="figma-amethyst-dawn-haze"] .hljs-params{color:#341c69!important;}
+:root[data-theme="figma-amethyst-dawn-haze"] .json-token-field{color:#341c69;}
+:root[data-theme="figma-amethyst-dawn-haze"] .json-token-string{color:#472f5c;}
+:root[data-theme="figma-amethyst-dawn-haze"] .json-token-number{color:#341c69;}
+:root[data-theme="figma-amethyst-dawn-haze"] .json-token-boolean{color:#341c69;}
+:root[data-theme="figma-amethyst-dawn-haze"] .json-token-null{color:#341c69;}
+:root[data-theme="figma-amethyst-dawn-haze"] .json-token-punctuation{color:#341c69;}
+:root[data-theme="figma-amethyst-dawn-haze"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Moon dust — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-29-moon-dust */
+:root[data-theme="figma-moon-dust"]{--background:240 100% 91.569%;--foreground:0 0% 7.843%;--card:240 100% 91.569%;--card-foreground:0 0% 7.843%;--popover:240 100% 91.569%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:240 100% 91.569%;--secondary:240 100% 91.569%;--secondary-foreground:0 0% 7.843%;--accent:240 100% 91.569%;--accent-foreground:0 0% 7.843%;--muted:240 100% 91.569%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:240 100% 91.569%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#d4d4ff;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#d4d4ff;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-moon-dust"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#d4d4ff!important;color:#141414!important;}
+:root[data-theme="figma-moon-dust"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-moon-dust"] .hljs-keyword,:root[data-theme="figma-moon-dust"] .hljs-doctag,:root[data-theme="figma-moon-dust"] .hljs-type,:root[data-theme="figma-moon-dust"] .hljs-selector-tag,:root[data-theme="figma-moon-dust"] .hljs-template-tag,:root[data-theme="figma-moon-dust"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-moon-dust"] .hljs-string,:root[data-theme="figma-moon-dust"] .hljs-regexp,:root[data-theme="figma-moon-dust"] .hljs-symbol,:root[data-theme="figma-moon-dust"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-moon-dust"] .hljs-number,:root[data-theme="figma-moon-dust"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-moon-dust"] .hljs-title,:root[data-theme="figma-moon-dust"] .hljs-section,:root[data-theme="figma-moon-dust"] .hljs-built_in,:root[data-theme="figma-moon-dust"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-moon-dust"] .hljs-comment,:root[data-theme="figma-moon-dust"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-moon-dust"] .hljs-attr,:root[data-theme="figma-moon-dust"] .hljs-attribute,:root[data-theme="figma-moon-dust"] .hljs-variable,:root[data-theme="figma-moon-dust"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-moon-dust"] .json-token-field{color:#141414;}
+:root[data-theme="figma-moon-dust"] .json-token-string{color:#141414;}
+:root[data-theme="figma-moon-dust"] .json-token-number{color:#141414;}
+:root[data-theme="figma-moon-dust"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-moon-dust"] .json-token-null{color:#141414;}
+:root[data-theme="figma-moon-dust"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-moon-dust"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Turquoise amber autumn — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-30-turquoise-amber-autumn */
+:root[data-theme="figma-turquoise-amber-autumn"]{--background:189.13 34.328% 73.725%;--foreground:12.527 85.047% 20.98%;--card:189.13 34.328% 73.725%;--card-foreground:12.527 85.047% 20.98%;--popover:189.13 34.328% 73.725%;--popover-foreground:12.527 85.047% 20.98%;--primary:208.846 35.135% 29.02%;--primary-foreground:189.13 34.328% 73.725%;--secondary:189.13 34.328% 73.725%;--secondary-foreground:12.527 85.047% 20.98%;--accent:189.13 34.328% 73.725%;--accent-foreground:12.527 85.047% 20.98%;--muted:189.13 34.328% 73.725%;--muted-foreground:12.527 85.047% 20.98%;--destructive:12.527 85.047% 20.98%;--destructive-foreground:189.13 34.328% 73.725%;--border:12.527 85.047% 20.98%;--input:12.527 85.047% 20.98%;--ring:208.846 35.135% 29.02%;--neo-yellow:#304b64;--neo-pink:#631b08;--neo-purple:#304b64;--neo-green:#631b08;--neo-cyan:#304b64;--neo-red:#304b64;--neo-paper:#a5ccd3;--neo-code-text:#631b08;--neo-shadow:#631b08;--neo-interactive:#304b64;--neo-on-accent:#a5ccd3;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-turquoise-amber-autumn"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#a5ccd3!important;color:#631b08!important;}
+:root[data-theme="figma-turquoise-amber-autumn"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-turquoise-amber-autumn"] .hljs-keyword,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-doctag,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-type,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-selector-tag,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-template-tag,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-template-variable{color:#304b64!important;}
+:root[data-theme="figma-turquoise-amber-autumn"] .hljs-string,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-regexp,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-symbol,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-bullet{color:#631b08!important;}
+:root[data-theme="figma-turquoise-amber-autumn"] .hljs-number,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-literal{color:#304b64!important;}
+:root[data-theme="figma-turquoise-amber-autumn"] .hljs-title,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-section,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-built_in,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-name{color:#631b08!important;}
+:root[data-theme="figma-turquoise-amber-autumn"] .hljs-comment,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-quote{color:#631b08!important;}
+:root[data-theme="figma-turquoise-amber-autumn"] .hljs-attr,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-attribute,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-variable,:root[data-theme="figma-turquoise-amber-autumn"] .hljs-params{color:#304b64!important;}
+:root[data-theme="figma-turquoise-amber-autumn"] .json-token-field{color:#304b64;}
+:root[data-theme="figma-turquoise-amber-autumn"] .json-token-string{color:#631b08;}
+:root[data-theme="figma-turquoise-amber-autumn"] .json-token-number{color:#304b64;}
+:root[data-theme="figma-turquoise-amber-autumn"] .json-token-boolean{color:#304b64;}
+:root[data-theme="figma-turquoise-amber-autumn"] .json-token-null{color:#304b64;}
+:root[data-theme="figma-turquoise-amber-autumn"] .json-token-punctuation{color:#631b08;}
+:root[data-theme="figma-turquoise-amber-autumn"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Sapphire ash morning — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-31-sapphire-ash-morning */
+:root[data-theme="figma-sapphire-ash-morning"]{--background:0 0% 96.471%;--foreground:199.714 40.23% 34.118%;--card:0 0% 96.471%;--card-foreground:199.714 40.23% 34.118%;--popover:0 0% 96.471%;--popover-foreground:199.714 40.23% 34.118%;--primary:199.714 40.23% 34.118%;--primary-foreground:0 0% 96.471%;--secondary:0 0% 96.471%;--secondary-foreground:199.714 40.23% 34.118%;--accent:0 0% 96.471%;--accent-foreground:199.714 40.23% 34.118%;--muted:0 0% 96.471%;--muted-foreground:199.714 40.23% 34.118%;--destructive:199.714 40.23% 34.118%;--destructive-foreground:0 0% 96.471%;--border:199.714 40.23% 34.118%;--input:199.714 40.23% 34.118%;--ring:199.714 40.23% 34.118%;--neo-yellow:#34637a;--neo-pink:#34637a;--neo-purple:#34637a;--neo-green:#34637a;--neo-cyan:#34637a;--neo-red:#34637a;--neo-paper:#f6f6f6;--neo-code-text:#34637a;--neo-shadow:#34637a;--neo-interactive:#34637a;--neo-on-accent:#f6f6f6;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-sapphire-ash-morning"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#f6f6f6!important;color:#34637a!important;}
+:root[data-theme="figma-sapphire-ash-morning"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-sapphire-ash-morning"] .hljs-keyword,:root[data-theme="figma-sapphire-ash-morning"] .hljs-doctag,:root[data-theme="figma-sapphire-ash-morning"] .hljs-type,:root[data-theme="figma-sapphire-ash-morning"] .hljs-selector-tag,:root[data-theme="figma-sapphire-ash-morning"] .hljs-template-tag,:root[data-theme="figma-sapphire-ash-morning"] .hljs-template-variable{color:#34637a!important;}
+:root[data-theme="figma-sapphire-ash-morning"] .hljs-string,:root[data-theme="figma-sapphire-ash-morning"] .hljs-regexp,:root[data-theme="figma-sapphire-ash-morning"] .hljs-symbol,:root[data-theme="figma-sapphire-ash-morning"] .hljs-bullet{color:#34637a!important;}
+:root[data-theme="figma-sapphire-ash-morning"] .hljs-number,:root[data-theme="figma-sapphire-ash-morning"] .hljs-literal{color:#34637a!important;}
+:root[data-theme="figma-sapphire-ash-morning"] .hljs-title,:root[data-theme="figma-sapphire-ash-morning"] .hljs-section,:root[data-theme="figma-sapphire-ash-morning"] .hljs-built_in,:root[data-theme="figma-sapphire-ash-morning"] .hljs-name{color:#34637a!important;}
+:root[data-theme="figma-sapphire-ash-morning"] .hljs-comment,:root[data-theme="figma-sapphire-ash-morning"] .hljs-quote{color:#34637a!important;}
+:root[data-theme="figma-sapphire-ash-morning"] .hljs-attr,:root[data-theme="figma-sapphire-ash-morning"] .hljs-attribute,:root[data-theme="figma-sapphire-ash-morning"] .hljs-variable,:root[data-theme="figma-sapphire-ash-morning"] .hljs-params{color:#34637a!important;}
+:root[data-theme="figma-sapphire-ash-morning"] .json-token-field{color:#34637a;}
+:root[data-theme="figma-sapphire-ash-morning"] .json-token-string{color:#34637a;}
+:root[data-theme="figma-sapphire-ash-morning"] .json-token-number{color:#34637a;}
+:root[data-theme="figma-sapphire-ash-morning"] .json-token-boolean{color:#34637a;}
+:root[data-theme="figma-sapphire-ash-morning"] .json-token-null{color:#34637a;}
+:root[data-theme="figma-sapphire-ash-morning"] .json-token-punctuation{color:#34637a;}
+:root[data-theme="figma-sapphire-ash-morning"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Frosted aura — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-32-frosted-aura */
+:root[data-theme="figma-frosted-aura"]{--background:0 0% 100%;--foreground:0 0% 7.843%;--card:0 0% 100%;--card-foreground:0 0% 7.843%;--popover:0 0% 100%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:0 0% 100%;--secondary:0 0% 100%;--secondary-foreground:0 0% 7.843%;--accent:0 0% 100%;--accent-foreground:0 0% 7.843%;--muted:0 0% 100%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:0 0% 100%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#ffffff;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#ffffff;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-frosted-aura"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#ffffff!important;color:#141414!important;}
+:root[data-theme="figma-frosted-aura"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-frosted-aura"] .hljs-keyword,:root[data-theme="figma-frosted-aura"] .hljs-doctag,:root[data-theme="figma-frosted-aura"] .hljs-type,:root[data-theme="figma-frosted-aura"] .hljs-selector-tag,:root[data-theme="figma-frosted-aura"] .hljs-template-tag,:root[data-theme="figma-frosted-aura"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-frosted-aura"] .hljs-string,:root[data-theme="figma-frosted-aura"] .hljs-regexp,:root[data-theme="figma-frosted-aura"] .hljs-symbol,:root[data-theme="figma-frosted-aura"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-frosted-aura"] .hljs-number,:root[data-theme="figma-frosted-aura"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-frosted-aura"] .hljs-title,:root[data-theme="figma-frosted-aura"] .hljs-section,:root[data-theme="figma-frosted-aura"] .hljs-built_in,:root[data-theme="figma-frosted-aura"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-frosted-aura"] .hljs-comment,:root[data-theme="figma-frosted-aura"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-frosted-aura"] .hljs-attr,:root[data-theme="figma-frosted-aura"] .hljs-attribute,:root[data-theme="figma-frosted-aura"] .hljs-variable,:root[data-theme="figma-frosted-aura"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-frosted-aura"] .json-token-field{color:#141414;}
+:root[data-theme="figma-frosted-aura"] .json-token-string{color:#141414;}
+:root[data-theme="figma-frosted-aura"] .json-token-number{color:#141414;}
+:root[data-theme="figma-frosted-aura"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-frosted-aura"] .json-token-null{color:#141414;}
+:root[data-theme="figma-frosted-aura"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-frosted-aura"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Royal glimmer — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-33-royal-glimmer */
+:root[data-theme="figma-royal-glimmer"]{--background:174.93 94.667% 14.706%;--foreground:0 0% 100%;--card:174.93 94.667% 14.706%;--card-foreground:0 0% 100%;--popover:174.93 94.667% 14.706%;--popover-foreground:0 0% 100%;--primary:0 0% 100%;--primary-foreground:226.265 50.303% 32.353%;--secondary:174.93 94.667% 14.706%;--secondary-foreground:0 0% 100%;--accent:174.93 94.667% 14.706%;--accent-foreground:0 0% 100%;--muted:174.93 94.667% 14.706%;--muted-foreground:0 0% 100%;--destructive:0 0% 100%;--destructive-foreground:226.265 50.303% 32.353%;--border:0 0% 100%;--input:0 0% 100%;--ring:0 0% 100%;--neo-yellow:#ffffff;--neo-pink:#ffffff;--neo-purple:#ffffff;--neo-green:#ffffff;--neo-cyan:#ffffff;--neo-red:#ffffff;--neo-paper:#024943;--neo-code-text:#ffffff;--neo-shadow:#ffffff;--neo-interactive:#ffffff;--neo-on-accent:#293c7c;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-royal-glimmer"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#024943!important;color:#ffffff!important;}
+:root[data-theme="figma-royal-glimmer"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-royal-glimmer"] .hljs-keyword,:root[data-theme="figma-royal-glimmer"] .hljs-doctag,:root[data-theme="figma-royal-glimmer"] .hljs-type,:root[data-theme="figma-royal-glimmer"] .hljs-selector-tag,:root[data-theme="figma-royal-glimmer"] .hljs-template-tag,:root[data-theme="figma-royal-glimmer"] .hljs-template-variable{color:#ffffff!important;}
+:root[data-theme="figma-royal-glimmer"] .hljs-string,:root[data-theme="figma-royal-glimmer"] .hljs-regexp,:root[data-theme="figma-royal-glimmer"] .hljs-symbol,:root[data-theme="figma-royal-glimmer"] .hljs-bullet{color:#ffffff!important;}
+:root[data-theme="figma-royal-glimmer"] .hljs-number,:root[data-theme="figma-royal-glimmer"] .hljs-literal{color:#ffffff!important;}
+:root[data-theme="figma-royal-glimmer"] .hljs-title,:root[data-theme="figma-royal-glimmer"] .hljs-section,:root[data-theme="figma-royal-glimmer"] .hljs-built_in,:root[data-theme="figma-royal-glimmer"] .hljs-name{color:#ffffff!important;}
+:root[data-theme="figma-royal-glimmer"] .hljs-comment,:root[data-theme="figma-royal-glimmer"] .hljs-quote{color:#ffffff!important;}
+:root[data-theme="figma-royal-glimmer"] .hljs-attr,:root[data-theme="figma-royal-glimmer"] .hljs-attribute,:root[data-theme="figma-royal-glimmer"] .hljs-variable,:root[data-theme="figma-royal-glimmer"] .hljs-params{color:#ffffff!important;}
+:root[data-theme="figma-royal-glimmer"] .json-token-field{color:#ffffff;}
+:root[data-theme="figma-royal-glimmer"] .json-token-string{color:#ffffff;}
+:root[data-theme="figma-royal-glimmer"] .json-token-number{color:#ffffff;}
+:root[data-theme="figma-royal-glimmer"] .json-token-boolean{color:#ffffff;}
+:root[data-theme="figma-royal-glimmer"] .json-token-null{color:#ffffff;}
+:root[data-theme="figma-royal-glimmer"] .json-token-punctuation{color:#ffffff;}
+:root[data-theme="figma-royal-glimmer"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Neptune — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-34-neptune */
+:root[data-theme="figma-neptune"]{--background:199.266 94.783% 77.451%;--foreground:0 0% 7.843%;--card:199.266 94.783% 77.451%;--card-foreground:0 0% 7.843%;--popover:199.266 94.783% 77.451%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:199.266 94.783% 77.451%;--secondary:199.266 94.783% 77.451%;--secondary-foreground:0 0% 7.843%;--accent:199.266 94.783% 77.451%;--accent-foreground:0 0% 7.843%;--muted:199.266 94.783% 77.451%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:199.266 94.783% 77.451%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#8fd9fc;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#8fd9fc;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-neptune"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#8fd9fc!important;color:#141414!important;}
+:root[data-theme="figma-neptune"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-neptune"] .hljs-keyword,:root[data-theme="figma-neptune"] .hljs-doctag,:root[data-theme="figma-neptune"] .hljs-type,:root[data-theme="figma-neptune"] .hljs-selector-tag,:root[data-theme="figma-neptune"] .hljs-template-tag,:root[data-theme="figma-neptune"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-neptune"] .hljs-string,:root[data-theme="figma-neptune"] .hljs-regexp,:root[data-theme="figma-neptune"] .hljs-symbol,:root[data-theme="figma-neptune"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-neptune"] .hljs-number,:root[data-theme="figma-neptune"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-neptune"] .hljs-title,:root[data-theme="figma-neptune"] .hljs-section,:root[data-theme="figma-neptune"] .hljs-built_in,:root[data-theme="figma-neptune"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-neptune"] .hljs-comment,:root[data-theme="figma-neptune"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-neptune"] .hljs-attr,:root[data-theme="figma-neptune"] .hljs-attribute,:root[data-theme="figma-neptune"] .hljs-variable,:root[data-theme="figma-neptune"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-neptune"] .json-token-field{color:#141414;}
+:root[data-theme="figma-neptune"] .json-token-string{color:#141414;}
+:root[data-theme="figma-neptune"] .json-token-number{color:#141414;}
+:root[data-theme="figma-neptune"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-neptune"] .json-token-null{color:#141414;}
+:root[data-theme="figma-neptune"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-neptune"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Tropical jade sunrise — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-35-tropical-jade-sunrise */
+:root[data-theme="figma-tropical-jade-sunrise"]{--background:43.594 91.429% 72.549%;--foreground:0 0% 7.843%;--card:43.594 91.429% 72.549%;--card-foreground:0 0% 7.843%;--popover:43.594 91.429% 72.549%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:43.594 91.429% 72.549%;--secondary:43.594 91.429% 72.549%;--secondary-foreground:0 0% 7.843%;--accent:43.594 91.429% 72.549%;--accent-foreground:0 0% 7.843%;--muted:43.594 91.429% 72.549%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:43.594 91.429% 72.549%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#f9d679;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#f9d679;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-tropical-jade-sunrise"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#f9d679!important;color:#141414!important;}
+:root[data-theme="figma-tropical-jade-sunrise"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-tropical-jade-sunrise"] .hljs-keyword,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-doctag,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-type,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-selector-tag,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-template-tag,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-tropical-jade-sunrise"] .hljs-string,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-regexp,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-symbol,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-tropical-jade-sunrise"] .hljs-number,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-tropical-jade-sunrise"] .hljs-title,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-section,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-built_in,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-tropical-jade-sunrise"] .hljs-comment,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-tropical-jade-sunrise"] .hljs-attr,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-attribute,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-variable,:root[data-theme="figma-tropical-jade-sunrise"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-tropical-jade-sunrise"] .json-token-field{color:#141414;}
+:root[data-theme="figma-tropical-jade-sunrise"] .json-token-string{color:#141414;}
+:root[data-theme="figma-tropical-jade-sunrise"] .json-token-number{color:#141414;}
+:root[data-theme="figma-tropical-jade-sunrise"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-tropical-jade-sunrise"] .json-token-null{color:#141414;}
+:root[data-theme="figma-tropical-jade-sunrise"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-tropical-jade-sunrise"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Amethyst mint harmony — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-36-amethyst-mint-harmony */
+:root[data-theme="figma-amethyst-mint-harmony"]{--background:302.927 30.827% 26.078%;--foreground:116.727 85.938% 74.902%;--card:302.927 30.827% 26.078%;--card-foreground:116.727 85.938% 74.902%;--popover:302.927 30.827% 26.078%;--popover-foreground:116.727 85.938% 74.902%;--primary:116.727 85.938% 74.902%;--primary-foreground:160 20% 20.588%;--secondary:302.927 30.827% 26.078%;--secondary-foreground:116.727 85.938% 74.902%;--accent:302.927 30.827% 26.078%;--accent-foreground:116.727 85.938% 74.902%;--muted:302.927 30.827% 26.078%;--muted-foreground:116.727 85.938% 74.902%;--destructive:116.727 85.938% 74.902%;--destructive-foreground:160 20% 20.588%;--border:116.727 85.938% 74.902%;--input:116.727 85.938% 74.902%;--ring:116.727 85.938% 74.902%;--neo-yellow:#8ef688;--neo-pink:#8ef688;--neo-purple:#8ef688;--neo-green:#8ef688;--neo-cyan:#8ef688;--neo-red:#8ef688;--neo-paper:#572e55;--neo-code-text:#8ef688;--neo-shadow:#8ef688;--neo-interactive:#8ef688;--neo-on-accent:#2a3f38;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-amethyst-mint-harmony"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#572e55!important;color:#8ef688!important;}
+:root[data-theme="figma-amethyst-mint-harmony"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-amethyst-mint-harmony"] .hljs-keyword,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-doctag,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-type,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-selector-tag,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-template-tag,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-template-variable{color:#8ef688!important;}
+:root[data-theme="figma-amethyst-mint-harmony"] .hljs-string,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-regexp,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-symbol,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-bullet{color:#8ef688!important;}
+:root[data-theme="figma-amethyst-mint-harmony"] .hljs-number,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-literal{color:#8ef688!important;}
+:root[data-theme="figma-amethyst-mint-harmony"] .hljs-title,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-section,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-built_in,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-name{color:#8ef688!important;}
+:root[data-theme="figma-amethyst-mint-harmony"] .hljs-comment,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-quote{color:#8ef688!important;}
+:root[data-theme="figma-amethyst-mint-harmony"] .hljs-attr,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-attribute,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-variable,:root[data-theme="figma-amethyst-mint-harmony"] .hljs-params{color:#8ef688!important;}
+:root[data-theme="figma-amethyst-mint-harmony"] .json-token-field{color:#8ef688;}
+:root[data-theme="figma-amethyst-mint-harmony"] .json-token-string{color:#8ef688;}
+:root[data-theme="figma-amethyst-mint-harmony"] .json-token-number{color:#8ef688;}
+:root[data-theme="figma-amethyst-mint-harmony"] .json-token-boolean{color:#8ef688;}
+:root[data-theme="figma-amethyst-mint-harmony"] .json-token-null{color:#8ef688;}
+:root[data-theme="figma-amethyst-mint-harmony"] .json-token-punctuation{color:#8ef688;}
+:root[data-theme="figma-amethyst-mint-harmony"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Hibiscus aura — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-37-hibiscus-aura */
+:root[data-theme="figma-hibiscus-aura"]{--background:304.444 30.682% 34.51%;--foreground:0 0% 100%;--card:304.444 30.682% 34.51%;--card-foreground:0 0% 100%;--popover:304.444 30.682% 34.51%;--popover-foreground:0 0% 100%;--primary:0 0% 100%;--primary-foreground:304.444 30.682% 34.51%;--secondary:304.444 30.682% 34.51%;--secondary-foreground:0 0% 100%;--accent:304.444 30.682% 34.51%;--accent-foreground:0 0% 100%;--muted:304.444 30.682% 34.51%;--muted-foreground:0 0% 100%;--destructive:0 0% 100%;--destructive-foreground:304.444 30.682% 34.51%;--border:0 0% 100%;--input:0 0% 100%;--ring:0 0% 100%;--neo-yellow:#ffffff;--neo-pink:#ffffff;--neo-purple:#ffffff;--neo-green:#ffffff;--neo-cyan:#ffffff;--neo-red:#ffffff;--neo-paper:#733d6f;--neo-code-text:#ffffff;--neo-shadow:#ffffff;--neo-interactive:#ffffff;--neo-on-accent:#733d6f;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-hibiscus-aura"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#733d6f!important;color:#ffffff!important;}
+:root[data-theme="figma-hibiscus-aura"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-hibiscus-aura"] .hljs-keyword,:root[data-theme="figma-hibiscus-aura"] .hljs-doctag,:root[data-theme="figma-hibiscus-aura"] .hljs-type,:root[data-theme="figma-hibiscus-aura"] .hljs-selector-tag,:root[data-theme="figma-hibiscus-aura"] .hljs-template-tag,:root[data-theme="figma-hibiscus-aura"] .hljs-template-variable{color:#ffffff!important;}
+:root[data-theme="figma-hibiscus-aura"] .hljs-string,:root[data-theme="figma-hibiscus-aura"] .hljs-regexp,:root[data-theme="figma-hibiscus-aura"] .hljs-symbol,:root[data-theme="figma-hibiscus-aura"] .hljs-bullet{color:#ffffff!important;}
+:root[data-theme="figma-hibiscus-aura"] .hljs-number,:root[data-theme="figma-hibiscus-aura"] .hljs-literal{color:#ffffff!important;}
+:root[data-theme="figma-hibiscus-aura"] .hljs-title,:root[data-theme="figma-hibiscus-aura"] .hljs-section,:root[data-theme="figma-hibiscus-aura"] .hljs-built_in,:root[data-theme="figma-hibiscus-aura"] .hljs-name{color:#ffffff!important;}
+:root[data-theme="figma-hibiscus-aura"] .hljs-comment,:root[data-theme="figma-hibiscus-aura"] .hljs-quote{color:#ffffff!important;}
+:root[data-theme="figma-hibiscus-aura"] .hljs-attr,:root[data-theme="figma-hibiscus-aura"] .hljs-attribute,:root[data-theme="figma-hibiscus-aura"] .hljs-variable,:root[data-theme="figma-hibiscus-aura"] .hljs-params{color:#ffffff!important;}
+:root[data-theme="figma-hibiscus-aura"] .json-token-field{color:#ffffff;}
+:root[data-theme="figma-hibiscus-aura"] .json-token-string{color:#ffffff;}
+:root[data-theme="figma-hibiscus-aura"] .json-token-number{color:#ffffff;}
+:root[data-theme="figma-hibiscus-aura"] .json-token-boolean{color:#ffffff;}
+:root[data-theme="figma-hibiscus-aura"] .json-token-null{color:#ffffff;}
+:root[data-theme="figma-hibiscus-aura"] .json-token-punctuation{color:#ffffff;}
+:root[data-theme="figma-hibiscus-aura"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Ocean ruby radiance — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-38-ocean-ruby-radiance */
+:root[data-theme="figma-ocean-ruby-radiance"]{--background:191.25 46.154% 79.608%;--foreground:209.663 100% 34.902%;--card:191.25 46.154% 79.608%;--card-foreground:209.663 100% 34.902%;--popover:191.25 46.154% 79.608%;--popover-foreground:209.663 100% 34.902%;--primary:209.663 100% 34.902%;--primary-foreground:191.25 46.154% 79.608%;--secondary:191.25 46.154% 79.608%;--secondary-foreground:209.663 100% 34.902%;--accent:191.25 46.154% 79.608%;--accent-foreground:209.663 100% 34.902%;--muted:191.25 46.154% 79.608%;--muted-foreground:209.663 100% 34.902%;--destructive:209.663 100% 34.902%;--destructive-foreground:191.25 46.154% 79.608%;--border:209.663 100% 34.902%;--input:209.663 100% 34.902%;--ring:209.663 100% 34.902%;--neo-yellow:#005ab2;--neo-pink:#005ab2;--neo-purple:#005ab2;--neo-green:#005ab2;--neo-cyan:#005ab2;--neo-red:#005ab2;--neo-paper:#b3dae3;--neo-code-text:#005ab2;--neo-shadow:#005ab2;--neo-interactive:#005ab2;--neo-on-accent:#b3dae3;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-ocean-ruby-radiance"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#b3dae3!important;color:#005ab2!important;}
+:root[data-theme="figma-ocean-ruby-radiance"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-ocean-ruby-radiance"] .hljs-keyword,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-doctag,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-type,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-selector-tag,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-template-tag,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-template-variable{color:#005ab2!important;}
+:root[data-theme="figma-ocean-ruby-radiance"] .hljs-string,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-regexp,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-symbol,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-bullet{color:#005ab2!important;}
+:root[data-theme="figma-ocean-ruby-radiance"] .hljs-number,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-literal{color:#005ab2!important;}
+:root[data-theme="figma-ocean-ruby-radiance"] .hljs-title,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-section,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-built_in,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-name{color:#005ab2!important;}
+:root[data-theme="figma-ocean-ruby-radiance"] .hljs-comment,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-quote{color:#005ab2!important;}
+:root[data-theme="figma-ocean-ruby-radiance"] .hljs-attr,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-attribute,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-variable,:root[data-theme="figma-ocean-ruby-radiance"] .hljs-params{color:#005ab2!important;}
+:root[data-theme="figma-ocean-ruby-radiance"] .json-token-field{color:#005ab2;}
+:root[data-theme="figma-ocean-ruby-radiance"] .json-token-string{color:#005ab2;}
+:root[data-theme="figma-ocean-ruby-radiance"] .json-token-number{color:#005ab2;}
+:root[data-theme="figma-ocean-ruby-radiance"] .json-token-boolean{color:#005ab2;}
+:root[data-theme="figma-ocean-ruby-radiance"] .json-token-null{color:#005ab2;}
+:root[data-theme="figma-ocean-ruby-radiance"] .json-token-punctuation{color:#005ab2;}
+:root[data-theme="figma-ocean-ruby-radiance"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Tropical heat — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-39-tropical-heat */
+:root[data-theme="figma-tropical-heat"]{--background:45.263 90.476% 87.647%;--foreground:0 0% 7.843%;--card:45.263 90.476% 87.647%;--card-foreground:0 0% 7.843%;--popover:45.263 90.476% 87.647%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:45.263 90.476% 87.647%;--secondary:45.263 90.476% 87.647%;--secondary-foreground:0 0% 7.843%;--accent:45.263 90.476% 87.647%;--accent-foreground:0 0% 7.843%;--muted:45.263 90.476% 87.647%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:45.263 90.476% 87.647%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#fceec3;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#fceec3;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-tropical-heat"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#fceec3!important;color:#141414!important;}
+:root[data-theme="figma-tropical-heat"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-tropical-heat"] .hljs-keyword,:root[data-theme="figma-tropical-heat"] .hljs-doctag,:root[data-theme="figma-tropical-heat"] .hljs-type,:root[data-theme="figma-tropical-heat"] .hljs-selector-tag,:root[data-theme="figma-tropical-heat"] .hljs-template-tag,:root[data-theme="figma-tropical-heat"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-tropical-heat"] .hljs-string,:root[data-theme="figma-tropical-heat"] .hljs-regexp,:root[data-theme="figma-tropical-heat"] .hljs-symbol,:root[data-theme="figma-tropical-heat"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-tropical-heat"] .hljs-number,:root[data-theme="figma-tropical-heat"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-tropical-heat"] .hljs-title,:root[data-theme="figma-tropical-heat"] .hljs-section,:root[data-theme="figma-tropical-heat"] .hljs-built_in,:root[data-theme="figma-tropical-heat"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-tropical-heat"] .hljs-comment,:root[data-theme="figma-tropical-heat"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-tropical-heat"] .hljs-attr,:root[data-theme="figma-tropical-heat"] .hljs-attribute,:root[data-theme="figma-tropical-heat"] .hljs-variable,:root[data-theme="figma-tropical-heat"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-tropical-heat"] .json-token-field{color:#141414;}
+:root[data-theme="figma-tropical-heat"] .json-token-string{color:#141414;}
+:root[data-theme="figma-tropical-heat"] .json-token-number{color:#141414;}
+:root[data-theme="figma-tropical-heat"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-tropical-heat"] .json-token-null{color:#141414;}
+:root[data-theme="figma-tropical-heat"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-tropical-heat"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Celestial — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-40-celestial */
+:root[data-theme="figma-celestial"]{--background:56.147 100% 57.255%;--foreground:239.727 100% 56.863%;--card:56.147 100% 57.255%;--card-foreground:239.727 100% 56.863%;--popover:56.147 100% 57.255%;--popover-foreground:239.727 100% 56.863%;--primary:239.727 100% 56.863%;--primary-foreground:56.147 100% 57.255%;--secondary:56.147 100% 57.255%;--secondary-foreground:239.727 100% 56.863%;--accent:56.147 100% 57.255%;--accent-foreground:239.727 100% 56.863%;--muted:56.147 100% 57.255%;--muted-foreground:239.727 100% 56.863%;--destructive:239.727 100% 56.863%;--destructive-foreground:56.147 100% 57.255%;--border:239.727 100% 56.863%;--input:239.727 100% 56.863%;--ring:239.727 100% 56.863%;--neo-yellow:#2324ff;--neo-pink:#2324ff;--neo-purple:#2324ff;--neo-green:#2324ff;--neo-cyan:#2324ff;--neo-red:#2324ff;--neo-paper:#fff125;--neo-code-text:#2324ff;--neo-shadow:#2324ff;--neo-interactive:#2324ff;--neo-on-accent:#fff125;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-celestial"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#fff125!important;color:#2324ff!important;}
+:root[data-theme="figma-celestial"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-celestial"] .hljs-keyword,:root[data-theme="figma-celestial"] .hljs-doctag,:root[data-theme="figma-celestial"] .hljs-type,:root[data-theme="figma-celestial"] .hljs-selector-tag,:root[data-theme="figma-celestial"] .hljs-template-tag,:root[data-theme="figma-celestial"] .hljs-template-variable{color:#2324ff!important;}
+:root[data-theme="figma-celestial"] .hljs-string,:root[data-theme="figma-celestial"] .hljs-regexp,:root[data-theme="figma-celestial"] .hljs-symbol,:root[data-theme="figma-celestial"] .hljs-bullet{color:#2324ff!important;}
+:root[data-theme="figma-celestial"] .hljs-number,:root[data-theme="figma-celestial"] .hljs-literal{color:#2324ff!important;}
+:root[data-theme="figma-celestial"] .hljs-title,:root[data-theme="figma-celestial"] .hljs-section,:root[data-theme="figma-celestial"] .hljs-built_in,:root[data-theme="figma-celestial"] .hljs-name{color:#2324ff!important;}
+:root[data-theme="figma-celestial"] .hljs-comment,:root[data-theme="figma-celestial"] .hljs-quote{color:#2324ff!important;}
+:root[data-theme="figma-celestial"] .hljs-attr,:root[data-theme="figma-celestial"] .hljs-attribute,:root[data-theme="figma-celestial"] .hljs-variable,:root[data-theme="figma-celestial"] .hljs-params{color:#2324ff!important;}
+:root[data-theme="figma-celestial"] .json-token-field{color:#2324ff;}
+:root[data-theme="figma-celestial"] .json-token-string{color:#2324ff;}
+:root[data-theme="figma-celestial"] .json-token-number{color:#2324ff;}
+:root[data-theme="figma-celestial"] .json-token-boolean{color:#2324ff;}
+:root[data-theme="figma-celestial"] .json-token-null{color:#2324ff;}
+:root[data-theme="figma-celestial"] .json-token-punctuation{color:#2324ff;}
+:root[data-theme="figma-celestial"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Festive eve — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-41-festive-eve */
+:root[data-theme="figma-festive-eve"]{--background:201.818 100% 56.863%;--foreground:0 0% 7.843%;--card:201.818 100% 56.863%;--card-foreground:0 0% 7.843%;--popover:201.818 100% 56.863%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:201.818 100% 56.863%;--secondary:201.818 100% 56.863%;--secondary-foreground:0 0% 7.843%;--accent:201.818 100% 56.863%;--accent-foreground:0 0% 7.843%;--muted:201.818 100% 56.863%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:201.818 100% 56.863%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#23afff;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#23afff;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-festive-eve"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#23afff!important;color:#141414!important;}
+:root[data-theme="figma-festive-eve"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-festive-eve"] .hljs-keyword,:root[data-theme="figma-festive-eve"] .hljs-doctag,:root[data-theme="figma-festive-eve"] .hljs-type,:root[data-theme="figma-festive-eve"] .hljs-selector-tag,:root[data-theme="figma-festive-eve"] .hljs-template-tag,:root[data-theme="figma-festive-eve"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-festive-eve"] .hljs-string,:root[data-theme="figma-festive-eve"] .hljs-regexp,:root[data-theme="figma-festive-eve"] .hljs-symbol,:root[data-theme="figma-festive-eve"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-festive-eve"] .hljs-number,:root[data-theme="figma-festive-eve"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-festive-eve"] .hljs-title,:root[data-theme="figma-festive-eve"] .hljs-section,:root[data-theme="figma-festive-eve"] .hljs-built_in,:root[data-theme="figma-festive-eve"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-festive-eve"] .hljs-comment,:root[data-theme="figma-festive-eve"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-festive-eve"] .hljs-attr,:root[data-theme="figma-festive-eve"] .hljs-attribute,:root[data-theme="figma-festive-eve"] .hljs-variable,:root[data-theme="figma-festive-eve"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-festive-eve"] .json-token-field{color:#141414;}
+:root[data-theme="figma-festive-eve"] .json-token-string{color:#141414;}
+:root[data-theme="figma-festive-eve"] .json-token-number{color:#141414;}
+:root[data-theme="figma-festive-eve"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-festive-eve"] .json-token-null{color:#141414;}
+:root[data-theme="figma-festive-eve"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-festive-eve"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Freshly squeezed — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-42-freshly-squeezed */
+:root[data-theme="figma-freshly-squeezed"]{--background:52.063 100% 62.941%;--foreground:0 0% 7.843%;--card:52.063 100% 62.941%;--card-foreground:0 0% 7.843%;--popover:52.063 100% 62.941%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:52.063 100% 62.941%;--secondary:52.063 100% 62.941%;--secondary-foreground:0 0% 7.843%;--accent:52.063 100% 62.941%;--accent-foreground:0 0% 7.843%;--muted:52.063 100% 62.941%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:52.063 100% 62.941%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#ffe642;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#ffe642;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-freshly-squeezed"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#ffe642!important;color:#141414!important;}
+:root[data-theme="figma-freshly-squeezed"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-freshly-squeezed"] .hljs-keyword,:root[data-theme="figma-freshly-squeezed"] .hljs-doctag,:root[data-theme="figma-freshly-squeezed"] .hljs-type,:root[data-theme="figma-freshly-squeezed"] .hljs-selector-tag,:root[data-theme="figma-freshly-squeezed"] .hljs-template-tag,:root[data-theme="figma-freshly-squeezed"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-freshly-squeezed"] .hljs-string,:root[data-theme="figma-freshly-squeezed"] .hljs-regexp,:root[data-theme="figma-freshly-squeezed"] .hljs-symbol,:root[data-theme="figma-freshly-squeezed"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-freshly-squeezed"] .hljs-number,:root[data-theme="figma-freshly-squeezed"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-freshly-squeezed"] .hljs-title,:root[data-theme="figma-freshly-squeezed"] .hljs-section,:root[data-theme="figma-freshly-squeezed"] .hljs-built_in,:root[data-theme="figma-freshly-squeezed"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-freshly-squeezed"] .hljs-comment,:root[data-theme="figma-freshly-squeezed"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-freshly-squeezed"] .hljs-attr,:root[data-theme="figma-freshly-squeezed"] .hljs-attribute,:root[data-theme="figma-freshly-squeezed"] .hljs-variable,:root[data-theme="figma-freshly-squeezed"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-freshly-squeezed"] .json-token-field{color:#141414;}
+:root[data-theme="figma-freshly-squeezed"] .json-token-string{color:#141414;}
+:root[data-theme="figma-freshly-squeezed"] .json-token-number{color:#141414;}
+:root[data-theme="figma-freshly-squeezed"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-freshly-squeezed"] .json-token-null{color:#141414;}
+:root[data-theme="figma-freshly-squeezed"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-freshly-squeezed"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Jelly shoes — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-43-jelly-shoes */
+:root[data-theme="figma-jelly-shoes"]{--background:221.695 100% 88.431%;--foreground:0 0% 7.843%;--card:221.695 100% 88.431%;--card-foreground:0 0% 7.843%;--popover:221.695 100% 88.431%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:221.695 100% 88.431%;--secondary:221.695 100% 88.431%;--secondary-foreground:0 0% 7.843%;--accent:221.695 100% 88.431%;--accent-foreground:0 0% 7.843%;--muted:221.695 100% 88.431%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:221.695 100% 88.431%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#c4d6ff;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#c4d6ff;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-jelly-shoes"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#c4d6ff!important;color:#141414!important;}
+:root[data-theme="figma-jelly-shoes"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-jelly-shoes"] .hljs-keyword,:root[data-theme="figma-jelly-shoes"] .hljs-doctag,:root[data-theme="figma-jelly-shoes"] .hljs-type,:root[data-theme="figma-jelly-shoes"] .hljs-selector-tag,:root[data-theme="figma-jelly-shoes"] .hljs-template-tag,:root[data-theme="figma-jelly-shoes"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-jelly-shoes"] .hljs-string,:root[data-theme="figma-jelly-shoes"] .hljs-regexp,:root[data-theme="figma-jelly-shoes"] .hljs-symbol,:root[data-theme="figma-jelly-shoes"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-jelly-shoes"] .hljs-number,:root[data-theme="figma-jelly-shoes"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-jelly-shoes"] .hljs-title,:root[data-theme="figma-jelly-shoes"] .hljs-section,:root[data-theme="figma-jelly-shoes"] .hljs-built_in,:root[data-theme="figma-jelly-shoes"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-jelly-shoes"] .hljs-comment,:root[data-theme="figma-jelly-shoes"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-jelly-shoes"] .hljs-attr,:root[data-theme="figma-jelly-shoes"] .hljs-attribute,:root[data-theme="figma-jelly-shoes"] .hljs-variable,:root[data-theme="figma-jelly-shoes"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-jelly-shoes"] .json-token-field{color:#141414;}
+:root[data-theme="figma-jelly-shoes"] .json-token-string{color:#141414;}
+:root[data-theme="figma-jelly-shoes"] .json-token-number{color:#141414;}
+:root[data-theme="figma-jelly-shoes"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-jelly-shoes"] .json-token-null{color:#141414;}
+:root[data-theme="figma-jelly-shoes"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-jelly-shoes"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Opaline — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-44-opaline */
+:root[data-theme="figma-opaline"]{--background:260 15.789% 96.275%;--foreground:0 0% 7.843%;--card:260 15.789% 96.275%;--card-foreground:0 0% 7.843%;--popover:260 15.789% 96.275%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:260 15.789% 96.275%;--secondary:260 15.789% 96.275%;--secondary-foreground:0 0% 7.843%;--accent:260 15.789% 96.275%;--accent-foreground:0 0% 7.843%;--muted:260 15.789% 96.275%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:260 15.789% 96.275%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#f5f4f7;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#f5f4f7;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-opaline"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#f5f4f7!important;color:#141414!important;}
+:root[data-theme="figma-opaline"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-opaline"] .hljs-keyword,:root[data-theme="figma-opaline"] .hljs-doctag,:root[data-theme="figma-opaline"] .hljs-type,:root[data-theme="figma-opaline"] .hljs-selector-tag,:root[data-theme="figma-opaline"] .hljs-template-tag,:root[data-theme="figma-opaline"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-opaline"] .hljs-string,:root[data-theme="figma-opaline"] .hljs-regexp,:root[data-theme="figma-opaline"] .hljs-symbol,:root[data-theme="figma-opaline"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-opaline"] .hljs-number,:root[data-theme="figma-opaline"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-opaline"] .hljs-title,:root[data-theme="figma-opaline"] .hljs-section,:root[data-theme="figma-opaline"] .hljs-built_in,:root[data-theme="figma-opaline"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-opaline"] .hljs-comment,:root[data-theme="figma-opaline"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-opaline"] .hljs-attr,:root[data-theme="figma-opaline"] .hljs-attribute,:root[data-theme="figma-opaline"] .hljs-variable,:root[data-theme="figma-opaline"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-opaline"] .json-token-field{color:#141414;}
+:root[data-theme="figma-opaline"] .json-token-string{color:#141414;}
+:root[data-theme="figma-opaline"] .json-token-number{color:#141414;}
+:root[data-theme="figma-opaline"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-opaline"] .json-token-null{color:#141414;}
+:root[data-theme="figma-opaline"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-opaline"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Gossamer — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-45-gossamer */
+:root[data-theme="figma-gossamer"]{--background:0 0% 98.039%;--foreground:0 0% 7.843%;--card:0 0% 98.039%;--card-foreground:0 0% 7.843%;--popover:0 0% 98.039%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:0 0% 98.039%;--secondary:0 0% 98.039%;--secondary-foreground:0 0% 7.843%;--accent:0 0% 98.039%;--accent-foreground:0 0% 7.843%;--muted:0 0% 98.039%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:0 0% 98.039%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#fafafa;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#fafafa;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-gossamer"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#fafafa!important;color:#141414!important;}
+:root[data-theme="figma-gossamer"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-gossamer"] .hljs-keyword,:root[data-theme="figma-gossamer"] .hljs-doctag,:root[data-theme="figma-gossamer"] .hljs-type,:root[data-theme="figma-gossamer"] .hljs-selector-tag,:root[data-theme="figma-gossamer"] .hljs-template-tag,:root[data-theme="figma-gossamer"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-gossamer"] .hljs-string,:root[data-theme="figma-gossamer"] .hljs-regexp,:root[data-theme="figma-gossamer"] .hljs-symbol,:root[data-theme="figma-gossamer"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-gossamer"] .hljs-number,:root[data-theme="figma-gossamer"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-gossamer"] .hljs-title,:root[data-theme="figma-gossamer"] .hljs-section,:root[data-theme="figma-gossamer"] .hljs-built_in,:root[data-theme="figma-gossamer"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-gossamer"] .hljs-comment,:root[data-theme="figma-gossamer"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-gossamer"] .hljs-attr,:root[data-theme="figma-gossamer"] .hljs-attribute,:root[data-theme="figma-gossamer"] .hljs-variable,:root[data-theme="figma-gossamer"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-gossamer"] .json-token-field{color:#141414;}
+:root[data-theme="figma-gossamer"] .json-token-string{color:#141414;}
+:root[data-theme="figma-gossamer"] .json-token-number{color:#141414;}
+:root[data-theme="figma-gossamer"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-gossamer"] .json-token-null{color:#141414;}
+:root[data-theme="figma-gossamer"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-gossamer"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Clockwork — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-46-clockwork */
+:root[data-theme="figma-clockwork"]{--background:0 0% 97.255%;--foreground:0 0% 7.843%;--card:0 0% 97.255%;--card-foreground:0 0% 7.843%;--popover:0 0% 97.255%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:0 0% 97.255%;--secondary:0 0% 97.255%;--secondary-foreground:0 0% 7.843%;--accent:0 0% 97.255%;--accent-foreground:0 0% 7.843%;--muted:0 0% 97.255%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:0 0% 97.255%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#f8f8f8;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#f8f8f8;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-clockwork"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#f8f8f8!important;color:#141414!important;}
+:root[data-theme="figma-clockwork"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-clockwork"] .hljs-keyword,:root[data-theme="figma-clockwork"] .hljs-doctag,:root[data-theme="figma-clockwork"] .hljs-type,:root[data-theme="figma-clockwork"] .hljs-selector-tag,:root[data-theme="figma-clockwork"] .hljs-template-tag,:root[data-theme="figma-clockwork"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-clockwork"] .hljs-string,:root[data-theme="figma-clockwork"] .hljs-regexp,:root[data-theme="figma-clockwork"] .hljs-symbol,:root[data-theme="figma-clockwork"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-clockwork"] .hljs-number,:root[data-theme="figma-clockwork"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-clockwork"] .hljs-title,:root[data-theme="figma-clockwork"] .hljs-section,:root[data-theme="figma-clockwork"] .hljs-built_in,:root[data-theme="figma-clockwork"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-clockwork"] .hljs-comment,:root[data-theme="figma-clockwork"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-clockwork"] .hljs-attr,:root[data-theme="figma-clockwork"] .hljs-attribute,:root[data-theme="figma-clockwork"] .hljs-variable,:root[data-theme="figma-clockwork"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-clockwork"] .json-token-field{color:#141414;}
+:root[data-theme="figma-clockwork"] .json-token-string{color:#141414;}
+:root[data-theme="figma-clockwork"] .json-token-number{color:#141414;}
+:root[data-theme="figma-clockwork"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-clockwork"] .json-token-null{color:#141414;}
+:root[data-theme="figma-clockwork"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-clockwork"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Lemon granite morning — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-47-lemon-granite-morning */
+:root[data-theme="figma-lemon-granite-morning"]{--background:56.41 93.6% 49.02%;--foreground:201.25 34.783% 27.059%;--card:56.41 93.6% 49.02%;--card-foreground:201.25 34.783% 27.059%;--popover:56.41 93.6% 49.02%;--popover-foreground:201.25 34.783% 27.059%;--primary:201.25 34.783% 27.059%;--primary-foreground:56.41 93.6% 49.02%;--secondary:56.41 93.6% 49.02%;--secondary-foreground:201.25 34.783% 27.059%;--accent:56.41 93.6% 49.02%;--accent-foreground:201.25 34.783% 27.059%;--muted:56.41 93.6% 49.02%;--muted-foreground:201.25 34.783% 27.059%;--destructive:201.25 34.783% 27.059%;--destructive-foreground:56.41 93.6% 49.02%;--border:201.25 34.783% 27.059%;--input:201.25 34.783% 27.059%;--ring:201.25 34.783% 27.059%;--neo-yellow:#2d4c5d;--neo-pink:#2d4c5d;--neo-purple:#2d4c5d;--neo-green:#2d4c5d;--neo-cyan:#2d4c5d;--neo-red:#2d4c5d;--neo-paper:#f2e408;--neo-code-text:#2d4c5d;--neo-shadow:#2d4c5d;--neo-interactive:#2d4c5d;--neo-on-accent:#f2e408;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-lemon-granite-morning"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#f2e408!important;color:#2d4c5d!important;}
+:root[data-theme="figma-lemon-granite-morning"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-lemon-granite-morning"] .hljs-keyword,:root[data-theme="figma-lemon-granite-morning"] .hljs-doctag,:root[data-theme="figma-lemon-granite-morning"] .hljs-type,:root[data-theme="figma-lemon-granite-morning"] .hljs-selector-tag,:root[data-theme="figma-lemon-granite-morning"] .hljs-template-tag,:root[data-theme="figma-lemon-granite-morning"] .hljs-template-variable{color:#2d4c5d!important;}
+:root[data-theme="figma-lemon-granite-morning"] .hljs-string,:root[data-theme="figma-lemon-granite-morning"] .hljs-regexp,:root[data-theme="figma-lemon-granite-morning"] .hljs-symbol,:root[data-theme="figma-lemon-granite-morning"] .hljs-bullet{color:#2d4c5d!important;}
+:root[data-theme="figma-lemon-granite-morning"] .hljs-number,:root[data-theme="figma-lemon-granite-morning"] .hljs-literal{color:#2d4c5d!important;}
+:root[data-theme="figma-lemon-granite-morning"] .hljs-title,:root[data-theme="figma-lemon-granite-morning"] .hljs-section,:root[data-theme="figma-lemon-granite-morning"] .hljs-built_in,:root[data-theme="figma-lemon-granite-morning"] .hljs-name{color:#2d4c5d!important;}
+:root[data-theme="figma-lemon-granite-morning"] .hljs-comment,:root[data-theme="figma-lemon-granite-morning"] .hljs-quote{color:#2d4c5d!important;}
+:root[data-theme="figma-lemon-granite-morning"] .hljs-attr,:root[data-theme="figma-lemon-granite-morning"] .hljs-attribute,:root[data-theme="figma-lemon-granite-morning"] .hljs-variable,:root[data-theme="figma-lemon-granite-morning"] .hljs-params{color:#2d4c5d!important;}
+:root[data-theme="figma-lemon-granite-morning"] .json-token-field{color:#2d4c5d;}
+:root[data-theme="figma-lemon-granite-morning"] .json-token-string{color:#2d4c5d;}
+:root[data-theme="figma-lemon-granite-morning"] .json-token-number{color:#2d4c5d;}
+:root[data-theme="figma-lemon-granite-morning"] .json-token-boolean{color:#2d4c5d;}
+:root[data-theme="figma-lemon-granite-morning"] .json-token-null{color:#2d4c5d;}
+:root[data-theme="figma-lemon-granite-morning"] .json-token-punctuation{color:#2d4c5d;}
+:root[data-theme="figma-lemon-granite-morning"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Arctic reflection — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-48-arctic-reflection */
+:root[data-theme="figma-arctic-reflection"]{--background:173.333 60% 97.059%;--foreground:204.878 36.283% 22.157%;--card:173.333 60% 97.059%;--card-foreground:204.878 36.283% 22.157%;--popover:173.333 60% 97.059%;--popover-foreground:204.878 36.283% 22.157%;--primary:204.878 36.283% 22.157%;--primary-foreground:173.333 60% 97.059%;--secondary:173.333 60% 97.059%;--secondary-foreground:204.878 36.283% 22.157%;--accent:173.333 60% 97.059%;--accent-foreground:204.878 36.283% 22.157%;--muted:173.333 60% 97.059%;--muted-foreground:204.878 36.283% 22.157%;--destructive:204.878 36.283% 22.157%;--destructive-foreground:173.333 60% 97.059%;--border:204.878 36.283% 22.157%;--input:204.878 36.283% 22.157%;--ring:204.878 36.283% 22.157%;--neo-yellow:#243c4d;--neo-pink:#243c4d;--neo-purple:#243c4d;--neo-green:#243c4d;--neo-cyan:#243c4d;--neo-red:#243c4d;--neo-paper:#f3fcfb;--neo-code-text:#243c4d;--neo-shadow:#243c4d;--neo-interactive:#243c4d;--neo-on-accent:#f3fcfb;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-arctic-reflection"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#f3fcfb!important;color:#243c4d!important;}
+:root[data-theme="figma-arctic-reflection"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-arctic-reflection"] .hljs-keyword,:root[data-theme="figma-arctic-reflection"] .hljs-doctag,:root[data-theme="figma-arctic-reflection"] .hljs-type,:root[data-theme="figma-arctic-reflection"] .hljs-selector-tag,:root[data-theme="figma-arctic-reflection"] .hljs-template-tag,:root[data-theme="figma-arctic-reflection"] .hljs-template-variable{color:#243c4d!important;}
+:root[data-theme="figma-arctic-reflection"] .hljs-string,:root[data-theme="figma-arctic-reflection"] .hljs-regexp,:root[data-theme="figma-arctic-reflection"] .hljs-symbol,:root[data-theme="figma-arctic-reflection"] .hljs-bullet{color:#243c4d!important;}
+:root[data-theme="figma-arctic-reflection"] .hljs-number,:root[data-theme="figma-arctic-reflection"] .hljs-literal{color:#243c4d!important;}
+:root[data-theme="figma-arctic-reflection"] .hljs-title,:root[data-theme="figma-arctic-reflection"] .hljs-section,:root[data-theme="figma-arctic-reflection"] .hljs-built_in,:root[data-theme="figma-arctic-reflection"] .hljs-name{color:#243c4d!important;}
+:root[data-theme="figma-arctic-reflection"] .hljs-comment,:root[data-theme="figma-arctic-reflection"] .hljs-quote{color:#243c4d!important;}
+:root[data-theme="figma-arctic-reflection"] .hljs-attr,:root[data-theme="figma-arctic-reflection"] .hljs-attribute,:root[data-theme="figma-arctic-reflection"] .hljs-variable,:root[data-theme="figma-arctic-reflection"] .hljs-params{color:#243c4d!important;}
+:root[data-theme="figma-arctic-reflection"] .json-token-field{color:#243c4d;}
+:root[data-theme="figma-arctic-reflection"] .json-token-string{color:#243c4d;}
+:root[data-theme="figma-arctic-reflection"] .json-token-number{color:#243c4d;}
+:root[data-theme="figma-arctic-reflection"] .json-token-boolean{color:#243c4d;}
+:root[data-theme="figma-arctic-reflection"] .json-token-null{color:#243c4d;}
+:root[data-theme="figma-arctic-reflection"] .json-token-punctuation{color:#243c4d;}
+:root[data-theme="figma-arctic-reflection"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Slate — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-49-slate */
+:root[data-theme="figma-slate"]{--background:0 0% 94.51%;--foreground:0 0% 7.843%;--card:0 0% 94.51%;--card-foreground:0 0% 7.843%;--popover:0 0% 94.51%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:0 0% 94.51%;--secondary:0 0% 94.51%;--secondary-foreground:0 0% 7.843%;--accent:0 0% 94.51%;--accent-foreground:0 0% 7.843%;--muted:0 0% 94.51%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:0 0% 94.51%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#f1f1f1;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#f1f1f1;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-slate"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#f1f1f1!important;color:#141414!important;}
+:root[data-theme="figma-slate"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-slate"] .hljs-keyword,:root[data-theme="figma-slate"] .hljs-doctag,:root[data-theme="figma-slate"] .hljs-type,:root[data-theme="figma-slate"] .hljs-selector-tag,:root[data-theme="figma-slate"] .hljs-template-tag,:root[data-theme="figma-slate"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-slate"] .hljs-string,:root[data-theme="figma-slate"] .hljs-regexp,:root[data-theme="figma-slate"] .hljs-symbol,:root[data-theme="figma-slate"] .hljs-bullet{color:#141414!important;}
+:root[data-theme="figma-slate"] .hljs-number,:root[data-theme="figma-slate"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-slate"] .hljs-title,:root[data-theme="figma-slate"] .hljs-section,:root[data-theme="figma-slate"] .hljs-built_in,:root[data-theme="figma-slate"] .hljs-name{color:#141414!important;}
+:root[data-theme="figma-slate"] .hljs-comment,:root[data-theme="figma-slate"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-slate"] .hljs-attr,:root[data-theme="figma-slate"] .hljs-attribute,:root[data-theme="figma-slate"] .hljs-variable,:root[data-theme="figma-slate"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-slate"] .json-token-field{color:#141414;}
+:root[data-theme="figma-slate"] .json-token-string{color:#141414;}
+:root[data-theme="figma-slate"] .json-token-number{color:#141414;}
+:root[data-theme="figma-slate"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-slate"] .json-token-null{color:#141414;}
+:root[data-theme="figma-slate"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-slate"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Autumn luxe — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-50-autumn-luxe */
+:root[data-theme="figma-autumn-luxe"]{--background:252 20% 90.196%;--foreground:27.273 12.36% 17.451%;--card:252 20% 90.196%;--card-foreground:27.273 12.36% 17.451%;--popover:252 20% 90.196%;--popover-foreground:27.273 12.36% 17.451%;--primary:27.273 12.36% 17.451%;--primary-foreground:252 20% 90.196%;--secondary:252 20% 90.196%;--secondary-foreground:27.273 12.36% 17.451%;--accent:252 20% 90.196%;--accent-foreground:27.273 12.36% 17.451%;--muted:252 20% 90.196%;--muted-foreground:27.273 12.36% 17.451%;--destructive:27.273 12.36% 17.451%;--destructive-foreground:252 20% 90.196%;--border:27.273 12.36% 17.451%;--input:27.273 12.36% 17.451%;--ring:27.273 12.36% 17.451%;--neo-yellow:#322c27;--neo-pink:#322c27;--neo-purple:#322c27;--neo-green:#322c27;--neo-cyan:#322c27;--neo-red:#322c27;--neo-paper:#e3e1eb;--neo-code-text:#322c27;--neo-shadow:#322c27;--neo-interactive:#322c27;--neo-on-accent:#e3e1eb;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-autumn-luxe"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#e3e1eb!important;color:#322c27!important;}
+:root[data-theme="figma-autumn-luxe"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-autumn-luxe"] .hljs-keyword,:root[data-theme="figma-autumn-luxe"] .hljs-doctag,:root[data-theme="figma-autumn-luxe"] .hljs-type,:root[data-theme="figma-autumn-luxe"] .hljs-selector-tag,:root[data-theme="figma-autumn-luxe"] .hljs-template-tag,:root[data-theme="figma-autumn-luxe"] .hljs-template-variable{color:#322c27!important;}
+:root[data-theme="figma-autumn-luxe"] .hljs-string,:root[data-theme="figma-autumn-luxe"] .hljs-regexp,:root[data-theme="figma-autumn-luxe"] .hljs-symbol,:root[data-theme="figma-autumn-luxe"] .hljs-bullet{color:#322c27!important;}
+:root[data-theme="figma-autumn-luxe"] .hljs-number,:root[data-theme="figma-autumn-luxe"] .hljs-literal{color:#322c27!important;}
+:root[data-theme="figma-autumn-luxe"] .hljs-title,:root[data-theme="figma-autumn-luxe"] .hljs-section,:root[data-theme="figma-autumn-luxe"] .hljs-built_in,:root[data-theme="figma-autumn-luxe"] .hljs-name{color:#322c27!important;}
+:root[data-theme="figma-autumn-luxe"] .hljs-comment,:root[data-theme="figma-autumn-luxe"] .hljs-quote{color:#322c27!important;}
+:root[data-theme="figma-autumn-luxe"] .hljs-attr,:root[data-theme="figma-autumn-luxe"] .hljs-attribute,:root[data-theme="figma-autumn-luxe"] .hljs-variable,:root[data-theme="figma-autumn-luxe"] .hljs-params{color:#322c27!important;}
+:root[data-theme="figma-autumn-luxe"] .json-token-field{color:#322c27;}
+:root[data-theme="figma-autumn-luxe"] .json-token-string{color:#322c27;}
+:root[data-theme="figma-autumn-luxe"] .json-token-number{color:#322c27;}
+:root[data-theme="figma-autumn-luxe"] .json-token-boolean{color:#322c27;}
+:root[data-theme="figma-autumn-luxe"] .json-token-null{color:#322c27;}
+:root[data-theme="figma-autumn-luxe"] .json-token-punctuation{color:#322c27;}
+:root[data-theme="figma-autumn-luxe"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Inked — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-51-inked */
+:root[data-theme="figma-inked"]{--background:30 6.061% 87.059%;--foreground:0 0% 0%;--card:30 6.061% 87.059%;--card-foreground:0 0% 0%;--popover:30 6.061% 87.059%;--popover-foreground:0 0% 0%;--primary:0 0% 0%;--primary-foreground:30 6.061% 87.059%;--secondary:30 6.061% 87.059%;--secondary-foreground:0 0% 0%;--accent:30 6.061% 87.059%;--accent-foreground:0 0% 0%;--muted:30 6.061% 87.059%;--muted-foreground:0 0% 0%;--destructive:0 0% 0%;--destructive-foreground:30 6.061% 87.059%;--border:0 0% 0%;--input:0 0% 0%;--ring:0 0% 0%;--neo-yellow:#000000;--neo-pink:#000000;--neo-purple:#000000;--neo-green:#000000;--neo-cyan:#000000;--neo-red:#000000;--neo-paper:#e0dedc;--neo-code-text:#000000;--neo-shadow:#000000;--neo-interactive:#000000;--neo-on-accent:#e0dedc;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-inked"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#e0dedc!important;color:#000000!important;}
+:root[data-theme="figma-inked"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-inked"] .hljs-keyword,:root[data-theme="figma-inked"] .hljs-doctag,:root[data-theme="figma-inked"] .hljs-type,:root[data-theme="figma-inked"] .hljs-selector-tag,:root[data-theme="figma-inked"] .hljs-template-tag,:root[data-theme="figma-inked"] .hljs-template-variable{color:#000000!important;}
+:root[data-theme="figma-inked"] .hljs-string,:root[data-theme="figma-inked"] .hljs-regexp,:root[data-theme="figma-inked"] .hljs-symbol,:root[data-theme="figma-inked"] .hljs-bullet{color:#464646!important;}
+:root[data-theme="figma-inked"] .hljs-number,:root[data-theme="figma-inked"] .hljs-literal{color:#000000!important;}
+:root[data-theme="figma-inked"] .hljs-title,:root[data-theme="figma-inked"] .hljs-section,:root[data-theme="figma-inked"] .hljs-built_in,:root[data-theme="figma-inked"] .hljs-name{color:#464646!important;}
+:root[data-theme="figma-inked"] .hljs-comment,:root[data-theme="figma-inked"] .hljs-quote{color:#000000!important;}
+:root[data-theme="figma-inked"] .hljs-attr,:root[data-theme="figma-inked"] .hljs-attribute,:root[data-theme="figma-inked"] .hljs-variable,:root[data-theme="figma-inked"] .hljs-params{color:#000000!important;}
+:root[data-theme="figma-inked"] .json-token-field{color:#000000;}
+:root[data-theme="figma-inked"] .json-token-string{color:#464646;}
+:root[data-theme="figma-inked"] .json-token-number{color:#000000;}
+:root[data-theme="figma-inked"] .json-token-boolean{color:#000000;}
+:root[data-theme="figma-inked"] .json-token-null{color:#000000;}
+:root[data-theme="figma-inked"] .json-token-punctuation{color:#000000;}
+:root[data-theme="figma-inked"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Wraith — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-52-wraith */
+:root[data-theme="figma-wraith"]{--background:46.667 81.818% 6.471%;--foreground:340 5.66% 89.608%;--card:46.667 81.818% 6.471%;--card-foreground:340 5.66% 89.608%;--popover:46.667 81.818% 6.471%;--popover-foreground:340 5.66% 89.608%;--primary:52.941 13.821% 48.235%;--primary-foreground:46.667 81.818% 6.471%;--secondary:46.667 81.818% 6.471%;--secondary-foreground:340 5.66% 89.608%;--accent:46.667 81.818% 6.471%;--accent-foreground:340 5.66% 89.608%;--muted:46.667 81.818% 6.471%;--muted-foreground:340 5.66% 89.608%;--destructive:52.941 13.821% 48.235%;--destructive-foreground:46.667 81.818% 6.471%;--border:340 5.66% 89.608%;--input:340 5.66% 89.608%;--ring:52.941 13.821% 48.235%;--neo-yellow:#8c886a;--neo-pink:#8c886a;--neo-purple:#8c886a;--neo-green:#8c886a;--neo-cyan:#8c886a;--neo-red:#8c886a;--neo-paper:#1e1803;--neo-code-text:#e6e3e4;--neo-shadow:#e6e3e4;--neo-interactive:#8c886a;--neo-on-accent:#1e1803;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-wraith"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#1e1803!important;color:#e6e3e4!important;}
+:root[data-theme="figma-wraith"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-wraith"] .hljs-keyword,:root[data-theme="figma-wraith"] .hljs-doctag,:root[data-theme="figma-wraith"] .hljs-type,:root[data-theme="figma-wraith"] .hljs-selector-tag,:root[data-theme="figma-wraith"] .hljs-template-tag,:root[data-theme="figma-wraith"] .hljs-template-variable{color:#e6e3e4!important;}
+:root[data-theme="figma-wraith"] .hljs-string,:root[data-theme="figma-wraith"] .hljs-regexp,:root[data-theme="figma-wraith"] .hljs-symbol,:root[data-theme="figma-wraith"] .hljs-bullet{color:#8c886a!important;}
+:root[data-theme="figma-wraith"] .hljs-number,:root[data-theme="figma-wraith"] .hljs-literal{color:#e6e3e4!important;}
+:root[data-theme="figma-wraith"] .hljs-title,:root[data-theme="figma-wraith"] .hljs-section,:root[data-theme="figma-wraith"] .hljs-built_in,:root[data-theme="figma-wraith"] .hljs-name{color:#8c886a!important;}
+:root[data-theme="figma-wraith"] .hljs-comment,:root[data-theme="figma-wraith"] .hljs-quote{color:#e6e3e4!important;}
+:root[data-theme="figma-wraith"] .hljs-attr,:root[data-theme="figma-wraith"] .hljs-attribute,:root[data-theme="figma-wraith"] .hljs-variable,:root[data-theme="figma-wraith"] .hljs-params{color:#e6e3e4!important;}
+:root[data-theme="figma-wraith"] .json-token-field{color:#e6e3e4;}
+:root[data-theme="figma-wraith"] .json-token-string{color:#8c886a;}
+:root[data-theme="figma-wraith"] .json-token-number{color:#e6e3e4;}
+:root[data-theme="figma-wraith"] .json-token-boolean{color:#e6e3e4;}
+:root[data-theme="figma-wraith"] .json-token-null{color:#e6e3e4;}
+:root[data-theme="figma-wraith"] .json-token-punctuation{color:#e6e3e4;}
+:root[data-theme="figma-wraith"] .json-parser-type-legend i{background:currentColor;}
+
+/* Palette: Figma-Urban nocturne — https://www.figma.com/resource-library/website-color-schemes/#color-scheme-53-urban-nocturne */
+:root[data-theme="figma-urban-nocturne"]{--background:0 0% 83.922%;--foreground:0 0% 7.843%;--card:0 0% 83.922%;--card-foreground:0 0% 7.843%;--popover:0 0% 83.922%;--popover-foreground:0 0% 7.843%;--primary:0 0% 7.843%;--primary-foreground:61.552 100% 45.49%;--secondary:0 0% 83.922%;--secondary-foreground:0 0% 7.843%;--accent:0 0% 83.922%;--accent-foreground:0 0% 7.843%;--muted:0 0% 83.922%;--muted-foreground:0 0% 7.843%;--destructive:0 0% 7.843%;--destructive-foreground:61.552 100% 45.49%;--border:0 0% 7.843%;--input:0 0% 7.843%;--ring:0 0% 7.843%;--neo-yellow:#141414;--neo-pink:#141414;--neo-purple:#141414;--neo-green:#141414;--neo-cyan:#141414;--neo-red:#141414;--neo-paper:#d6d6d6;--neo-code-text:#141414;--neo-shadow:#141414;--neo-interactive:#141414;--neo-on-accent:#e2e800;--neo-grid-opacity:.06;--neo-canvas-grid-opacity:.1;}
+:root[data-theme="figma-urban-nocturne"] :is(.neo-code-preview,.neo-code-preview__content,.neo-code-window,.neo-code-window-content>pre,.neo-editor-input,.json-parser-input,.json-parser-result-wrap,.hljs){background:#d6d6d6!important;color:#141414!important;}
+:root[data-theme="figma-urban-nocturne"] :is(.neo-code-preview,.neo-code-window,.json-parser-result-wrap){border-color:hsl(var(--border))!important;}
+:root[data-theme="figma-urban-nocturne"] .hljs-keyword,:root[data-theme="figma-urban-nocturne"] .hljs-doctag,:root[data-theme="figma-urban-nocturne"] .hljs-type,:root[data-theme="figma-urban-nocturne"] .hljs-selector-tag,:root[data-theme="figma-urban-nocturne"] .hljs-template-tag,:root[data-theme="figma-urban-nocturne"] .hljs-template-variable{color:#141414!important;}
+:root[data-theme="figma-urban-nocturne"] .hljs-string,:root[data-theme="figma-urban-nocturne"] .hljs-regexp,:root[data-theme="figma-urban-nocturne"] .hljs-symbol,:root[data-theme="figma-urban-nocturne"] .hljs-bullet{color:#444444!important;}
+:root[data-theme="figma-urban-nocturne"] .hljs-number,:root[data-theme="figma-urban-nocturne"] .hljs-literal{color:#141414!important;}
+:root[data-theme="figma-urban-nocturne"] .hljs-title,:root[data-theme="figma-urban-nocturne"] .hljs-section,:root[data-theme="figma-urban-nocturne"] .hljs-built_in,:root[data-theme="figma-urban-nocturne"] .hljs-name{color:#444444!important;}
+:root[data-theme="figma-urban-nocturne"] .hljs-comment,:root[data-theme="figma-urban-nocturne"] .hljs-quote{color:#141414!important;}
+:root[data-theme="figma-urban-nocturne"] .hljs-attr,:root[data-theme="figma-urban-nocturne"] .hljs-attribute,:root[data-theme="figma-urban-nocturne"] .hljs-variable,:root[data-theme="figma-urban-nocturne"] .hljs-params{color:#141414!important;}
+:root[data-theme="figma-urban-nocturne"] .json-token-field{color:#141414;}
+:root[data-theme="figma-urban-nocturne"] .json-token-string{color:#444444;}
+:root[data-theme="figma-urban-nocturne"] .json-token-number{color:#141414;}
+:root[data-theme="figma-urban-nocturne"] .json-token-boolean{color:#141414;}
+:root[data-theme="figma-urban-nocturne"] .json-token-null{color:#141414;}
+:root[data-theme="figma-urban-nocturne"] .json-token-punctuation{color:#141414;}
+:root[data-theme="figma-urban-nocturne"] .json-parser-type-legend i{background:currentColor;}

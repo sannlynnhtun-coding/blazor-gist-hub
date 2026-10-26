@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { figmaThemes } from './figma-theme-source.mjs';
 import { mapThemeRoles, contrast } from './theme-color-roles.mjs';
 const { themes } = JSON.parse(readFileSync(new URL('../GistHub/ThemeSources/vscode-themes.json', import.meta.url)));
 const failures = [];
-for (const theme of themes) {
+for (const theme of [...themes, ...figmaThemes]) {
     const roles = mapThemeRoles(theme), v = roles.vars;
     for (const [name, color] of Object.entries({ ...v, ...roles.tokens })) {
         assert.ok(roles.palette.includes(color), `${theme.name}: ${name} invented a color ${color}`);
@@ -20,4 +21,4 @@ for (const theme of themes) {
     }
 }
 assert.deepEqual(failures, []);
-console.log(`PASS: ${themes.length} palettes reuse original colors and meet text, action, link and focus contrast checks.`);
+console.log(`PASS: ${themes.length + figmaThemes.length} palettes reuse their source swatches or documented neutral anchors and meet text, action, link and focus contrast checks.`);

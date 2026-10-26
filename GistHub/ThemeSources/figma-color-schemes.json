@@ -1,0 +1,629 @@
+{
+  "source": "https://www.figma.com/resource-library/website-color-schemes/",
+  "capturedOn": "2026-10-26",
+  "schemes": [
+    {
+      "name": "Ink wash",
+      "anchor": "color-scheme-1-ink-wash",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/2c3be2a7a1d6d89f9a9308b02dbc5047dfba90eb-1000x602.png",
+      "swatches": [
+        "#252525",
+        "#cfcfcf",
+        "#7d7d7d",
+        "#545454"
+      ]
+    },
+    {
+      "name": "Neutral elegance",
+      "anchor": "color-scheme-2-neutral-elegance",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/e651742505eebe1dd8f04af76fbb3616dda4a7c7-1000x602.png",
+      "swatches": [
+        "#ffdbba",
+        "#ccbfb1",
+        "#9a7e67",
+        "#674931"
+      ]
+    },
+    {
+      "name": "Jade pebble morning",
+      "anchor": "color-scheme-3-jade-pebble-morning",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/b2b4c6f9a434a4c9eff5477c35f2d189eff661ec-1000x602.png",
+      "swatches": [
+        "#7b9769",
+        "#e7e7e7",
+        "#404f3c",
+        "#6d8481",
+        "#b9c8b1"
+      ]
+    },
+    {
+      "name": "Woodland",
+      "anchor": "color-scheme-4-woodland",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/906107d8a8d94f806ff70222de8d83c735e09746-1000x602.png",
+      "swatches": [
+        "#9f7561",
+        "#9e9e9e",
+        "#535134",
+        "#aad31d",
+        "#d3afa0"
+      ]
+    },
+    {
+      "name": "Driftwood pearl morning",
+      "anchor": "color-scheme-5-driftwood-pearl-morning",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/1f61623e9b67bd41428e3ea58a3301b9a41de439-1000x602.png",
+      "swatches": [
+        "#bb7b6f",
+        "#59312a",
+        "#cccdc8",
+        "#e4a499",
+        "#708a9f"
+      ]
+    },
+    {
+      "name": "Graphite",
+      "anchor": "color-scheme-6-graphite",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/b25bf8aca8cfc843d7dd77c575b3295bf968acdb-1000x602.png",
+      "swatches": [
+        "#c0c0c2",
+        "#f4e9e6",
+        "#ecc5c6",
+        "#837d68",
+        "#8a9eb0"
+      ]
+    },
+    {
+      "name": "Urban slate",
+      "anchor": "color-scheme-7-urban-slate",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/fd99cfdf79b7702bd31a4cae1b6bb2c93e668e4e-1000x602.png",
+      "swatches": [
+        "#e9e7e8",
+        "#5f5652",
+        "#6a7d99",
+        "#7a7f8b",
+        "#ac978c"
+      ]
+    },
+    {
+      "name": "Pearl",
+      "anchor": "color-scheme-8-pearl",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/c3b79e2080503fc5482d5103651069a02d47d606-1000x602.png",
+      "swatches": [
+        "#e9e3de",
+        "#a6937c",
+        "#af9ac8",
+        "#e3c39a",
+        "#666261"
+      ]
+    },
+    {
+      "name": "Vichy",
+      "anchor": "color-scheme-9-vichy",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/3846557552a82dcd3a668a4e0ab107b126e563e2-1000x602.png",
+      "swatches": [
+        "#bbbfc0",
+        "#878787",
+        "#05ac98",
+        "#ffffff"
+      ]
+    },
+    {
+      "name": "Sorbet",
+      "anchor": "color-scheme-10-sorbet",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/30cf12b727679f1915796a09d731942b63f6223b-1000x602.png",
+      "swatches": [
+        "#cccccc",
+        "#ececec",
+        "#b7c396",
+        "#fefefe",
+        "#e0e7d7",
+        "#b99b91"
+      ]
+    },
+    {
+      "name": "Frozen mist",
+      "anchor": "color-scheme-11-frozen-mist",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/532e6c390e1ee991888d94f367a574bacf3a694c-1000x602.png",
+      "swatches": [
+        "#7b7d75",
+        "#aeaca8",
+        "#dd700a",
+        "#fcf8d7",
+        "#d9dbdf"
+      ]
+    },
+    {
+      "name": "Yacht club",
+      "anchor": "color-scheme-12-yacht-club",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/4932f068f34215cb2e0b18e50199426fbc48c384-1000x602.png",
+      "swatches": [
+        "#f3f1ef",
+        "#bbbdbd",
+        "#225f73",
+        "#723e22"
+      ]
+    },
+    {
+      "name": "Amber walnut morning",
+      "anchor": "color-scheme-13-amber-walnut-morning",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/1811999bd26e7975c844b1f7ca9bd05fcac85db5-1000x602.png",
+      "swatches": [
+        "#eaefee",
+        "#cbb49a",
+        "#4a413d",
+        "#c8916d",
+        "#bc6c42"
+      ]
+    },
+    {
+      "name": "Copper aquamarine dream",
+      "anchor": "color-scheme-14-copper-aquamarine-dream",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/5b1baaa147c84b791df368abd6d4d645067e9ae0-1000x602.png",
+      "swatches": [
+        "#dcab89",
+        "#30535c",
+        "#c25626",
+        "#d77a4e",
+        "#4d848d",
+        "#bfb9b4"
+      ]
+    },
+    {
+      "name": "Cocoa topaz noonday",
+      "anchor": "color-scheme-15-cocoa-topaz-noonday",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/1752e38d31f518b7707aeaff4aa588454ac9cb67-1000x602.png",
+      "swatches": [
+        "#732f14",
+        "#5b84ad",
+        "#5b3c2b",
+        "#c7ab9e",
+        "#fb9c44"
+      ]
+    },
+    {
+      "name": "Sandstone aquamarine serenity",
+      "anchor": "color-scheme-16-sandstone-aquamarine-serenity",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/737c2a4a9144404eaf2c81a171105e39652bc230-1000x602.png",
+      "swatches": [
+        "#bc6d51",
+        "#304d53",
+        "#b0e1e7",
+        "#dcad9b",
+        "#5a2e24"
+      ]
+    },
+    {
+      "name": "Honey opal sunset",
+      "anchor": "color-scheme-17-honey-opal-sunset",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/f284a94c0fea6f2e71256d5715b2dd3cf0725e91-1000x602.png",
+      "swatches": [
+        "#ecb914",
+        "#f7d67a",
+        "#503c35",
+        "#9d8108",
+        "#cbb8a1"
+      ]
+    },
+    {
+      "name": "Seashell garnet afternoon",
+      "anchor": "color-scheme-18-seashell-garnet-afternoon",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/aceac38710abfd0f56f277e0004bce30f48f8bcb-1000x602.png",
+      "swatches": [
+        "#f7c992",
+        "#f96e81",
+        "#adc0d3",
+        "#d496a6",
+        "#08a1a2",
+        "#5484a3"
+      ]
+    },
+    {
+      "name": "Rose quartz evening",
+      "anchor": "color-scheme-19-rose-quartz-evening",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/2b1bc7fa9b770077cb5664122dfe69aa880b046c-1000x602.png",
+      "swatches": [
+        "#63242e",
+        "#b44445",
+        "#fc8f90",
+        "#e0d9d9"
+      ]
+    },
+    {
+      "name": "Calcite",
+      "anchor": "color-scheme-20-calcite",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/e3c4b0cbd2291648055dc4255d83f515406019fb-1000x602.png",
+      "swatches": [
+        "#dedcda",
+        "#fc7b40",
+        "#edbe9c",
+        "#3c4043"
+      ]
+    },
+    {
+      "name": "Fireside",
+      "anchor": "color-scheme-21-fireside",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/89b2b2b1c9b902afbbd96ec002e5a6227b7291e0-1000x602.png",
+      "swatches": [
+        "#e86814",
+        "#d9d4bd",
+        "#8a1a10",
+        "#dc8235",
+        "#b8200f",
+        "#724237"
+      ]
+    },
+    {
+      "name": "Terrazzo",
+      "anchor": "color-scheme-22-terrazzo",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/8ca3bb5dd002dda0e7c2b32e7d9c981f634af330-1000x602.png",
+      "swatches": [
+        "#edbd97",
+        "#37504e",
+        "#aa8552",
+        "#d27f1e",
+        "#daccc3"
+      ]
+    },
+    {
+      "name": "Sapphire nightfall whisper",
+      "anchor": "color-scheme-23-sapphire-nightfall-whisper",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/09d37237bbca55b3d8d6f0b3a240044816565865-1000x602.png",
+      "swatches": [
+        "#0474c5",
+        "#5378ae",
+        "#2c444c",
+        "#a8c4ed",
+        "#064580",
+        "#262c40"
+      ]
+    },
+    {
+      "name": "Lapis velvet evening",
+      "anchor": "color-scheme-24-lapis-velvet-evening",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/25fe2bcd18a2788fd80f8b2a3c43015e02c15dc7-1000x602.png",
+      "swatches": [
+        "#213985",
+        "#ebe0d2",
+        "#5f3475",
+        "#071849",
+        "#ccc9cd",
+        "#893173"
+      ]
+    },
+    {
+      "name": "Marina",
+      "anchor": "color-scheme-25-marina",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/06f8403d15d575e36edbcb578e6cf90f23902388-1000x602.png",
+      "swatches": [
+        "#fff1e8",
+        "#b5d2e6",
+        "#316181",
+        "#7f5232"
+      ]
+    },
+    {
+      "name": "Emerald lavender lake",
+      "anchor": "color-scheme-26-emerald-lavender-lake",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/e08dbe712c475233cd631ec5a33e712fa76c9e28-1000x602.png",
+      "swatches": [
+        "#238c54",
+        "#88618e",
+        "#95dde5"
+      ]
+    },
+    {
+      "name": "Sage peridot morning",
+      "anchor": "color-scheme-27-sage-peridot-morning",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/1416f27e8dedd179ed8a1fddef522732efb349a1-1000x602.png",
+      "swatches": [
+        "#345d31",
+        "#9cac55",
+        "#a7f1df",
+        "#97cd97"
+      ]
+    },
+    {
+      "name": "Amethyst dawn haze",
+      "anchor": "color-scheme-28-amethyst-dawn-haze",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/8a8b1ee1482052dd3643ecbf5c69a19438681135-1000x602.png",
+      "swatches": [
+        "#341c69",
+        "#472f5c",
+        "#dece41",
+        "#c5aef3",
+        "#cca5b4"
+      ]
+    },
+    {
+      "name": "Moon dust",
+      "anchor": "color-scheme-29-moon-dust",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/cdaf418b7dd41d88c9c02f0aeeebe79a39b05420-1000x602.png",
+      "swatches": [
+        "#d4d4ff",
+        "#ceb5ff",
+        "#8fc1de",
+        "#80a9ff"
+      ]
+    },
+    {
+      "name": "Turquoise amber autumn",
+      "anchor": "color-scheme-30-turquoise-amber-autumn",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/76e20c3d8e699233bdc1480e05f0b2adf2cafd65-1000x602.png",
+      "swatches": [
+        "#304b64",
+        "#25788e",
+        "#631b08",
+        "#a5ccd3",
+        "#e3480d"
+      ]
+    },
+    {
+      "name": "Sapphire ash morning",
+      "anchor": "color-scheme-31-sapphire-ash-morning",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/a2f0a8d59e9a3858d0757dfc7c762ef3051fcde2-1000x602.png",
+      "swatches": [
+        "#34637a",
+        "#e6adaa",
+        "#b46159",
+        "#a6a9cf",
+        "#f6f6f6",
+        "#8e9a98"
+      ]
+    },
+    {
+      "name": "Frosted aura",
+      "anchor": "color-scheme-32-frosted-aura",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/9b56aba620257a177002418699de465be9c89454-1000x602.png",
+      "swatches": [
+        "#5c7e90",
+        "#a2a2a2",
+        "#d5dde3",
+        "#ffffff"
+      ]
+    },
+    {
+      "name": "Royal glimmer",
+      "anchor": "color-scheme-33-royal-glimmer",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/97654b04105535bdf983f36eddd4562a5dbf42bc-1000x602.png",
+      "swatches": [
+        "#ad7c4a",
+        "#293c7c",
+        "#822b4a",
+        "#c89850",
+        "#024943"
+      ]
+    },
+    {
+      "name": "Neptune",
+      "anchor": "color-scheme-34-neptune",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/286895304e4164c2f9e7d3184548b9960d8dd33e-1000x602.png",
+      "swatches": [
+        "#8fd9fc",
+        "#4ab5b5",
+        "#6d8bc1",
+        "#5259ff"
+      ]
+    },
+    {
+      "name": "Tropical jade sunrise",
+      "anchor": "color-scheme-35-tropical-jade-sunrise",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/07e0a4fb749a0768d3680b5242c1cb023279a0b3-1000x602.png",
+      "swatches": [
+        "#fca57c",
+        "#23ced9",
+        "#097c87",
+        "#f9d679",
+        "#a2cca7"
+      ]
+    },
+    {
+      "name": "Amethyst mint harmony",
+      "anchor": "color-scheme-36-amethyst-mint-harmony",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/a0441cc0f611cdbc077041bc5334081d87b7fab5-1000x602.png",
+      "swatches": [
+        "#2a3f38",
+        "#8ef688",
+        "#f650bc",
+        "#572e55",
+        "#57595d"
+      ]
+    },
+    {
+      "name": "Hibiscus aura",
+      "anchor": "color-scheme-37-hibiscus-aura",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/0cac3859ed2e22ca2715c793d26ecbdbdd10b12c-1000x602.png",
+      "swatches": [
+        "#ea43d5",
+        "#de3026",
+        "#733d6f",
+        "#5748b3"
+      ]
+    },
+    {
+      "name": "Ocean ruby radiance",
+      "anchor": "color-scheme-38-ocean-ruby-radiance",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/604a23dea2e7cdf21a50c14354da80944a9f8832-1000x602.png",
+      "swatches": [
+        "#d8226b",
+        "#b3dae3",
+        "#005ab2",
+        "#f96a38",
+        "#029556"
+      ]
+    },
+    {
+      "name": "Tropical heat",
+      "anchor": "color-scheme-39-tropical-heat",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/b50f2cc20e055e5cf59498e6ae989123e71e6d26-1000x602.png",
+      "swatches": [
+        "#01cfc9",
+        "#fceec3",
+        "#ff9c61",
+        "#ec4203"
+      ]
+    },
+    {
+      "name": "Celestial",
+      "anchor": "color-scheme-40-celestial",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/6549d291c6e260589179167cd9894f165f9d1c8c-1000x602.png",
+      "swatches": [
+        "#2324ff",
+        "#7f7d53",
+        "#ffbd24",
+        "#fff125"
+      ]
+    },
+    {
+      "name": "Festive eve",
+      "anchor": "color-scheme-41-festive-eve",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/4a89d7123b1b321b3ad8859e8e37721fbc1c383e-1000x602.png",
+      "swatches": [
+        "#2324ff",
+        "#23afff",
+        "#c14aff",
+        "#7d3dff"
+      ]
+    },
+    {
+      "name": "Freshly squeezed",
+      "anchor": "color-scheme-42-freshly-squeezed",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/3e47547f8f1064e457fcea8c16e142dfa577c33a-1000x602.png",
+      "swatches": [
+        "#ffbf01",
+        "#f2cf7e",
+        "#ffe642",
+        "#ff7901"
+      ]
+    },
+    {
+      "name": "Jelly shoes",
+      "anchor": "color-scheme-43-jelly-shoes",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/4594e8b1d202d36acdc393dbc8f685f3929d9c54-1000x602.png",
+      "swatches": [
+        "#e1afff",
+        "#c4d6ff",
+        "#dd67e3",
+        "#8766df"
+      ]
+    },
+    {
+      "name": "Opaline",
+      "anchor": "color-scheme-44-opaline",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/326d101f8d04fd50f1476123bc9b5fc8c0c82d8b-1000x602.png",
+      "swatches": [
+        "#f5f4f7",
+        "#e8e8e8",
+        "#d3d2d5",
+        "#ff644b"
+      ]
+    },
+    {
+      "name": "Gossamer",
+      "anchor": "color-scheme-45-gossamer",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/2f50879d1184fb9c38806d92af8cc23853f0a40e-1000x602.png",
+      "swatches": [
+        "#fafafa",
+        "#939599",
+        "#ec4d25",
+        "#cdcdcf",
+        "#2bcfcf"
+      ]
+    },
+    {
+      "name": "Clockwork",
+      "anchor": "color-scheme-46-clockwork",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/965a7f710e8fc8326faf7275beb9d6cf96eb9c02-1000x602.png",
+      "swatches": [
+        "#919598",
+        "#f8f8f8",
+        "#e56515",
+        "#cdcdcb",
+        "#faa45b"
+      ]
+    },
+    {
+      "name": "Lemon granite morning",
+      "anchor": "color-scheme-47-lemon-granite-morning",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/c85fe7eadaaa97c187a08ffab86c8926a3abcc49-1000x602.png",
+      "swatches": [
+        "#f2e408",
+        "#b9bfc2",
+        "#6c8495",
+        "#2d4c5d"
+      ]
+    },
+    {
+      "name": "Arctic reflection",
+      "anchor": "color-scheme-48-arctic-reflection",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/a7c3688db78c3a662fc782d5cee0739a1fb55049-1000x602.png",
+      "swatches": [
+        "#5189ad",
+        "#243c4d",
+        "#698695",
+        "#adbcc0",
+        "#f3fcfb"
+      ]
+    },
+    {
+      "name": "Slate",
+      "anchor": "color-scheme-49-slate",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/2a658743d7d09af48a1714abb4a9b5d784752250-1000x602.png",
+      "swatches": [
+        "#bebebe",
+        "#7aed92",
+        "#f1f1f1",
+        "#4dbe56",
+        "#71786c"
+      ]
+    },
+    {
+      "name": "Autumn luxe",
+      "anchor": "color-scheme-50-autumn-luxe",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/9743ee63014e005615430b9ea9430d320f103f35-1000x602.png",
+      "swatches": [
+        "#e3e1eb",
+        "#aaa9ae",
+        "#322c27",
+        "#807264",
+        "#c0843f"
+      ]
+    },
+    {
+      "name": "Inked",
+      "anchor": "color-scheme-51-inked",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/5c7726cf9649c4e9049d9aaeb30cefc21a25fe0f-1000x602.png",
+      "swatches": [
+        "#000000",
+        "#e0dedc",
+        "#a7a7a2",
+        "#464646",
+        "#00adae"
+      ]
+    },
+    {
+      "name": "Wraith",
+      "anchor": "color-scheme-52-wraith",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/0e7128f496bde5297f2690fb61ac224af23e9fe6-1000x602.png",
+      "swatches": [
+        "#1e1803",
+        "#e6e3e4",
+        "#342005",
+        "#8c886a",
+        "#047c58"
+      ]
+    },
+    {
+      "name": "Urban nocturne",
+      "anchor": "color-scheme-53-urban-nocturne",
+      "image": "https://cdn.sanity.io/images/599r6htc/regionalized/16e702bd1f51ad8ea386411477a9e8b0fb3dd379-1000x602.png",
+      "swatches": [
+        "#141414",
+        "#444444",
+        "#979797",
+        "#d6d6d6",
+        "#e2e800"
+      ]
+    }
+  ],
+  "colorSource": "sRGB samples of original palette PNG swatches; printed hex labels can differ slightly due to image color profiles."
+}

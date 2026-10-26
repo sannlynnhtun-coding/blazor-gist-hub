@@ -3,6 +3,8 @@ import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
 const script = readFileSync(new URL('../GistHub/wwwroot/js/theme.js', import.meta.url), 'utf8');
 const catalogScript = readFileSync(new URL('../GistHub/wwwroot/js/vscode-theme-catalog.js', import.meta.url), 'utf8');
+const figmaScript = readFileSync(new URL('../GistHub/wwwroot/js/figma-theme-catalog.js', import.meta.url), 'utf8');
+const figmaCss = readFileSync(new URL('../GistHub/wwwroot/css/figma-themes.css', import.meta.url), 'utf8');
 const css = readFileSync(new URL('../GistHub/wwwroot/css/vscode-themes.css', import.meta.url), 'utf8');
 const snapshot = JSON.parse(readFileSync(new URL('../GistHub/ThemeSources/vscode-themes.json', import.meta.url), 'utf8'));
 function boot(saved, dark = true, blocked = false, explicitChoice = null) {
@@ -12,13 +14,15 @@ function boot(saved, dark = true, blocked = false, explicitChoice = null) {
     const context = { window, document: { documentElement: root, querySelector: () => ({ setAttribute(_, value) { root.chrome = value; } }) },
         localStorage: { getItem(key) { if (blocked) throw Error('disabled'); return storage[key] ?? null; }, setItem(key, value) { if (blocked) throw Error('disabled'); storage[key] = value; } } };
     runInNewContext(catalogScript, context);
+    runInNewContext(figmaScript, context);
     runInNewContext(script, context);
     return { window, root, saved: () => storage.theme, explicit: () => storage['gisthub:theme-choice'] };
 }
 const catalog = boot(null).window.getGistHubThemes();
-assert.equal(catalog.length, 102);
-assert.equal(new Set(catalog.map(theme => theme.id)).size, 102);
+assert.equal(catalog.length, 155);
+assert.equal(new Set(catalog.map(theme => theme.id)).size, 155);
 assert.equal(catalog.filter(theme => theme.id.startsWith('vscode-')).length, 100);
+assert.equal(catalog.filter(theme => theme.id.startsWith('figma-') && theme.name.startsWith('Figma-')).length, 53);
 assert.equal(boot(null, false).window.getGistHubTheme(), 'light');
 assert.equal(boot(null, true).window.getGistHubTheme(), 'dark');
 const halloween = catalog.find(theme => theme.id === 'vscode-kobber-spooky-halloween-theme-halloween').id;
@@ -42,6 +46,7 @@ for (const sort of ['trendingWeekly', 'installs']) {
 }
 for (const theme of catalog) {
     if (theme.id.startsWith('vscode-')) assert.ok(css.includes(`:root[data-theme="${theme.id}"]`));
+    if (theme.id.startsWith('figma-')) assert.ok(figmaCss.includes(`:root[data-theme="${theme.id}"]`));
     const app = boot(theme.id, true, false, theme.id);
     assert.equal(app.window.getGistHubTheme(), theme.id);
     assert.equal(app.window.isDarkThemeActive(), theme.dark);
@@ -63,4 +68,4 @@ assert.equal(blocked.window.getGistHubTheme(), catalog[1].id);
 assert.ok(css.includes('.neo-code-window'));
 assert.ok(css.includes('.json-token-string'));
 assert.ok(!css.includes('hljs-github'));
-console.log('PASS: original Light/Dark defaults, 100 optional VS Code palettes, preview rollback, saved selections, removed-theme migration, and blocked storage.');
+console.log('PASS: original Light/Dark defaults, 100 VS Code and 53 Figma palettes, preview rollback, saved selections, removed-theme migration, and blocked storage.');
