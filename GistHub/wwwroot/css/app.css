@@ -1751,6 +1751,11 @@ span[class~="rounded-md"][class~="border"] {
   box-shadow: 6px 6px 0 var(--neo-shadow) !important;
 }
 
+.neo-gist-card h3 {
+  line-height: 1.7;
+  padding-bottom: .2em;
+}
+
 .neo-gist-card:hover {
   transform: translate(-2px, -2px);
   box-shadow: 9px 9px 0 var(--neo-shadow) !important;
@@ -1803,6 +1808,9 @@ span[class~="rounded-md"][class~="border"] {
 }
 
 .neo-code-preview__content {
+  /* Myanmar vowel marks need space between lines and below the last baseline. */
+  line-height: 1.85;
+  padding-bottom: .3em;
   color: var(--neo-code-text) !important;
   overflow-wrap: anywhere;
   margin: 0;
