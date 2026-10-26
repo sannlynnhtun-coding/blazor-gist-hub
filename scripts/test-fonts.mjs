@@ -19,8 +19,8 @@ function boot(saved, blocked = false) {
 }
 const app = boot();
 const fonts = app.window.getGistHubFonts();
-assert.equal(fonts.length, 69);
-assert.equal(new Set(fonts.map(f => f.id)).size, 69);
+assert.equal(fonts.length, 75);
+assert.equal(new Set(fonts.map(f => f.id)).size, 75);
 const trending = JSON.parse(readFileSync('GistHub/ThemeSources/google-fonts-trending.json', 'utf8')).fonts;
 assert.equal(trending.length, 50);
 assert.equal(new Set(trending.map(f => f.id)).size, 50);
@@ -34,9 +34,21 @@ for (const font of fonts) {
     assert.ok(app.properties.get('--font-ui').includes('Noto Sans Myanmar Variable'));
     assert.equal(app.storage.theme, 'dark');
     assert.equal(app.storage['gisthub:interface-style'], 'cruip');
-    assert.ok(!app.properties.has('--font-code'), 'Code font must stay unchanged');
+    if (font.group === 'Developer') {
+        assert.ok(app.properties.get('--font-code').includes(font.family));
+        assert.ok(boot(font.id).properties.get('--font-code').includes(font.family));
+    } else assert.ok(!app.properties.has('--font-code'), 'Regular fonts restore the default code font');
 }
+assert.deepEqual(Array.from(fonts.filter(f => f.group === 'Developer'), f => f.name), [
+    'developer-JetBrains Mono', 'developer-Fira Code', 'developer-Geist Mono',
+    'developer-Google Sans Code', 'developer-Iosevka', 'developer-Source Code Pro'
+]);
 app.window.applyGistHubFont('roboto');
+app.window.applyGistHubFont('developer-fira-code', false);
+assert.equal(app.storage['gisthub:font'], 'roboto');
+assert.ok(app.properties.get('--font-code').includes('Fira Code'));
+app.window.applyGistHubFont('roboto', false);
+assert.ok(!app.properties.has('--font-code'), 'Cancelling a developer preview restores the saved code font');
 app.window.applyGistHubFont('lora', false);
 assert.equal(app.storage['gisthub:font'], 'roboto');
 assert.equal(app.window.getGistHubFont(), 'lora');
@@ -49,4 +61,4 @@ for (const [, url] of css.matchAll(/url\(([^)]+)\)/g)) {
     assert.ok(existsSync(path));
     assert.equal(readFileSync(path).subarray(0, 4).toString(), path.pathname.endsWith('.otf') ? 'OTTO' : 'wOF2');
 }
-console.log('PASS: 69 real local font families, persistence, nonpersistent preview, defaults, Burmese fallback, code/palette independence and valid WOFF2/OTF assets.');
+console.log('PASS: 75 local font choices, persistence, nonpersistent preview, defaults, Burmese fallback, developer code fonts, regular-font code fallback, palette independence and valid WOFF2/OTF assets.');

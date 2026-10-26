@@ -413,6 +413,42 @@
         "name": "Source Sans 3",
         "family": "Source Sans 3 Variable",
         "group": "Sans serif"
+    },
+    {
+        "id": "developer-jetbrains-mono",
+        "name": "developer-JetBrains Mono",
+        "family": "JetBrains Mono Variable",
+        "group": "Developer"
+    },
+    {
+        "id": "developer-fira-code",
+        "name": "developer-Fira Code",
+        "family": "Fira Code Variable",
+        "group": "Developer"
+    },
+    {
+        "id": "developer-geist-mono",
+        "name": "developer-Geist Mono",
+        "family": "Geist Mono Variable",
+        "group": "Developer"
+    },
+    {
+        "id": "developer-google-sans-code",
+        "name": "developer-Google Sans Code",
+        "family": "Google Sans Code Variable",
+        "group": "Developer"
+    },
+    {
+        "id": "developer-iosevka",
+        "name": "developer-Iosevka",
+        "family": "Iosevka",
+        "group": "Developer"
+    },
+    {
+        "id": "developer-source-code-pro",
+        "name": "developer-Source Code Pro",
+        "family": "Source Code Pro Variable",
+        "group": "Developer"
     }
 ];
     window.getGistHubFonts = () => fonts;
@@ -420,9 +456,12 @@
     window.applyGistHubFont = (id, persist = true) => {
         const font = fonts.find(font => font.id === id) ?? fonts[0];
         const root = document.documentElement;
-        const stack = `"${font.family}", "Noto Sans Myanmar Variable", "Myanmar Text", system-ui, sans-serif`;
+        const developer = font.group === 'Developer';
+        const stack = `"${font.family}", "Noto Sans Myanmar Variable", "Myanmar Text", ${developer ? 'monospace' : 'system-ui, sans-serif'}`;
         root.dataset.font = font.id;
         root.style.setProperty('--font-ui', stack);
+        if (developer) root.style.setProperty('--font-code', stack);
+        else root.style.removeProperty('--font-code');
         if (font.id === 'default') root.style.removeProperty('--style-heading-font');
         else root.style.setProperty('--style-heading-font', stack);
         if (persist) {

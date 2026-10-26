@@ -106,3 +106,15 @@ Captured 2026-10-26 from https://fonts.google.com/ with the visible sort set to 
 - `@fontsource-variable/source-sans-3@5.3.1` — Source Sans 3 Variable (OFL-1.1)
 
 Latin subsets serve website UI; Noto JP/KR/TC do not bundle full CJK character sets. Other script-specific Noto families include native subsets. Characters outside bundled coverage use system fallback. Handwriting/decorative fonts retain their original designs and are not recommended for body text. The appearance picker keeps Inter for readable recovery controls. Single-weight families may synthesize bold; added families may synthesize italic. Original licenses accompany all assets.
+
+## Developer fonts
+
+Six selectable entries use the exact `developer-{Name}` display prefix. JetBrains Mono reuses its existing files; five new families are self-hosted with their original OFL licenses:
+
+- `@fontsource-variable/fira-code@5.3.0` — Fira Code Variable
+- `@fontsource-variable/geist-mono@5.3.0` — Geist Mono Variable
+- `@fontsource-variable/google-sans-code@5.3.2` — Google Sans Code Variable
+- `@fontsource/iosevka@5.3.0` — Iosevka
+- `@fontsource-variable/source-code-pro@5.3.1` — Source Code Pro Variable
+
+Developer choices apply to website text and code through the existing Fonts picker. Selecting a regular font or restoring defaults removes the code override and restores JetBrains Mono. Preview remains temporary until selected; `gisthub:font` saves the choice. Myanmar glyphs retain Noto Sans Myanmar. New assets include Latin normal variable weights, except Iosevka, which includes normal 400 and 700. Italics may be synthesized. Ligatures use the font/browser defaults; code source and copying remain unchanged.

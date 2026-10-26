@@ -72,7 +72,7 @@
                         <button @key="font.Id" type="button" role="option" tabindex="-1" aria-selected="@(Font == font.Id ? "true" : "false")" class="neo-theme-option"
                                 data-font-option="@font.Id" data-appearance-kind="fonts" data-search-text="@(font.Name + " " + font.Group)" @onclick="() => SelectFont(font.Id)">
                             <span class="neo-style-option__icon" aria-hidden="true">Aa</span>
-                            <span class="neo-theme-option__name">@font.Name<span class="neo-theme-option__source">@font.Group · Website text; code keeps monospace</span></span>
+                            <span class="neo-theme-option__name">@font.Name<span class="neo-theme-option__source">@font.Group · @(font.Group == "Developer" ? "Website text and code" : "Website text; code keeps monospace")</span></span>
                             <span class="neo-theme-option__check" aria-hidden="true">✓</span>
                         </button>
                     }
