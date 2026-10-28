@@ -47,9 +47,17 @@ export async function render(frame, source, requestedWidth) {
     await doc.fonts.ready;
     await Promise.all([...doc.images].map(image=>image.decode().catch(()=>{})));
     if (states.get(frame)!==state) return 0;
-    const height=Math.max(120,Math.ceil(Math.max(doc.documentElement.scrollHeight,doc.body.scrollHeight,doc.body.getBoundingClientRect().bottom)));
-    frame.style.height=`${Math.min(height,4096)}px`;
-    if (height>4096) throw new Error('Content exceeds 4096 pixels in height. Increase the width or shorten the HTML.');
+    const measureHeight=()=>Math.max(120,Math.ceil(Math.max(doc.documentElement.scrollHeight,doc.body.scrollHeight,doc.body.getBoundingClientRect().bottom)));
+    let height=measureHeight();
+    // shortcut: allow eight resize passes, increase only if real layouts need more to settle.
+    for (let attempt=0;attempt<8;attempt++) {
+        frame.style.height=`${Math.min(height,4096)}px`;
+        if (height>4096) throw new Error('Content exceeds 4096 pixels in height. Increase the width or shorten the HTML.');
+        const resizedHeight=measureHeight();
+        if (resizedHeight<=height) break;
+        if (attempt===7) throw new Error('Content height keeps changing as the preview resizes. Use fixed heights instead of viewport-dependent CSS.');
+        height=resizedHeight;
+    }
     if (doc.documentElement.scrollWidth>width+1) throw new Error('Content exceeds the canvas width. Increase the width or adjust the CSS.');
     state.width=width; state.height=height; state.ready=true;
     return height;

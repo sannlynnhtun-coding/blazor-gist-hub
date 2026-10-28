@@ -41,6 +41,19 @@ export async function checkHtmlImage({evaluate,send,sessionId,waitFor}) {
     assert.equal(requests.length,0,'Preview and export must not fetch external HTML assets');
     await update('#html-image-source','<div style="height:5000px">Too tall</div>');
     await waitFor(`document.querySelector('#html-image-error')?.textContent.includes('4096') && document.querySelector('#html-image-download').disabled`, 'oversize canvas rejection');
+    await update('#html-image-source','<style>body{margin:0}div{height:80px}@media(min-height:100px){div{height:240px}}</style><div>Resized content</div>');
+    await waitFor(`!document.querySelector('#html-image-download').disabled && document.querySelector('#html-image-preview').contentDocument?.body.textContent==='Resized content'`, 'settled viewport-dependent layout');
+    assert.equal(await evaluate(`document.querySelector('#html-image-preview').style.height`),'240px');
+    assert.equal(await evaluate(`document.querySelector('#html-image-preview').contentDocument.documentElement.scrollHeight`),240);
+    for (const [css,message] of [
+      ['div{height:200vh}','4096'],
+      ['div{height:80px}@media(min-height:100px){div{height:5000px}}','4096'],
+      ['div{height:calc(100vh + 1px)}','keeps changing']
+    ]) {
+      await update('#html-image-source',`<style>body{margin:0}${css}</style><div>Growing content</div>`);
+      await waitFor(`document.querySelector('#html-image-error')?.textContent.includes(${JSON.stringify(message)}) && document.querySelector('#html-image-download').disabled`, 'growing layout rejection');
+      assert.equal(await evaluate(`(async()=>{try{await (await import('/js/htmlImage.js')).download(document.querySelector('#html-image-preview'),'png','invalid',0.9);return false;}catch(error){return error.message==='Wait for a valid preview.';}})()`),true);
+    }
     await evaluate(`(()=>{const transfer=new DataTransfer();transfer.items.add(new File(['<h1>Uploaded HTML</h1>'],'card.html'));const input=document.querySelector('#html-image-file');input.files=transfer.files;input.dispatchEvent(new Event('change',{bubbles:true}));})()`);
     await waitFor(`!document.querySelector('#html-image-download').disabled && document.querySelector('#html-image-preview').contentDocument?.querySelector('h1')?.textContent==='Uploaded HTML'`, 'HTML upload');
     await evaluate(`(()=>{const transfer=new DataTransfer();transfer.items.add(new File(['x'.repeat(1048577)],'large.html'));const input=document.querySelector('#html-image-file');input.files=transfer.files;input.dispatchEvent(new Event('change',{bubbles:true}));})()`);
@@ -62,6 +75,6 @@ export async function checkHtmlImage({evaluate,send,sessionId,waitFor}) {
     await send('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true},sessionId);
     assert.equal(await evaluate(`document.documentElement.scrollWidth > innerWidth`),false);
     await send('Emulation.clearDeviceMetricsOverride',{},sessionId);
-    console.log('PASS: HTML CSS/grid isolation, blocked scripts/assets/navigation, visible PNG/JPEG/WebP pixels, PDF printing, upload/CORS import, size limits, Clear, and mobile layout.');
+    console.log('PASS: HTML CSS/grid isolation, blocked scripts/assets/navigation, visible PNG/JPEG/WebP pixels, PDF printing, upload/CORS import, size limits, viewport-dependent layout validation, Clear, and mobile layout.');
   } finally { await new Promise(resolve=>server.close(resolve)); }
 }
