@@ -53,8 +53,11 @@
                     {
                         <div id="tools-menu" class="neo-toolbar-dropdown neo-toolbar-dropdown--tools" role="menu" aria-label="Tools" @onkeydown="HandleToolsMenuKeyDown">
                             <div class="neo-toolbar-dropdown__heading">Workbench tools</div>
+                            <a href="tools" @ref="ToolsFirstMenuItem" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" role="menuitem" data-testid="tools-guide-menu-item">
+                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">?</span>
+                                <span><strong>Tools Guide</strong><small>What each tool does and when to use it</small></span>
+                            </a>
                             <button data-testid="json-parser-menu-item"
-                                    @ref="ToolsFirstMenuItem"
                                     @onclick="OpenJsonParser"
                                     class="neo-toolbar-menu-item"
                                     type="button"

@@ -1,0 +1,56 @@
+@page "/tools"
+
+<PageTitle>Tools Guide · GistHub</PageTitle>
+<section class="space-y-8" aria-labelledby="tools-guide-title">
+    <div class="neo-page-heading space-y-3 pb-7 border-b">
+        <div class="neo-kicker">Workbench / Guide</div>
+        <h2 id="tools-guide-title" class="text-3xl font-black tracking-tight">Find the right tool</h2>
+        <p class="text-muted-foreground">Clean up data, prepare documents, or turn an idea into something you can share. Here’s what each tool does and when to use it.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" aria-label="Available tools">
+        @foreach (var tool in ToolsList)
+        {
+            <article class="bg-card border border-border rounded-md p-6 flex flex-col gap-4">
+                <h3 class="text-xl font-bold">@tool.Name</h3>
+                <p>@tool.Purpose</p>
+                <p class="text-sm text-muted-foreground"><strong>Try it when:</strong> @tool.Example</p>
+                @if (tool.Href is not null)
+                {
+                    <a href="@tool.Href" class="btn btn-outline btn-md mt-auto self-start" aria-label="@($"Open {tool.Name}")">Open tool →</a>
+                }
+                else
+                {
+                    <p class="text-sm font-bold mt-auto">Open from Tools → @tool.Name</p>
+                }
+            </article>
+        }
+    </div>
+</section>
+
+@code {
+    private static readonly (string Name, string Purpose, string Example, string? Href)[] ToolsList =
+    [
+        ("JSON Parser", "Turn escaped or JSON-encoded strings into readable, formatted JSON.",
+            "You copied a JSON string from a log and need to inspect the actual object.", null),
+        ("JSON to Table", "Explore JSON records as a table, search and sort rows, choose nested fields, and export CSV or HTML.",
+            "You want to review an API response in a spreadsheet.", null),
+        ("Base64 Encode / Decode", "Convert text or files to and from Base64. This is an encoding tool, not encryption.",
+            "You need to inspect an encoded payload or recover a Base64-encoded file.", null),
+        ("Markdown to Text", "Remove Markdown formatting and images while keeping readable text. Copy plain text or sanitized HTML, or download a .txt file.",
+            "You want to paste a README into an email without Markdown symbols.", "tools/markdown-to-text"),
+        ("Markdown + Code Converter", "Style code or Markdown with themes and canvas sizes, then export PNG, JPEG, WebP, or use the browser’s Save as PDF.",
+            "You want a shareable image of a code snippet or a short document.", null),
+        ("Markdown to DOCX", "Convert Markdown into an editable Word document with headings, lists, tables, and code. Images become links; math and diagrams keep their source.",
+            "You need to hand off Markdown notes to someone who edits in Word.", "tools/markdown-to-docx"),
+        ("Markdown to Cards", "Split an article by headings, a delimiter, or length into numbered image cards. Preview the cards and download individual images or a ZIP.",
+            "You want to turn a tutorial into a social carousel or a set of teaching cards.", "tools/markdown-to-cards"),
+        ("draw.io Diagram Editor", "Draw workflows, architecture, and other diagrams visually. Save editable .drawio source or export PNG/SVG. The online editor receives your diagram source.",
+            "You prefer arranging shapes and connectors on a canvas instead of writing diagram code.", "tools/diagram-editor"),
+        ("Mermaid to Image", "Write diagram syntax, see a live preview, choose a theme, and export PNG, JPEG, WebP, SVG, or print to PDF. Loading the renderer requires internet.",
+            "You want a flowchart, sequence, or class diagram that you can maintain as text.", "tools/mermaid-to-image"),
+        ("Formula to Image", "Render LaTeX math with size, color, padding, and transparent backgrounds. Export PNG, JPEG, WebP, or browser-compatible SVG; use PNG for editors without MathML support.",
+            "You need a crisp equation, matrix, or integral for a slide or a document.", "tools/formula-to-image"),
+        ("YouTube Downloader", "Choose a video or audio format and save it on your computer. Requires the local Windows version started with Start-LocalDownloader.cmd.",
+            "You are using the local app and need a video or audio file, including MP3.", "tools/youtube-downloader")
+    ];
+}

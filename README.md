@@ -36,6 +36,8 @@ Blazor pages and components
 
 ## Main features
 
+Open **Tools → Tools Guide** (`/tools`) for an explanation and example use case for every tool, with links to tool pages and instructions for tools that open from the dropdown.
+
 - Public discovery feed and public-gist lookup by GitHub username
 - Single and bulk cloning into the connected GitHub account
 - Personal gist create, view, edit, delete, sync, and JSON import
