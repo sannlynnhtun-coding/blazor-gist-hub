@@ -524,6 +524,11 @@ try {
     await checkMarkdownDocx({ evaluate, send, sessionId, waitFor });
   }
 
+  if (process.env.BROWSER_CHECK_CONVERTER === "1") {
+    const { checkMarkdownConverter } = await import('./test-markdown-converter.mjs');
+    await checkMarkdownConverter({ evaluate, send, sessionId, waitFor });
+  }
+
   const failures = [...new Set([
     ...observedMessages.filter((message) => errorPatterns.some((pattern) => pattern.test(message))),
     ...verificationFailures,

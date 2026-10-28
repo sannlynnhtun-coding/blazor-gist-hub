@@ -3366,6 +3366,15 @@ span[class~="rounded-md"][class~="border"] {
 .code-image-markdown > :first-child { margin-top: 0; }
 .code-image-markdown > :last-child { margin-bottom: 0; }
 
+.code-image-markdown .markdown-diagram {
+  margin: 1em 0;
+  padding: 12px;
+  background: #fff;
+  border-radius: 6px;
+}
+.code-image-markdown .markdown-diagram svg { display: block; max-width: 100%; height: auto; margin: auto; }
+.code-image-markdown math[display="block"] { display: block; margin: 1em 0; text-align: center; }
+
 .code-image-markdown h1,
 .code-image-markdown h2,
 .code-image-markdown h3,

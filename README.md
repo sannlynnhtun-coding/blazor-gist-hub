@@ -45,6 +45,7 @@ Blazor pages and components
 - Curated `@sannlynnhtun-coding` public-gist collection
 - Markdown, Mermaid, and syntax-highlighted code previews
 - JSON formatting/parsing and code-image utilities
+- Tools → Markdown + Code Converter: Markdown upload, themed live preview, GFM tables/task lists, syntax highlighting, KaTeX math (`$...$` / `$$...$$`), Mermaid diagrams, PNG/JPEG/WebP downloads, and browser Print / Save PDF. Image exports are 2× resolution; JPEG/WebP have quality controls. Oversized Markdown captures fail instead of silently cropping; PDF lets long Markdown flow across pages. Invalid math/diagrams retain source, remote images appear as labels, and AI styling is not included. Conversion runs locally; Mermaid uses the app's existing CDN library.
 - Markdown to DOCX from Tools: paste or upload up to 1 MB, preview locally, and download editable headings, lists, tables, links, and monospaced code. Images export as labeled links; math and diagrams retain source text. Conversion needs no server or external service.
 - JSON to Table with live preview, JSON/text upload, a hide/show input panel, expandable nested data, object/array field checkboxes shared by preview and CSV/HTML exports, and row search and sorting
 - Base64 text and file encoding/decoding from Tools, with UTF-8/Latin-1, live mode, separate-line processing, URL-safe output, and local file downloads

@@ -13,7 +13,7 @@
                 </div>
                 <div>
                     <div class="neo-kicker">Share-ready code and docs</div>
-                    <h1 id="code-image-title">Code + Markdown to Image</h1>
+                    <h1 id="code-image-title">Markdown + Code Converter</h1>
                 </div>
             </div>
 
@@ -22,7 +22,7 @@
                 <svg viewBox="0 0 48 12" aria-hidden="true"><path d="M1 6h42m-6-5 6 5-6 5" /></svg>
                 <span>Style it</span>
                 <svg viewBox="0 0 48 12" aria-hidden="true"><path d="M1 6h42m-6-5 6 5-6 5" /></svg>
-                <span>Export PNG</span>
+                <span>Export image / PDF</span>
             </div>
 
             <button class="code-image-close" type="button" @onclick="CloseAsync" aria-label="Close code to image" title="Close code to image (Esc)">
@@ -83,7 +83,7 @@
                 {
                     <div class="code-image-markdown-note">
                         <strong>GitHub-flavored Markdown</strong>
-                        <span>Headings, tables, lists, quotes, links, and fenced code are supported.</span>
+                        <span>Tables, task lists, highlighted code, $math$, and Mermaid diagrams. Remote images appear as labels. Invalid math or diagrams keep their source.</span>
                     </div>
                 }
 
@@ -137,6 +137,22 @@
                     <span><strong>Canvas padding</strong><output>@CanvasPadding px</output></span>
                     <input type="range" min="32" max="96" step="8" value="@CanvasPadding" @oninput="HandlePaddingChanged" />
                 </label>
+                <label class="code-image-field">
+                    <span>Export format</span>
+                    <select @bind="OutputFormat" @bind:after="ResetCopyFeedback">
+                        <option value="png">PNG</option>
+                        <option value="jpeg">JPEG</option>
+                        <option value="webp">WebP</option>
+                        <option value="pdf">PDF (browser print)</option>
+                    </select>
+                </label>
+                @if (OutputFormat is "jpeg" or "webp")
+                {
+                    <label class="code-image-range">
+                        <span><strong>Image quality</strong><output>@Quality%</output></span>
+                        <input type="range" min="50" max="100" step="5" @bind="Quality" />
+                    </label>
+                }
             </aside>
 
             <main class="code-image-stage">
@@ -238,7 +254,7 @@
                             else
                             {
                                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12" /><path d="m7 10 5 5 5-5" /><path d="M5 21h14" /></svg>
-                                <span>Download PNG</span>
+                                <span>@(OutputFormat == "pdf" ? "Print / Save PDF" : $"Download {OutputFormat.ToUpperInvariant()}")</span>
                             }
                         </button>
                     </div>
@@ -325,7 +341,9 @@
     private ElementReference PreviewMarkdownElement;
     private string CodeContent { get; set; } = ExampleCode;
     private string MarkdownContent { get; set; } = ExampleMarkdown;
-    private string SelectedMode { get; set; } = "code";
+    private string SelectedMode { get; set; } = "markdown";
+    private string OutputFormat { get; set; } = "png";
+    private int Quality { get; set; } = 90;
     private string SelectedLanguage { get; set; } = "csharp";
     private string SelectedTheme { get; set; } = "midnight";
     private string SelectedFormat { get; set; } = "auto";
@@ -378,12 +396,12 @@
     private string EditorMeasure => $"{LineCount} lines · {SourceText.Length} characters";
     private string PreviewStyle => $"--capture-bg:{ActiveTheme.Background};--capture-glow:{ActiveTheme.Glow};--capture-accent:{ActiveTheme.Accent};--capture-card:{ActiveTheme.Card};--capture-text:{ActiveTheme.Text};--capture-muted:{ActiveTheme.Muted};--capture-padding:{CanvasPadding}px";
     private string ExportStatus => ExportFailed
-        ? "PNG export failed. Try a smaller document"
+        ? "Export failed or content exceeds the canvas. Try Auto canvas, smaller type, or PDF for long Markdown"
         : ClipboardCopyFailed
         ? "Clipboard image access is unavailable. Download still works"
         : ImageCopied
             ? "PNG copied to your clipboard"
-            : "High-resolution PNG, no upload";
+            : OutputFormat == "pdf" ? "Choose Save as PDF in your browser’s print dialog" : "High-resolution image, no upload";
 
     protected override void OnParametersSet()
     {
@@ -559,6 +577,8 @@
             language = SelectedLanguage,
             theme = SelectedTheme,
             format = SelectedFormat,
+            outputFormat = OutputFormat,
+            quality = Quality / 100.0,
             title = DisplayTitle,
             author = DisplayAuthor,
             lineNumbers = ShowLineNumbers,
@@ -634,6 +654,8 @@
         languageLabel = ContentLabel,
         theme = SelectedTheme,
         format = SelectedFormat,
+        outputFormat = OutputFormat,
+        quality = Quality / 100.0,
         title = DisplayTitle,
         author = DisplayAuthor,
         showLineNumbers = ShowLineNumbers,

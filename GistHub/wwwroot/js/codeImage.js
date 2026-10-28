@@ -149,14 +149,37 @@
         });
     };
 
-    const renderMarkdownInto = (element, markdown) => {
+    const renderMarkdownInto = async (element, markdown) => {
         if (!element) return;
         if (typeof marked === 'undefined') {
             element.textContent = markdown || '';
             return;
         }
 
-        const html = marked.parse(markdown || '', { gfm: true, breaks: false });
+        const parser = new marked.Marked({ gfm: true, breaks: false });
+        const escapeMath = token => token.raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        // Preserve TeX escapes before Markdown consumes backslashes or interprets formatting.
+        parser.use({ extensions: [
+            {
+                name: 'captureBlockMath', level: 'block',
+                start: source => source.indexOf('$$'),
+                tokenizer(source) {
+                    const match = /^\$\$([\s\S]+?)\$\$(?:\n|$)/.exec(source);
+                    if (match) return { type: 'captureBlockMath', raw: match[0] };
+                },
+                renderer: token => `<p>${escapeMath(token)}</p>`
+            },
+            {
+                name: 'captureInlineMath', level: 'inline',
+                start: source => source.indexOf('$'),
+                tokenizer(source) {
+                    const match = /^(\${1,2})(?!\$)((?:\\[\s\S]|[^$\\])+?)\1(?!\$)/.exec(source);
+                    if (match) return { type: 'captureInlineMath', raw: match[0] };
+                },
+                renderer: escapeMath
+            }
+        ] });
+        const html = parser.parse(markdown || '');
         const fragment = sanitizeMarkdownHtml(html);
         element.replaceChildren(fragment.cloneNode(true));
         if (!element.hasChildNodes()) {
@@ -166,11 +189,32 @@
             element.appendChild(empty);
         }
         highlightMarkdownBlocks(element);
+        if (typeof renderMathInElement === 'function') {
+            renderMathInElement(element, {
+                output: 'mathml', trust: false, throwOnError: false, maxSize: 10, maxExpand: 1000,
+                delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }]
+            });
+        }
+        for (const code of element.querySelectorAll('pre code.language-mermaid')) {
+            if (typeof mermaid === 'undefined') continue;
+            const pre = code.parentElement;
+            const id = `capture-${crypto.randomUUID()}`;
+            try {
+                const { svg } = await mermaid.render(id, code.textContent);
+                if (!element.contains(pre)) continue;
+                const diagram = document.createElement('div');
+                diagram.className = 'markdown-diagram';
+                diagram.innerHTML = DOMPurify.sanitize(svg, { ADD_TAGS: ['foreignObject'], ADD_ATTR: ['xmlns'] });
+                pre.replaceWith(diagram);
+            } catch {
+                pre.title = 'Diagram could not be rendered; source retained.';
+            } finally {
+                document.getElementById(`d${id}`)?.remove();
+            }
+        }
     };
 
-    window.renderMarkdownImagePreview = (element, markdown) => {
-        renderMarkdownInto(element, markdown);
-    };
+    window.renderMarkdownImagePreview = renderMarkdownInto;
 
     const highlightedLines = (code, language, theme) => {
         const html = highlightedHtml(code, language);
@@ -429,6 +473,9 @@
         .markdown-task-marker { display: inline-block; margin-right: .35em; color: ${theme.accent}; }
         .markdown-image-fallback { display: inline-block; padding: .45em .65em; color: ${theme.muted}; border: 1px dashed ${theme.muted}; border-radius: 4px; }
         .markdown-empty { color: ${theme.muted}; font-style: italic; }
+        .markdown-diagram { margin: 1em 0; padding: 12px; background: #fff; border-radius: 6px; }
+        .markdown-diagram svg { display: block; max-width: 100%; height: auto; margin: auto; }
+        math[display="block"] { display: block; margin: 1em 0; text-align: center; }
         .hljs-comment, .hljs-quote, .hljs-meta { color: ${theme.muted}; }
         .hljs-keyword, .hljs-selector-tag, .hljs-section { color: ${theme.accent}; }
         .hljs-string, .hljs-regexp, .hljs-symbol { color: ${(theme.light || theme === themes.paper) ? '#8f4a00' : '#ffd866'}; }
@@ -476,7 +523,7 @@
         return canvas;
     };
 
-    const createMarkdownCanvas = async (options) => {
+    const createMarkdownCanvas = async (options, print = false) => {
         const theme = themes[options.theme] || themes.midnight;
         const dimensions = markdownDimensions(options.format);
         const requestedFont = Math.max(14, Math.min(26, Number(options.fontSize) || 18));
@@ -509,7 +556,6 @@
         meta.append(metaText, createElement('span', null, `${String(words).padStart(2, '0')} WORDS`));
 
         const body = createElement('div', 'markdown-export-body');
-        renderMarkdownInto(body, options.code || '');
 
         card.append(bar, meta, body);
         const signature = createElement('div', 'markdown-export-signature');
@@ -525,6 +571,20 @@
         document.body.appendChild(host);
 
         try {
+            await renderMarkdownInto(body, options.code || '');
+            if (print) {
+                style.textContent += `
+                    @page { size: A4; margin: 12mm; }
+                    body { margin: 0; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+                    .markdown-export-root { width: 100% !important; height: auto !important; padding: 0; display: block; background: ${theme.card}; }
+                    .markdown-export-card { display: block; overflow: visible; border: 0; box-shadow: none; }
+                    .markdown-export-body { overflow: visible; }
+                    .markdown-export-body pre, .markdown-export-body tr, .markdown-diagram { break-inside: avoid; }
+                    .markdown-export-body h1, .markdown-export-body h2, .markdown-export-body h3 { break-after: avoid; }
+                `;
+                await printHtml(root.outerHTML, options.title);
+                return;
+            }
             let height = dimensions.height;
             if (!height) {
                 root.style.minHeight = '640px';
@@ -547,6 +607,9 @@
                 }
             }
 
+            if (body.scrollHeight > body.clientHeight + 2 || body.scrollWidth > body.clientWidth + 2) {
+                throw new Error('Content exceeds the canvas. Use Auto canvas or PDF for a longer document.');
+            }
             return await canvasFromSvg(root, dimensions.width, height);
         } finally {
             host.remove();
@@ -557,23 +620,49 @@
         ? createMarkdownCanvas(options)
         : createCanvas(options);
 
-    const canvasToBlob = (canvas) => new Promise((resolve, reject) => {
+    const canvasToBlob = (canvas, type = 'image/png', quality = 0.9) => new Promise((resolve, reject) => {
         canvas.toBlob((result) => {
-            if (result) resolve(result);
+            if (result?.type === type) resolve(result);
             else reject(new Error('The image could not be rendered.'));
-        }, 'image/png');
+        }, type, quality);
     });
 
+    const printHtml = async (html, title = 'GistHub document') => {
+        const frame = document.createElement('iframe');
+        frame.title = 'Print document';
+        frame.setAttribute('aria-hidden', 'true');
+        frame.setAttribute('sandbox', 'allow-same-origin allow-modals');
+        frame.style.cssText = 'position:fixed;width:0;height:0;border:0;';
+        const loaded = new Promise(resolve => { frame.onload = resolve; });
+        frame.srcdoc = '<!doctype html><html><head><meta charset="utf-8"></head><body>' + html + '</body></html>';
+        document.body.appendChild(frame);
+        try {
+            await loaded;
+            frame.contentDocument.title = title;
+            await frame.contentDocument.fonts.ready;
+            await Promise.all([...frame.contentDocument.images].map(image => image.decode()));
+            frame.contentWindow.addEventListener('afterprint', () => frame.remove(), { once: true });
+            frame.contentWindow.focus();
+            frame.contentWindow.print();
+        } catch (error) { frame.remove(); throw error; }
+    };
+
     window.downloadCodeImage = async (options) => {
+        if (options?.outputFormat === 'pdf') {
+            if (options.mode === 'markdown') return createMarkdownCanvas(options, true);
+            const canvas = await createExportCanvas(options);
+            return printHtml(`<img style="width:100%" alt="Code capture" src="${canvas.toDataURL('image/png')}">`, options.title);
+        }
         const canvas = await createExportCanvas(options || {});
         const safeName = (options?.title || (options?.mode === 'markdown' ? 'markdown-document' : 'code-snippet'))
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/^-|-$/g, '') || (options?.mode === 'markdown' ? 'markdown-document' : 'code-snippet');
-        const blob = await canvasToBlob(canvas);
+        const format = ['jpeg', 'webp'].includes(options?.outputFormat) ? options.outputFormat : 'png';
+        const blob = await canvasToBlob(canvas, `image/${format}`, Math.max(0.5, Math.min(1, Number(options?.quality) || 0.9)));
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.download = `${safeName}.png`;
+        link.download = `${safeName}.${format === 'jpeg' ? 'jpg' : format}`;
         link.href = url;
         document.body.appendChild(link);
         link.click();
@@ -587,7 +676,7 @@
         }
 
         try {
-            const blob = createExportCanvas(options || {}).then(canvasToBlob);
+            const blob = createExportCanvas(options || {}).then(canvas => canvasToBlob(canvas));
 
             await navigator.clipboard.write([
                 new ClipboardItem({ 'image/png': blob })
