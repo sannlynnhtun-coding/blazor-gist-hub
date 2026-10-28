@@ -503,7 +503,9 @@
 
     const canvasFromSvg = async (element, width, height) => {
         const serialized = new XMLSerializer().serializeToString(element);
-        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><foreignObject width="100%" height="100%">${serialized}</foreignObject></svg>`;
+        const svg = element.namespaceURI === 'http://www.w3.org/2000/svg'
+            ? serialized
+            : `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><foreignObject width="100%" height="100%">${serialized}</foreignObject></svg>`;
         const url = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
         const image = new Image();
         image.decoding = 'async';
@@ -646,6 +648,9 @@
             frame.contentWindow.print();
         } catch (error) { frame.remove(); throw error; }
     };
+
+    window.createDiagramCanvas = canvasFromSvg;
+    window.printCapture = printHtml;
 
     window.createMarkdownCardBlob = async (options) => {
         const format = ['jpeg', 'webp'].includes(options?.outputFormat) ? options.outputFormat : 'png';

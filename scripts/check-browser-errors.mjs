@@ -534,6 +534,11 @@ try {
     await checkMarkdownCardTool({ evaluate, send, sessionId, waitFor });
   }
 
+  if (process.env.BROWSER_CHECK_MERMAID === "1") {
+    const { checkMermaidImage } = await import('./test-mermaid-image.mjs');
+    await checkMermaidImage({ evaluate, send, sessionId, waitFor });
+  }
+
   const failures = [...new Set([
     ...observedMessages.filter((message) => errorPatterns.some((pattern) => pattern.test(message))),
     ...verificationFailures,

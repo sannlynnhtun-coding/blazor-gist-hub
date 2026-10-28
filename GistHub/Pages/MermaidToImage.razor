@@ -1,0 +1,110 @@
+@page "/tools/mermaid-to-image"
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<PageTitle>Mermaid to Image · GistHub</PageTitle>
+<section class="space-y-6" aria-labelledby="mermaid-title">
+    <div>
+        <div class="neo-kicker mb-2">Workbench / Diagrams</div>
+        <h2 id="mermaid-title" class="text-3xl font-black tracking-tight">Mermaid to Image</h2>
+        <p class="text-muted-foreground mt-2">Create flowcharts, sequences, class diagrams, and more. Preview locally and export a scalable SVG or a 2× image.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <label class="code-image-field"><span>Title</span><input id="mermaid-name" maxlength="80" @bind="Title" @bind:event="oninput" @bind:after="Changed" /></label>
+        <label class="code-image-field"><span>Author</span><input maxlength="80" @bind="Author" @bind:event="oninput" @bind:after="Changed" /></label>
+        <label class="code-image-field"><span>Diagram theme</span><select id="mermaid-theme" @bind="Theme" @bind:after="Changed"><option value="default">Default</option><option value="neutral">Neutral</option><option value="dark">Dark</option><option value="forest">Forest</option></select></label>
+        <label class="code-image-field"><span>Export format</span><select id="mermaid-format" @bind="Format"><option value="png">PNG</option><option value="jpeg">JPEG</option><option value="webp">WebP</option><option value="svg">SVG</option><option value="pdf">PDF (browser print)</option></select></label>
+        @if (Format is "jpeg" or "webp") { <label class="code-image-field"><span>Quality: @Quality%</span><input type="range" min="50" max="100" step="5" @bind="Quality" /></label> }
+        <label class="code-image-field"><span>Load example</span><select id="mermaid-example" @onchange="LoadExample"><option value="flow">Flowchart</option><option value="sequence">Sequence</option><option value="class">Class diagram</option></select></label>
+    </div>
+    <div class="flex flex-wrap gap-4 items-center">
+        <button id="mermaid-download" class="btn btn-primary btn-md" @onclick="DownloadAsync" disabled="@(!Ready || Exporting)">@(Exporting ? "Exporting…" : Format == "pdf" ? "Print / Save PDF" : $"Download {Format.ToUpperInvariant()}")</button>
+        <button class="btn btn-secondary btn-md" @onclick="CopySettingsAsync">Copy settings</button>
+        <label for="mermaid-file">Open .mmd (up to 64 KB)</label><InputFile id="mermaid-file" accept=".mmd,.mermaid,.txt,text/plain" OnChange="ImportAsync" />
+    </div>
+    @if (Error is not null) { <p id="mermaid-error" role="alert" class="text-destructive">@Error</p> }
+    <p id="mermaid-status" role="status" aria-live="polite">@Status</p>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div>
+            <label for="mermaid-source" class="block font-bold mb-2">Mermaid source</label>
+            <textarea id="mermaid-source" class="w-full bg-card border border-border rounded-md p-4 font-mono" rows="23" maxlength="65536" @bind="Source" @bind:event="oninput" @bind:after="Changed" spellcheck="false"></textarea>
+        </div>
+        <div class="min-w-0">
+            <h3 class="font-bold mb-2">Live preview</h3>
+            <div @ref="Preview" id="mermaid-preview" class="bg-card border border-border rounded-md p-4 overflow-auto" aria-label="Diagram preview"></div>
+        </div>
+    </div>
+    <p class="text-sm text-muted-foreground">The renderer uses the app’s existing Mermaid CDN library. Your source stays in this browser. PDF opens the browser print dialog. Drafts are not saved automatically.</p>
+</section>
+
+@code {
+    private const string Flow = "flowchart TD\n    A[Write Mermaid] --> B{Preview looks right?}\n    B -- Yes --> C[Download image]\n    B -- No --> A";
+    private string Source = Flow, Title = "My diagram", Author = "", Theme = "default", Format = "png", Status = "Rendering preview…";
+    private int Quality = 90, Revision;
+    private bool NeedsPreview = true, Ready, Exporting;
+    private string? Error;
+    private ElementReference Preview;
+    private IJSObjectReference? Module;
+
+    private void Changed() { Revision++; NeedsPreview = true; Ready = false; Error = null; Status = "Rendering preview…"; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!NeedsPreview) return;
+        NeedsPreview = false;
+        var revision = Revision;
+        try
+        {
+            Module ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/mermaidImage.js");
+            var ready = await Module.InvokeAsync<bool>("render", Preview, Source, new { title = Title, author = Author, theme = Theme });
+            if (revision != Revision) return;
+            Ready = ready;
+            Status = ready ? "Preview ready. Images download at 2× resolution." : "Rendering preview…";
+        }
+        catch (JSException ex) { if (revision == Revision) { Error = ex.Message.Split('\n')[0]; Status = "Fix the diagram to enable export."; Ready = false; } }
+        StateHasChanged();
+    }
+
+    private void LoadExample(ChangeEventArgs args)
+    {
+        Source = args.Value?.ToString() switch {
+            "sequence" => "sequenceDiagram\n    participant User\n    participant App\n    User->>App: Write a diagram\n    App-->>User: Show preview\n    User->>App: Download SVG",
+            "class" => "classDiagram\n    class Diagram {\n        +string source\n        +render()\n        +exportImage()\n    }\n    class Preview\n    Diagram --> Preview",
+            _ => Flow
+        };
+        Changed();
+    }
+
+    private async Task ImportAsync(InputFileChangeEventArgs args)
+    {
+        if (args.File.Size > 64 * 1024) { Error = "Mermaid files must be 64 KB or smaller."; return; }
+        try { using var reader = new StreamReader(args.File.OpenReadStream(64 * 1024)); Source = await reader.ReadToEndAsync(); Changed(); }
+        catch (Exception ex) when (ex is IOException or JSException) { Error = "This Mermaid file could not be read."; }
+    }
+
+    private async Task DownloadAsync()
+    {
+        if (!Ready || Module is null || Exporting) return;
+        Exporting = true; Error = null;
+        try { await Module.InvokeVoidAsync("download", Preview, Format, Title, Quality / 100.0); Status = Format == "pdf" ? "Choose Save as PDF in the print dialog." : "Diagram downloaded."; }
+        catch (JSException) { Error = "Export failed. Try SVG or a smaller diagram."; }
+        finally { Exporting = false; }
+    }
+
+    private async Task CopySettingsAsync()
+    {
+        try
+        {
+            var json = System.Text.Json.JsonSerializer.Serialize(new { theme = Theme, title = Title, author = Author, format = Format, quality = Quality / 100.0 });
+            Status = await JS.InvokeAsync<bool>("copyToClipboard", json) ? "Settings copied." : "Could not copy. Focus this page and retry.";
+        }
+        catch (JSException) { Status = "Clipboard access is unavailable."; }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (Module is null) return;
+        try { await Module.InvokeVoidAsync("clear", Preview); await Module.DisposeAsync(); }
+        catch (JSDisconnectedException) { }
+    }
+}
