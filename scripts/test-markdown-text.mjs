@@ -1,0 +1,43 @@
+import assert from 'node:assert/strict';
+
+export async function checkMarkdownText({evaluate,send,sessionId,waitFor}) {
+  await waitFor(`document.querySelector('#markdown-text-result')?.value.includes('Plain text, ready to share') && !document.querySelector('#markdown-text-copy').disabled`, 'Markdown text conversion',60000);
+  const source='# Heading\n\nA **bold** &amp; *italic* [label](https://example.com).\n\n![omit image](https://example.com/image.png)\n\n- [x] Done\n- [ ] Todo\n- Outer\n  - Inner\n\n| A | B |\n|---|---|\n| one | two |\n\n```txt\n  indented\n\n\n    code <script>literal</script>\n```\n\n<script>window.textUnsafe=true</script><a href="javascript:alert(1)" onclick="window.textUnsafe=true">Safe label</a>';
+  await evaluate(`(()=>{const input=document.querySelector('#markdown-text-source');input.value=${JSON.stringify(source)};input.dispatchEvent(new Event('input',{bubbles:true}));})()`);
+  await waitFor(`document.querySelector('#markdown-text-result')?.value.startsWith(${JSON.stringify('Heading\n\nA bold & italic label.')})`, 'live stripping');
+  const text=await evaluate(`document.querySelector('#markdown-text-result').value`);
+  assert.ok(text.includes('☑ Done\n☐ Todo'));
+  assert.ok(text.includes('Outer\nInner'));
+  assert.ok(text.includes('A\tB\none\ttwo'));
+  assert.ok(text.includes('  indented\n\n\n    code <script>literal</script>'));
+  assert.ok(!text.includes('omit image') && !text.includes('https://example.com'));
+  assert.ok(text.includes('Safe label') && !text.includes('window.textUnsafe'));
+  const checks=await evaluate(`(()=>{window.textClipboard=[];window.copyToClipboard=async value=>{window.textClipboard.push(value);return !window.textClipboardDenied;};document.querySelector('#markdown-text-copy').click();return Boolean(window.textUnsafe);})()`);
+  assert.equal(checks,false);
+  await waitFor(`window.textClipboard.length === 1`, 'plain text clipboard write');
+  assert.equal(await evaluate(`window.textClipboard[0]`),text);
+  await evaluate(`document.querySelector('#markdown-html-copy').click()`);
+  await waitFor(`window.textClipboard.length === 2`, 'HTML source clipboard write');
+  const html=await evaluate(`(()=>{const p=document.createElement('template');p.innerHTML=window.textClipboard[1];return {bold:p.content.querySelector('strong')?.textContent,unsafe:Boolean(p.content.querySelector('script,img,[onclick],[href^="javascript:"]')),literal:window.textClipboard[1].includes('&lt;script&gt;literal&lt;/script&gt;')};})()`);
+  assert.deepEqual(html,{bold:'bold',unsafe:false,literal:true});
+  await evaluate(`window.textClipboardDenied=true;document.querySelector('#markdown-text-copy').click()`);
+  await waitFor(`document.querySelector('#markdown-text-status')?.textContent.includes('Could not copy')`, 'clipboard denial feedback');
+  await evaluate(`(()=>{const original=URL.createObjectURL;URL.createObjectURL=blob=>{window.textBlob=blob;return original(blob);};HTMLAnchorElement.prototype.click=function(){window.textFilename=this.download;};document.querySelector('#markdown-text-download').click();})()`);
+  await waitFor(`window.textFilename === 'markdown-text.txt'`, 'text download');
+  assert.equal(await evaluate(`window.textBlob.text()`),text);
+  await send('Runtime.evaluate',{expression:`document.querySelector('#markdown-text-fullscreen').click()`,userGesture:true},sessionId);
+  await waitFor(`Boolean(document.fullscreenElement)`, 'fullscreen');
+  await evaluate(`document.querySelector('#markdown-text-fullscreen').click()`);
+  await waitFor(`!document.fullscreenElement`, 'fullscreen exit');
+  await evaluate(`(()=>{const transfer=new DataTransfer();transfer.items.add(new File([${JSON.stringify('# မြန်မာ\n\nUnicode ✓')}],'notes.md'));const input=document.querySelector('#markdown-text-file');input.files=transfer.files;input.dispatchEvent(new Event('change',{bubbles:true}));})()`);
+  await waitFor(`document.querySelector('#markdown-text-result').value === ${JSON.stringify('မြန်မာ\n\nUnicode ✓')}`, 'Unicode file import');
+  await evaluate(`(()=>{const transfer=new DataTransfer();transfer.items.add(new File(['x'.repeat(1048577)],'large.md'));const input=document.querySelector('#markdown-text-file');input.files=transfer.files;input.dispatchEvent(new Event('change',{bubbles:true}));})()`);
+  await waitFor(`document.querySelector('#markdown-text-error')?.textContent.includes('1 MB')`, 'oversize file rejection');
+  assert.equal(await evaluate(`document.querySelector('#markdown-text-result').value`),'မြန်မာ\n\nUnicode ✓');
+  await evaluate(`document.querySelector('#markdown-text-clear').click()`);
+  await waitFor(`document.querySelector('#markdown-text-result').value === '' && document.querySelector('#markdown-text-copy').disabled`, 'Clear and empty state');
+  await send('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true},sessionId);
+  assert.equal(await evaluate(`document.documentElement.scrollWidth > innerWidth`),false);
+  await send('Emulation.clearDeviceMetricsOverride',{},sessionId);
+  console.log('PASS: Markdown stripping, code spacing, lists/tasks/tables, safe HTML, clipboard/denial, UTF-8 download/import, file limits, fullscreen, Clear, and mobile layout.');
+}

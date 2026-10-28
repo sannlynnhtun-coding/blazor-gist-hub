@@ -544,6 +544,11 @@ try {
     await checkFormulaImage({ evaluate, send, sessionId, waitFor });
   }
 
+  if (process.env.BROWSER_CHECK_MARKDOWN_TEXT === "1") {
+    const { checkMarkdownText } = await import('./test-markdown-text.mjs');
+    await checkMarkdownText({ evaluate, send, sessionId, waitFor });
+  }
+
   const failures = [...new Set([
     ...observedMessages.filter((message) => errorPatterns.some((pattern) => pattern.test(message))),
     ...verificationFailures,

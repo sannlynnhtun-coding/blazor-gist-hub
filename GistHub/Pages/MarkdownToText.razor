@@ -1,0 +1,111 @@
+@page "/tools/markdown-to-text"
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<PageTitle>Markdown to Text · GistHub</PageTitle>
+<section @ref="Workbench" class="space-y-6 bg-background p-2 overflow-auto" aria-labelledby="markdown-text-title">
+    <div>
+        <div class="neo-kicker mb-2">Workbench / Text</div>
+        <h2 id="markdown-text-title" class="text-3xl font-black tracking-tight">Markdown to Text</h2>
+        <p class="text-muted-foreground mt-2">Remove Markdown formatting, keep readable text, and copy or download the result. Conversion stays in your browser.</p>
+    </div>
+    <div class="flex flex-wrap items-center gap-4">
+        <button id="markdown-text-copy" class="btn btn-primary btn-md" @onclick="() => CopyAsync(false)" disabled="@(!Ready || string.IsNullOrEmpty(Result.Text))">Copy Text</button>
+        <button id="markdown-html-copy" class="btn btn-secondary btn-md" @onclick="() => CopyAsync(true)" disabled="@(!Ready || string.IsNullOrEmpty(Result.Html))">Copy HTML</button>
+        <button id="markdown-text-download" class="btn btn-secondary btn-md" @onclick="DownloadAsync" disabled="@(!Ready || string.IsNullOrEmpty(Result.Text))">Download .txt</button>
+        <button id="markdown-text-clear" class="btn btn-outline btn-md" @onclick="Clear" disabled="@string.IsNullOrEmpty(Source)">Clear</button>
+        <button id="markdown-text-fullscreen" class="btn btn-outline btn-md" @onclick="FullscreenAsync">Toggle fullscreen</button>
+        <label for="markdown-text-file">Open Markdown (up to 1 MB)</label><InputFile id="markdown-text-file" accept=".md,.markdown,.txt,text/markdown,text/plain" OnChange="ImportAsync" />
+    </div>
+    @if (Error is not null) { <p id="markdown-text-error" role="alert" class="text-destructive">@Error</p> }
+    <p id="markdown-text-status" role="status" aria-live="polite">@Status</p>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div>
+            <label for="markdown-text-source" class="block font-bold mb-2">Markdown input</label>
+            <textarea id="markdown-text-source" class="w-full bg-card border border-border rounded-md p-4 font-mono" rows="23" maxlength="1048576" @bind="Source" @bind:event="oninput" @bind:after="Changed" spellcheck="false"></textarea>
+        </div>
+        <div class="min-w-0">
+            <label for="markdown-text-result" class="block font-bold mb-2">Plain text result</label>
+            <textarea id="markdown-text-result" class="w-full bg-card border border-border rounded-md p-4" rows="23" readonly value="@Result.Text" spellcheck="false"></textarea>
+            <p class="text-sm text-muted-foreground">@Result.Text.Length characters</p>
+        </div>
+    </div>
+    <p class="text-sm text-muted-foreground">Links keep their labels; images are removed. Code retains spacing, table cells use tabs, and tasks retain checkbox symbols. Copy HTML provides sanitized HTML source. Drafts are not auto-saved.</p>
+</section>
+
+@code {
+    private const int MaxSize = 1024 * 1024;
+    private string Source = "# Plain text, ready to share\n\nRemove **bold**, *italic*, and ~~strikethrough~~ formatting.\n\n[Visit GistHub](https://github.com) keeps its label.\n\n- [x] Paste Markdown\n- [ ] Copy the result\n\n```csharp\nif (ready)\n{\n    Share();\n}\n```";
+    private ConversionResult Result = new();
+    private string Status = "Converting…", Filename = "markdown-text";
+    private string? Error;
+    private bool NeedsConversion = true, Ready;
+    private int Revision;
+    private ElementReference Workbench;
+    private IJSObjectReference? Module, Downloads;
+
+    private void Changed() { Revision++; NeedsConversion = true; Ready = false; Error = null; Status = "Converting…"; }
+    private void Clear() { Source = ""; Changed(); }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!NeedsConversion) return;
+        NeedsConversion = false;
+        var revision = Revision;
+        try
+        {
+            Module ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/markdownText.js");
+            var result = await Module.InvokeAsync<ConversionResult>("convert", Source);
+            if (revision != Revision) return;
+            Result = result; Ready = true; Status = "Text ready.";
+        }
+        catch (JSException ex) { if (revision == Revision) { Error = ex.Message.Split('\n')[0]; Result = new(); Status = "Could not convert this Markdown."; } }
+        StateHasChanged();
+    }
+
+    private async Task CopyAsync(bool html)
+    {
+        if (!Ready) return;
+        try { Status = await JS.InvokeAsync<bool>("copyToClipboard", html ? Result.Html : Result.Text) ? (html ? "HTML source copied." : "Text copied.") : "Could not copy. Focus this page and retry, or select the result and copy it manually."; }
+        catch (JSException) { Status = "Clipboard access is unavailable. Select and copy the result manually."; }
+    }
+
+    private async Task DownloadAsync()
+    {
+        if (!Ready) return;
+        try
+        {
+            var name = string.Concat(Filename.Where(c => !char.IsControl(c) && !"<>:\"/\\|?*".Contains(c))).Trim().TrimEnd('.');
+            Downloads ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/appShell.js");
+            await Downloads.InvokeVoidAsync("downloadBytes", (string.IsNullOrWhiteSpace(name) ? "markdown-text" : name)+".txt", System.Text.Encoding.UTF8.GetBytes(Result.Text));
+            Status = "Text file downloaded.";
+        }
+        catch (JSException) { Error = "Download failed. Copy the text or try again."; }
+    }
+
+    private async Task ImportAsync(InputFileChangeEventArgs args)
+    {
+        if (args.File.Size > MaxSize) { Error = "Markdown files must be 1 MB or smaller."; return; }
+        try { using var reader = new StreamReader(args.File.OpenReadStream(MaxSize)); Source = await reader.ReadToEndAsync(); Filename = Path.GetFileNameWithoutExtension(args.File.Name); Changed(); }
+        catch (Exception ex) when (ex is IOException or JSException) { Error = "This Markdown file could not be read."; }
+    }
+
+    private async Task FullscreenAsync()
+    {
+        if (Module is null) return;
+        try { await Module.InvokeVoidAsync("fullscreen", Workbench); }
+        catch (JSException) { Status = "Fullscreen is unavailable in this browser window."; }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        try { if (Module is not null) await Module.DisposeAsync(); if (Downloads is not null) await Downloads.DisposeAsync(); }
+        catch (JSDisconnectedException) { }
+    }
+
+    public sealed class ConversionResult
+    {
+        public string Text { get; set; } = "";
+        public string Html { get; set; } = "";
+    }
+}
