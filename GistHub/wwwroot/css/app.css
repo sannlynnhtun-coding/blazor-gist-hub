@@ -502,6 +502,9 @@
 
 .neo-toolbar-dropdown--tools {
   left: 0;
+  max-height: calc(100dvh - 7rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .neo-toolbar-dropdown--settings {
