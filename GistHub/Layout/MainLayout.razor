@@ -108,6 +108,10 @@
                                 <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">T</span>
                                 <span><strong>Markdown to Text</strong><small>Strip formatting, copy text or sanitized HTML</small></span>
                             </a>
+                            <a href="tools/html-to-image" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" role="menuitem" data-testid="html-image-menu-item">
+                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">&lt;/&gt;</span>
+                                <span><strong>HTML to Image</strong><small>Preview HTML/CSS and export images or PDF</small></span>
+                            </a>
                             <button data-testid="code-image-menu-item"
                                     @onclick="OpenCodeImage"
                                     class="neo-toolbar-menu-item"

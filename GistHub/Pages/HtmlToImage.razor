@@ -1,0 +1,104 @@
+@page "/tools/html-to-image"
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<PageTitle>HTML to Image · GistHub</PageTitle>
+<section class="space-y-6" aria-labelledby="html-image-title">
+    <div>
+        <div class="neo-kicker mb-2">Workbench / Web content</div>
+        <h2 id="html-image-title" class="text-3xl font-black tracking-tight">HTML to Image</h2>
+        <p class="text-muted-foreground mt-2">Paste HTML with CSS, preview it in an isolated frame, and download an image or print to PDF.</p>
+    </div>
+    <fieldset disabled="@Importing" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <label class="code-image-field"><span>File name</span><input maxlength="80" @bind="Filename" /></label>
+        <label class="code-image-field"><span>Canvas width (320–1600 px)</span><input id="html-image-width" type="number" min="320" max="1600" step="80" @bind="Width" @bind:after="Changed" /></label>
+        <label class="code-image-field"><span>Export format</span><select id="html-image-format" @bind="Format"><option value="png">PNG</option><option value="jpeg">JPEG</option><option value="webp">WebP</option><option value="pdf">PDF (browser print)</option></select></label>
+        @if (Format is "jpeg" or "webp") { <label class="code-image-field"><span>Quality: @Quality%</span><input type="range" min="50" max="100" step="5" @bind="Quality" /></label> }
+        <label class="code-image-field"><span>Import URL (site must permit CORS)</span><input id="html-image-url" type="url" maxlength="2048" @bind="Url" placeholder="https://example.com/page.html" /></label>
+        <button id="html-image-import-url" class="btn btn-secondary btn-md self-end" @onclick="ImportUrlAsync" disabled="@(Module is null || string.IsNullOrWhiteSpace(Url))">Import URL</button>
+    </fieldset>
+    <div class="flex flex-wrap items-center gap-4">
+        <button id="html-image-download" class="btn btn-primary btn-md" @onclick="DownloadAsync" disabled="@(!Ready || Exporting || Importing)">@(Exporting ? "Exporting…" : Format == "pdf" ? "Print / Save PDF" : $"Download {Format.ToUpperInvariant()}")</button>
+        <button id="html-image-clear" class="btn btn-outline btn-md" @onclick="Clear" disabled="@(Importing || string.IsNullOrEmpty(Source))">Clear</button>
+        <label for="html-image-file">Open HTML (up to 1 MB)</label><InputFile id="html-image-file" accept=".html,.htm,text/html" OnChange="ImportFileAsync" disabled="@Importing" />
+    </div>
+    @if (Error is not null) { <p id="html-image-error" role="alert" class="text-destructive">@Error</p> }
+    <p id="html-image-status" role="status" aria-live="polite">@Status</p>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div>
+            <label for="html-image-source" class="block font-bold mb-2">HTML source (inline CSS or &lt;style&gt; blocks)</label>
+            <textarea id="html-image-source" class="w-full bg-card border border-border rounded-md p-4 font-mono" rows="26" maxlength="1048576" @bind="Source" @bind:event="oninput" @bind:after="Changed" disabled="@Importing" spellcheck="false"></textarea>
+        </div>
+        <div class="min-w-0">
+            <h3 class="font-bold mb-2">Live preview</h3>
+            <div class="border border-border rounded-md overflow-auto" style="max-height:42rem">
+                <iframe id="html-image-preview" @ref="Preview" title="HTML preview" sandbox="allow-same-origin allow-modals" referrerpolicy="no-referrer" style="width:800px;height:120px;border:0;display:block;max-width:none"></iframe>
+            </div>
+        </div>
+    </div>
+    <p class="text-sm text-muted-foreground">Images export at 2× resolution, up to 4096 CSS pixels tall. Scripts, forms, navigation, external stylesheets, fonts, and images are blocked. Use inline CSS and embedded PNG/JPEG/GIF/WebP images. URL import fetches the page in your browser; it cannot bypass CORS. Drafts are not auto-saved.</p>
+</section>
+
+@code {
+    private string Source = "<!doctype html>\n<html><head><style>\n* { box-sizing: border-box; }\nbody { margin: 0; padding: 48px; font-family: Arial, sans-serif; color: #172033; background: linear-gradient(135deg, #fef3c7, #e0f2fe); }\n.card { padding: 32px; background: white; border: 2px solid #172033; border-radius: 16px; }\nh1 { font-size: 38px; margin: 0 0 16px; }\np { font-size: 20px; line-height: 1.6; }\n.features { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }\n.features div { padding: 20px; background: #e0f2fe; border-radius: 8px; }\n</style></head><body>\n<article class=\"card\"><h1>Make something worth sharing.</h1>\n<p>Turn a small piece of HTML into an image for your next presentation or post.</p>\n<div class=\"features\"><div>Write HTML + CSS</div><div>Export locally</div></div></article>\n</body></html>";
+    private string Filename = "html-image", Format = "png", Url = "", Status = "Rendering preview…";
+    private int Width = 800, Quality = 90, Revision;
+    private bool NeedsPreview = true, Ready, Exporting, Importing;
+    private string? Error;
+    private ElementReference Preview;
+    private IJSObjectReference? Module;
+
+    private void Changed() { Revision++; NeedsPreview = true; Ready = false; Error = null; Status = "Rendering preview…"; }
+    private void Clear() { Source = ""; Changed(); }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!NeedsPreview) return;
+        NeedsPreview = false;
+        var revision = Revision;
+        try
+        {
+            Module ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/htmlImage.js");
+            var height = await Module.InvokeAsync<int>("render", Preview, Source, Width);
+            if (revision != Revision) return;
+            Ready = height > 0;
+            Status = Ready ? $"Preview ready: {Width} × {height} px. Image export: {Width * 2} × {height * 2} px." : "Rendering preview…";
+        }
+        catch (JSException ex) { if (revision == Revision) { Error = ex.Message.Split('\n')[0]; Status = "Adjust the HTML or canvas width to enable export."; Ready = false; } }
+        StateHasChanged();
+    }
+
+    private async Task DownloadAsync()
+    {
+        if (!Ready || Module is null || Exporting || Importing) return;
+        Exporting = true; Error = null;
+        try { await Module.InvokeVoidAsync("download", Preview, Format, Filename, Quality / 100.0); Status = Format == "pdf" ? "Choose Save as PDF in the print dialog." : "Image downloaded."; }
+        catch (JSException) { Error = "Export failed. Try a smaller document or Print / Save PDF."; }
+        finally { Exporting = false; }
+    }
+
+    private async Task ImportFileAsync(InputFileChangeEventArgs args)
+    {
+        if (args.File.Size > 1024 * 1024) { Error = "HTML files must be 1 MB or smaller."; return; }
+        Importing = true;
+        try { using var reader = new StreamReader(args.File.OpenReadStream(1024 * 1024)); Source = await reader.ReadToEndAsync(); Filename = Path.GetFileNameWithoutExtension(args.File.Name); Changed(); }
+        catch (Exception ex) when (ex is IOException or JSException) { Error = "This HTML file could not be read."; }
+        finally { Importing = false; }
+    }
+
+    private async Task ImportUrlAsync()
+    {
+        if (Module is null || Importing) return;
+        Importing = true; Error = null; Status = "Importing URL…";
+        try { Source = await Module.InvokeAsync<string>("importUrl", Url); Changed(); }
+        catch (JSException ex) { Error = ex.Message.Split('\n')[0]; Status = "URL import failed; your current HTML is unchanged."; }
+        finally { Importing = false; }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (Module is null) return;
+        try { await Module.InvokeVoidAsync("clear", Preview); await Module.DisposeAsync(); }
+        catch (JSDisconnectedException) { }
+    }
+}

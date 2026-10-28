@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 export async function checkToolsGuide({evaluate,send,sessionId,waitFor}) {
   await waitFor(`Boolean(document.querySelector('#tools-guide-title'))`, 'the Tools Guide',60000);
   const tools=await evaluate(`Array.from(document.querySelectorAll('[aria-label="Available tools"] article')).map(card=>({name:card.querySelector('h3').textContent,description:card.querySelector('p').textContent,example:card.querySelector('p.text-sm').textContent,href:card.querySelector('a')?.getAttribute('href')||null}))`);
-  assert.equal(tools.length,11);
+  assert.equal(tools.length,12);
   assert.ok(tools.every(tool=>tool.description.length>30&&tool.example.startsWith('Try it when:')));
-  assert.equal(tools.filter(tool=>tool.href).length,7);
-  assert.equal(await evaluate(`document.querySelectorAll('[aria-label="Available tools"] article a, [aria-label="Available tools"] article button').length`),11);
+  assert.equal(tools.filter(tool=>tool.href).length,8);
+  assert.equal(await evaluate(`document.querySelectorAll('[aria-label="Available tools"] article a, [aria-label="Available tools"] article button').length`),12);
   assert.ok(tools.find(tool=>tool.name==='Formula to Image').description.includes('MathML'));
   assert.ok(tools.find(tool=>tool.name==='YouTube Downloader').description.includes('Start-LocalDownloader.cmd'));
   await evaluate(`document.querySelector('[data-testid="tools-trigger"]').click()`);
@@ -35,8 +35,14 @@ export async function checkToolsGuide({evaluate,send,sessionId,waitFor}) {
   await waitFor(`!document.querySelector('[aria-labelledby="json-parser-title"]') && document.activeElement === document.querySelector('[data-testid="tools-trigger"]')`, 'safe focus fallback after leaving the guide');
   await send('Page.navigate',{url:new URL('/tools',await evaluate(`location.href`)).href},sessionId);
   await waitFor(`Boolean(document.querySelector('#tools-guide-title'))`, 'returning to the guide');
+  await evaluate(`document.querySelector('[aria-label="Open HTML to Image"]').click()`);
+  await waitFor(`document.querySelector('#html-image-preview') && !document.querySelector('#html-image-download').disabled`, 'HTML tool launched from its guide button');
+  await evaluate(`document.querySelector('[data-testid="tools-trigger"]').click()`);
+  await waitFor(`Boolean(document.querySelector('[data-testid="tools-guide-menu-item"]'))`, 'guide navigation from the HTML tool');
+  await evaluate(`document.querySelector('[data-testid="tools-guide-menu-item"]').click()`);
+  await waitFor(`Boolean(document.querySelector('#tools-guide-title')) && getComputedStyle(document.querySelector('#blazor-error-ui')).display === 'none'`, 'HTML preview cleanup on navigation');
   await send('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true},sessionId);
   assert.equal(await evaluate(`document.documentElement.scrollWidth > innerWidth`),false);
   await send('Emulation.clearDeviceMetricsOverride',{},sessionId);
-  console.log('PASS: all 11 guide actions, four shared dialogs, inert background, Escape/focus restoration, page navigation, dropdown focus, and mobile layout.');
+  console.log('PASS: all 12 guide actions, four shared dialogs, inert background, Escape/focus restoration, page navigation, dropdown focus, and mobile layout.');
 }

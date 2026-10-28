@@ -554,6 +554,11 @@ try {
     await checkToolsGuide({ evaluate, send, sessionId, waitFor });
   }
 
+  if (process.env.BROWSER_CHECK_HTML_IMAGE === "1") {
+    const { checkHtmlImage } = await import('./test-html-image.mjs');
+    await checkHtmlImage({ evaluate, send, sessionId, waitFor });
+  }
+
   const failures = [...new Set([
     ...observedMessages.filter((message) => errorPatterns.some((pattern) => pattern.test(message))),
     ...verificationFailures,
