@@ -1,0 +1,117 @@
+@page "/tools/markdown-to-docx"
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<PageTitle>Markdown to DOCX · GistHub</PageTitle>
+<section class="space-y-6">
+    <div>
+        <div class="neo-kicker mb-2">Workbench / Documents</div>
+        <h2 class="text-3xl font-black tracking-tight">Markdown to DOCX</h2>
+        <p class="text-muted-foreground mt-2">Paste Markdown or open a .md file, preview it, and download an editable Word document. Conversion stays in your browser.</p>
+    </div>
+    <div class="flex flex-wrap items-center gap-4">
+        <div>
+            <label for="docx-file" class="block text-sm font-bold mb-2">Open Markdown (up to 1 MB)</label>
+            <InputFile id="docx-file" accept=".md,.markdown,text/markdown,text/plain" OnChange="ImportAsync" disabled="@Busy" />
+        </div>
+        <div>
+            <label for="docx-name" class="block text-sm font-bold mb-2">Document name</label>
+            <input id="docx-name" class="bg-card border border-border rounded-md px-4 py-3" maxlength="100" @bind="Filename" />
+        </div>
+        <button class="btn btn-primary btn-md" disabled="@(Busy || Module is null || string.IsNullOrWhiteSpace(Source))" @onclick="ExportAsync">@(Busy ? "Creating…" : "Download .docx")</button>
+    </div>
+    <p class="text-sm text-muted-foreground">Headings, lists, tables, links, and code stay editable. Images become labeled links. Math and Mermaid diagrams remain source text. Raw HTML uses limited formatting.</p>
+    @if (Error is not null) { <p role="alert" class="text-destructive">@Error</p> }
+    @if (Status is not null) { <p role="status">@Status</p> }
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div>
+            <label for="docx-source" class="block font-bold mb-2">Markdown</label>
+            <textarea id="docx-source" class="w-full bg-card border border-border rounded-md p-4 font-mono" rows="24" maxlength="1048576" spellcheck="false" value="@Source" @oninput="UpdateSource" disabled="@Busy"></textarea>
+        </div>
+        <div class="min-w-0">
+            <h3 class="font-bold mb-2">Content preview</h3>
+            <div @ref="Preview" class="code-image-markdown docx-preview bg-card border border-border rounded-md p-4 overflow-auto" aria-label="Markdown preview"></div>
+        </div>
+    </div>
+</section>
+
+@code {
+    private const int MaxSize = 1024 * 1024;
+    private string Source = "# Document title\n\nTurn **Markdown** into an editable Word document.\n\n## Checklist\n\n- Paste or upload Markdown\n- Preview your content\n- Download a .docx file\n\n| Feature | Output |\n| --- | --- |\n| Tables | Editable cells |\n| Code | Monospaced text |\n\n```csharp\nConsole.WriteLine(\"Hello, Word!\");\n```";
+    private string Filename = "document";
+    private string? Error;
+    private string? Status;
+    private bool Busy;
+    private bool PreviewDirty = true;
+    private ElementReference Preview;
+    private IJSObjectReference? Module;
+    private IJSObjectReference? Downloads;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!PreviewDirty) return;
+        PreviewDirty = false;
+        try
+        {
+            Module ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/markdownDocx.js");
+            await Module.InvokeAsync<string>("render", Preview, Source);
+            if (firstRender) StateHasChanged();
+        }
+        catch (JSException) { Error = "Could not render Markdown. Reload the page and try again."; StateHasChanged(); }
+    }
+
+    private void UpdateSource(ChangeEventArgs args)
+    {
+        Source = args.Value?.ToString() ?? "";
+        PreviewDirty = true;
+        Error = Status = null;
+    }
+
+    private async Task ImportAsync(InputFileChangeEventArgs args)
+    {
+        Error = Status = null;
+        if (args.File.Size > MaxSize) { Error = "Markdown files must be 1 MB or smaller."; return; }
+        try
+        {
+            using var reader = new StreamReader(args.File.OpenReadStream(MaxSize));
+            var text = await reader.ReadToEndAsync();
+            Source = text;
+            Filename = Path.GetFileNameWithoutExtension(args.File.Name);
+            PreviewDirty = true;
+        }
+        catch (Exception ex) when (ex is IOException or JSException) { Error = "This Markdown file could not be read."; }
+    }
+
+    private async Task ExportAsync()
+    {
+        if (Module is null || Busy || string.IsNullOrWhiteSpace(Source)) return;
+        Error = Status = null;
+        if (System.Text.Encoding.UTF8.GetByteCount(Source) > MaxSize) { Error = "Markdown must be 1 MB or smaller."; return; }
+        Busy = true;
+        try
+        {
+            var html = await Module.InvokeAsync<string>("render", Preview, Source);
+            var bytes = MarkdownDocxConverter.Create(html);
+            var name = string.Concat(Filename.Where(c => !char.IsControl(c) && !"<>:\"/\\|?*".Contains(c))).Trim().TrimEnd('.');
+            if (name.EndsWith(".docx", StringComparison.OrdinalIgnoreCase)) name = name[..^5];
+            Downloads ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/appShell.js");
+            await Downloads.InvokeVoidAsync("downloadBytes", (string.IsNullOrWhiteSpace(name) ? "document" : name) + ".docx", bytes);
+            Status = "Word document downloaded.";
+        }
+        catch (Exception ex) when (ex is JSException or System.Xml.XmlException or InvalidOperationException)
+        {
+            Error = "Could not export this document. Your Markdown is still here; try again.";
+        }
+        finally { Busy = false; }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (Module is not null) await Module.DisposeAsync();
+            if (Downloads is not null) await Downloads.DisposeAsync();
+        }
+        catch (JSDisconnectedException) { }
+    }
+}

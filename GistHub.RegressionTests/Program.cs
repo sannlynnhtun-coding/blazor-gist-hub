@@ -7,6 +7,7 @@ await DiagramGistTests.RunAsync();
 await ProfileLoadingTests.RunAsync();
 await MessageDismissalTests.RunAsync();
 await GistVisibilityTests.RunAsync();
+MarkdownDocxTests.Run();
 
 using (var tableDocument = System.Text.Json.JsonDocument.Parse("[{\"name\":\"<script>alert(1)</script>\",\"nested\":{\"x\":1}},{\"extra\":null,\"name\":\"=1+1\"}]"))
 {

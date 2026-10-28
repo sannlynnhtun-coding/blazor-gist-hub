@@ -519,6 +519,11 @@ try {
     await checkMarkdownCards({ evaluate, send, sessionId, waitFor, url });
   }
 
+  if (process.env.BROWSER_CHECK_DOCX === "1") {
+    const { checkMarkdownDocx } = await import('./test-markdown-docx.mjs');
+    await checkMarkdownDocx({ evaluate, send, sessionId, waitFor });
+  }
+
   const failures = [...new Set([
     ...observedMessages.filter((message) => errorPatterns.some((pattern) => pattern.test(message))),
     ...verificationFailures,

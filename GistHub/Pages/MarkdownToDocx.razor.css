@@ -1,0 +1,7 @@
+.docx-preview {
+    min-height: 36rem;
+    max-height: 60rem;
+    --capture-text: hsl(var(--foreground));
+    --capture-muted: hsl(var(--muted-foreground));
+    --capture-accent: hsl(var(--foreground));
+}
