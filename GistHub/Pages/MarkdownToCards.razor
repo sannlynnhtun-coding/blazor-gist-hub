@@ -1,0 +1,166 @@
+@page "/tools/markdown-to-cards"
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+@using System.IO.Compression
+
+<PageTitle>Markdown to Cards · GistHub</PageTitle>
+<section class="space-y-6" aria-labelledby="cards-title">
+    <div>
+        <div class="neo-kicker mb-2">Workbench / Social cards</div>
+        <h2 id="cards-title" class="text-3xl font-black tracking-tight">Markdown to Cards</h2>
+        <p class="text-muted-foreground mt-2">Split a document into shareable cards, preview the images, and download them individually or as a ZIP. Conversion stays in your browser.</p>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="space-y-4 min-w-0">
+            <label for="cards-source" class="block font-bold">Markdown</label>
+            <textarea id="cards-source" class="w-full bg-card border border-border rounded-md p-4 font-mono" rows="20" maxlength="131072" @bind="Source" @bind:event="oninput" @bind:after="MarkDirty" disabled="@Busy" spellcheck="false"></textarea>
+            <label for="cards-file" class="block text-sm font-bold">Open Markdown (up to 128 KB)</label>
+            <InputFile id="cards-file" accept=".md,.markdown,text/markdown,text/plain" OnChange="ImportAsync" disabled="@Busy" />
+            <p class="text-sm text-muted-foreground">@(DraftSaved ? "Markdown draft saved in this browser." : "Keep a copy before leaving: the draft has not been saved.")</p>
+        </div>
+        <fieldset class="space-y-4 min-w-0" disabled="@Busy">
+            <legend class="font-bold mb-4">Card settings</legend>
+            <div class="cards-fields">
+                <label>Title<input maxlength="80" @bind="Title" @bind:after="MarkDirty" /></label>
+                <label>Author / subtitle<input maxlength="80" @bind="Author" @bind:after="MarkDirty" /></label>
+                <label>Split by<select id="cards-strategy" @bind="Strategy" @bind:after="MarkDirty"><option value="h2">H2 headings (##)</option><option value="h1">H1 headings (#)</option><option value="h3">H3 headings (###)</option><option value="delimiter">Custom delimiter</option><option value="length">Length, between blocks</option></select></label>
+                @if (Strategy == "delimiter") { <label>Delimiter (separate paragraph)<input id="cards-delimiter" maxlength="80" @bind="Delimiter" @bind:after="MarkDirty" /></label> }
+                @if (Strategy == "length") { <label>Target characters<input type="number" min="200" max="4000" @bind="TargetLength" @bind:after="MarkDirty" /></label> }
+                <label>Theme<select id="cards-theme" @bind="Theme" @bind:after="MarkDirty">@foreach (var theme in Themes) { <option value="@theme">@theme</option> }</select></label>
+                <label>Canvas<select id="cards-canvas" @bind="Canvas" @bind:after="MarkDirty"><option value="square">Square · 1:1</option><option value="portrait">Portrait · 4:5</option><option value="landscape">Landscape · 16:9</option><option value="auto">Auto height</option></select></label>
+                <label>Image format<select id="cards-format" @bind="Format" @bind:after="MarkDirty"><option value="png">PNG</option><option value="jpeg">JPEG</option><option value="webp">WebP</option></select></label>
+                <label>Type size: @FontSize px<input type="range" min="14" max="26" @bind="FontSize" @bind:after="MarkDirty" /></label>
+                <label>Canvas padding: @Padding px<input type="range" min="32" max="96" step="8" @bind="Padding" @bind:after="MarkDirty" /></label>
+                @if (Format != "png") { <label>Quality: @Quality%<input type="range" min="50" max="100" step="5" @bind="Quality" @bind:after="MarkDirty" /></label> }
+            </div>
+            <p class="text-sm text-muted-foreground">Up to 24 cards at 2× resolution. Introductory text becomes a cover card. Lists, code blocks, and tables stay together; split oversized blocks manually. Remote images appear as labels.</p>
+        </fieldset>
+    </div>
+    <div class="flex flex-wrap gap-4">
+        <button id="cards-generate" class="btn btn-primary btn-md" @onclick="GenerateAsync" disabled="@(Busy || Module is null || string.IsNullOrWhiteSpace(Source))">@(Busy ? "Working…" : "Generate cards")</button>
+        <button id="cards-zip" class="btn btn-secondary btn-md" @onclick="DownloadZipAsync" disabled="@(Busy || Dirty || Cards.Count == 0)">Download all (.zip)</button>
+    </div>
+    @if (Error is not null) { <p role="alert" class="text-destructive">@Error</p> }
+    <p role="status" aria-live="polite">@(Busy ? "Preparing cards…" : Dirty ? "Generate cards to update the preview and downloads." : $"{Cards.Count} cards ready. Preview images match the downloads.")</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" aria-label="Card previews">
+        @for (var i = 0; i < Cards.Count; i++)
+        {
+            var index = i;
+            var card = Cards[i];
+            <figure class="space-y-3 min-w-0">
+                <img src="@card.Url" alt="Card @(i + 1) preview" loading="lazy" decoding="async" class="w-full rounded-md border border-border" />
+                <figcaption class="flex items-center justify-between gap-3"><span>Card @(i + 1)</span><button class="btn btn-outline btn-sm" disabled="@(Busy || Dirty)" @onclick="() => DownloadCardAsync(index)">Download @(i + 1)</button></figcaption>
+            </figure>
+        }
+    </div>
+</section>
+
+@code {
+    private const int MaxSize = 128 * 1024;
+    private static readonly string[] Themes = ["simple", "professional", "paper", "midnight", "signal", "grape"];
+    private string Source = "# Share what you learn\n\nTurn one article into a carousel of useful ideas.\n\n## One idea per card\n\nKeep each section focused. Use **bold text** to emphasize the important part.\n\n- Make a clear point\n- Add a practical example\n\n## Make it useful\n\n| Step | Action |\n| --- | --- |\n| 1 | Write your notes |\n| 2 | Split into sections |\n| 3 | Share your cards |\n\n> Small ideas are easier to remember.";
+    private string Title = "Field notes", Author = "@gisthub", Strategy = "h2", Delimiter = "---", Theme = "simple", Canvas = "square", Format = "png";
+    private int TargetLength = 1200, FontSize = 22, Padding = 64, Quality = 90;
+    private bool Busy, Dirty = true, DraftSaved;
+    private string? Error;
+    private IJSObjectReference? Module, Downloads;
+    private List<CardPreview> Cards = [];
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        try
+        {
+            Module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/markdownCards.js");
+            var draft = await Module.InvokeAsync<string?>("loadDraft");
+            if (draft is not null) { Source = draft; DraftSaved = true; }
+            await GenerateAsync();
+        }
+        catch (JSException) { Error = "Could not load the card generator. Reload the page and try again."; }
+        StateHasChanged();
+    }
+
+    private async Task MarkDirty()
+    {
+        Dirty = true;
+        Error = null;
+        try { DraftSaved = Module is not null && await Module.InvokeAsync<bool>("saveDraft", Source); }
+        catch (JSException) { DraftSaved = false; }
+    }
+
+    private async Task GenerateAsync()
+    {
+        if (Module is null || Busy) return;
+        Busy = true;
+        Error = null;
+        try
+        {
+            Cards = await Module.InvokeAsync<List<CardPreview>>("generate", Source, new { strategy = Strategy, delimiter = Delimiter, targetLength = TargetLength, title = Title, author = Author, theme = Theme, format = Canvas, outputFormat = Format, fontSize = FontSize, padding = Padding, quality = Quality / 100.0 });
+            Dirty = false;
+        }
+        catch (JSException ex) { Error = ex.Message.Split('\n')[0]; Dirty = true; }
+        finally { Busy = false; }
+    }
+
+    private async Task ImportAsync(InputFileChangeEventArgs args)
+    {
+        if (args.File.Size > MaxSize) { Error = "Markdown files must be 128 KB or smaller."; return; }
+        try
+        {
+            using var reader = new StreamReader(args.File.OpenReadStream(MaxSize));
+            Source = await reader.ReadToEndAsync();
+            await MarkDirty();
+        }
+        catch (Exception ex) when (ex is IOException or JSException) { Error = "This Markdown file could not be read."; }
+    }
+
+    private async Task DownloadCardAsync(int index)
+    {
+        if (Module is null || Busy || Dirty) return;
+        try { await DownloadAsync(Cards[index].Filename, await Module.InvokeAsync<byte[]>("readImage", index)); }
+        catch (JSException) { Error = "Download failed. Generate the cards again and retry."; }
+    }
+
+    private async Task DownloadZipAsync()
+    {
+        if (Module is null || Busy || Dirty || Cards.Count == 0) return;
+        Busy = true;
+        Error = null;
+        try
+        {
+            using var output = new MemoryStream();
+            using (var zip = new ZipArchive(output, ZipArchiveMode.Create, true))
+                for (var i = 0; i < Cards.Count; i++)
+                {
+                    var bytes = await Module.InvokeAsync<byte[]>("readImage", i);
+                    using var entry = zip.CreateEntry(Cards[i].Filename, CompressionLevel.NoCompression).Open();
+                    await entry.WriteAsync(bytes);
+                }
+            await DownloadAsync("markdown-cards.zip", output.ToArray());
+        }
+        catch (Exception ex) when (ex is JSException or IOException) { Error = "ZIP download failed. Your previews are still available; try again."; }
+        finally { Busy = false; }
+    }
+
+    private async Task DownloadAsync(string filename, byte[] bytes)
+    {
+        Downloads ??= await JS.InvokeAsync<IJSObjectReference>("import", "./js/appShell.js");
+        await Downloads.InvokeVoidAsync("downloadBytes", filename, bytes);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (Module is not null) { await Module.InvokeVoidAsync("clear"); await Module.DisposeAsync(); }
+            if (Downloads is not null) await Downloads.DisposeAsync();
+        }
+        catch (JSDisconnectedException) { }
+    }
+
+    public sealed class CardPreview
+    {
+        public string Url { get; set; } = "";
+        public string Filename { get; set; } = "";
+    }
+}

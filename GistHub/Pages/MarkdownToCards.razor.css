@@ -1,0 +1,14 @@
+.cards-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: 1rem;
+}
+.cards-fields label { display: flex; flex-direction: column; gap: .5rem; font-weight: 700; min-width: 0; }
+.cards-fields input:not([type=range]), .cards-fields select {
+    width: 100%;
+    padding: .7rem;
+    color: hsl(var(--foreground));
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: .375rem;
+}

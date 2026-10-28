@@ -647,6 +647,13 @@
         } catch (error) { frame.remove(); throw error; }
     };
 
+    window.createMarkdownCardBlob = async (options) => {
+        const format = ['jpeg', 'webp'].includes(options?.outputFormat) ? options.outputFormat : 'png';
+        const canvas = await createMarkdownCanvas(options);
+        try { return await canvasToBlob(canvas, `image/${format}`, Math.max(0.5, Math.min(1, Number(options?.quality) || 0.9))); }
+        finally { canvas.width = canvas.height = 0; }
+    };
+
     window.downloadCodeImage = async (options) => {
         if (options?.outputFormat === 'pdf') {
             if (options.mode === 'markdown') return createMarkdownCanvas(options, true);

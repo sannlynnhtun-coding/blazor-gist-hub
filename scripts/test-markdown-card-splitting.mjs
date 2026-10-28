@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import { marked } from '../GistHub/node_modules/marked/lib/marked.esm.js';
+import { split, generate, clear, readImage } from '../GistHub/wwwroot/js/markdownCards.js';
+globalThis.marked = marked;
+
+assert.deepEqual(split(' \n\n'), []);
+assert.deepEqual(split('# Cover\n\nIntro\n\n## One\n\nA\n\n## Two\n\nB'), ['# Cover\n\nIntro', '## One\n\nA', '## Two\n\nB']);
+assert.equal(split('## One\n\n```md\n## Not a heading\n---\n```\n\n## Two').length, 2);
+assert.equal(split('First\n\n---\n\nSecond', 'delimiter').length, 2);
+assert.deepEqual(split('First\n\nCUT\n\nSecond', 'delimiter', 'CUT').map(card => card.trim()), ['First', 'Second']);
+assert.equal(split('### A\n\nOne\n\n### B\n\nTwo', 'h3').length, 2);
+assert.equal(split('# A\n\nOne\n\n# B\n\nTwo', 'h1').length, 2);
+const code = '```js\n' + 'x'.repeat(300) + '\n```';
+const byLength = split('First paragraph.\n\n' + code + '\n\nFinal paragraph.', 'length', '', 200);
+assert.equal(byLength.length, 3);
+assert.ok(byLength[1].includes(code), 'A long code block must stay intact');
+const reference = split('[ref]: https://example.com\n\n## A\n\n[ref]\n\n## B\n\n[ref]');
+assert.ok(reference.every(card => marked.parse(card).includes('href="https://example.com"')));
+assert.throws(() => split('x', 'delimiter', ' '), /non-empty/);
+assert.throws(() => split('x', 'length', '', 1), /200/);
+assert.throws(() => split('မြ'.repeat(24000)), /128 KB/);
+assert.throws(() => split(Array.from({length:25}, (_, i) => `## ${i}\n\nBody`).join('\n\n')), /24 cards/);
+
+let release;
+globalThis.window = { createMarkdownCardBlob: () => new Promise(resolve => { release = resolve; }) };
+const pending = generate('## Cancel', {});
+clear();
+release(new Blob(['test'], {type:'image/png'}));
+await assert.rejects(pending, /cancelled/);
+await assert.rejects(readImage(0), /again/);
+console.log('PASS: card boundaries, fenced code, reference links, length/input limits, and generation cancellation.');
