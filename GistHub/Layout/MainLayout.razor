@@ -172,7 +172,9 @@
                 }
                 else
                 {
-                    @Body
+                    <CascadingValue Name="OpenWorkbenchTool" Value="OpenWorkbenchTool">
+                        @Body
+                    </CascadingValue>
                 }
             </div>
         </div>
@@ -217,6 +219,9 @@
     private ElementReference ToolsMenuTrigger { get; set; }
     private ElementReference GlobalSearchTrigger { get; set; }
     private ElementReference ToolsFirstMenuItem { get; set; }
+    private ElementReference? GuideToolTrigger;
+    private EventCallback<(string Name, ElementReference Trigger)> OpenWorkbenchTool =>
+        EventCallback.Factory.Create<(string Name, ElementReference Trigger)>(this, OpenToolFromGuide);
     private IJSObjectReference? AppShellModule { get; set; }
     private bool IsUtilityOpen => IsJsonParserOpen || IsCodeImageOpen || IsBase64Open || IsJsonTableOpen;
     private bool IsModalOpen => IsUtilityOpen || IsGlobalSearchOpen;
@@ -276,7 +281,12 @@
         if (ShouldRestoreToolsFocus)
         {
             ShouldRestoreToolsFocus = false;
-            await ToolsMenuTrigger.FocusAsync();
+            if (GuideToolTrigger is { } trigger)
+            {
+                GuideToolTrigger = null;
+                await trigger.FocusAsync();
+            }
+            else await ToolsMenuTrigger.FocusAsync();
         }
 
         if (ShouldRestoreSearchFocus)
@@ -360,8 +370,21 @@
 
     private void OnLocationChanged(object? sender, LocationChangedEventArgs args)
     {
+        GuideToolTrigger = null;
         DismissToolbarMenus();
         _ = InvokeAsync(StateHasChanged);
+    }
+
+    private void OpenToolFromGuide((string Name, ElementReference Trigger) tool)
+    {
+        GuideToolTrigger = tool.Trigger;
+        switch (tool.Name)
+        {
+            case "JSON Parser": OpenJsonParser(); break;
+            case "JSON to Table": OpenJsonTable(); break;
+            case "Base64 Encode / Decode": OpenBase64(); break;
+            case "Markdown + Code Converter": OpenCodeImage(); break;
+        }
     }
 
     private void OpenJsonParser()

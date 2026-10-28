@@ -36,7 +36,7 @@ Blazor pages and components
 
 ## Main features
 
-Open **Tools → Tools Guide** (`/tools`) for an explanation and example use case for every tool, with links to tool pages and instructions for tools that open from the dropdown.
+Open **Tools → Tools Guide** (`/tools`) for an explanation and example use case for every tool. Every card has an **Open tool** action: it navigates to the tool page or opens the existing dialog directly, returning focus to its button when closed.
 
 - Public discovery feed and public-gist lookup by GitHub username
 - Single and bulk cloning into the connected GitHub account

@@ -20,7 +20,7 @@
                 }
                 else
                 {
-                    <p class="text-sm font-bold mt-auto">Open from Tools → @tool.Name</p>
+                    <button type="button" @ref="ToolTriggers[tool.Name]" @onclick="() => OpenWorkbenchTool.InvokeAsync((tool.Name, ToolTriggers[tool.Name]))" class="btn btn-outline btn-md mt-auto self-start" aria-label="@($"Open {tool.Name}")">Open tool →</button>
                 }
             </article>
         }
@@ -28,6 +28,11 @@
 </section>
 
 @code {
+    [CascadingParameter(Name = "OpenWorkbenchTool")]
+    public EventCallback<(string Name, ElementReference Trigger)> OpenWorkbenchTool { get; set; }
+
+    private readonly Dictionary<string, ElementReference> ToolTriggers = new();
+
     private static readonly (string Name, string Purpose, string Example, string? Href)[] ToolsList =
     [
         ("JSON Parser", "Turn escaped or JSON-encoded strings into readable, formatted JSON.",
