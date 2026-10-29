@@ -356,7 +356,7 @@
     private async Task ToggleProfileTools()
     {
         IsProfileToolsVisible = !IsProfileToolsVisible;
-        await JS.InvokeVoidAsync("localStorage.setItem", ProfileToolsVisibleStorageKey, IsProfileToolsVisible ? "true" : "false");
+        await JS.InvokeVoidAsync("gistHubBackup.setPreference", ProfileToolsVisibleStorageKey, IsProfileToolsVisible ? "true" : "false");
     }
 
     private async Task DownloadBookmarksAsync()
@@ -465,19 +465,6 @@
             await Task.WhenAll(changedGists.Select(Storage.SaveGistAsync));
             BookmarkBackupWasSuccessful = true;
             BookmarkBackupMessage = $"Restored {matchingCount} bookmark{(matchingCount == 1 ? "" : "s")}.{missingText}";
-
-            if (changedGists.Count > 0)
-            {
-                try
-                {
-                    await DownloadBookmarkBackupFileAsync(username);
-                    BookmarkBackupMessage += " Downloaded an updated bookmark backup.";
-                }
-                catch (Exception)
-                {
-                    BookmarkBackupMessage += " The updated backup could not be downloaded. Use Download bookmarks to try again.";
-                }
-            }
         }
         catch (Exception ex)
         {

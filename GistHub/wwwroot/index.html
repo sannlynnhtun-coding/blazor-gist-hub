@@ -24,6 +24,7 @@
     <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
     <script src="js/vscode-theme-catalog.js"></script>
     <script src="js/figma-theme-catalog.js"></script>
+    <script src="js/backupState.js"></script>
     <script src="js/fonts.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/interface-styles.js"></script>
@@ -35,7 +36,7 @@
             let isListening = false;
 
             const isEnabled = () => localStorage.getItem(storageKey) !== 'false';
-            const setEnabled = (enabled) => localStorage.setItem(storageKey, enabled ? 'true' : 'false');
+            const setEnabled = (enabled) => window.gistHubBackup.setPreference(storageKey, enabled ? 'true' : 'false');
 
             const getContext = () => {
                 const AudioContext = window.AudioContext || window.webkitAudioContext;

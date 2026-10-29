@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
 
 export async function checkLocalSettings({ evaluate, send, sessionId, waitFor }) {
-  const ready = `document.querySelector('#settings-title') && !document.querySelector('#local-settings-download').matches(':disabled') && document.querySelector('.neo-theme-picker')?.dataset.appearanceReady==='true'`;
+  const ready = `document.querySelector('#settings-title') && !document.querySelector('#local-settings-download').matches(':disabled') && document.querySelector('.neo-theme-picker')?.dataset.appearanceReady==='true' && document.querySelector('.neo-backup-reminder')?.dataset.backupReady==='true'`;
   await waitFor(ready, 'local settings page', 60000);
+  assert.equal(await evaluate(`document.querySelector('.neo-backup-reminder').hidden`), true);
+  await evaluate(`window.automaticDownloads=0;window.downloadTextFile=()=>{window.automaticDownloads++}`);
   const openPicker = async () => {
     await evaluate(`document.querySelector('.neo-theme-picker [popover]').showPopover()`);
     await waitFor(`document.querySelector('.neo-theme-picker [popover]').matches(':popover-open')`, 'appearance picker');
@@ -21,8 +23,11 @@ export async function checkLocalSettings({ evaluate, send, sessionId, waitFor })
     assert.equal(await evaluate(`document.querySelector('[data-appearance-favorite]').getAttribute('aria-pressed')`), 'true');
     await evaluate(`document.querySelector('.neo-theme-picker [popover]').hidePopover()`);
   }
+  assert.equal(await evaluate(`document.querySelector('.neo-backup-reminder').hidden`), false);
+  assert.equal(await evaluate(`window.automaticDownloads`), 0, 'Local changes must never download automatically');
   await send('Page.navigate', { url: new URL('/settings', await evaluate('location.href')).href }, sessionId);
   await waitFor(ready, 'persisted settings page', 60000);
+  assert.equal(await evaluate(`document.querySelector('.neo-backup-reminder').hidden`), false, 'Reminder must survive reload');
   await openPicker();
   await evaluate(`document.querySelector('[data-appearance-tab="fonts"]').click()`);
   assert.equal(await evaluate(`document.querySelector('[data-font-option="roboto"]').dataset.favorite`), 'true');
@@ -42,6 +47,7 @@ export async function checkLocalSettings({ evaluate, send, sessionId, waitFor })
   await evaluate(`document.querySelector('#local-settings-download').click()`);
   await waitFor(`Boolean(window.localBackupDownload)`, 'unified JSON download');
   const download = await evaluate('window.localBackupDownload');
+  await waitFor(`document.querySelector('.neo-backup-reminder').hidden`, 'settings-page download clears reminder');
   assert.equal(download.type, 'application/json');assert.match(download.filename, /^gisthub-local-settings-.*\.json$/);
   assert.ok(!download.text.includes('TOKEN-DO-NOT-EXPORT') && !download.text.includes('PRIVATE-GIST-CONTENT') && !download.text.includes('DO-NOT-EXPORT'));
   const backup = JSON.parse(download.text);
@@ -84,10 +90,28 @@ export async function checkLocalSettings({ evaluate, send, sessionId, waitFor })
   await evaluate(`(async()=>await (await import('/js/localSettings.js')).restoreBackup(${JSON.stringify(withMissing)}))()`);
   assert.equal(await evaluate(`(async()=>(await(await import('/js/indexedDb.js')).getAllItems('groups')).length)()`), 2, 'Repeated restore must not duplicate playlists');
   assert.deepEqual(await evaluate(`(async()=>{const db=await import('/js/indexedDb.js');for(const gist of (await db.getAllItems('gists')).filter(g=>g.cacheOwnerUsername==='alice')){gist.bookmarkOrder=0;if(gist.id==='shared')gist.updated_at='2026-02-01T00:00:00Z';await db.saveItem('gists',gist)}return JSON.parse(await(await import('/js/localSettings.js')).createBackup()).gists.filter(g=>g.username==='alice'&&g.isBookmarked).map(g=>g.id)})()`), ['shared', 'existing'], 'Unranked bookmarks must retain the library date ordering in backups');
+  await evaluate(`window.reminderDownloads=0;window.downloadTextFile=()=>{window.reminderDownloads++};document.querySelector('#local-backup-reminder').click()`);
+  await waitFor(`document.querySelector('.neo-backup-reminder').hidden`, 'header download clears reminder');
+  assert.equal(await evaluate(`window.reminderDownloads`), 1);
+  await evaluate(`(async()=>{window.applyGistHubTheme(window.getGistHubTheme(),false);window.gistHubBackup.setPreference('button-sounds-enabled',localStorage.getItem('button-sounds-enabled'));const db=await import('/js/indexedDb.js');const gist=(await db.getAllItems('gists'))[0];gist.files={'note.md':{content:'Content edit only'}};await db.saveItem('gists',gist);const group=(await db.getAllItems('groups'))[0];await db.saveItem('groups',group)})()`);
+  assert.equal(await evaluate(`document.querySelector('.neo-backup-reminder').hidden`), true, 'Previews, unchanged preferences, and content-only edits need no new settings backup');
+  await evaluate(`(async()=>{const db=await import('/js/indexedDb.js');const gist=(await db.getAllItems('gists')).find(g=>g.storageKey==='alice:shared');gist.isBookmarked=!gist.isBookmarked;await db.saveItem('gists',gist)})()`);
+  await waitFor(`!document.querySelector('.neo-backup-reminder').hidden`, 'bookmark change reminder');
+  assert.equal(await evaluate(`window.reminderDownloads`), 1, 'Bookmark writes must not download automatically');
+  await evaluate(`window.downloadTextFile=()=>{throw new Error('Download blocked')};document.querySelector('#local-backup-reminder').click()`);
+  await waitFor(`Boolean(document.querySelector('.neo-backup-reminder__error'))`, 'download failure alert');
+  assert.equal(await evaluate(`document.querySelector('.neo-backup-reminder').hidden`), false);
+  await evaluate(`window.downloadTextFile=()=>{window.gistHubBackup.setPreference('button-sounds-enabled','true')};document.querySelector('#local-backup-reminder').click()`);
+  await waitFor(`!document.querySelector('#local-backup-reminder').disabled && !document.querySelector('.neo-backup-reminder__error')`, 'changed-during-download completion');
+  assert.equal(await evaluate(`document.querySelector('.neo-backup-reminder').hidden`), false, 'A concurrent change must keep the reminder');
+  await evaluate(`window.downloadTextFile=()=>{};document.querySelector('#local-backup-reminder').click()`);
+  await waitFor(`document.querySelector('.neo-backup-reminder').hidden`, 'latest backup clears reminder');
+  await evaluate(`localStorage.setItem('gisthub:backup-revision',crypto.randomUUID());window.dispatchEvent(new StorageEvent('storage',{key:'gisthub:backup-revision'}))`);
+  assert.equal(await evaluate(`document.querySelector('.neo-backup-reminder').hidden`), false, 'Other-tab changes must refresh the reminder');
   await send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true }, sessionId);
   await openPicker();
   assert.equal(await evaluate(`document.documentElement.scrollWidth>innerWidth`), false);
   assert.equal(await evaluate(`document.querySelector('.neo-theme-panel').getBoundingClientRect().bottom<=innerHeight`), true);
   await send('Emulation.clearDeviceMetricsOverride', {}, sessionId);
-  console.log('PASS: favorites in four categories, filtering, persistence, unified JSON download/restore, account isolation, metadata merge, secret exclusion, validation, transaction rollback, idempotency, and mobile layout.');
+  console.log('PASS: favorites, JSON backup/restore, account isolation, validation/rollback, persistent header reminder, manual-only downloads, failure/concurrent-change handling, ignored content-only writes, and mobile layout.');
 }

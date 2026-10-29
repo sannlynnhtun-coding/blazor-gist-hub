@@ -37,6 +37,7 @@ Blazor pages and components
 ## Main features
 
 - Appearance picker: select a theme, style, preset, or font, then use **Favorite** to keep it in that category's **Favorites only** list. Favorites persist locally across reloads.
+- A download button with a reminder dot appears in the header when backed-up local preferences, favorites, bookmarks, playlists, or tags change. It stays visible across reloads until you click it or download a full backup from Local settings. Changes during a download keep the reminder visible. Backups never download automatically, including after bookmark restore.
 - **Local settings** (`/settings`, also linked from the appearance picker) downloads and restores one JSON file with appearance choices/favorites, sound/sidebar/privacy/tool-category preferences, the saved Markdown Cards draft, bookmarks, playlists, assignments, and local tags. Restore merges favorites and library metadata, replaces the included preferences/draft, and reloads the app. Sync accounts first: missing cached gists are reported and skipped. GitHub tokens, profiles, and gist contents are excluded. Existing bookmark-only backups remain available separately.
 
 Open **Tools → Tools Guide** (`/tools`) for an explanation and example use case for every tool. Every card has an **Open tool** action: it navigates to the tool page or opens the existing dialog directly, returning focus to its button when closed.

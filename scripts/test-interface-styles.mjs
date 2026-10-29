@@ -2,13 +2,14 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
 const source = readFileSync('GistHub/wwwroot/js/interface-styles.js', 'utf8');
+const backupStateScript = readFileSync('GistHub/wwwroot/js/backupState.js', 'utf8');
 function boot(saved, blocked = false) {
     const store = { 'gisthub:interface-style': saved, theme: 'dark' };
     const context = { window: {}, document: { documentElement: { dataset: {} } }, localStorage: {
         getItem(key) { if (blocked) throw Error(); return store[key]; },
         setItem(key, value) { if (blocked) throw Error(); store[key] = value; }
     }};
-    runInNewContext(source, context);
+    runInNewContext(backupStateScript + '\n' + source, { ...context, crypto: globalThis.crypto });
     return { ...context.window, store };
 }
 assert.equal(boot().getGistHubStyle(), 'default');
@@ -42,7 +43,7 @@ const presetContext = { window: {
     getItem(key) { return pair.store[key]; },
     setItem(key, value) { pair.store[key] = value; }
 }};
-runInNewContext(source, presetContext);
+runInNewContext(backupStateScript + '\n' + source, { ...presetContext, crypto: globalThis.crypto });
 const picker = { dataset: {} };
 assert.equal(presetContext.window.getGistHubStylePresets().length, 7);
 for (const preset of presetContext.window.getGistHubStylePresets()) {

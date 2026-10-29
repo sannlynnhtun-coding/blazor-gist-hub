@@ -94,8 +94,25 @@ export async function initDb() {
 }
 
 export async function saveItem(storeName, item) {
-    await runTransaction(storeName, "readwrite", (store) => store.put(item));
+    let changed = false;
+    await runTransaction(storeName, "readwrite", store => {
+        if (!['gists', 'groups'].includes(storeName)) return store.put(item);
+        const request = store.get(storeName === 'gists' ? item.storageKey : item.id);
+        request.onsuccess = () => {
+            changed = backupMetadata(storeName, request.result) !== backupMetadata(storeName, item);
+            store.put(item);
+        };
+        return request;
+    });
+    if (changed) globalThis.gistHubBackup?.changed();
     return true;
+}
+
+function backupMetadata(storeName, item) {
+    if (storeName === 'groups') return item?.name ?? null;
+    if (!item || !(item.isBookmarked || item.collectionNames?.length || item.collectionName || item.tags?.length)) return null;
+    return JSON.stringify({ bookmarked: !!item.isBookmarked, order: item.isBookmarked ? item.bookmarkOrder || 0 : 0,
+        collections: [...new Set([...(item.collectionNames || []), item.collectionName].filter(Boolean))], tags: item.tags || [] });
 }
 
 export function mergeSyncedGist(incoming, existing) {
@@ -122,15 +139,18 @@ export async function saveSyncedGist(incoming) {
         incoming.storageKey !== `${incoming.cacheOwnerUsername}:${incoming.id}`) {
         throw new Error("Invalid account-scoped gist key.");
     }
+    let changed = false;
     await runTransaction("gists", "readwrite", store => {
         const request = store.get(incoming.storageKey);
         request.onsuccess = () => {
             // Read and merge in one transaction so another tab's bookmark wins over stale UI state.
             const merged = mergeSyncedGist(incoming, request.result);
+            changed = backupMetadata('gists', merged) !== backupMetadata('gists', request.result);
             if (merged && merged !== request.result) store.put(merged);
         };
         return request;
     });
+    if (changed) globalThis.gistHubBackup?.changed();
 }
 
 export function getAllItems(storeName) {
@@ -138,7 +158,17 @@ export function getAllItems(storeName) {
 }
 
 export async function deleteItem(storeName, id) {
-    await runTransaction(storeName, "readwrite", (store) => store.delete(id));
+    let changed = false;
+    await runTransaction(storeName, "readwrite", store => {
+        if (!['gists', 'groups'].includes(storeName)) return store.delete(id);
+        const request = store.get(id);
+        request.onsuccess = () => {
+            changed = backupMetadata(storeName, request.result) !== null;
+            store.delete(id);
+        };
+        return request;
+    });
+    if (changed) globalThis.gistHubBackup?.changed();
     return true;
 }
 
@@ -148,7 +178,7 @@ export async function restoreLocalMetadata(items, groups) {
     return new Promise((resolve, reject) => {
         const transaction = db.transaction(['gists', 'groups'], 'readwrite');
         const gistStore = transaction.objectStore('gists'), groupStore = transaction.objectStore('groups');
-        let restored = 0, missing = 0;
+        let restored = 0, missing = 0, changed = false;
         const gistsRequest = gistStore.getAll();
         gistsRequest.onsuccess = () => {
             const gists = gistsRequest.result, byKey = new Map(gists.map(gist => [gist.storageKey, gist]));
@@ -158,12 +188,14 @@ export async function restoreLocalMetadata(items, groups) {
                 Date.parse(b.updated_at) - Date.parse(a.updated_at))) {
                 const rank = (ranks.get(gist.cacheOwnerUsername) || 0) + 1;
                 ranks.set(gist.cacheOwnerUsername, rank);
+                if (gist.bookmarkOrder !== rank) changed = true;
                 gist.bookmarkOrder = rank;
                 gistStore.put(gist);
             }
             for (const item of [...items].sort((a, b) => (a.bookmarkOrder || Infinity) - (b.bookmarkOrder || Infinity))) {
                 const gist = byKey.get(`${item.username}:${item.id}`);
                 if (!gist) { missing++; continue; }
+                const previous = backupMetadata('gists', gist);
                 if (item.isBookmarked && !gist.isBookmarked) {
                     gist.isBookmarked = true;
                     gist.bookmarkOrder = (ranks.get(item.username) || 0) + 1;
@@ -172,6 +204,7 @@ export async function restoreLocalMetadata(items, groups) {
                 gist.collectionNames = [...new Set([...(gist.collectionNames || []), gist.collectionName, ...item.collectionNames].filter(Boolean))];
                 gist.collectionName = gist.collectionNames[0] || null;
                 gist.tags = [...new Set([...(gist.tags || []), ...item.tags])];
+                if (previous !== backupMetadata('gists', gist)) changed = true;
                 gistStore.put(gist);
                 restored++;
             }
@@ -182,10 +215,11 @@ export async function restoreLocalMetadata(items, groups) {
             for (const group of groups) {
                 if (names.has(group.name.toLowerCase())) continue;
                 groupStore.put({ id: crypto.randomUUID(), name: group.name, createdAt: new Date().toISOString() });
+                changed = true;
                 names.add(group.name.toLowerCase());
             }
         };
-        transaction.oncomplete = () => resolve({ restored, missing });
+        transaction.oncomplete = () => { if (changed) globalThis.gistHubBackup?.changed(); resolve({ restored, missing }); };
         transaction.onabort = () => reject(transaction.error || new Error('Local settings restore was aborted.'));
         transaction.onerror = () => {};
     }).finally(() => db.close());

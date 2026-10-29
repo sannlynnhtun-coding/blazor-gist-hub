@@ -27,8 +27,8 @@
         document.documentElement.classList.remove('theme-switching');
         if (persist) {
             try {
-                localStorage.setItem('theme', theme);
-                localStorage.setItem('gisthub:theme-choice', theme);
+                window.gistHubBackup.setPreference('theme', theme);
+                window.gistHubBackup.setPreference('gisthub:theme-choice', theme);
             } catch { /* Storage can be disabled. */ }
         }
     };

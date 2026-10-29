@@ -52,6 +52,7 @@
                 </NavLink>
                 <SoundToggle />
                 <ThemeToggle />
+                <LocalBackupReminder />
                 <SectionOutlet SectionName="collection-actions" />
                 <button data-testid="global-search-trigger"
                         data-global-search-trigger
@@ -403,13 +404,13 @@
     private async Task ToggleFileBlurAsync()
     {
         AreFilesBlurred = !AreFilesBlurred;
-        await JS.InvokeVoidAsync("localStorage.setItem", FilesBlurredStorageKey, AreFilesBlurred ? "true" : "false");
+        await JS.InvokeVoidAsync("gistHubBackup.setPreference", FilesBlurredStorageKey, AreFilesBlurred ? "true" : "false");
     }
 
     private async Task ToggleSidebarAsync()
     {
         IsSidebarVisible = !IsSidebarVisible;
-        await JS.InvokeVoidAsync("localStorage.setItem", SidebarVisibleStorageKey, IsSidebarVisible ? "true" : "false");
+        await JS.InvokeVoidAsync("gistHubBackup.setPreference", SidebarVisibleStorageKey, IsSidebarVisible ? "true" : "false");
     }
 
     private void OpenGlobalSearch()

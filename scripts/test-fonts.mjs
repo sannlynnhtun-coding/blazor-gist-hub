@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
 const source = readFileSync('GistHub/wwwroot/js/fonts.js', 'utf8');
+const backupStateScript = readFileSync('GistHub/wwwroot/js/backupState.js', 'utf8');
 const css = readFileSync('GistHub/wwwroot/css/fonts.css', 'utf8') + readFileSync('GistHub/wwwroot/css/font-library.css', 'utf8');
 function boot(saved, blocked = false) {
     const storage = { 'gisthub:font': saved, theme: 'dark', 'gisthub:interface-style': 'cruip' };
@@ -14,7 +15,7 @@ function boot(saved, blocked = false) {
         getItem(key) { if (blocked) throw Error('blocked'); return storage[key]; },
         setItem(key, value) { if (blocked) throw Error('blocked'); storage[key] = value; }
     }};
-    runInNewContext(source, context);
+    runInNewContext(backupStateScript + '\n' + source, { ...context, crypto: globalThis.crypto });
     return { window: context.window, root, storage, properties };
 }
 const app = boot();

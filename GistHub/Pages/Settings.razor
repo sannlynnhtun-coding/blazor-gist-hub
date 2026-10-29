@@ -54,8 +54,7 @@
         Busy = true; Error = null;
         try
         {
-            var json = await Module.InvokeAsync<string>("createBackup");
-            await JS.InvokeVoidAsync("downloadTextFile", $"gisthub-local-settings-{DateTime.UtcNow:yyyyMMdd-HHmmss}.json", json, "application/json");
+            await Module.InvokeVoidAsync("downloadBackup");
             Status = "Local settings backup downloaded.";
         }
         catch (JSException ex) { Error = ex.Message.Split('\n')[0]; }

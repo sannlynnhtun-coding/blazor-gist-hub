@@ -1,0 +1,41 @@
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+<div class="neo-backup-reminder" @ref="Reminder" hidden>
+    <button id="local-backup-reminder" type="button" class="neo-icon-button" disabled="@Busy" @onclick="DownloadAsync"
+            aria-label="Download updated local settings backup" title="Local changes need an updated JSON backup. Click to download.">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg>
+        <span class="neo-backup-reminder__dot" aria-hidden="true"></span>
+    </button>
+    @if (Error is not null) { <span class="neo-backup-reminder__error" role="alert">@Error</span> }
+</div>
+
+@code {
+    private ElementReference Reminder;
+    private IJSObjectReference? Module;
+    private bool Busy;
+    private string? Error;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        Module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/localSettings.js");
+        await Module.InvokeVoidAsync("watchReminder", Reminder);
+    }
+
+    private async Task DownloadAsync()
+    {
+        if (Busy || Module is null) return;
+        Busy = true; Error = null;
+        try { await Module.InvokeVoidAsync("downloadBackup"); }
+        catch (JSException) { Error = "Backup download failed. Try again or open Local settings."; }
+        finally { Busy = false; }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (Module is null) return;
+        try { await Module.InvokeVoidAsync("unwatchReminder", Reminder); await Module.DisposeAsync(); }
+        catch (JSDisconnectedException) { }
+    }
+}

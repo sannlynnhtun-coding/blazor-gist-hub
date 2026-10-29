@@ -82,7 +82,7 @@
         if (!styles.some(style => style.id === id)) id = 'default';
         document.documentElement.dataset.interfaceStyle = id;
         if (persist) {
-            try { localStorage.setItem('gisthub:interface-style', id); } catch { /* Storage may be disabled. */ }
+            try { window.gistHubBackup.setPreference('gisthub:interface-style', id); } catch { /* Storage may be disabled. */ }
         }
         return id;
     };

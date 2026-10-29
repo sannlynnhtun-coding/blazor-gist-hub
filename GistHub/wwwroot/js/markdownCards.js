@@ -64,7 +64,7 @@ export function loadDraft() {
 export function saveDraft(source) {
     try {
         if (new TextEncoder().encode(source).length > 128 * 1024) return false;
-        localStorage.setItem('gisthub:markdown-cards-draft', source);
+        window.gistHubBackup.setPreference('gisthub:markdown-cards-draft', source);
         return true;
     } catch { return false; }
 }

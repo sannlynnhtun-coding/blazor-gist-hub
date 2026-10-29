@@ -81,7 +81,7 @@ function saveToolCategoryState(category, expanded) {
     const key = `gisthub:tool-category:${category.getAttribute('aria-labelledby')}`;
     savedToolCategoryStates.set(key, expanded);
     try {
-        localStorage.setItem(key, String(expanded));
+        window.gistHubBackup.setPreference(key, String(expanded));
     } catch {
         // The in-memory preference remains available when storage is blocked.
     }

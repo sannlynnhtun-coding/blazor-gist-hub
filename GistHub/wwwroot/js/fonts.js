@@ -465,7 +465,7 @@
         if (font.id === 'default') root.style.removeProperty('--style-heading-font');
         else root.style.setProperty('--style-heading-font', stack);
         if (persist) {
-            try { localStorage.setItem('gisthub:font', font.id); } catch { /* Storage can be disabled. */ }
+            try { window.gistHubBackup.setPreference('gisthub:font', font.id); } catch { /* Storage can be disabled. */ }
         }
         return font.id;
     };

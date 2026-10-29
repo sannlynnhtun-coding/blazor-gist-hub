@@ -28,7 +28,7 @@ export function toggleFavorite(category, id) {
     const favorites = getFavorites();
     favorites[category] = favorites[category].includes(id)
         ? favorites[category].filter(value => value !== id) : [...favorites[category], id];
-    localStorage.setItem(favoritesKey, JSON.stringify(validateFavorites(favorites)));
+    window.gistHubBackup.setPreference(favoritesKey, JSON.stringify(validateFavorites(favorites)));
 }
 
 function parseBackup(json) {
@@ -98,10 +98,38 @@ export async function restoreBackup(json) {
     const previous = Object.fromEntries(Object.keys(updates).map(key => [key, localStorage.getItem(key)]));
     try {
         for (const [key, value] of Object.entries(updates)) localStorage.setItem(key, value);
-        return await restoreLocalMetadata(backup.gists, backup.groups);
+        const result = await restoreLocalMetadata(backup.gists, backup.groups);
+        if (Object.entries(updates).some(([key, value]) => previous[key] !== value)) window.gistHubBackup.changed();
+        return result;
     } catch (error) {
         for (const key of Object.keys(previous)) localStorage.removeItem(key);
         for (const [key, value] of Object.entries(previous)) if (value !== null) localStorage.setItem(key, value);
         throw error;
     }
+}
+
+export async function downloadBackup() {
+    const revision = window.gistHubBackup.revision();
+    const json = await createBackup();
+    const filename = `gisthub-local-settings-${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
+    await window.downloadTextFile(filename, json, 'application/json');
+    // shortcut: browsers cannot confirm a download was saved, use a confirmed file-save API if that guarantee is needed.
+    window.gistHubBackup.downloaded(revision);
+}
+
+const reminders = new WeakMap();
+export function watchReminder(element) {
+    const update = () => { element.hidden = !window.gistHubBackup.pending(); };
+    reminders.set(element, update);
+    window.addEventListener('gisthub:backup-changed', update);
+    window.addEventListener('storage', update);
+    update();
+    element.dataset.backupReady = 'true';
+}
+
+export function unwatchReminder(element) {
+    const update = reminders.get(element);
+    window.removeEventListener('gisthub:backup-changed', update);
+    window.removeEventListener('storage', update);
+    reminders.delete(element);
 }
