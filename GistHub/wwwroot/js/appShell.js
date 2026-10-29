@@ -96,8 +96,18 @@ export function setAllToolCategories(dialog, expanded) {
     }
 }
 
+function updateToolCategoryCount(category) {
+    const count = Array.from(category.querySelectorAll('.neo-toolbar-menu-item'))
+        .filter(tool => !tool.hidden).length;
+    const badge = category.querySelector('[data-tools-category-count]');
+    badge.textContent = String(count);
+    badge.setAttribute('aria-label', `${count} ${count === 1 ? 'tool' : 'tools'}`);
+    return count;
+}
+
 export function restoreToolCategories(dialog) {
     for (const category of dialog.querySelectorAll('[data-tools-category]')) {
+        updateToolCategoryCount(category);
         if (initializedToolCategories.has(category)) continue;
         initializedToolCategories.add(category);
         const key = `gisthub:tool-category:${category.getAttribute('aria-labelledby')}`;
@@ -134,8 +144,7 @@ export function filterTools(dialog, query) {
             category.open = toolCategoryStates.get(category);
             toolCategoryStates.delete(category);
         }
-        category.hidden = !Array.from(category.querySelectorAll('.neo-toolbar-menu-item'))
-            .some(tool => !tool.hidden);
+        category.hidden = updateToolCategoryCount(category) === 0;
     }
     dialog.querySelector('[data-tools-empty]').hidden = visible > 0;
     dialog.querySelector('#tools-search-status').textContent = terms.length

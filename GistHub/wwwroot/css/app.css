@@ -3939,3 +3939,21 @@ span[class~="rounded-md"][class~="border"] {
   gap: 0.5rem;
   margin-top: 0.5rem;
 }
+
+.neo-tools-category__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid hsl(var(--border) / 0.3);
+  border-radius: 999px;
+  color: hsl(var(--foreground));
+  background: hsl(var(--muted));
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: normal;
+  vertical-align: middle;
+}
+.neo-tools-category__count:empty { display: none; }
