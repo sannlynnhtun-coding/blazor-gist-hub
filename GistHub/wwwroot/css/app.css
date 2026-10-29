@@ -3932,3 +3932,10 @@ span[class~="rounded-md"][class~="border"] {
 }
 .neo-tools-category__chevron { font-size: 1.5rem; line-height: 1; }
 .neo-tools-category[open] .neo-tools-category__chevron { transform: rotate(90deg); }
+
+.neo-tools-modal__category-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}

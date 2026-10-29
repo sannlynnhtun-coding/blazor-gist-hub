@@ -123,6 +123,10 @@
                 <input id="tools-search" @ref="ToolsSearchInput" type="search" placeholder="Search by name or description…"
                        autocomplete="off" @oninput="FilterToolsAsync" aria-controls="tools-results" />
                 <p id="tools-search-status" role="status" aria-live="polite"></p>
+                <div class="neo-tools-modal__category-actions" role="group" aria-label="Tool categories">
+                    <button type="button" class="btn btn-ghost btn-sm" @onclick="ExpandAllToolCategoriesAsync" aria-controls="tools-results">Expand all</button>
+                    <button type="button" class="btn btn-ghost btn-sm" @onclick="CollapseAllToolCategoriesAsync" aria-controls="tools-results">Collapse all</button>
+                </div>
             </div>
             <div id="tools-results" class="neo-tools-modal__grid custom-scrollbar">
                 <details open class="neo-tools-category" data-tools-category aria-labelledby="tools-category-getting-started">
@@ -348,6 +352,15 @@
     {
         if (AppShellModule is not null)
             await AppShellModule.InvokeVoidAsync("filterTools", ToolsDialog, args.Value?.ToString() ?? string.Empty);
+    }
+
+    private Task ExpandAllToolCategoriesAsync() => SetAllToolCategoriesAsync(true);
+    private Task CollapseAllToolCategoriesAsync() => SetAllToolCategoriesAsync(false);
+
+    private async Task SetAllToolCategoriesAsync(bool expanded)
+    {
+        if (AppShellModule is not null)
+            await AppShellModule.InvokeVoidAsync("setAllToolCategories", ToolsDialog, expanded);
     }
 
     private void ToggleToolsMenu()

@@ -87,6 +87,15 @@ function saveToolCategoryState(category, expanded) {
     }
 }
 
+export function setAllToolCategories(dialog, expanded) {
+    for (const category of dialog.querySelectorAll('[data-tools-category]')) {
+        category.open = expanded;
+        // Explicit bulk choices also become the state restored after clearing search.
+        if (toolCategoryStates.has(category)) toolCategoryStates.set(category, expanded);
+        saveToolCategoryState(category, expanded);
+    }
+}
+
 export function restoreToolCategories(dialog) {
     for (const category of dialog.querySelectorAll('[data-tools-category]')) {
         if (initializedToolCategories.has(category)) continue;
