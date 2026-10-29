@@ -106,6 +106,37 @@ export async function checkLocalSettings({ evaluate, send, sessionId, waitFor })
   assert.equal(await evaluate(`document.querySelector('.neo-backup-reminder').hidden`), false, 'A concurrent change must keep the reminder');
   await evaluate(`window.downloadTextFile=()=>{};document.querySelector('#local-backup-reminder').click()`);
   await waitFor(`document.querySelector('.neo-backup-reminder').hidden`, 'latest backup clears reminder');
+  const ordering = await evaluate(`(async()=>{
+    const db=await import('/js/indexedDb.js'),settings=await import('/js/localSettings.js');
+    for(const gist of (await db.getAllItems('gists')).filter(g=>g.cacheOwnerUsername==='alice')) {
+      gist.isBookmarked=true;gist.bookmarkOrder=0;gist.isSynced=true;
+      gist.updated_at=gist.id==='shared'?'2026-02-01T00:00:00Z':'2026-01-01T00:00:00Z';await db.saveItem('gists',gist);
+    }
+    await settings.downloadBackup();
+    const ids=async()=>JSON.parse(await settings.createBackup()).gists.filter(g=>g.username==='alice'&&g.isBookmarked).map(g=>g.id);
+    const before=await ids(),gist=(await db.getAllItems('gists')).find(g=>g.storageKey==='alice:existing');
+    await db.saveSyncedGist({...gist,updated_at:'2026-03-01T00:00:00Z'});
+    const after=await ids(),unrankedReminder=!document.querySelector('.neo-backup-reminder').hidden;
+    gist.bookmarkOrder=1;gist.updated_at='2026-03-01T00:00:00Z';await db.saveItem('gists',gist);await settings.downloadBackup();
+    await db.saveSyncedGist({...gist,updated_at:'2026-04-01T00:00:00Z'});
+    return {before,after,unrankedReminder,rankedReminder:window.gistHubBackup.pending()};
+  })()`);
+  assert.deepEqual(ordering, {before:['shared','existing'],after:['existing','shared'],unrankedReminder:true,rankedReminder:false}, 'Sync must remind when date-based ordering changes, while ranked content updates stay clean');
+  const longNames = await evaluate(`(async()=>{
+    const db=await import('/js/indexedDb.js'),settings=await import('/js/localSettings.js'),name='Playlist '+ 'x'.repeat(257),tag='t'.repeat(257);
+    await db.saveItem('groups',{id:'long-name',name});
+    const gist=(await db.getAllItems('gists')).find(g=>g.storageKey==='alice:existing');gist.collectionNames=[name];gist.collectionName=name;gist.tags=[tag];await db.saveItem('gists',gist);
+    const json=await settings.createBackup();await settings.inspectBackup(json);
+    await db.deleteItem('groups','long-name');gist.collectionNames=[];gist.collectionName=null;gist.tags=[];await db.saveItem('gists',gist);
+    await settings.restoreBackup(json);
+    const restored=(await db.getAllItems('gists')).find(g=>g.storageKey==='alice:existing');
+    let oversizedRejected=false,identifierRejected=false;
+    try{await settings.inspectBackup(json+' '.repeat(5*1024*1024))}catch{oversizedRejected=true}
+    const invalid=JSON.parse(json);invalid.favorites.fonts=['x'.repeat(257)];
+    try{await settings.inspectBackup(JSON.stringify(invalid))}catch{identifierRejected=true}
+    return {playlist:(await db.getAllItems('groups')).some(g=>g.name===name),assignment:restored.collectionNames.includes(name),tag:restored.tags.includes(tag),oversizedRejected,identifierRejected};
+  })()`);
+  assert.deepEqual(longNames, {playlist:true,assignment:true,tag:true,oversizedRejected:true,identifierRejected:true}, 'Long user names and tags must round-trip without weakening file-size or identifier validation');
   await evaluate(`localStorage.setItem('gisthub:backup-revision',crypto.randomUUID());window.dispatchEvent(new StorageEvent('storage',{key:'gisthub:backup-revision'}))`);
   assert.equal(await evaluate(`document.querySelector('.neo-backup-reminder').hidden`), false, 'Other-tab changes must refresh the reminder');
   await send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true }, sessionId);
@@ -113,5 +144,5 @@ export async function checkLocalSettings({ evaluate, send, sessionId, waitFor })
   assert.equal(await evaluate(`document.documentElement.scrollWidth>innerWidth`), false);
   assert.equal(await evaluate(`document.querySelector('.neo-theme-panel').getBoundingClientRect().bottom<=innerHeight`), true);
   await send('Emulation.clearDeviceMetricsOverride', {}, sessionId);
-  console.log('PASS: favorites, JSON backup/restore, account isolation, validation/rollback, persistent header reminder, manual-only downloads, failure/concurrent-change handling, ignored content-only writes, and mobile layout.');
+  console.log('PASS: favorites, JSON backup/restore, account isolation, validation/rollback, persistent header reminder, manual-only downloads, failure/concurrent-change handling, date-order sync reminders, long playlist/tag round-trips, and mobile layout.');
 }

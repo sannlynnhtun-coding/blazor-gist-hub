@@ -7,13 +7,14 @@ const preferenceKeys = ['theme', 'gisthub:theme-choice', 'gisthub:interface-styl
     'gisthub:profile-tools-visible', 'gisthub:markdown-cards-draft'];
 const isPreference = key => preferenceKeys.includes(key) || /^gisthub:tool-category:tools-category-[a-z-]+$/.test(key);
 const isObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
-const isText = value => typeof value === 'string' && value.length > 0 && value.length <= 256;
+const isText = value => typeof value === 'string' && value.length > 0;
+const isIdentifier = value => isText(value) && value.length <= 256;
 
 function validateFavorites(value) {
     if (!isObject(value) || Object.keys(value).some(key => !categories.includes(key))) throw new Error('Invalid appearance favorites.');
     return Object.fromEntries(categories.map(category => {
         const ids = value[category] ?? [];
-        if (!Array.isArray(ids) || ids.length > 5000 || !ids.every(isText)) throw new Error('Invalid appearance favorites.');
+        if (!Array.isArray(ids) || ids.length > 5000 || !ids.every(isIdentifier)) throw new Error('Invalid appearance favorites.');
         return [category, [...new Set(ids)]];
     }));
 }
@@ -24,7 +25,7 @@ export function getFavorites() {
 }
 
 export function toggleFavorite(category, id) {
-    if (!categories.includes(category) || !isText(id)) throw new Error('Choose an appearance to favorite.');
+    if (!categories.includes(category) || !isIdentifier(id)) throw new Error('Choose an appearance to favorite.');
     const favorites = getFavorites();
     favorites[category] = favorites[category].includes(id)
         ? favorites[category].filter(value => value !== id) : [...favorites[category], id];
@@ -42,14 +43,14 @@ function parseBackup(json) {
         if (key === 'gisthub:markdown-cards-draft') {
             if (new TextEncoder().encode(value).length > 128 * 1024) throw new Error('The Markdown Cards draft is too large.');
         } else if (['theme', 'gisthub:theme-choice', 'gisthub:interface-style', 'gisthub:font'].includes(key)) {
-            if (!isText(value)) throw new Error('Invalid appearance preference.');
+            if (!isIdentifier(value)) throw new Error('Invalid appearance preference.');
         } else if (!['true', 'false'].includes(value)) throw new Error('Invalid local preference.');
     }
     backup.favorites = validateFavorites(backup.favorites);
     if (!Array.isArray(backup.gists) || !Array.isArray(backup.groups)) throw new Error('The bookmark or playlist settings are missing.');
     const seen = new Set();
     for (const gist of backup.gists) {
-        if (!isObject(gist) || !isText(gist.id) || !/^[a-z0-9_-]+$/i.test(gist.id) ||
+        if (!isObject(gist) || !isIdentifier(gist.id) || !/^[a-z0-9_-]+$/i.test(gist.id) ||
             typeof gist.username !== 'string' || !/^[a-z0-9-]{1,39}$/.test(gist.username) ||
             typeof gist.isBookmarked !== 'boolean' || !Number.isSafeInteger(gist.bookmarkOrder) || gist.bookmarkOrder < 0 ||
             !Array.isArray(gist.collectionNames) || !gist.collectionNames.every(name => isText(name) && name.trim() === name) ||

@@ -112,6 +112,7 @@ function backupMetadata(storeName, item) {
     if (storeName === 'groups') return item?.name ?? null;
     if (!item || !(item.isBookmarked || item.collectionNames?.length || item.collectionName || item.tags?.length)) return null;
     return JSON.stringify({ bookmarked: !!item.isBookmarked, order: item.isBookmarked ? item.bookmarkOrder || 0 : 0,
+        updatedAt: item.isBookmarked && !(item.bookmarkOrder > 0) ? item.updated_at : null,
         collections: [...new Set([...(item.collectionNames || []), item.collectionName].filter(Boolean))], tags: item.tags || [] });
 }
 
