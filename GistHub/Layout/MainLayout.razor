@@ -321,6 +321,7 @@
             await ToolsSearchInput.FocusAsync();
             if (AppShellModule is not null)
             {
+                await AppShellModule.InvokeVoidAsync("restoreToolCategories", ToolsDialog);
                 await AppShellModule.InvokeVoidAsync("activateFocusTrap", ToolsDialog);
             }
         }

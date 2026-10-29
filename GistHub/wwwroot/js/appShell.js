@@ -1,6 +1,8 @@
 let searchShortcutHandler = null;
 const focusTrapHandlers = new WeakMap();
 const toolCategoryStates = new WeakMap();
+const savedToolCategoryStates = new Map();
+const initializedToolCategories = new WeakSet();
 
 export function downloadBytes(filename, bytes) {
     const url = URL.createObjectURL(new Blob([bytes], { type: "application/octet-stream" }));
@@ -73,6 +75,37 @@ export function deactivateFocusTrap(element) {
 
 export function scrollElementIntoView(elementId) {
     document.getElementById(elementId)?.scrollIntoView({ block: "nearest" });
+}
+
+function saveToolCategoryState(category, expanded) {
+    const key = `gisthub:tool-category:${category.getAttribute('aria-labelledby')}`;
+    savedToolCategoryStates.set(key, expanded);
+    try {
+        localStorage.setItem(key, String(expanded));
+    } catch {
+        // The in-memory preference remains available when storage is blocked.
+    }
+}
+
+export function restoreToolCategories(dialog) {
+    for (const category of dialog.querySelectorAll('[data-tools-category]')) {
+        if (initializedToolCategories.has(category)) continue;
+        initializedToolCategories.add(category);
+        const key = `gisthub:tool-category:${category.getAttribute('aria-labelledby')}`;
+        let saved = savedToolCategoryStates.get(key);
+        try {
+            const stored = localStorage.getItem(key);
+            if (stored === 'true' || stored === 'false') saved = stored === 'true';
+        } catch {
+            // Keep remembering choices for this session if storage is unavailable.
+        }
+        if (typeof saved === 'boolean') category.open = saved;
+        category.addEventListener('toggle', () => {
+            // Searching expands categories temporarily without changing browsing preferences.
+            if (toolCategoryStates.has(category)) return;
+            saveToolCategoryState(category, category.open);
+        });
+    }
 }
 
 export function filterTools(dialog, query) {
