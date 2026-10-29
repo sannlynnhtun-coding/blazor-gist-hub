@@ -500,11 +500,61 @@
   box-shadow: 7px 7px 0 var(--neo-shadow);
 }
 
-.neo-toolbar-dropdown--tools {
-  left: 0;
-  max-height: calc(100dvh - 7rem);
+.neo-tools-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: hsl(0 0% 0% / 0.55);
+}
+
+.neo-tools-modal {
+  display: flex;
+  flex-direction: column;
+  width: min(58rem, 100%);
+  max-height: calc(100dvh - 2.5rem);
+  min-height: 0;
+  overflow: hidden;
+  color: hsl(var(--foreground));
+  background: hsl(var(--card));
+  border: 3px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  box-shadow: 8px 8px 0 var(--neo-shadow);
+}
+
+.neo-tools-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-bottom: 3px solid hsl(var(--border));
+}
+
+.neo-tools-modal__header h2 { font-size: 1.35rem; }
+.neo-tools-modal__header p { color: hsl(var(--muted-foreground)); font-size: 0.85rem; }
+
+.neo-tools-modal__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 23rem), 1fr));
+  gap: 0.65rem;
+  padding: 1rem;
   overflow-y: auto;
   overscroll-behavior: contain;
+}
+
+.neo-tools-modal__grid .neo-toolbar-menu-item {
+  margin: 0;
+  padding: 0.85rem;
+  border-color: hsl(var(--border) / 0.25);
+}
+
+.neo-tools-modal__grid .neo-toolbar-menu-item small {
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .neo-toolbar-dropdown--settings {

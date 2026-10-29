@@ -1,4 +1,4 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
 @implements IAsyncDisposable
 
 <div class="neo-app-shell relative min-h-screen flex bg-background text-foreground @(AreFilesBlurred ? "gist-files-blurred" : "")"
@@ -27,11 +27,6 @@
                 </div>
             </div>
 
-            @if (IsToolsMenuOpen)
-            {
-                <div class="neo-toolbar-menu-scrim" @onclick="CloseToolbarMenus"></div>
-            }
-
             <div class="neo-topbar-actions flex items-center gap-3">
                 <div class="neo-toolbar-menu">
                     <button data-testid="tools-trigger"
@@ -40,90 +35,15 @@
                             class="neo-toolbar-menu__trigger neo-tools-trigger"
                             type="button"
                             aria-label="Tools"
-                            aria-haspopup="menu"
+                            aria-haspopup="dialog"
                             aria-expanded="@IsToolsMenuOpen"
                             aria-controls="tools-menu"
-                            title="Open tools menu">
+                            title="Open tools">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5-5l2.1 2.1-1.4 1.4-2.1-2.1a4 4 0 0 0 5 5l-7.6 7.6a2.1 2.1 0 1 0 3 3l7.6-7.6a4 4 0 0 0 5-5l-2.1 2.1-1.4-1.4 2.1-2.1a4 4 0 0 0-5 5Z"/></svg>
                         <span class="neo-toolbar-menu__label">Tools</span>
-                        <svg class="neo-toolbar-menu__chevron" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
 
-                    @if (IsToolsMenuOpen)
-                    {
-                        <div id="tools-menu" class="neo-toolbar-dropdown neo-toolbar-dropdown--tools" role="menu" aria-label="Tools" @onkeydown="HandleToolsMenuKeyDown">
-                            <div class="neo-toolbar-dropdown__heading">Workbench tools</div>
-                            <a href="tools" @ref="ToolsFirstMenuItem" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" role="menuitem" data-testid="tools-guide-menu-item">
-                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">?</span>
-                                <span><strong>Tools Guide</strong><small>What each tool does and when to use it</small></span>
-                            </a>
-                            <button data-testid="json-parser-menu-item"
-                                    @onclick="OpenJsonParser"
-                                    class="neo-toolbar-menu-item"
-                                    type="button"
-                                    role="menuitem">
-                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan">
-                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1"/><path d="M16 3h1a2 2 0 0 1 2 2v5a2 2 0 0 0 2 2 2 2 0 0 0-2 2v5a2 2 0 0 1-2 2h-1"/></svg>
-                                </span>
-                                <span><strong>JSON Parser</strong><small>Normalize escaped JSON text</small></span>
-                            </button>
-                            <button type="button" @onclick="OpenJsonTable" class="neo-toolbar-menu-item" role="menuitem" data-testid="json-to-table-menu-item">
-                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan">
-                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 9v12M3 15h18"/></svg>
-                                </span>
-                                <span><strong>JSON to Table</strong><small>Explore JSON and export tables locally</small></span>
-                            </button>
-                            <button data-testid="base64-menu-item" @onclick="OpenBase64" class="neo-toolbar-menu-item" type="button" role="menuitem">
-                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">64</span>
-                                <span><strong>Base64 Encode / Decode</strong><small>Convert text and files locally</small></span>
-                            </button>
-                            <a href="tools/diagram-editor" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" role="menuitem" data-testid="diagram-editor-menu-item">
-                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">◇</span>
-                                <span><strong>draw.io Diagram Editor</strong><small>Create workflows and architecture diagrams</small></span>
-                            </a>
-                            @if (!IsVercelApp)
-                            {
-                                <a href="tools/youtube-downloader" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" role="menuitem" data-testid="youtube-downloader-menu-item">
-                                    <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--pink" aria-hidden="true">▶</span>
-                                    <span><strong>YouTube Downloader</strong><small>Save video and audio on this computer</small></span>
-                                </a>
-                            }
-                            <a href="tools/markdown-to-docx" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" role="menuitem" data-testid="markdown-docx-menu-item">
-                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">W</span>
-                                <span><strong>Markdown to DOCX</strong><small>Download editable Word documents locally</small></span>
-                            </a>
-                            <a href="tools/markdown-to-cards" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" role="menuitem" data-testid="markdown-cards-menu-item">
-                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">▤</span>
-                                <span><strong>Markdown to Cards</strong><small>Split articles into cards and download a ZIP</small></span>
-                            </a>
-                            <a href="tools/mermaid-to-image" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" role="menuitem" data-testid="mermaid-image-menu-item">
-                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">◇</span>
-                                <span><strong>Mermaid to Image</strong><small>Preview diagrams and export PNG, SVG, or PDF</small></span>
-                            </a>
-                            <a href="tools/formula-to-image" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" role="menuitem" data-testid="formula-image-menu-item">
-                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">∑</span>
-                                <span><strong>Formula to Image</strong><small>LaTeX math with transparent PNG and SVG export</small></span>
-                            </a>
-                            <a href="tools/markdown-to-text" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" role="menuitem" data-testid="markdown-text-menu-item">
-                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">T</span>
-                                <span><strong>Markdown to Text</strong><small>Strip formatting, copy text or sanitized HTML</small></span>
-                            </a>
-                            <a href="tools/html-to-image" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" role="menuitem" data-testid="html-image-menu-item">
-                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">&lt;/&gt;</span>
-                                <span><strong>HTML to Image</strong><small>Preview HTML/CSS and export images or PDF</small></span>
-                            </a>
-                            <button data-testid="code-image-menu-item"
-                                    @onclick="OpenCodeImage"
-                                    class="neo-toolbar-menu-item"
-                                    type="button"
-                                    role="menuitem">
-                                <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--pink">
-                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 9-3 3 3 3"/><path d="m15 9 3 3-3 3"/></svg>
-                                </span>
-                                <span><strong>Markdown + Code Converter</strong><small>Styled PNG, JPEG, WebP, and PDF</small></span>
-                            </button>
-                        </div>
-                    }
+
                 </div>
 
                 <NavLink href="editor" class="neo-new-snippet btn btn-primary btn-md" title="Create a new snippet" aria-label="New snippet">
@@ -185,6 +105,97 @@
     </main>
 </div>
 
+@if (IsToolsMenuOpen)
+{
+    <div class="neo-tools-backdrop" @onclick="CloseToolbarMenus">
+        <section id="tools-menu" @ref="ToolsDialog" class="neo-tools-modal" role="dialog" aria-modal="true"
+                 aria-labelledby="tools-modal-title" aria-describedby="tools-modal-description"
+                 @onclick:stopPropagation="true" @onkeydown="HandleToolsMenuKeyDown">
+            <header class="neo-tools-modal__header">
+                <div>
+                    <h2 id="tools-modal-title">Workbench tools</h2>
+                    <p id="tools-modal-description">Choose a tool to get started.</p>
+                </div>
+                <button type="button" class="btn btn-ghost btn-sm" aria-label="Close tools" @onclick="CloseToolbarMenus">✕</button>
+            </header>
+            <div class="neo-tools-modal__grid custom-scrollbar">
+                <a href="tools" @ref="ToolsFirstMenuItem" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" data-testid="tools-guide-menu-item">
+                    <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">?</span>
+                    <span><strong>Tools Guide</strong><small>What each tool does and when to use it</small></span>
+                </a>
+
+                <button data-testid="json-parser-menu-item"
+                        @onclick="OpenJsonParser"
+                        class="neo-toolbar-menu-item"
+                        type="button">
+                    <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1"/><path d="M16 3h1a2 2 0 0 1 2 2v5a2 2 0 0 0 2 2 2 2 0 0 0-2 2v5a2 2 0 0 1-2 2h-1"/></svg>
+                    </span>
+                    <span><strong>JSON Parser</strong><small>Normalize escaped JSON text</small></span>
+                </button>
+                <button type="button" @onclick="OpenJsonTable" class="neo-toolbar-menu-item" data-testid="json-to-table-menu-item">
+                    <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 9v12M3 15h18"/></svg>
+                    </span>
+                    <span><strong>JSON to Table</strong><small>Explore JSON and export tables locally</small></span>
+                </button>
+                <button data-testid="base64-menu-item" @onclick="OpenBase64" class="neo-toolbar-menu-item" type="button">
+                    <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">64</span>
+                    <span><strong>Base64 Encode / Decode</strong><small>Convert text and files locally</small></span>
+                </button>
+
+                <a href="tools/markdown-to-docx" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" data-testid="markdown-docx-menu-item">
+                    <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">W</span>
+                    <span><strong>Markdown to DOCX</strong><small>Download editable Word documents locally</small></span>
+                </a>
+                <a href="tools/markdown-to-cards" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" data-testid="markdown-cards-menu-item">
+                    <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">▤</span>
+                    <span><strong>Markdown to Cards</strong><small>Split articles into cards and download a ZIP</small></span>
+                </a>
+                <a href="tools/markdown-to-text" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" data-testid="markdown-text-menu-item">
+                    <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">T</span>
+                    <span><strong>Markdown to Text</strong><small>Strip formatting, copy text or sanitized HTML</small></span>
+                </a>
+
+                <a href="tools/diagram-editor" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" data-testid="diagram-editor-menu-item">
+                    <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">◇</span>
+                    <span><strong>draw.io Diagram Editor</strong><small>Create workflows and architecture diagrams</small></span>
+                </a>
+                <a href="tools/mermaid-to-image" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" data-testid="mermaid-image-menu-item">
+                    <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">◇</span>
+                    <span><strong>Mermaid to Image</strong><small>Preview diagrams and export PNG, SVG, or PDF</small></span>
+                </a>
+                <a href="tools/formula-to-image" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" data-testid="formula-image-menu-item">
+                    <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">∑</span>
+                    <span><strong>Formula to Image</strong><small>LaTeX math with transparent PNG and SVG export</small></span>
+                </a>
+
+                <a href="tools/html-to-image" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" data-testid="html-image-menu-item">
+                    <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">&lt;/&gt;</span>
+                    <span><strong>HTML to Image</strong><small>Preview HTML/CSS and export images or PDF</small></span>
+                </a>
+                <button data-testid="code-image-menu-item"
+                        @onclick="OpenCodeImage"
+                        class="neo-toolbar-menu-item"
+                        type="button">
+                    <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--pink">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 9-3 3 3 3"/><path d="m15 9 3 3-3 3"/></svg>
+                    </span>
+                    <span><strong>Markdown + Code Converter</strong><small>Styled PNG, JPEG, WebP, and PDF</small></span>
+                </button>
+                @if (!IsVercelApp)
+                {
+                    <a href="tools/youtube-downloader" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" data-testid="youtube-downloader-menu-item">
+                        <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--pink" aria-hidden="true">▶</span>
+                        <span><strong>YouTube Downloader</strong><small>Save video and audio on this computer</small></span>
+                    </a>
+                }
+
+            </div>
+        </section>
+    </div>
+}
+
 <GlobalGistSearch IsOpen="@IsGlobalSearchOpen"
                   IsAuthenticated="@AppState.IsAuthenticated"
                   AccountUsername="@(AppState.CurrentProfile?.GithubUsername ?? string.Empty)"
@@ -223,12 +234,13 @@
     private ElementReference ToolsMenuTrigger { get; set; }
     private ElementReference GlobalSearchTrigger { get; set; }
     private ElementReference ToolsFirstMenuItem { get; set; }
+    private ElementReference ToolsDialog { get; set; }
     private ElementReference? GuideToolTrigger;
     private EventCallback<(string Name, ElementReference Trigger)> OpenWorkbenchTool =>
         EventCallback.Factory.Create<(string Name, ElementReference Trigger)>(this, OpenToolFromGuide);
     private IJSObjectReference? AppShellModule { get; set; }
     private bool IsUtilityOpen => IsJsonParserOpen || IsCodeImageOpen || IsBase64Open || IsJsonTableOpen;
-    private bool IsModalOpen => IsUtilityOpen || IsGlobalSearchOpen;
+    private bool IsModalOpen => IsToolsMenuOpen || IsUtilityOpen || IsGlobalSearchOpen;
 
     protected override async Task OnInitializedAsync()
     {
@@ -280,6 +292,10 @@
         {
             ShouldFocusToolsMenu = false;
             await ToolsFirstMenuItem.FocusAsync();
+            if (AppShellModule is not null)
+            {
+                await AppShellModule.InvokeVoidAsync("activateFocusTrap", ToolsDialog);
+            }
         }
 
         if (ShouldRestoreToolsFocus)
