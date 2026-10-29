@@ -1,5 +1,6 @@
 let searchShortcutHandler = null;
 const focusTrapHandlers = new WeakMap();
+const toolCategoryStates = new WeakMap();
 
 export function downloadBytes(filename, bytes) {
     const url = URL.createObjectURL(new Blob([bytes], { type: "application/octet-stream" }));
@@ -38,7 +39,7 @@ export function activateFocusTrap(element) {
         if (event.key !== "Tab") return;
 
         const focusable = Array.from(element.querySelectorAll(
-            'a[href], button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])'
+            'a[href], button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), summary, [tabindex]:not([tabindex="-1"])'
         )).filter((candidate) => candidate.getClientRects().length > 0);
 
         if (focusable.length === 0) {
@@ -84,6 +85,13 @@ export function filterTools(dialog, query) {
         if (!tool.hidden) visible++;
     }
     for (const category of dialog.querySelectorAll('[data-tools-category]')) {
+        if (terms.length) {
+            if (!toolCategoryStates.has(category)) toolCategoryStates.set(category, category.open);
+            category.open = true;
+        } else if (toolCategoryStates.has(category)) {
+            category.open = toolCategoryStates.get(category);
+            toolCategoryStates.delete(category);
+        }
         category.hidden = !Array.from(category.querySelectorAll('.neo-toolbar-menu-item'))
             .some(tool => !tool.hidden);
     }

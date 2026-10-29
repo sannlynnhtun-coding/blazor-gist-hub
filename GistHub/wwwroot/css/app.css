@@ -3901,7 +3901,14 @@ span[class~="rounded-md"][class~="border"] {
 .neo-tools-modal__grid [hidden] { display: none; }
 .neo-tools-modal__empty { grid-column: 1 / -1; padding: 1rem; text-align: center; }
 
-.neo-tools-category h3 {
+.neo-tools-category summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  list-style: none;
+  min-height: 2.75rem;
   margin: 0 0 0.65rem;
   padding-bottom: 0.4rem;
   border-bottom: 2px solid hsl(var(--border) / 0.2);
@@ -3916,3 +3923,12 @@ span[class~="rounded-md"][class~="border"] {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 23rem), 1fr));
   gap: 0.65rem;
 }
+
+.neo-tools-category summary::-webkit-details-marker { display: none; }
+.neo-tools-category summary:hover { color: hsl(var(--foreground)); }
+.neo-tools-category summary:focus-visible {
+  outline: 3px solid hsl(var(--ring));
+  outline-offset: 3px;
+}
+.neo-tools-category__chevron { font-size: 1.5rem; line-height: 1; }
+.neo-tools-category[open] .neo-tools-category__chevron { transform: rotate(90deg); }
