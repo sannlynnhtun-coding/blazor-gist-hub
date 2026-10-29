@@ -233,7 +233,7 @@
                 return;
             }
 
-            element.innerHTML = marked.parse(markdownText);
+            element.innerHTML = marked.parse(markdownText, { breaks: true });
 
             // Convert fenced Mermaid blocks rendered by marked into Mermaid containers.
             element.querySelectorAll('pre code').forEach((block) => {

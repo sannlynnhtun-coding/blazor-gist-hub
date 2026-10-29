@@ -26,7 +26,7 @@ window.renderGistMarkdownPreview = (element, source) => {
         return;
     }
     element.style.removeProperty('white-space');
-    element.innerHTML = window.DOMPurify.sanitize(window.marked.parse(source), {
+    element.innerHTML = window.DOMPurify.sanitize(window.marked.parse(source, { breaks: true }), {
         USE_PROFILES: { html: true },
         FORBID_TAGS: ['form', 'input', 'button', 'textarea', 'select', 'style'],
         FORBID_ATTR: ['style', 'id', 'name']
