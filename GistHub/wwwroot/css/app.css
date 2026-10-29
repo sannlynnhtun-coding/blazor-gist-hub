@@ -538,9 +538,9 @@
 .neo-tools-modal__header p { color: hsl(var(--muted-foreground)); font-size: 0.85rem; }
 
 .neo-tools-modal__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 23rem), 1fr));
-  gap: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   padding: 1rem;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -3900,3 +3900,19 @@ span[class~="rounded-md"][class~="border"] {
 
 .neo-tools-modal__grid [hidden] { display: none; }
 .neo-tools-modal__empty { grid-column: 1 / -1; padding: 1rem; text-align: center; }
+
+.neo-tools-category h3 {
+  margin: 0 0 0.65rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid hsl(var(--border) / 0.2);
+  color: hsl(var(--muted-foreground));
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.neo-tools-category__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 23rem), 1fr));
+  gap: 0.65rem;
+}

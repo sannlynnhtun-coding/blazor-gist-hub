@@ -83,6 +83,10 @@ export function filterTools(dialog, query) {
         tool.hidden = !terms.every(term => text.includes(term));
         if (!tool.hidden) visible++;
     }
+    for (const category of dialog.querySelectorAll('[data-tools-category]')) {
+        category.hidden = !Array.from(category.querySelectorAll('.neo-toolbar-menu-item'))
+            .some(tool => !tool.hidden);
+    }
     dialog.querySelector('[data-tools-empty]').hidden = visible > 0;
     dialog.querySelector('#tools-search-status').textContent = terms.length
         ? `${visible} ${visible === 1 ? 'tool' : 'tools'} found`
