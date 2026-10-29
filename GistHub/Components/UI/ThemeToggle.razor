@@ -23,6 +23,11 @@
             <input type="search" aria-label="Search themes" placeholder="Search themes…" autocomplete="off" autofocus aria-controls="@ListId" aria-describedby="@HintId" />
         </div>
         <div class="neo-appearance-summary"><span class="neo-appearance-count" role="status" aria-live="polite"></span><span>Preview live</span></div>
+        <div class="neo-appearance-favorites">
+            <button type="button" class="neo-theme-restore" data-appearance-favorite aria-pressed="false">Favorite current theme</button>
+            <label><input type="checkbox" data-appearance-favorites-only /> Favorites only</label>
+        </div>
+        <p class="neo-appearance-summary" data-appearance-error role="status" aria-live="polite" hidden></p>
         <div id="@(ListId)-panel" role="tabpanel" aria-labelledby="@(PanelId)-themes-tab" class="neo-appearance-results">
         <div id="@ListId" class="neo-theme-options custom-scrollbar" role="listbox" aria-label="Available themes">
             <div role="group" aria-label="Color themes" data-appearance-group="themes">
@@ -56,7 +61,7 @@
                 {
                     var palette = Palettes.FirstOrDefault(p => p.Id == preset.Theme);
                     <button @key="preset.Id" type="button" role="option" tabindex="-1" aria-selected="@(SelectedPreset == preset.Id ? "true" : "false")" class="neo-theme-option"
-                            data-style-option="@preset.Style" data-theme-option="@preset.Theme" data-appearance-kind="presets" data-search-text="@preset.Name" @onclick="() => SelectPreset(preset.Id)">
+                            data-preset-option="@preset.Id" data-style-option="@preset.Style" data-theme-option="@preset.Theme" data-appearance-kind="presets" data-search-text="@preset.Name" @onclick="() => SelectPreset(preset.Id)">
                         <span class="neo-theme-option__colors" aria-hidden="true"><i style="background:@palette?.Chrome"></i><i style="background:@palette?.Primary"></i><i style="background:@palette?.Secondary"></i></span>
                         <span class="neo-theme-option__name">@preset.Name<span class="neo-theme-option__source">Style + color theme</span></span>
                         <span class="neo-theme-option__check" aria-hidden="true">✓</span>
@@ -83,7 +88,7 @@
         </div>
         <footer class="neo-theme-panel__footer">
             <div class="neo-appearance-reset"><button type="button" class="neo-theme-restore" @onclick="RestoreStyle">Reset style</button><button type="button" class="neo-theme-restore" @onclick="RestoreDefault">Restore default</button></div>
-            <div id="@HintId">Hover or use ↑ ↓ to preview. Click or Enter to save.<span>Esc to cancel · <a href="https://vscodethemes.com/" target="_blank" rel="noopener noreferrer">VS Code Themes</a></span></div>
+            <div id="@HintId">Hover or use ↑ ↓ to preview. Click or Enter to save. Select an appearance, then favorite it above.<span>Esc to cancel · <a href="settings">Local settings backup</a> · <a href="https://vscodethemes.com/" target="_blank" rel="noopener noreferrer">VS Code Themes</a></span></div>
         </footer>
     </div>
 </div>

@@ -1,0 +1,96 @@
+@page "/settings"
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+@implements IAsyncDisposable
+
+<PageTitle>Local settings · GistHub</PageTitle>
+<section class="space-y-6" aria-labelledby="settings-title">
+    <div>
+        <div class="neo-kicker mb-2">Local workspace</div>
+        <h2 id="settings-title" class="text-3xl font-black tracking-tight">Local settings</h2>
+        <p class="text-muted-foreground mt-2">Keep your appearance favorites, preferences, bookmarks, and playlists in one JSON backup.</p>
+    </div>
+    <div class="bg-card border border-border rounded-md p-6 space-y-4">
+        <h3 class="text-xl font-bold">Save or restore your setup</h3>
+        <p>Includes the selected theme, style and font, favorite themes/styles/presets/fonts, button sounds, sidebar and privacy preferences, tool categories, saved Markdown Cards draft, bookmarks, playlist assignments, and local tags across your cached accounts.</p>
+        <p class="text-sm text-muted-foreground">GitHub tokens, profiles, and gist contents are excluded. Sync the relevant accounts before restoring bookmarks. Missing gists are skipped; you can sync them and import the same file again.</p>
+        <fieldset disabled="@(Busy || Module is null)" class="space-y-4">
+            <button id="local-settings-download" type="button" class="btn btn-primary btn-md" @onclick="DownloadAsync">Download local settings JSON</button>
+            <div><label for="local-settings-file" class="block font-bold mb-2">Open backup JSON (up to 5 MB)</label><InputFile id="local-settings-file" accept=".json,application/json" OnChange="ReadBackupAsync" /></div>
+            @if (Preview is not null)
+            {
+                <div class="space-y-3" id="local-settings-preview">
+                    <p>@Preview.Preferences preferences, @Preview.Favorites appearance favorites, @Preview.Bookmarks bookmarks, and @Preview.Groups playlists.</p>
+                    <p>Restore merges favorites, bookmarks, playlists, and tags, and replaces matching preferences and the saved draft. The app reloads after restore.</p>
+                    @if (Preview.Missing > 0) { <p role="status">@Preview.Missing gist settings will be skipped because those gists are not cached locally. Sync those accounts first to restore everything.</p> }
+                    <button id="local-settings-restore" type="button" class="btn btn-secondary btn-md" @onclick="RestoreAsync">Restore and reload</button>
+                </div>
+            }
+        </fieldset>
+    </div>
+    @if (Error is not null) { <p id="local-settings-error" role="alert" class="text-destructive">@Error</p> }
+    <p id="local-settings-status" role="status" aria-live="polite">@Status</p>
+</section>
+
+@code {
+    private IJSObjectReference? Module;
+    private bool Busy;
+    private string? Json, Error;
+    private string Status = "Preferences save in this browser automatically. Download a backup to keep a portable copy.";
+    private BackupPreview? Preview;
+    private sealed record BackupPreview(int Preferences, int Favorites, int Bookmarks, int Groups, int Missing);
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        try { Module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/localSettings.js"); }
+        catch (JSException) { Error = "Local settings could not load. Reload the app to try again."; }
+        StateHasChanged();
+    }
+
+    private async Task DownloadAsync()
+    {
+        if (Busy || Module is null) return;
+        Busy = true; Error = null;
+        try
+        {
+            var json = await Module.InvokeAsync<string>("createBackup");
+            await JS.InvokeVoidAsync("downloadTextFile", $"gisthub-local-settings-{DateTime.UtcNow:yyyyMMdd-HHmmss}.json", json, "application/json");
+            Status = "Local settings backup downloaded.";
+        }
+        catch (JSException ex) { Error = ex.Message.Split('\n')[0]; }
+        finally { Busy = false; }
+    }
+
+    private async Task ReadBackupAsync(InputFileChangeEventArgs args)
+    {
+        if (Busy || Module is null) return;
+        Busy = true; Error = null; Json = null; Preview = null;
+        try
+        {
+            if (args.File.Size > 5 * 1024 * 1024) { Error = "Local settings backups must be 5 MB or smaller."; return; }
+            using var reader = new StreamReader(args.File.OpenReadStream(5 * 1024 * 1024));
+            var json = await reader.ReadToEndAsync();
+            Preview = await Module.InvokeAsync<BackupPreview>("inspectBackup", json);
+            Json = json;
+            Status = "Backup validated. Review the details before restoring.";
+        }
+        catch (Exception ex) when (ex is JSException or IOException) { Error = ex.Message.Split('\n')[0]; }
+        finally { Busy = false; }
+    }
+
+    private async Task RestoreAsync()
+    {
+        if (Busy || Module is null || Json is null) return;
+        Busy = true; Error = null;
+        try { await Module.InvokeVoidAsync("restoreBackup", Json); Navigation.NavigateTo("settings", forceLoad: true); }
+        catch (JSException ex) { Error = ex.Message.Split('\n')[0]; }
+        finally { Busy = false; }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (Module is null) return;
+        try { await Module.DisposeAsync(); } catch (JSDisconnectedException) { }
+    }
+}

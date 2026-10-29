@@ -107,6 +107,11 @@
 .neo-theme-panel__search > svg { position: absolute; top: 50%; left: 1.35rem; transform: translateY(-50%); pointer-events: none; }
 .neo-theme-panel__search input { min-height: 2.6rem; padding-left: 2.1rem; font-size: .85rem; }
 .neo-appearance-summary { display: flex; justify-content: space-between; gap: .5rem; padding: .5rem 1rem; font-size: .65rem; color: hsl(var(--muted-foreground)); flex-shrink: 0; }
+.neo-appearance-summary[hidden] { display: none; }
+.neo-appearance-favorites { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; padding: 0 .7rem .5rem; flex-shrink: 0; font-size: .75rem; }
+.neo-appearance-favorites .neo-theme-restore { margin: 0; max-width: 100%; overflow-wrap: anywhere; min-height: 2.5rem; box-shadow: none; }
+.neo-appearance-favorites label { display: flex; align-items: center; gap: .4rem; min-height: 2.5rem; }
+.neo-theme-option[data-favorite="true"] .neo-theme-option__name::before { content: '★ '; color: hsl(var(--primary)); }
 .neo-appearance-results { min-height: 0; display: flex; flex-direction: column; }
 .neo-appearance-results .neo-theme-options { min-height: 0; padding: .25rem .5rem; }
 .neo-appearance-group-label { padding: .5rem .6rem .25rem; font-size: .65rem; font-weight: 700; color: hsl(var(--muted-foreground)); }

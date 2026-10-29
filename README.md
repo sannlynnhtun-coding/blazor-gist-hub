@@ -36,6 +36,9 @@ Blazor pages and components
 
 ## Main features
 
+- Appearance picker: select a theme, style, preset, or font, then use **Favorite** to keep it in that category's **Favorites only** list. Favorites persist locally across reloads.
+- **Local settings** (`/settings`, also linked from the appearance picker) downloads and restores one JSON file with appearance choices/favorites, sound/sidebar/privacy/tool-category preferences, the saved Markdown Cards draft, bookmarks, playlists, assignments, and local tags. Restore merges favorites and library metadata, replaces the included preferences/draft, and reloads the app. Sync accounts first: missing cached gists are reported and skipped. GitHub tokens, profiles, and gist contents are excluded. Existing bookmark-only backups remain available separately.
+
 Open **Tools → Tools Guide** (`/tools`) for an explanation and example use case for every tool. Every card has an **Open tool** action: it navigates to the tool page or opens the existing dialog directly, returning focus to its button when closed.
 
 - Public discovery feed and public-gist lookup by GitHub username
@@ -168,6 +171,7 @@ The solution does not currently include an automated .NET test project, so the R
 | `/editor/{GistId}` | Edit a gist |
 | `/view/{GistId}` | View a gist from the local workspace |
 | `/collections` | Create and manage local gist groups |
+| `/settings` | Download and restore preferences, appearance favorites, and library metadata in one JSON backup |
 | `/slh-collection` | Browse the curated SLH collection |
 | `/slh-collection/{GistId}` | View an SLH collection gist |
 | `/trending` | Coming-soon placeholder |

@@ -141,3 +141,52 @@ export async function deleteItem(storeName, id) {
     await runTransaction(storeName, "readwrite", (store) => store.delete(id));
     return true;
 }
+
+// The backup parser validates input before this transaction merges local metadata.
+export async function restoreLocalMetadata(items, groups) {
+    const db = await openDb();
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction(['gists', 'groups'], 'readwrite');
+        const gistStore = transaction.objectStore('gists'), groupStore = transaction.objectStore('groups');
+        let restored = 0, missing = 0;
+        const gistsRequest = gistStore.getAll();
+        gistsRequest.onsuccess = () => {
+            const gists = gistsRequest.result, byKey = new Map(gists.map(gist => [gist.storageKey, gist]));
+            const ranks = new Map();
+            for (const gist of gists.filter(gist => gist.isBookmarked).sort((a, b) =>
+                (a.bookmarkOrder > 0 ? a.bookmarkOrder : Infinity) - (b.bookmarkOrder > 0 ? b.bookmarkOrder : Infinity) ||
+                Date.parse(b.updated_at) - Date.parse(a.updated_at))) {
+                const rank = (ranks.get(gist.cacheOwnerUsername) || 0) + 1;
+                ranks.set(gist.cacheOwnerUsername, rank);
+                gist.bookmarkOrder = rank;
+                gistStore.put(gist);
+            }
+            for (const item of [...items].sort((a, b) => (a.bookmarkOrder || Infinity) - (b.bookmarkOrder || Infinity))) {
+                const gist = byKey.get(`${item.username}:${item.id}`);
+                if (!gist) { missing++; continue; }
+                if (item.isBookmarked && !gist.isBookmarked) {
+                    gist.isBookmarked = true;
+                    gist.bookmarkOrder = (ranks.get(item.username) || 0) + 1;
+                    ranks.set(item.username, gist.bookmarkOrder);
+                }
+                gist.collectionNames = [...new Set([...(gist.collectionNames || []), gist.collectionName, ...item.collectionNames].filter(Boolean))];
+                gist.collectionName = gist.collectionNames[0] || null;
+                gist.tags = [...new Set([...(gist.tags || []), ...item.tags])];
+                gistStore.put(gist);
+                restored++;
+            }
+        };
+        const groupsRequest = groupStore.getAll();
+        groupsRequest.onsuccess = () => {
+            const names = new Set(groupsRequest.result.map(group => group.name.toLowerCase()));
+            for (const group of groups) {
+                if (names.has(group.name.toLowerCase())) continue;
+                groupStore.put({ id: crypto.randomUUID(), name: group.name, createdAt: new Date().toISOString() });
+                names.add(group.name.toLowerCase());
+            }
+        };
+        transaction.oncomplete = () => resolve({ restored, missing });
+        transaction.onabort = () => reject(transaction.error || new Error('Local settings restore was aborted.'));
+        transaction.onerror = () => {};
+    }).finally(() => db.close());
+}

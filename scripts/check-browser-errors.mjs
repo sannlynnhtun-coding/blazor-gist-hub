@@ -559,6 +559,11 @@ try {
     await checkHtmlImage({ evaluate, send, sessionId, waitFor });
   }
 
+  if (process.env.BROWSER_CHECK_LOCAL_SETTINGS === "1") {
+    const { checkLocalSettings } = await import('./test-local-settings.mjs');
+    await checkLocalSettings({ evaluate, send, sessionId, waitFor });
+  }
+
   const failures = [...new Set([
     ...observedMessages.filter((message) => errorPatterns.some((pattern) => pattern.test(message))),
     ...verificationFailures,

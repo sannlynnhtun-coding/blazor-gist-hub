@@ -46,13 +46,23 @@
 })();
 
 
-window.initializeGistHubThemePicker = (root) => {
+window.initializeGistHubThemePicker = async (root) => {
+    const { getFavorites, toggleFavorite } = await import(new URL('js/localSettings.js', document.baseURI).href);
     const panel = root.querySelector('[popover]');
     const trigger = root.querySelector('.neo-theme-trigger');
     const search = panel.querySelector('input');
     const list = panel.querySelector('[role="listbox"]');
     const tabs = [...panel.querySelectorAll('[data-appearance-tab]')];
     const allOptions = [...list.querySelectorAll('[data-appearance-kind]')];
+    const favoriteButton = panel.querySelector('[data-appearance-favorite]');
+    const favoritesOnly = panel.querySelector('[data-appearance-favorites-only]');
+    const favoriteError = panel.querySelector('[data-appearance-error]');
+    const optionId = option => option.dataset.presetOption ?? option.dataset.fontOption ?? option.dataset.styleOption ?? option.dataset.themeOption;
+    const selectedOption = () => allOptions.find(option => option.dataset.appearanceKind === category &&
+        (category === 'themes' ? option.dataset.themeOption === root.dataset.savedTheme :
+         category === 'styles' ? option.dataset.styleOption === root.dataset.savedStyle :
+         category === 'fonts' ? option.dataset.fontOption === root.dataset.savedFont :
+         option.dataset.styleOption === root.dataset.savedStyle && option.dataset.themeOption === root.dataset.savedTheme));
     let category = 'themes';
     const options = () => allOptions.filter(option => !option.hidden);
     const restore = () => {
@@ -62,9 +72,19 @@ window.initializeGistHubThemePicker = (root) => {
     };
     const filter = () => {
         const query = search.value.trim().toLocaleLowerCase();
+        const favorites = getFavorites();
         allOptions.forEach(option => {
-            option.hidden = option.dataset.appearanceKind !== category || !option.dataset.searchText.toLocaleLowerCase().includes(query);
+            const favorite = favorites[option.dataset.appearanceKind].includes(optionId(option));
+            option.dataset.favorite = String(favorite);
+            option.hidden = option.dataset.appearanceKind !== category || !option.dataset.searchText.toLocaleLowerCase().includes(query) || (favoritesOnly.checked && !favorite);
         });
+        const selected = selectedOption();
+        const isFavorite = !!selected && favorites[category].includes(optionId(selected));
+        favoriteButton.disabled = !selected;
+        favoriteButton.setAttribute('aria-pressed', String(isFavorite));
+        favoriteButton.textContent = selected
+            ? `${isFavorite ? '★ Unfavorite' : '☆ Favorite'} ${selected.querySelector('.neo-theme-option__name').firstChild.textContent.trim()}`
+            : 'Select a preset to favorite';
         list.querySelectorAll('[data-appearance-group]').forEach(group => {
             group.hidden = ![...group.querySelectorAll('[data-appearance-kind]')].some(option => !option.hidden);
         });
@@ -73,6 +93,19 @@ window.initializeGistHubThemePicker = (root) => {
         panel.querySelector('.neo-theme-panel__empty').hidden = count !== 0;
         list.scrollTop = 0;
     };
+    favoritesOnly.addEventListener('change', () => { restore(); filter(); });
+    favoriteButton.addEventListener('click', () => {
+        const selected = selectedOption();
+        if (!selected) return;
+        try {
+            toggleFavorite(category, optionId(selected));
+            favoriteError.hidden = true;
+            filter();
+        } catch {
+            favoriteError.textContent = 'Favorites could not be saved. Check that browser storage is available.';
+            favoriteError.hidden = false;
+        }
+    });
     const changeCategory = tab => {
         category = tab.dataset.appearanceTab;
         tabs.forEach(button => {
@@ -154,6 +187,7 @@ window.initializeGistHubThemePicker = (root) => {
         }
     });
     filter();
+    root.dataset.appearanceReady = 'true';
 };
 window.commitGistHubThemePicker = (root, theme) => {
     root.dataset.savedTheme = theme;
