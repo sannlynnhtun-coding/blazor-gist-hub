@@ -73,3 +73,19 @@ export function deactivateFocusTrap(element) {
 export function scrollElementIntoView(elementId) {
     document.getElementById(elementId)?.scrollIntoView({ block: "nearest" });
 }
+
+export function filterTools(dialog, query) {
+    const terms = query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+    const tools = Array.from(dialog.querySelectorAll('.neo-toolbar-menu-item'));
+    let visible = 0;
+    for (const tool of tools) {
+        const text = tool.textContent.toLocaleLowerCase();
+        tool.hidden = !terms.every(term => text.includes(term));
+        if (!tool.hidden) visible++;
+    }
+    dialog.querySelector('[data-tools-empty]').hidden = visible > 0;
+    dialog.querySelector('#tools-search-status').textContent = terms.length
+        ? `${visible} ${visible === 1 ? 'tool' : 'tools'} found`
+        : '';
+    dialog.querySelector('#tools-results').scrollTop = 0;
+}

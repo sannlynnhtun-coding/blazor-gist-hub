@@ -118,8 +118,14 @@
                 </div>
                 <button type="button" class="btn btn-ghost btn-sm" aria-label="Close tools" @onclick="CloseToolbarMenus">✕</button>
             </header>
-            <div class="neo-tools-modal__grid custom-scrollbar">
-                <a href="tools" @ref="ToolsFirstMenuItem" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" data-testid="tools-guide-menu-item">
+            <div class="neo-tools-modal__search">
+                <label for="tools-search">Search tools</label>
+                <input id="tools-search" @ref="ToolsSearchInput" type="search" placeholder="Search by name or description…"
+                       autocomplete="off" @oninput="FilterToolsAsync" aria-controls="tools-results" />
+                <p id="tools-search-status" role="status" aria-live="polite"></p>
+            </div>
+            <div id="tools-results" class="neo-tools-modal__grid custom-scrollbar">
+                <a href="tools" @onclick="DismissToolbarMenus" class="neo-toolbar-menu-item" data-testid="tools-guide-menu-item">
                     <span class="neo-toolbar-menu-item__icon neo-toolbar-menu-item__icon--cyan" aria-hidden="true">?</span>
                     <span><strong>Tools Guide</strong><small>What each tool does and when to use it</small></span>
                 </a>
@@ -191,6 +197,7 @@
                     </a>
                 }
 
+                <p class="neo-tools-modal__empty" data-tools-empty hidden>No tools found. Try a different search.</p>
             </div>
         </section>
     </div>
@@ -233,7 +240,7 @@
     private bool ShouldRestoreSearchFocus { get; set; }
     private ElementReference ToolsMenuTrigger { get; set; }
     private ElementReference GlobalSearchTrigger { get; set; }
-    private ElementReference ToolsFirstMenuItem { get; set; }
+    private ElementReference ToolsSearchInput { get; set; }
     private ElementReference ToolsDialog { get; set; }
     private ElementReference? GuideToolTrigger;
     private EventCallback<(string Name, ElementReference Trigger)> OpenWorkbenchTool =>
@@ -291,7 +298,7 @@
         if (ShouldFocusToolsMenu)
         {
             ShouldFocusToolsMenu = false;
-            await ToolsFirstMenuItem.FocusAsync();
+            await ToolsSearchInput.FocusAsync();
             if (AppShellModule is not null)
             {
                 await AppShellModule.InvokeVoidAsync("activateFocusTrap", ToolsDialog);
@@ -314,6 +321,12 @@
             ShouldRestoreSearchFocus = false;
             await GlobalSearchTrigger.FocusAsync();
         }
+    }
+
+    private async Task FilterToolsAsync(ChangeEventArgs args)
+    {
+        if (AppShellModule is not null)
+            await AppShellModule.InvokeVoidAsync("filterTools", ToolsDialog, args.Value?.ToString() ?? string.Empty);
     }
 
     private void ToggleToolsMenu()

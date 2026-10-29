@@ -3865,3 +3865,38 @@ span[class~="rounded-md"][class~="border"] {
 .code-image-preview-theme--simple :is(.hljs-number, .hljs-literal, .hljs-type) { color: #7044b6; }
 .code-image-preview-theme--simple :is(.hljs-title, .hljs-name) { color: #166534; }
 .code-image-preview-theme--simple :is(.hljs-built_in, .hljs-attribute, .hljs-attr) { color: #0e7490; }
+
+.neo-tools-modal__search {
+  padding: 1rem 1.25rem 0;
+}
+
+.neo-tools-modal__search label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.neo-tools-modal__search input {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  border: 2px solid hsl(var(--border));
+  border-radius: 0.3rem;
+}
+
+.neo-tools-modal__search input:focus-visible {
+  outline: 3px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+#tools-search-status {
+  min-height: 1.25rem;
+  margin-top: 0.35rem;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.8rem;
+}
+
+.neo-tools-modal__grid [hidden] { display: none; }
+.neo-tools-modal__empty { grid-column: 1 / -1; padding: 1rem; text-align: center; }

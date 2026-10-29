@@ -10,8 +10,8 @@ export async function checkToolsGuide({evaluate,send,sessionId,waitFor}) {
   assert.ok(tools.find(tool=>tool.name==='Formula to Image').description.includes('MathML'));
   assert.ok(tools.find(tool=>tool.name==='YouTube Downloader').description.includes('Start-LocalDownloader.cmd'));
   await evaluate(`document.querySelector('[data-testid="tools-trigger"]').click()`);
-  await waitFor(`Boolean(document.querySelector('[data-testid="tools-guide-menu-item"]'))`, 'the guide dropdown link');
-  await waitFor(`document.activeElement === document.querySelector('[data-testid="tools-guide-menu-item"]')`, 'first menu item keyboard focus');
+  await waitFor(`Boolean(document.querySelector('[data-testid="tools-guide-menu-item"]'))`, 'the guide modal link');
+  await waitFor(`document.activeElement === document.querySelector('#tools-search')`, 'tools search keyboard focus');
   await evaluate(`document.querySelector('[data-testid="tools-guide-menu-item"]').click()`);
   await waitFor(`!document.querySelector('#tools-menu') && location.pathname === '/tools'`, 'guide navigation with closed menu');
   for (const [name,selector] of [
@@ -44,5 +44,5 @@ export async function checkToolsGuide({evaluate,send,sessionId,waitFor}) {
   await send('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true},sessionId);
   assert.equal(await evaluate(`document.documentElement.scrollWidth > innerWidth`),false);
   await send('Emulation.clearDeviceMetricsOverride',{},sessionId);
-  console.log('PASS: all 12 guide actions, four shared dialogs, inert background, Escape/focus restoration, page navigation, dropdown focus, and mobile layout.');
+  console.log('PASS: all 12 guide actions, four shared dialogs, inert background, Escape/focus restoration, page navigation, search focus, and mobile layout.');
 }
