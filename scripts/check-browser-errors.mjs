@@ -564,6 +564,11 @@ try {
     await checkLocalSettings({ evaluate, send, sessionId, waitFor });
   }
 
+  if (process.env.BROWSER_CHECK_GIST_COPY === "1") {
+    const { checkGistCopy } = await import('./test-gist-copy.mjs');
+    await checkGistCopy({ evaluate, send, sessionId, waitFor });
+  }
+
   const failures = [...new Set([
     ...observedMessages.filter((message) => errorPatterns.some((pattern) => pattern.test(message))),
     ...verificationFailures,
